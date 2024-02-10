@@ -10,6 +10,17 @@ import { RoomCard } from "./room-card";
 export function RoomList() {
   const rooms = useQuery(api.room.getRooms);
 
+  if (rooms === undefined) {
+    return (
+      <div className="flex flex-wrap gap-4 justify-center sm:justify-start">
+        <RoomCard.Skeleton />
+        <RoomCard.Skeleton />
+        <RoomCard.Skeleton />
+        <RoomCard.Skeleton />
+      </div>
+    );
+  }
+
   if (!rooms?.length)
     return (
       <div className="flex items-center justify-center flex-col">
@@ -25,12 +36,9 @@ export function RoomList() {
     );
 
   return (
-    <div className="flex flex-wrap gap-4">
+    <div className="flex flex-wrap gap-4 justify-center sm:justify-start">
       {rooms.map((room) => (
-        <Link
-          key={room._id}
-          href={{ pathname: "/room", query: { id: room._id } }}
-        >
+        <Link key={room._id} href={`/rooms/${room._id}`}>
           <RoomCard room={room} />
         </Link>
       ))}
