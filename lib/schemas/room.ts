@@ -5,6 +5,7 @@ export const roomValidator = z.object({
   name: z.string(),
   onwerId: z.string(),
   imageUrl: z.string(),
+  _creationTime: z.number(),
 });
 
 export type Room = z.infer<typeof roomValidator>;
