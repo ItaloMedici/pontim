@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/dialog";
 import { CreateRoomForm } from "./create-room-form";
 
-export function CreateRoomDialog({ trigger }: { trigger: React.ReactNode }) {
+export function CreateRoomDialog({ trigger }: { trigger?: React.ReactNode }) {
   return (
     <Dialog>
       <DialogTrigger asChild>
