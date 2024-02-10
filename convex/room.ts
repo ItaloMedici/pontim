@@ -22,8 +22,6 @@ export const createRoom = mutation({
 
     const image = imageUrl ?? (await fetchRandomImage());
 
-    console.log("image", image);
-
     const room = await ctx.db.insert("rooms", {
       name,
       imageUrl: image,
