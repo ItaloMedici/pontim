@@ -15,10 +15,12 @@ import { useApiMutation } from "@/hooks/use-api-mutation";
 import { CreateRoom, createRoomSchema } from "@/lib/schemas/create-room";
 import { useUser } from "@clerk/nextjs";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 
 export function CreateRoomForm() {
+  const router = useRouter();
   const { user } = useUser();
   const { mutation, isPending } = useApiMutation(api.room.createRoom);
 
@@ -26,7 +28,6 @@ export function CreateRoomForm() {
     resolver: zodResolver(createRoomSchema),
     defaultValues: {
       name: "",
-      guests: [],
       onwer: user?.id,
     },
   });
@@ -39,7 +40,7 @@ export function CreateRoomForm() {
         toast.success("Sala criada com sucesso!", {
           icon: "🥳",
         });
-        // TODO: redirect to the room
+        router.push(`/rooms/${room}`);
       })
       .catch(() => {
         toast.error("Algo deu errado ao criar a sala", {
