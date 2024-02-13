@@ -1,14 +1,21 @@
 "use client";
 
+import { Button } from "@/components/ui/button";
 import { api } from "@/convex/_generated/api";
+import { SearchParams } from "@/lib/consts";
 import { useQuery } from "convex/react";
 import { Plus } from "lucide-react";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import { CreateRoomDialog } from "./create-room-dialog";
 import { RoomCard } from "./room-card";
 
 export function RoomList() {
-  const rooms = useQuery(api.room.getRooms);
+  const params = useSearchParams();
+  const rooms = useQuery(api.room.getRooms, {
+    favorite: !!params.get(SearchParams.FAVORITES),
+    search: params.get(SearchParams.SEARCH),
+  });
 
   if (rooms === undefined) {
     return (
@@ -17,6 +24,18 @@ export function RoomList() {
         <RoomCard.Skeleton />
         <RoomCard.Skeleton />
         <RoomCard.Skeleton />
+      </div>
+    );
+  }
+
+  if (!rooms?.length && params.size !== 0) {
+    return (
+      <div className="flex items-center justify-center flex-col space-y-2">
+        <span className="text-4xl">🧐</span>
+        <h1 className="font-semibold text-xl">Nada encontrado por aqui...</h1>
+        <Button asChild variant={"ghost"}>
+          <Link href={"/"}>Voltar</Link>
+        </Button>
       </div>
     );
   }
