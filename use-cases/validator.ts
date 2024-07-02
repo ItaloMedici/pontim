@@ -2,10 +2,6 @@ import { AuthenticatedUser } from "@/types/autenticate-user";
 import { getServerSession } from "next-auth";
 import { ZodRawShape, z } from "zod";
 
-type Handler<T extends ZodRawShape> = ReturnType<
-  <K>(data: z.infer<z.ZodObject<T>>, user: AuthenticatedUser) => K
->;
-
 type ValidatorProps<T extends ZodRawShape, K> = {
   input: z.ZodObject<T>;
   handler: (

@@ -1,13 +1,14 @@
-import type { Config } from "tailwindcss"
+import type { Config } from "tailwindcss";
+import { PluginAPI } from "tailwindcss/types/config";
 
 const config = {
   darkMode: ["class"],
   content: [
-    './pages/**/*.{ts,tsx}',
-    './components/**/*.{ts,tsx}',
-    './app/**/*.{ts,tsx}',
-    './src/**/*.{ts,tsx}',
-	],
+    "./pages/**/*.{ts,tsx}",
+    "./components/**/*.{ts,tsx}",
+    "./app/**/*.{ts,tsx}",
+    "./src/**/*.{ts,tsx}",
+  ],
   prefix: "",
   theme: {
     container: {
@@ -72,9 +73,34 @@ const config = {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
       },
+      transform: {
+        "rotate-y-180": "rotateY(180deg)",
+      },
+      perspective: {
+        "1000": "1000px",
+      },
+      backfaceVisibility: {
+        hidden: "hidden",
+      },
     },
   },
-  plugins: [require("tailwindcss-animate")],
-} satisfies Config
+  plugins: [
+    require("tailwindcss-animate"),
+    function ({ addUtilities }: PluginAPI) {
+      const newUtilities = {
+        ".rotate-y-180": {
+          transform: "rotateY(180deg)",
+        },
+        ".perspective": {
+          perspective: "1000px",
+        },
+        ".backface-hidden": {
+          backfaceVisibility: "hidden",
+        },
+      };
+      addUtilities(newUtilities);
+    },
+  ],
+} satisfies Config;
 
-export default config
+export default config;

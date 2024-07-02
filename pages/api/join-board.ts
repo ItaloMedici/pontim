@@ -1,3 +1,5 @@
+"use server";
+
 import { ResponseWithSocket } from "@/types/response-with-socket";
 import { joinBoardKey } from "@/use-cases/event-keys/board";
 import { getPlayersByRoomId } from "@/use-cases/player/get-players-by-roomId";
@@ -33,7 +35,10 @@ const joinRoomHandler = async (
 
     res.status(200).json({ player, others });
   } catch (error: any) {
-    return res.status(400).json({ message: error?.message });
+    console.error(`Error joining room: ${error?.message}`);
+    return res
+      .status(400)
+      .json({ message: `Error joining room: ${error?.message}` });
   }
 };
 

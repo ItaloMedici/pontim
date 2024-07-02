@@ -1,4 +1,4 @@
-import { Board } from "./_components/bord";
+import { Board } from "./_components/board";
 import { Room } from "./_components/room";
 
 interface RoomIdPageProps {
@@ -9,8 +9,8 @@ interface RoomIdPageProps {
 
 function RoomIdPage({ params: { roomId } }: RoomIdPageProps) {
   return (
-    <Room>
-      <Board roomId={roomId} />
+    <Room roomId={roomId}>
+      <Board />
     </Room>
   );
 }

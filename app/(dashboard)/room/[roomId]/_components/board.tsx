@@ -1,20 +1,21 @@
 "use client";
 
 import { useBoard } from "@/context/board";
+import { BoardNavbar } from "./board-navbar";
+import { CardsPicker } from "./cards-picker";
+import { PlayersCards } from "./players-cards";
 
 export function Board() {
-  const { self, others, handleChoice, choice } = useBoard();
+  const { self, others } = useBoard();
 
   return (
     <div className="absolute inset-0 -z-10 h-full w-full bg-gray-100 bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px]">
-      <nav className="fixed top-0 w-full max-w-screen-lg">
-        <BoardNavbar />
-      </nav>
+      <BoardNavbar />
       <div className="flex h-full items-center justify-center">
-        <PlayersCards players={[self, ...others]} choice={choice} />
+        <PlayersCards />
       </div>
       <div className="fixed bottom-0 mx-auto">
-        <CardsPicker onPick={(choice) => handleChoice(choice)} />
+        <CardsPicker />
       </div>
     </div>
   );

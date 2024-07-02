@@ -1,6 +1,14 @@
-import { Loading } from "@/components/auth/loading";
-import { joinBoardKey, leaveBoardKey } from "@/use-cases/event-keys/board";
-import { Player } from "@prisma/client";
+import { LoadingLogo } from "@/components/loading-logo/loading";
+import { http } from "@/lib/api";
+import { Player } from "@/lib/schemas/player";
+import { ChoiceOptions } from "@/types/choice-options";
+import { fibonacciChoiceOptions } from "@/use-cases/board/choice-options";
+import {
+  joinBoardKey,
+  leaveBoardKey,
+  playerChoiceKey,
+} from "@/use-cases/event-keys/board";
+import { useRouter } from "next/navigation";
 import {
   ReactNode,
   createContext,
@@ -15,6 +23,9 @@ type BoardContextProps = {
   roomId: string;
   self: Player;
   others: Player[];
+  revealCards: boolean;
+  choiceOptions: ChoiceOptions;
+  handleChoice: (choice: string) => Promise<void>;
 };
 
 export const BoardContext = createContext<BoardContextProps>(
@@ -32,30 +43,30 @@ export const BoardProvider = ({
   roomId: string;
   children: ReactNode;
 }) => {
+  const router = useRouter();
   const { socket, isConnected } = useSocketClient();
   const [self, setSelf] = useState<Player>({} as Player);
   const [others, setOthers] = useState<Player[]>([]);
 
   useEffect(() => {
-    if (!socket) return;
+    if (!roomId || self?.id) return;
 
     const joinBoard = async () => {
-      const result = await fetch("/api/player/join-board", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ roomId }),
-      });
+      const result = await http.post<{
+        player: Player;
+        others: Player[];
+      }>("/join-board", { roomId });
 
-      const { player, others } = await result.json();
+      if (!result) return router.push("/");
+
+      const { player, others } = result;
 
       setSelf(player);
       setOthers(others);
     };
 
     joinBoard();
-  }, [socket, roomId]);
+  }, [roomId, router, self]);
 
   useEffect(() => {
     if (!socket || !self) return;
@@ -85,17 +96,52 @@ export const BoardProvider = ({
       setOthers((prev) => prev.filter((p) => p.id !== player.id));
     });
 
+    const choiceEventKey = playerChoiceKey(self.boardId);
+
+    socket.on(choiceEventKey, (message) => {
+      const updatedPlayer = message.player;
+
+      if (updatedPlayer.id === self.id) {
+        return;
+      }
+
+      setOthers((prev) =>
+        prev.map((p) => (p.id === updatedPlayer.id ? updatedPlayer : p))
+      );
+    });
+
     return () => {
       socket.off(joinBoardEventKey);
+      socket.off(leaveBoardEventKey);
     };
   }, [others, roomId, self, socket]);
 
-  if (!isConnected || !self.id) {
-    return <Loading />;
+  if (!isConnected || !self?.id) {
+    return <LoadingLogo />;
   }
 
+  const handleChoice = async (choice: string) => {
+    const updatedSelf = await http.post<Player>("/player/make-choice", {
+      playerId: self.id,
+      choice,
+    });
+
+    if (!updatedSelf) return;
+
+    setSelf(updatedSelf);
+  };
+
   return (
-    <BoardContext.Provider value={{ roomId, self, others }}>
+    <BoardContext.Provider
+      value={{
+        roomId,
+        self,
+        others,
+        choiceOptions: fibonacciChoiceOptions,
+        handleChoice,
+        revealCards: false,
+      }}
+    >
       {children}
     </BoardContext.Provider>
   );
