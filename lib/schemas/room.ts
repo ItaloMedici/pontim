@@ -1,12 +1,14 @@
+import { Room as RoomClient } from "@prisma/client";
 import { z } from "zod";
 
 export const roomValidator = z.object({
-  _id: z.string(),
+  id: z.string(),
   name: z.string().min(4, "Nome da sala deve ter no mínimo 4 caracteres"),
-  onwerId: z.string(),
+  ownerEmail: z.string().email(),
   imageUrl: z.string(),
-  _creationTime: z.number(),
   favorite: z.boolean().optional(),
-});
+  createdAt: z.date(),
+  updatedAt: z.date(),
+} as Record<keyof RoomClient, z.ZodType<any>>);
 
-export type Room = z.infer<typeof roomValidator>;
+export type Room = RoomClient & { favorite?: boolean };

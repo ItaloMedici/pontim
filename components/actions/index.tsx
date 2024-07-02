@@ -8,12 +8,11 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { api } from "@/convex/_generated/api";
-import { Id } from "@/convex/_generated/dataModel";
-import { useApiMutation } from "@/hooks/use-api-mutation";
-import { useAuth } from "@clerk/nextjs";
+import { useAction } from "@/hooks/use-action";
+import { deleteRoom } from "@/use-cases/room";
 import { DropdownMenuContentProps } from "@radix-ui/react-dropdown-menu";
 import { Link2, Trash2 } from "lucide-react";
+import { useSession } from "next-auth/react";
 import { toast } from "sonner";
 
 interface ActionsProps {
@@ -22,7 +21,7 @@ interface ActionsProps {
   sideOffset?: DropdownMenuContentProps["sideOffset"];
   id: string;
   name: string;
-  roomOwnerId: string;
+  roomOwnerEmail: string;
 }
 
 export const Actions = ({
@@ -31,11 +30,11 @@ export const Actions = ({
   sideOffset,
   id,
   name,
-  roomOwnerId,
+  roomOwnerEmail,
 }: ActionsProps) => {
-  const { userId } = useAuth();
-  const { isPending, mutation } = useApiMutation(api.room.remove);
-  const roomOwner = roomOwnerId === userId;
+  const { data } = useSession();
+  const roomOwner = roomOwnerEmail === data?.user?.email;
+  const { isPending, mutation } = useAction(deleteRoom);
 
   const onCopyLink = () => {
     navigator.clipboard
@@ -45,7 +44,7 @@ export const Actions = ({
   };
 
   const onDelete = () => {
-    mutation({ roomId: id as Id<"rooms"> })
+    mutation({ roomId: id })
       .then(() => toast.success("Sala deletada!", { icon: "🗑️" }))
       .catch(() => toast.error("Ops, algo deu errado", { icon: "🚨" }));
   };
