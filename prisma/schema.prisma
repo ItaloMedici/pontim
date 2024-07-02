@@ -1,0 +1,53 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Room {
+  id         String     @id @default(uuid())
+  name       String
+  ownerEmail String
+  imageUrl   String
+  createdAt  DateTime   @default(now())
+  updatedAt  DateTime   @updatedAt
+  UserRoom   UserRoom[]
+  Board      Board?
+}
+
+model UserRoom {
+  id        String   @id @default(uuid())
+  userEmail String
+  roomId    String
+  room      Room     @relation(fields: [roomId], references: [id], onDelete: Cascade)
+  favorite  Boolean?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userEmail], name: "by_user")
+  @@index([roomId], name: "by_room")
+  @@index([userEmail, roomId], name: "by_user_and_room")
+  @@index([userEmail, favorite], name: "by_user_and_favorite")
+}
+
+model Board {
+  id     String @id @default(uuid())
+  roomId String @unique
+  room   Room   @relation(fields: [roomId], references: [id], onDelete: Cascade)
+
+  Player Player[]
+}
+
+model Player {
+  id        String   @id @default(uuid())
+  name      String
+  imageUrl  String?
+  choice    String?
+  boardId   String
+  board     Board    @relation(fields: [boardId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

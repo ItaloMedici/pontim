@@ -1,0 +1,15 @@
+services:
+  db:
+    image: bitnami/postgresql:latest
+    restart: always
+    environment:
+      - POSTGRES_PASSWORD=pontim
+      - POSTGRES_USER=pontim
+      - POSTGRES_DB=pontim
+    volumes:
+      - pontim_db:/bitnami/postgresql
+    ports:
+      - "5432:5432"
+ 
+volumes:
+  pontim_db:

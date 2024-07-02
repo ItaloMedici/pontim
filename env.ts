@@ -4,18 +4,21 @@ import { z } from "zod";
 export const env = createEnv({
   clientPrefix: "NEXT_PUBLIC_",
   client: {
-    NEXT_PUBLIC_CONVEX_URL: z.string().url(),
-    NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: z.string(),
+    NEXT_PUBLIC_SITE_URL: z.string().url(),
   },
   server: {
-    CONVEX_DEPLOYMENT: z.string(),
-    CLERK_SECRET_KEY: z.string(),
+    NEXTAUTH_URL: z.string(),
+    NEXTAUTH_SECRET: z.string(),
+    GOOGLE_CLIENT_ID: z.string(),
+    GOOGLE_CLIENT_SECRET: z.string(),
+    DATABASE_URL: z.string(),
   },
   runtimeEnvStrict: {
-    CONVEX_DEPLOYMENT: process.env.CONVEX_DEPLOYMENT,
-    NEXT_PUBLIC_CONVEX_URL: process.env.NEXT_PUBLIC_CONVEX_URL,
-    NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY:
-      process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY,
-    CLERK_SECRET_KEY: process.env.CLERK_SECRET_KEY,
+    NEXTAUTH_URL: process.env.NEXTAUTH_URL,
+    NEXTAUTH_SECRET: process.env.NEXTAUTH_SECRET,
+    NEXT_PUBLIC_SITE_URL: process.env.NEXT_PUBLIC_SITE_URL,
+    GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID,
+    GOOGLE_CLIENT_SECRET: process.env.GOOGLE_CLIENT_SECRET,
+    DATABASE_URL: process.env.DATABASE_URL,
   },
 });
