@@ -10,7 +10,7 @@ import { useRef, useState } from "react";
 export function SearchInput() {
   const router = useRouter();
   const params = useSearchParams();
-  const searchParam = params.get(SearchParams.SEARCH);
+  const searchParam = params?.get(SearchParams.SEARCH);
 
   const [value, setValue] = useState(searchParam ?? "");
 

@@ -10,7 +10,7 @@ import { SearchInput } from "./search-input";
 
 export function DashboardFilters() {
   const params = useSearchParams();
-  const favorites = params.get(SearchParams.FAVORITES);
+  const favorites = params?.get(SearchParams.FAVORITES);
 
   return (
     <div className="flex items-center justify-end sm:justify-between gap-4">
