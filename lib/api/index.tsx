@@ -13,7 +13,6 @@ const createHttpHandler = async <T,>(fn: () => Promise<Response>) => {
 
   if (isServer || process.env.NODE_ENV === "development") {
     console.error(error);
-    throw error;
   }
 
   const message = "Algo deu errado 😥";
