@@ -1,10 +1,12 @@
 "use server";
 
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { ResponseWithSocket } from "@/types/response-with-socket";
 import { joinBoardKey } from "@/use-cases/event-keys/board";
-import { getPlayersByRoomId } from "@/use-cases/player/get-players-by-roomId";
-import { joinBoardAsPlayer } from "@/use-cases/player/join-board-as-player";
+import { getPlayersByBoardId } from "@/use-cases/player/get-players-by-board-id";
+import { joinOrCreateBoardAsPlayer } from "@/use-cases/player/join-or-create-board-as-player";
 import { NextApiRequest } from "next";
+import { getServerSession } from "next-auth";
 
 const joinRoomHandler = async (
   req: NextApiRequest,
@@ -17,7 +19,16 @@ const joinRoomHandler = async (
   try {
     const { roomId } = req.body;
 
-    const player = await joinBoardAsPlayer({ roomId: req.body.roomId });
+    const session = await getServerSession(req, res, authOptions);
+
+    if (!session?.user) {
+      return res.status(401).json({ message: "Unauthorized" });
+    }
+
+    const player = await joinOrCreateBoardAsPlayer({
+      roomId: roomId,
+      user: session.user,
+    });
 
     if (!player) {
       return res.status(500).json({ message: "Failed to join the room" });
@@ -29,9 +40,11 @@ const joinRoomHandler = async (
 
     res?.socket?.server?.io?.emit(eventKey, message);
 
-    const players = await getPlayersByRoomId({ roomId });
+    const players = await getPlayersByBoardId({
+      boardId: player.boardId,
+    });
 
-    const others = players.filter((p) => p.id !== player.id);
+    const others = players?.filter((p) => p.id !== player.id);
 
     res.status(200).json({ player, others });
   } catch (error: any) {

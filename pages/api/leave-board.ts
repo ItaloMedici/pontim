@@ -1,10 +1,14 @@
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { ResponseWithSocket } from "@/types/response-with-socket";
+import { leaveBoard } from "@/use-cases/board/leave-board";
 import { leaveBoardKey } from "@/use-cases/event-keys/board";
-import { getPlayersByRoomId } from "@/use-cases/player/get-players-by-roomId";
-import { leaveBoard } from "@/use-cases/player/leave-board";
 import { NextApiRequest } from "next";
+import { getServerSession } from "next-auth";
 
-const leaveRoom = async (req: NextApiRequest, res: ResponseWithSocket) => {
+const leaveBoardHandler = async (
+  req: NextApiRequest,
+  res: ResponseWithSocket
+) => {
   if (req.method !== "POST") {
     return res.status(405).json({ message: "Method not allowed" });
   }
@@ -12,11 +16,17 @@ const leaveRoom = async (req: NextApiRequest, res: ResponseWithSocket) => {
   try {
     const { boardId, playerId, roomId } = req.body;
 
+    const session = await getServerSession(req, res, authOptions);
+
+    if (!session?.user) {
+      return res.status(401).json({ message: "Unauthorized" });
+    }
+
     if (!boardId || !playerId || !roomId) {
       return res.status(400).json({ message: "Invalid input" });
     }
 
-    const player = await leaveBoard({ boardId, playerId });
+    const player = await leaveBoard({ boardId, playerId, user: session?.user });
 
     const eventKey = leaveBoardKey(roomId);
 
@@ -24,12 +34,10 @@ const leaveRoom = async (req: NextApiRequest, res: ResponseWithSocket) => {
 
     res?.socket?.server?.io?.emit(eventKey, message);
 
-    const players = await getPlayersByRoomId({ roomId });
-
-    const others = players.filter((p) => p.id !== player.id);
-
-    res.status(200).json({ player, others });
+    res.status(200).json({ message: "Succefully leave board" });
   } catch (error: any) {
     return res.status(400).json({ message: error?.message });
   }
 };
+
+export default leaveBoardHandler;
