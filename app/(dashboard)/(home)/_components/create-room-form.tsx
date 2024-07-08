@@ -32,9 +32,12 @@ export function CreateRoomForm() {
     },
   });
 
-  const onSubmit = async (data: CreateRoom) => {
+  const onSubmit = async (roomData: CreateRoom) => {
+    if (!data?.user) return router.push("/login");
+
     mutation({
-      name: data.name,
+      user: data?.user,
+      name: roomData.name,
     })
       .then((room) => {
         toast.success("Sala criada com sucesso!", {

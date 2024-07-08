@@ -17,7 +17,11 @@ export function RoomCard({ room }: { room: Room }) {
   const { data } = useSession();
   const { isPending, mutation } = useAction(favoriteRoom);
 
-  const ownerLabel = room.ownerEmail === data?.user?.email ? "Você" : room.id;
+  const ownerLabel =
+    room.ownerEmail === data?.user?.email
+      ? "Você"
+      : room.ownerEmail.split("@")[0];
+
   const lastUpdated = formatDistanceToNow(room.updatedAt, {
     addSuffix: true,
     locale: ptBR,
@@ -29,9 +33,12 @@ export function RoomCard({ room }: { room: Room }) {
     event.stopPropagation();
     event.preventDefault();
 
+    if (!data?.user) return;
+
     mutation({
       roomId: room.id,
       favorite: !room.favorite,
+      user: data?.user,
     }).catch(() => {
       toast.error("Ops, algo deu errado", { icon: "🚨" });
     });
