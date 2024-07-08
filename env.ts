@@ -12,6 +12,7 @@ export const env = createEnv({
     GOOGLE_CLIENT_ID: z.string(),
     GOOGLE_CLIENT_SECRET: z.string(),
     DATABASE_URL: z.string(),
+    MAXIMUM_PLAYERS_PER_BOARD: z.string(),
   },
   runtimeEnvStrict: {
     NEXTAUTH_URL: process.env.NEXTAUTH_URL,
@@ -20,5 +21,6 @@ export const env = createEnv({
     GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID,
     GOOGLE_CLIENT_SECRET: process.env.GOOGLE_CLIENT_SECRET,
     DATABASE_URL: process.env.DATABASE_URL,
+    MAXIMUM_PLAYERS_PER_BOARD: process.env.MAXIMUM_PLAYERS_PER_BOARD,
   },
 });
