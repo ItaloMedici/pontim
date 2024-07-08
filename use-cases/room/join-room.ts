@@ -1,12 +1,14 @@
 import { db } from "@/lib/db";
+import { userSchema } from "@/lib/schemas/user";
 import { z } from "zod";
 import { validator } from "../validator";
 
 export const joinRoom = validator({
   input: z.object({
     roomId: z.string().uuid(),
+    user: userSchema,
   }),
-  handler: async ({ roomId }, user) => {
+  handler: async ({ roomId, user }) => {
     const room = await db.room.findUnique({ where: { id: roomId } });
 
     if (!room) {

@@ -1,6 +1,7 @@
 "use server";
 
 import { db } from "@/lib/db";
+import { userSchema } from "@/lib/schemas/user";
 import { z } from "zod";
 import { validator } from "../validator";
 
@@ -8,8 +9,9 @@ export const favoriteRoom = validator({
   input: z.object({
     roomId: z.string().uuid(),
     favorite: z.boolean(),
+    user: userSchema,
   }),
-  handler: async ({ roomId, favorite }, user) => {
+  handler: async ({ roomId, favorite, user }) => {
     const userRoom = await db.userRoom.findFirst({
       where: {
         userEmail: user.email,

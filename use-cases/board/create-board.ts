@@ -10,14 +10,22 @@ export const createBoard = validator({
   handler: async ({ roomId }) => {
     const board = await getBoard({ roomId });
 
+    console.log("board", board);
+
     if (board) {
       throw new Error("Board already exists");
     }
 
-    return await db.board.create({
+    const newBoard = await db.board.create({
       data: {
         roomId,
       },
     });
+
+    if (!newBoard) {
+      throw new Error("Board not created");
+    }
+
+    return newBoard;
   },
 });

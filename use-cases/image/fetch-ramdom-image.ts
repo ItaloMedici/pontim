@@ -1,8 +1,7 @@
-const UNSPLASH_RANDOM_IMAGE_API =
-  "https://source.unsplash.com/random?nature" as const;
+const RANDOM_IMAGE_API = "https://picsum.photos/150/100" as const;
 
 export async function fetchRandomImage() {
-  return fetch(UNSPLASH_RANDOM_IMAGE_API)
+  return fetch(RANDOM_IMAGE_API)
     .then((res) => res.url)
-    .catch(() => UNSPLASH_RANDOM_IMAGE_API);
+    .catch(() => RANDOM_IMAGE_API);
 }

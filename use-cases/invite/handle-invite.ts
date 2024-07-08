@@ -2,7 +2,7 @@
 
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
-import { getRoom } from "../room";
+import { getRoom, joinRoom } from "../room";
 
 const EXPIRATION_TIME = 1000 * 60 * 60 * 24 * 30; // 30 days
 
@@ -29,13 +29,17 @@ export const handleInvite = async (code: string) => {
     throw new Error("Room not found");
   }
 
-  const url = `/room/${roomId}`;
-
   const session = await getServerSession();
 
   if (!session?.user) {
-    return redirect(`/login?callbackUrl=${url}`);
+    const inviteUrl = `/invite?code=${code}`;
+
+    return redirect(`/login?callbackUrl=${inviteUrl}`);
   }
+
+  await joinRoom({ roomId, user: session?.user });
+
+  const url = `/room/${roomId}`;
 
   return redirect(url);
 };
