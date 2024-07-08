@@ -45,6 +45,7 @@ model Player {
   id        String   @id @default(uuid())
   name      String
   imageUrl  String?
+  email     String
   choice    String?
   boardId   String
   board     Board    @relation(fields: [boardId], references: [id], onDelete: Cascade)
