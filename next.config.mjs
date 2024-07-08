@@ -4,10 +4,11 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "source.unsplash.com",
+        hostname: "fastly.picsum.photos",
       },
     ],
   },
+  reactStrictMode: false,
 };
 
 export default nextConfig;
