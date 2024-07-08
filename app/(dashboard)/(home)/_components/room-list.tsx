@@ -8,35 +8,25 @@ import { useSearchParams } from "next/navigation";
 import { CreateRoomDialog } from "./create-room-dialog";
 import { RoomCard } from "./room-card";
 
+export function RoomListSkeleton() {
+  return (
+    <div className="flex flex-wrap gap-4 justify-center sm:justify-start">
+      <RoomCard.Skeleton />
+      <RoomCard.Skeleton />
+      <RoomCard.Skeleton />
+      <RoomCard.Skeleton />
+    </div>
+  );
+}
+
 export function RoomList({ rooms }: { rooms: Room[] }) {
   const params = useSearchParams();
-  // const [rooms, setRooms] = useState<Room[] | undefined>(undefined);
-
-  // useEffect(() => {
-  //   const fetchRooms = async () => {
-  //     const _rooms = await getRooms({
-  //       favorite: !!params.get(SearchParams.FAVORITES),
-  //       search: params.get(SearchParams.SEARCH),
-  //     });
-
-  //     setRooms(_rooms);
-  //   };
-
-  //   fetchRooms();
-  // }, [params]);
 
   if (rooms === undefined) {
-    return (
-      <div className="flex flex-wrap gap-4 justify-center sm:justify-start">
-        <RoomCard.Skeleton />
-        <RoomCard.Skeleton />
-        <RoomCard.Skeleton />
-        <RoomCard.Skeleton />
-      </div>
-    );
+    return <RoomListSkeleton />;
   }
 
-  if (!rooms?.length && params.size !== 0) {
+  if (!rooms?.length && params?.size !== 0) {
     return (
       <div className="flex items-center justify-center flex-col space-y-2">
         <span className="text-4xl">🧐</span>
