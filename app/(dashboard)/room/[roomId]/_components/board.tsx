@@ -9,12 +9,12 @@ export function Board() {
   const { self, others } = useBoard();
 
   return (
-    <div className="absolute inset-0 -z-10 h-full w-full bg-gray-100 bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px]">
+    <div className="absolute inset-0 -z-10 h-full w-full bg-gray-50">
       <BoardNavbar />
-      <div className="flex h-full items-center justify-center">
+      <div className="flex h-full items-center justify-center px-6">
         <PlayersCards />
       </div>
-      <div className="fixed bottom-0 mx-auto">
+      <div className="fixed w-full bottom-16 mx-auto px-6">
         <CardsPicker />
       </div>
     </div>

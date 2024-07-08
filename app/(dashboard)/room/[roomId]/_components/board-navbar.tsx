@@ -1,8 +1,9 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import { buildInviteUrl } from "@/use-cases/invite/build-invite-url";
-import { CheckIcon, PlusIcon } from "lucide-react";
+import { CheckIcon, ChevronLeft, PlusIcon } from "lucide-react";
+import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
@@ -35,9 +36,18 @@ export const BoardNavbar = () => {
   const Icon = copiedInvite ? CheckIcon : PlusIcon;
 
   return (
-    <nav className="fixed top-0 w-full max-w-screen-lg">
+    <nav className="fixed top-0 right-0 left-0 max-w-screen-lg">
       <div className="flex items-center justify-between p-4 mx-auto">
-        <Button onClick={handleInvite} disabled={copiedInvite}>
+        <Link className={buttonVariants({ variant: "ghost" })} href={"/"}>
+          <ChevronLeft className="w-4 h-4 mr-2" />
+          Voltar
+        </Link>
+
+        <Button
+          onClick={handleInvite}
+          disabled={copiedInvite}
+          variant={"outline"}
+        >
           <Icon className="w-4 h-4 mr-2" />
           Convidar jogadores
         </Button>
