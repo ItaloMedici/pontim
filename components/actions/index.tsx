@@ -44,7 +44,9 @@ export const Actions = ({
   };
 
   const onDelete = () => {
-    mutation({ roomId: id })
+    if (!data?.user) return;
+
+    mutation({ roomId: id, user: data?.user })
       .then(() => toast.success("Sala deletada!", { icon: "🗑️" }))
       .catch(() => toast.error("Ops, algo deu errado", { icon: "🚨" }));
   };
