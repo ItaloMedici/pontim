@@ -1,11 +1,16 @@
 {
+  "$schema": "https://unpkg.com/release-it@17/schema/release-it.json",
   "git": {
     "commitMessage": "chore(release): v${version}",
     "tagName": "v${version}",
     "requireCommits": true
   },
-  "npm": {
-    "publish": false
+  "github": {
+    "release": true,
+    "releaseName": "v${version}",
+    "releaseNotes": {
+      "filePath": "CHANGELOG.md"
+    }
   },
   "plugins": {
     "@release-it/conventional-changelog": {
