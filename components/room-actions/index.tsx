@@ -9,11 +9,12 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useAction } from "@/hooks/use-action";
+import { buildInviteUrl } from "@/use-cases/invite/build-invite-url";
 import { deleteRoom } from "@/use-cases/room";
 import { DropdownMenuContentProps } from "@radix-ui/react-dropdown-menu";
 import { Link2, Trash2 } from "lucide-react";
 import { useSession } from "next-auth/react";
-import { toast } from "sonner";
+import { toast } from "../toast";
 
 interface ActionsProps {
   children: React.ReactNode;
@@ -24,7 +25,7 @@ interface ActionsProps {
   roomOwnerEmail: string;
 }
 
-export const Actions = ({
+export const RoomActions = ({
   children,
   side,
   sideOffset,
@@ -38,9 +39,9 @@ export const Actions = ({
 
   const onCopyLink = () => {
     navigator.clipboard
-      .writeText(`${window.location.origin}/room/${id}`)
+      .writeText(buildInviteUrl(id, window.location.origin))
       .then(() => toast.success("Copiado!", { icon: "📋" }))
-      .catch(() => toast.error("Ops, algo deu errado", { icon: "🚨" }));
+      .catch(() => toast.error());
   };
 
   const onDelete = () => {
@@ -48,7 +49,7 @@ export const Actions = ({
 
     mutation({ roomId: id, user: data?.user })
       .then(() => toast.success("Sala deletada!", { icon: "🗑️" }))
-      .catch(() => toast.error("Ops, algo deu errado", { icon: "🚨" }));
+      .catch(() => toast.error());
   };
 
   return (
@@ -62,7 +63,7 @@ export const Actions = ({
       >
         <DropdownMenuItem onClick={onCopyLink} className="p-3 cursor-pointer">
           <Link2 className="h-4 w-4 mr-2" />
-          Copiar link da sala
+          Copiar convite
         </DropdownMenuItem>
         {roomOwner && (
           <ConfirmDialog
@@ -73,7 +74,7 @@ export const Actions = ({
             <Button
               variant={"ghost"}
               disabled={isPending}
-              className="p-3 cursor-pointer"
+              className="w-full justify-start p-3 cursor-pointer text-sm font-normal"
             >
               <Trash2 className="h-4 w-4 mr-2" />
               Deletar sala

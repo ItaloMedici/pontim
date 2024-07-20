@@ -32,8 +32,6 @@ export const joinOrCreateBoardAsPlayer = validator({
       },
     });
 
-    console.log({ existingPlayer });
-
     if (existingPlayer) {
       return existingPlayer;
     }
