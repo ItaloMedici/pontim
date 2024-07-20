@@ -20,6 +20,9 @@ jobs:
 
     - name: Run lint
       run: npm run lint
+
+    - name: Setup Prisma
+      run: npx prisma generate
     
     - name: Build
       run: npm run build --if-present
