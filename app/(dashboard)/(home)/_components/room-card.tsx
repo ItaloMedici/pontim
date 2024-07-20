@@ -1,6 +1,6 @@
 "use client";
 
-import { Actions } from "@/components/actions";
+import { RoomActions } from "@/components/room-actions";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useAction } from "@/hooks/use-action";
 import { Room } from "@/lib/schemas/room";
@@ -55,7 +55,7 @@ export function RoomCard({ room }: { room: Room }) {
           className="h-[100px] w-full object-cover group-hover:blur-sm group-hover:scale-105 group-hover:brightness-95 transition-all"
         />
       </div>
-      <Actions
+      <RoomActions
         id={room.id}
         name={room.name}
         roomOwnerEmail={room.ownerEmail}
@@ -64,7 +64,7 @@ export function RoomCard({ room }: { room: Room }) {
         <button className="absolute top-1 right-1 opacity-0 group-hover:opacity-100 transition-opacity outline-none px-2 py-2 bg-black/25 rounded-sm">
           <MoreHorizontal className="text-white w-4 h-4" />
         </button>
-      </Actions>
+      </RoomActions>
       <button
         className={cn(
           "absolute top-1 left-1 transition-opacity outline-none bg-black/10 px-2 py-2 rounded-sm",
