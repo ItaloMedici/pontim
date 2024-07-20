@@ -1,4 +1,5 @@
 import { LoadingLogo } from "@/components/loading-logo/loading";
+import { toast } from "@/components/toast";
 import { http } from "@/lib/api";
 import { Player } from "@/lib/schemas/player";
 import { ChoiceOptions } from "@/types/choice-options";
@@ -19,7 +20,6 @@ import {
   useRef,
   useState,
 } from "react";
-import { toast } from "sonner";
 import { useSocketClient } from "./socket-client";
 
 type BoardContextProps = {
@@ -96,7 +96,7 @@ export const BoardProvider = ({
   useEffect(() => {
     const timer = setTimeout(() => {
       if (!isConnected || !self?.id) {
-        toast("Você foi desconectado da sala 💩");
+        toast("Você foi desconectado da sala", { icon: "💩" });
         leaveBoard();
         router.push("/");
       }

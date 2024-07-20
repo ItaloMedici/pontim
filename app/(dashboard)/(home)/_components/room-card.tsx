@@ -1,6 +1,7 @@
 "use client";
 
 import { RoomActions } from "@/components/room-actions";
+import { toast } from "@/components/toast";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useAction } from "@/hooks/use-action";
 import { Room } from "@/lib/schemas/room";
@@ -11,7 +12,6 @@ import { ptBR } from "date-fns/locale";
 import { MoreHorizontal, Star } from "lucide-react";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
-import { toast } from "sonner";
 
 export function RoomCard({ room }: { room: Room }) {
   const { data } = useSession();
@@ -40,7 +40,7 @@ export function RoomCard({ room }: { room: Room }) {
       favorite: !room.favorite,
       user: data?.user,
     }).catch(() => {
-      toast.error("Ops, algo deu errado", { icon: "🚨" });
+      toast.error();
     });
   };
 

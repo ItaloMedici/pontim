@@ -1,4 +1,4 @@
-import { toast } from "sonner";
+import { toast } from "@/components/toast";
 
 const isServer = typeof window === "undefined";
 
@@ -9,14 +9,13 @@ const createHttpHandler = async <T,>(fn: () => Promise<Response>) => {
     return result.json() as T;
   }
 
-  const error = await result.json();
+  const error = result?.statusText ?? (await result.json());
 
   if (isServer || process.env.NODE_ENV === "development") {
     console.error(error);
   }
 
-  const message = "Algo deu errado 😥";
-  toast.error(message);
+  toast.error();
 
   return null;
 };

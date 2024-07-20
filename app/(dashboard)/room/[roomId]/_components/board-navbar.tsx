@@ -1,5 +1,6 @@
 "use client";
 
+import { toast } from "@/components/toast";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { UserButton } from "@/components/user-button";
 import { buildInviteUrl } from "@/use-cases/invite/build-invite-url";
@@ -7,7 +8,6 @@ import { CheckIcon, ChevronLeft, PlusIcon } from "lucide-react";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import { toast } from "sonner";
 
 export const BoardNavbar = () => {
   const params = useParams<{ roomId: string }>();
@@ -31,7 +31,9 @@ export const BoardNavbar = () => {
 
     setCopiedInvite(true);
 
-    toast("Link de convite copiado para a área de transferência 🚀");
+    toast("Link de convite copiado para a área de transferência", {
+      icon: "📋",
+    });
   };
 
   const Icon = copiedInvite ? CheckIcon : PlusIcon;
