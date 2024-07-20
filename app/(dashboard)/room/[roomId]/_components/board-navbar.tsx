@@ -1,6 +1,7 @@
 "use client";
 
 import { Button, buttonVariants } from "@/components/ui/button";
+import { UserButton } from "@/components/user-button";
 import { buildInviteUrl } from "@/use-cases/invite/build-invite-url";
 import { CheckIcon, ChevronLeft, PlusIcon } from "lucide-react";
 import Link from "next/link";
@@ -36,7 +37,7 @@ export const BoardNavbar = () => {
   const Icon = copiedInvite ? CheckIcon : PlusIcon;
 
   return (
-    <nav className="fixed top-0 right-0 left-0 max-w-screen-lg">
+    <nav className="fixed top-0 right-0 left-0 mx-auto">
       <div className="flex items-center justify-between p-4 mx-auto">
         <Link className={buttonVariants({ variant: "ghost" })} href={"/"}>
           <ChevronLeft className="w-4 h-4 mr-2" />
@@ -51,6 +52,7 @@ export const BoardNavbar = () => {
           <Icon className="w-4 h-4 mr-2" />
           Convidar jogadores
         </Button>
+        <UserButton />
       </div>
     </nav>
   );
