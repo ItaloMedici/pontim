@@ -7,6 +7,7 @@ import {
   joinBoardKey,
   leaveBoardKey,
   playerChoiceKey,
+  resetBoardKey,
 } from "@/use-cases/event-keys/board";
 import { useRouter } from "next/navigation";
 import {
@@ -28,6 +29,7 @@ type BoardContextProps = {
   choiceOptions: ChoiceOptions;
   handleChoice: (choice: string) => Promise<void>;
   handleRevealCards: () => Promise<void>;
+  handleReset: () => Promise<void>;
 };
 
 export const BoardContext = createContext<BoardContextProps>(
@@ -74,11 +76,8 @@ export const BoardProvider = ({
     joinBoard();
   }, []);
 
-  console.log({ self, others });
-
   const leaveBoard = async () => {
     if (!selfRef.current?.boardId) return;
-    console.log("leave board", selfRef.current);
 
     await http.post("/leave-board", {
       playerId: selfRef.current.id,
@@ -134,14 +133,14 @@ export const BoardProvider = ({
       console.log(`[${choiceEventKey}] for ${self.name}:`, message);
       if (!message?.player) return;
 
-      const updatedPlayer = message.player;
+      const updatedPlayer = message.player as Player;
 
       if (updatedPlayer.id === self.id) {
         return;
       }
 
       setOthers((prev) =>
-        prev.map((p) => (p.id === updatedPlayer.id ? updatedPlayer : p))
+        prev.map((p) => (p.email === updatedPlayer.email ? updatedPlayer : p))
       );
     });
 
@@ -152,10 +151,31 @@ export const BoardProvider = ({
       setRevealCards(message.reveal);
     });
 
+    const resetBoardEventKey = resetBoardKey(self.boardId);
+
+    socket.on(resetBoardEventKey, (message) => {
+      console.log(`[${resetBoardEventKey}] for ${self.name}:`, message);
+      if (!message?.players?.length) return;
+
+      const players = message.players as Array<Player>;
+
+      const _self = players.find((_player) => _player.id === self.id);
+      const _others = players.filter((_player) => _player.id !== self.id);
+
+      if (!_self) return;
+
+      setOthers(_others);
+      setSelf(_self);
+
+      setRevealCards(false);
+    });
+
     return () => {
       socket.off(joinBoardEventKey);
       socket.off(leaveBoardEventKey);
       socket.off(choiceEventKey);
+      socket.off(revealCardsEventKey);
+      socket.off(resetBoardEventKey);
     };
   }, [others, roomId, self, socket]);
 
@@ -181,6 +201,12 @@ export const BoardProvider = ({
     });
   };
 
+  const handleReset = async () => {
+    await http.post("/reset-board", {
+      boardId: self.boardId,
+    });
+  };
+
   return (
     <BoardContext.Provider
       value={{
@@ -191,6 +217,7 @@ export const BoardProvider = ({
         handleChoice,
         revealCards,
         handleRevealCards,
+        handleReset,
       }}
     >
       {children}
