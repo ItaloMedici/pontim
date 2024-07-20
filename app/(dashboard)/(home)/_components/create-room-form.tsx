@@ -1,5 +1,6 @@
 "use client";
 
+import { toast } from "@/components/toast";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -17,7 +18,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
-import { toast } from "sonner";
 
 export function CreateRoomForm() {
   const router = useRouter();
@@ -43,7 +43,7 @@ export function CreateRoomForm() {
         toast.success("Sala criada com sucesso!", {
           icon: "🥳",
         });
-        // router.push(`/room/${room}`);
+        router.push(`/room/${room.id}`);
       })
       .catch(() => {
         toast.error("Algo deu errado ao criar a sala", {

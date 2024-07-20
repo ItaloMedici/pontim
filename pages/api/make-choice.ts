@@ -30,14 +30,17 @@ const makeChoiceHandler = async (
     const eventKey = playerChoiceKey(updatedPlayer.boardId);
 
     const message = {
-      player: updatedPlayer,
+      player: {
+        ...updatedPlayer,
+        choice: "hidden",
+      },
     };
 
     res.socket?.server?.io?.emit(eventKey, message);
 
     return res.status(200).json(updatedPlayer);
   } catch (error: any) {
-    return res.status(500).json({ message: error.message });
+    return res.status(500).json({ message: error.message ?? error });
   }
 };
 

@@ -1,4 +1,4 @@
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { authOptions } from "@/authOptions";
 import { ResponseWithSocket } from "@/types/response-with-socket";
 import { leaveBoard } from "@/use-cases/board/leave-board";
 import { leaveBoardKey } from "@/use-cases/event-keys/board";
@@ -36,7 +36,7 @@ const leaveBoardHandler = async (
 
     res.status(200).json({ message: "Succefully leave board" });
   } catch (error: any) {
-    return res.status(400).json({ message: error?.message });
+    return res.redirect("/");
   }
 };
 

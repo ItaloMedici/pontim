@@ -10,7 +10,6 @@ export const config = {
 };
 
 const ioHandler = (req: NextApiRequest, res: ResponseWithSocket) => {
-  console.log("Socket server handler", res.socket.server);
   if (!res.socket.server.io) {
     const path = "/api/socket";
     const httpServer = res.socket.server as unknown as NetServer;
@@ -18,7 +17,6 @@ const ioHandler = (req: NextApiRequest, res: ResponseWithSocket) => {
       path,
       addTrailingSlash: false,
     });
-    console.log("Socket server created", io, httpServer);
     res.socket.server.io = io;
   }
 

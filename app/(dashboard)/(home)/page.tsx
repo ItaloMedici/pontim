@@ -23,8 +23,6 @@ async function DashBoardPage({
     user: session.user,
   });
 
-  console.log(rooms);
-
   return (
     <div className="space-y-10">
       <DashboardFilters />

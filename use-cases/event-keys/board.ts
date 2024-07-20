@@ -5,4 +5,5 @@ const createBoardEventKey = (event: string) => {
 export const joinBoardKey = createBoardEventKey("join");
 export const leaveBoardKey = createBoardEventKey("leave");
 export const playerChoiceKey = createBoardEventKey("choice");
-export const revealCardsKey = createBoardEventKey("choice");
+export const revealCardsKey = createBoardEventKey("reveal");
+export const resetBoardKey = createBoardEventKey("reset");

@@ -1,6 +1,6 @@
 "use server";
 
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { authOptions } from "@/authOptions";
 import { ResponseWithSocket } from "@/types/response-with-socket";
 import { joinBoardKey } from "@/use-cases/event-keys/board";
 import { getPlayersByBoardId } from "@/use-cases/player/get-players-by-board-id";
