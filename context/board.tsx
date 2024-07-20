@@ -148,7 +148,15 @@ export const BoardProvider = ({
 
     socket.on(revealCardsEventKey, (message) => {
       console.log(`[${revealCardsEventKey}] for ${self.name}:`, message);
+
+      if (!message?.players?.length) return;
+
+      const players = message.players as Array<Player>;
+
+      const _others = players.filter((_player) => _player.id !== self.id);
+
       setRevealCards(message.reveal);
+      setOthers(_others);
     });
 
     const resetBoardEventKey = resetBoardKey(self.boardId);
