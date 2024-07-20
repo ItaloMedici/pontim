@@ -1,4 +1,4 @@
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { authOptions } from "@/authOptions";
 import { ResponseWithSocket } from "@/types/response-with-socket";
 import { resetBoard } from "@/use-cases/board/reset-board";
 import { resetBoardKey } from "@/use-cases/event-keys/board";

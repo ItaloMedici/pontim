@@ -37,7 +37,7 @@ const makeChoiceHandler = async (
 
     return res.status(200).json(updatedPlayer);
   } catch (error: any) {
-    return res.status(500).json({ message: error.message });
+    return res.status(500).json({ message: error.message ?? error });
   }
 };
 
