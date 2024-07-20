@@ -11,7 +11,18 @@ export const handleInvite = async (code: string) => {
     throw new Error("No invite code found in URL");
   }
 
-  const [roomId, createdAt] = Buffer.from(code, "base64").toString().split(":");
+  const invalidMap: Record<string, true> = {
+    undefined: true,
+    null: true,
+    NaN: true,
+  };
+
+  const [roomId, createdAt] = Buffer.from(code, "base64")
+    .toString()
+    .split(":")
+    .filter((part) => !invalidMap[part]);
+
+  console.log(roomId, createdAt);
 
   if (!roomId || !createdAt) {
     throw new Error("Invalid invite code");
