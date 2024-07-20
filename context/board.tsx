@@ -13,6 +13,7 @@ import { useRouter } from "next/navigation";
 import {
   ReactNode,
   createContext,
+  useCallback,
   useContext,
   useEffect,
   useRef,
@@ -39,6 +40,8 @@ export const BoardContext = createContext<BoardContextProps>(
 export const useBoard = () => {
   return useContext(BoardContext);
 };
+
+const TIMEOUT = 60 * 1000;
 
 export const BoardProvider = ({
   roomId,
@@ -76,7 +79,7 @@ export const BoardProvider = ({
     joinBoard();
   }, []);
 
-  const leaveBoard = async () => {
+  const leaveBoard = useCallback(async () => {
     if (!selfRef.current?.boardId) return;
 
     await http.post("/leave-board", {
@@ -88,7 +91,27 @@ export const BoardProvider = ({
     setSelf({} as Player);
     setOthers([]);
     selfRef.current = undefined;
-  };
+  }, [roomId]);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (!isConnected || !self?.id) {
+        toast("Você foi desconectado da sala 💩");
+        leaveBoard();
+        router.push("/");
+      }
+    }, TIMEOUT);
+
+    if (isConnected && self?.id) {
+      return () => {
+        clearTimeout(timer);
+      };
+    }
+
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [isConnected, leaveBoard, router, self?.id]);
 
   useEffect(() => {
     return () => {
@@ -148,7 +171,15 @@ export const BoardProvider = ({
 
     socket.on(revealCardsEventKey, (message) => {
       console.log(`[${revealCardsEventKey}] for ${self.name}:`, message);
+
+      if (!message?.players?.length) return;
+
+      const players = message.players as Array<Player>;
+
+      const _others = players.filter((_player) => _player.id !== self.id);
+
       setRevealCards(message.reveal);
+      setOthers(_others);
     });
 
     const resetBoardEventKey = resetBoardKey(self.boardId);
