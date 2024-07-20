@@ -34,6 +34,8 @@ export const handleInvite = async (code: string) => {
     throw new Error("Invite code has expired");
   }
 
+  console.log(roomId);
+
   const room = await getRoom({ roomId });
 
   if (!room) {
