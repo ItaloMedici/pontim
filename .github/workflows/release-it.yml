@@ -8,12 +8,22 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
 
     - name: Use Node.js
       uses: actions/setup-node@v3
       with:
         node-version: 20
         cache: 'npm'
+
+    - name: git config
+      run: |
+        git config user.name "${GITHUB_ACTOR}"
+        git config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
         
     - name: Release
       run: npm install --global release-it@14.11.6 @release-it/conventional-changelog@3.3.0 && release-it
+
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
