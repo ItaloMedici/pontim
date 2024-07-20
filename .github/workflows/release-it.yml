@@ -23,7 +23,7 @@ jobs:
         git config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
         
     - name: Release
-      run: npm install --global release-it@14.11.6 @release-it/conventional-changelog@3.3.0 && release-it
+      run: npm install --global release-it @release-it/conventional-changelog && release-it
 
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
