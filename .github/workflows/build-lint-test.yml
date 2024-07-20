@@ -20,10 +20,7 @@ jobs:
 
     - name: Run lint
       run: npm run lint
-
-    - name: Setup Prisma
-      run: npx prisma generate
-
+      
     - name: Setup Environment
       run: cp .env.example .env
     
