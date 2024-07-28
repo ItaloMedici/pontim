@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "postinstall": "npx prisma generate",
-    "db:push": "prisma db push --preview-feature"
+    "db:push": "npx prisma db push"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.3.4",

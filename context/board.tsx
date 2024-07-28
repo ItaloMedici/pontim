@@ -9,6 +9,7 @@ import {
   leaveBoardKey,
   playerChoiceKey,
   resetBoardKey,
+  revealCardsKey,
 } from "@/use-cases/event-keys/board";
 import { useRouter } from "next/navigation";
 import {
@@ -167,7 +168,7 @@ export const BoardProvider = ({
       );
     });
 
-    const revealCardsEventKey = playerChoiceKey(self.boardId);
+    const revealCardsEventKey = revealCardsKey(self.boardId);
 
     socket.on(revealCardsEventKey, (message) => {
       console.log(`[${revealCardsEventKey}] for ${self.name}:`, message);
