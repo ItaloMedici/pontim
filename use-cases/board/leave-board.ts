@@ -1,17 +1,22 @@
 import { db } from "@/lib/db";
-import { userSchema } from "@/lib/schemas/user";
 import { z } from "zod";
 import { getPlayersByBoardId } from "../player/get-players-by-board-id";
 import { validator } from "../validator";
 import { deleteBoard } from "./delete-board";
+import { getBoard } from "./get-board";
 
 export const leaveBoard = validator({
   input: z.object({
-    boardId: z.string().uuid(),
+    roomId: z.string().uuid(),
     playerId: z.string().uuid(),
-    user: userSchema,
   }),
-  handler: async ({ boardId, playerId, user }) => {
+  handler: async ({ roomId, playerId }) => {
+    const board = await getBoard({ roomId });
+
+    if (!board) {
+      throw new Error("Board not found");
+    }
+
     const player = await db.player.findFirst({
       where: {
         id: playerId,
@@ -25,14 +30,14 @@ export const leaveBoard = validator({
     const result = await db.player.delete({
       where: {
         id: player.id,
-        boardId: boardId,
+        boardId: board?.id,
       },
     });
 
-    const players = await getPlayersByBoardId({ boardId });
+    const players = await getPlayersByBoardId({ boardId: board.id });
 
     if (!players?.length) {
-      await deleteBoard({ boardId });
+      await deleteBoard({ boardId: board.id });
     }
 
     return result;

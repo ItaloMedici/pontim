@@ -11,7 +11,7 @@ export const createBoard = validator({
     const board = await getBoard({ roomId });
 
     if (board) {
-      throw new Error("Board already exists");
+      return board;
     }
 
     const newBoard = await db.board.create({
