@@ -1,17 +1,13 @@
 import { LoadingLogo } from "@/components/loading-logo/loading";
 import { toast } from "@/components/toast";
-import { http } from "@/lib/api";
+import { fetcher, http } from "@/lib/api";
 import { Player } from "@/lib/schemas/player";
+import { notificationMessages } from "@/messages/notification";
+import { randomLeaveMessage, randomWellcomeMessage } from "@/messages/wellcome";
+import { BoardStatus } from "@/types/board-status";
 import { ChoiceOptions } from "@/types/choice-options";
+import { EnumNotification } from "@/types/notifications";
 import { fibonacciChoiceOptions } from "@/use-cases/board/choice-options";
-import {
-  joinBoardKey,
-  leaveBoardKey,
-  playerChoiceKey,
-  resetBoardKey,
-  revealCardsKey,
-} from "@/use-cases/event-keys/board";
-import { useRouter } from "next/navigation";
 import {
   ReactNode,
   createContext,
@@ -21,17 +17,22 @@ import {
   useRef,
   useState,
 } from "react";
-import { useSocketClient } from "./socket-client";
+import useSWR from "swr";
 
 type BoardContextProps = {
   roomId: string;
   self: Player;
   others: Player[];
-  revealCards: boolean;
+  reveal: boolean;
   choiceOptions: ChoiceOptions;
+  selfChoice?: string | null;
   handleChoice: (choice: string) => Promise<void>;
   handleRevealCards: () => Promise<void>;
   handleReset: () => Promise<void>;
+  handleNotifyPlayer: (
+    playerId: string,
+    notification?: EnumNotification
+  ) => Promise<void>;
 };
 
 export const BoardContext = createContext<BoardContextProps>(
@@ -42,8 +43,6 @@ export const useBoard = () => {
   return useContext(BoardContext);
 };
 
-const TIMEOUT = 60 * 1000;
-
 export const BoardProvider = ({
   roomId,
   children,
@@ -51,68 +50,70 @@ export const BoardProvider = ({
   roomId: string;
   children: ReactNode;
 }) => {
-  const router = useRouter();
-  const { socket, isConnected } = useSocketClient();
-  const [self, setSelf] = useState<Player>({} as Player);
-  const [others, setOthers] = useState<Player[]>([]);
-  const [revealCards, setRevealCards] = useState(false);
+  const {
+    data: boardStatus,
+    error,
+    isLoading,
+  } = useSWR<BoardStatus>(`/api/${roomId}/board/status`, fetcher, {
+    refreshInterval: 1000,
+  });
 
-  const selfRef = useRef<Player | undefined>(self);
+  const othersPrev = useRef(boardStatus?.others);
+  const [selfChoice, setSelfChoice] = useState(boardStatus?.self?.choice);
+  const selfId = useRef(boardStatus?.self?.id);
 
-  useEffect(() => {
-    if (!roomId || self?.id) return;
+  const [revealOptimistc, setRevealOptimistc] = useState(
+    boardStatus?.reveal || false
+  );
 
-    const joinBoard = async () => {
-      const result = await http.post<{
-        player: Player;
-        others: Player[];
-      }>("/join-board", { roomId });
-
-      if (!result) return router.push("/");
-
-      const { player, others } = result;
-
-      setSelf(player);
-      selfRef.current = player;
-      setOthers(others);
-    };
-
-    joinBoard();
-  }, []);
-
-  const leaveBoard = useCallback(async () => {
-    if (!selfRef.current?.boardId) return;
-
-    await http.post("/leave-board", {
-      playerId: selfRef.current.id,
-      boardId: selfRef.current.boardId,
-      roomId: roomId,
-    });
-
-    setSelf({} as Player);
-    setOthers([]);
-    selfRef.current = undefined;
-  }, [roomId]);
+  const isFirstRender = useRef(true);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      if (!isConnected || !self?.id) {
-        toast("Você foi desconectado da sala", { icon: "💩" });
-        leaveBoard();
-        router.push("/");
-      }
-    }, TIMEOUT);
-
-    if (isConnected && self?.id) {
-      return () => {
-        clearTimeout(timer);
-      };
+    if (isFirstRender.current && boardStatus?.others?.length) {
+      isFirstRender.current = false;
+      othersPrev.current = boardStatus?.others;
+      return;
     }
 
-    return () => {
-      clearTimeout(timer);
-    };
-  }, [isConnected, leaveBoard, router, self?.id]);
+    if (othersPrev.current?.length === boardStatus?.others?.length) return;
+
+    const newPlayers = boardStatus?.others?.filter(
+      (player) => !othersPrev.current?.find((prev) => prev.id === player.id)
+    );
+
+    if (newPlayers?.length) {
+      newPlayers.forEach((player) => {
+        toast(`${player.name}, ${randomWellcomeMessage}`);
+      });
+    }
+
+    const leftPlayers = othersPrev.current?.filter(
+      (player) => !boardStatus?.others?.find((prev) => prev.id === player.id)
+    );
+
+    if (leftPlayers?.length) {
+      leftPlayers.forEach((player) => {
+        toast(`${player.name}, ${randomLeaveMessage}`);
+      });
+    }
+
+    othersPrev.current = boardStatus?.others;
+  }, [boardStatus?.others]);
+
+  useEffect(() => {
+    setSelfChoice(boardStatus?.self?.choice);
+    setRevealOptimistc(boardStatus?.reveal || false);
+
+    if (selfId.current === boardStatus?.self?.id) return;
+
+    selfId.current = boardStatus?.self?.id;
+  }, [boardStatus?.self]);
+
+  const leaveBoard = useCallback(async () => {
+    await http.post(`/${roomId}/board/leave`, {
+      playerId: selfId.current,
+    });
+  }, [roomId]);
 
   useEffect(() => {
     return () => {
@@ -120,122 +121,63 @@ export const BoardProvider = ({
     };
   }, []);
 
+  const handleNotification = async () => {
+    if (!boardStatus?.self.notified) return;
+
+    const audio = new Audio(
+      `/sounds/${boardStatus.self.notified.toLowerCase()}.mp3`
+    );
+
+    audio.play();
+
+    toast(notificationMessages[boardStatus.self.notified as EnumNotification], {
+      duration: 5000,
+    });
+
+    handleNotifyPlayer(boardStatus?.self.id);
+  };
+
   useEffect(() => {
-    if (!socket || !self) return;
+    if (!boardStatus?.self.notified) return;
 
-    const joinBoardEventKey = joinBoardKey(self.boardId);
+    handleNotification();
+  }, [boardStatus?.self?.notified]);
 
-    socket.on(joinBoardEventKey, (message) => {
-      console.log(`[${joinBoardEventKey}] for ${self.name}:`, message);
+  if (error) {
+    toast.error(error);
+  }
 
-      const newPlayer = message.player;
-      if (newPlayer.id === self?.id) return;
-
-      const alreadyExist = others.find((p) => p.id === newPlayer.id);
-
-      if (alreadyExist) return;
-
-      toast(`${newPlayer.name} entrou na sala 🎉`);
-
-      setOthers((prev) => [...prev, message.player]);
-    });
-
-    const leaveBoardEventKey = leaveBoardKey(roomId);
-
-    socket.on(leaveBoardEventKey, (message) => {
-      console.log(`[${leaveBoardEventKey}] for ${self.name}:`, message);
-      const player = message.player;
-
-      toast(`${player.name} saiu da sala 🏃‍♂️💨`);
-
-      setOthers((prev) => prev.filter((p) => p.id !== player.id));
-    });
-
-    const choiceEventKey = playerChoiceKey(self.boardId);
-
-    socket.on(choiceEventKey, (message) => {
-      console.log(`[${choiceEventKey}] for ${self.name}:`, message);
-      if (!message?.player) return;
-
-      const updatedPlayer = message.player as Player;
-
-      if (updatedPlayer.id === self.id) {
-        return;
-      }
-
-      setOthers((prev) =>
-        prev.map((p) => (p.email === updatedPlayer.email ? updatedPlayer : p))
-      );
-    });
-
-    const revealCardsEventKey = revealCardsKey(self.boardId);
-
-    socket.on(revealCardsEventKey, (message) => {
-      console.log(`[${revealCardsEventKey}] for ${self.name}:`, message);
-
-      if (!message?.players?.length) return;
-
-      const players = message.players as Array<Player>;
-
-      const _others = players.filter((_player) => _player.id !== self.id);
-
-      setRevealCards(message.reveal);
-      setOthers(_others);
-    });
-
-    const resetBoardEventKey = resetBoardKey(self.boardId);
-
-    socket.on(resetBoardEventKey, (message) => {
-      console.log(`[${resetBoardEventKey}] for ${self.name}:`, message);
-      if (!message?.players?.length) return;
-
-      const players = message.players as Array<Player>;
-
-      const _self = players.find((_player) => _player.id === self.id);
-      const _others = players.filter((_player) => _player.id !== self.id);
-
-      if (!_self) return;
-
-      setOthers(_others);
-      setSelf(_self);
-
-      setRevealCards(false);
-    });
-
-    return () => {
-      socket.off(joinBoardEventKey);
-      socket.off(leaveBoardEventKey);
-      socket.off(choiceEventKey);
-      socket.off(revealCardsEventKey);
-      socket.off(resetBoardEventKey);
-    };
-  }, [others, roomId, self, socket]);
-
-  if (!isConnected || !self?.id) {
+  if (!boardStatus?.self || isLoading) {
     return <LoadingLogo />;
   }
 
   const handleChoice = async (choice: string) => {
-    const updatedSelf = await http.post<Player>("/make-choice", {
-      playerId: self.id,
+    await http.post<Player>(`/${roomId}/make-choice`, {
+      playerId: boardStatus.self.id,
       choice,
     });
 
-    if (!updatedSelf) return;
-
-    setSelf(updatedSelf);
+    setSelfChoice(choice);
   };
 
   const handleRevealCards = async () => {
-    await http.post("/reveal-cards", {
-      boardId: self.boardId,
-      reveal: !revealCards,
-    });
+    await http.post(`/${roomId}/board/reveal`);
+    setRevealOptimistc((prev) => !prev);
   };
 
   const handleReset = async () => {
-    await http.post("/reset-board", {
-      boardId: self.boardId,
+    await http.post(`/${roomId}/board/reset`, {
+      boardId: boardStatus.boardId,
+    });
+  };
+
+  const handleNotifyPlayer = async (
+    playerId: string,
+    notification?: EnumNotification
+  ) => {
+    await http.post(`/${roomId}/player/notify`, {
+      playerId,
+      notification,
     });
   };
 
@@ -243,13 +185,14 @@ export const BoardProvider = ({
     <BoardContext.Provider
       value={{
         roomId,
-        self,
-        others,
+        ...boardStatus,
         choiceOptions: fibonacciChoiceOptions,
+        reveal: revealOptimistc,
+        selfChoice,
         handleChoice,
-        revealCards,
         handleRevealCards,
         handleReset,
+        handleNotifyPlayer,
       }}
     >
       {children}

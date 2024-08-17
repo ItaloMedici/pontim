@@ -35,9 +35,10 @@ model UserRoom {
 }
 
 model Board {
-  id     String @id @default(uuid())
-  roomId String @unique
-  room   Room   @relation(fields: [roomId], references: [id], onDelete: Cascade)
+  id     String  @id @default(uuid())
+  roomId String  @unique
+  room   Room    @relation(fields: [roomId], references: [id], onDelete: Cascade)
+  reveal Boolean @default(false)
 
   Player Player[]
 }
@@ -52,4 +53,5 @@ model Player {
   board     Board    @relation(fields: [boardId], references: [id], onDelete: Cascade)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  notified  String?
 }
