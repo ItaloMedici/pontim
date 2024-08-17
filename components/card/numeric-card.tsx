@@ -45,7 +45,6 @@ export const NumericCard = ({
   selected,
   bgColor,
   label,
-  colorOnHover,
 }: NumericCardProps) => {
   return (
     <div className="flex flex-col gap-2 items-center">
