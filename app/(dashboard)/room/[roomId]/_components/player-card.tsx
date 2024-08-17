@@ -7,7 +7,7 @@ type PlayerCardProps = {
 };
 
 export const PlayerCard = ({ player }: PlayerCardProps) => {
-  const { revealCards, self } = useBoard();
+  const { reveal, self, selfChoice } = useBoard();
 
   const isSelf = player.id === self.id;
 
