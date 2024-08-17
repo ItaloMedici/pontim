@@ -7,6 +7,8 @@ import { joinBoardAndValidateLimit } from "@/use-cases/player/join-board-and-val
 import { getUserRoom } from "@/use-cases/room";
 import { getServerSession } from "next-auth";
 
+export const dynamic = "force-dynamic";
+
 export async function GET(
   _: Request,
   { params }: { params: { roomId: string } }
