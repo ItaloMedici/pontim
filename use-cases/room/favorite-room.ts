@@ -2,6 +2,7 @@
 
 import { db } from "@/lib/db";
 import { userSchema } from "@/lib/schemas/user";
+import { revalidatePath } from "next/cache";
 import { z } from "zod";
 import { validator } from "../validator";
 
@@ -31,5 +32,7 @@ export const favoriteRoom = validator({
         id: userRoom.id,
       },
     });
+
+    revalidatePath("/");
   },
 });
