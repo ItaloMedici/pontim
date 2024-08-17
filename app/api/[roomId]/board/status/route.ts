@@ -8,7 +8,7 @@ import { getUserRoom } from "@/use-cases/room";
 import { getServerSession } from "next-auth";
 
 export async function GET(
-  _: Response,
+  _: Request,
   { params }: { params: { roomId: string } }
 ) {
   try {
