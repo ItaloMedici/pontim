@@ -11,6 +11,11 @@ export const PlayerCard = ({ player }: PlayerCardProps) => {
 
   const isSelf = player.id === self.id;
 
+  const formatedChoice =
+    reveal && player.choice
+      ? Buffer.from(player.choice, "base64").toString()
+      : "";
+
   return (
     <>
       {isSelf ? (
@@ -21,13 +26,13 @@ export const PlayerCard = ({ player }: PlayerCardProps) => {
           label={"Você"}
         />
       ) : (
-        <NumericCard
-          value={revealCards ? player.choice : ""}
-          color={revealCards && player.choice ? "primary" : "gray"}
-          bgColor={revealCards ? "white" : player.choice ? "primary" : "gray"}
-          size={"large"}
-          label={player.name}
-        />
+          <NumericCard
+            value={formatedChoice}
+            color={reveal && player.choice ? "primary" : "gray"}
+            bgColor={reveal ? "white" : player.choice ? "primary" : "gray"}
+            size={"large"}
+            label={player.name}
+          />
       )}
     </>
   );
