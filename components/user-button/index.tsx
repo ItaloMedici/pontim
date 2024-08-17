@@ -26,7 +26,7 @@ export const UserButton = () => {
     <div>
       <Popover>
         <PopoverTrigger>
-          <Avatar className="outline outline-2 outline-offset-2 outline-sky-500">
+          <Avatar className="outline outline-2 mt-[6px] outline-offset-2 outline-sky-500">
             <AvatarImage src={user.image} />
             <AvatarFallback>{fallback()}</AvatarFallback>
           </Avatar>

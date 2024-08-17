@@ -3,9 +3,9 @@ import { useBoard } from "@/context/board";
 import { cn } from "@/lib/utils";
 
 export const CardsPicker = () => {
-  const { choiceOptions, handleChoice, self } = useBoard();
+  const { choiceOptions, handleChoice, selfChoice } = useBoard();
 
-  const isSelfOption = (option: string) => self.choice === option;
+  const isSelfOption = (option: string) => selfChoice == option;
 
   return (
     <div className="flex flex-col items-center justify-center flex-wrap gap-6">
