@@ -1,5 +1,21 @@
 
 
+# [0.3.0](https://github.com/ItaloMedici/pontim/compare/v0.2.0...v0.3.0) (2024-08-21)
+
+
+### Bug Fixes
+
+* adjust reveal event key ([7d528c6](https://github.com/ItaloMedici/pontim/commit/7d528c6eb1f5fc19ab0b06b7dc60d1ed4c78488a))
+* revalidate home when favorite room ([88ca3df](https://github.com/ItaloMedici/pontim/commit/88ca3dff14ed065588082dfc0e6e031cf6bc3362))
+
+
+### Features
+
+* create messages ([1126015](https://github.com/ItaloMedici/pontim/commit/1126015cf41cb77d7cd342ace06a463f0aa7c6df))
+* create notifications type ([89f442b](https://github.com/ItaloMedici/pontim/commit/89f442b7b7c97f2c217cf70225daca5998fb69c7))
+* create player notifications ([d9d863c](https://github.com/ItaloMedici/pontim/commit/d9d863c5cd03774029247c54b08216a49718fdf1))
+* migrate all pages routes for api folder ([f1d8ade](https://github.com/ItaloMedici/pontim/commit/f1d8ade39aa2db9e1714cda92cfbc52b956b6993))
+
 # 0.2.0 (2024-07-20)
 
 
