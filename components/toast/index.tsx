@@ -1,3 +1,4 @@
+import { randomErrorMessage } from "@/messages/error";
 import {
   ExternalToast,
   Toaster as ToasterSonner,
@@ -21,18 +22,8 @@ const success = (message: string, options?: ToastOptions) => {
   });
 };
 
-const randomErrorMessages = [
-  "Ops, algo deu errado",
-  "Puts, de novo?",
-  "Vish, algo deu errado",
-  "Vacilamos nessa, tenta de novo",
-  "Deu ruim, algo deu errado",
-];
-
 const error = (message?: string, options?: ToastOptions) => {
-  const errorMessage =
-    message ??
-    randomErrorMessages[Math.floor(Math.random() * randomErrorMessages.length)];
+  const errorMessage = message ?? randomErrorMessage;
 
   toastSonner.error(errorMessage, {
     ...options,

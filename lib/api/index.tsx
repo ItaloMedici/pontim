@@ -28,12 +28,12 @@ const get = <T,>(url: string) =>
     });
   });
 
-const post = <T,>(url: string, body: any) =>
+const post = <T,>(url: string, body?: any) =>
   createHttpHandler<T>(async () => {
     return await fetch(`/api/${url}`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(body),
+      body: body ? JSON.stringify(body) : null,
     });
   });
 
@@ -41,3 +41,6 @@ export const http = {
   get,
   post,
 };
+
+export const fetcher = (input: RequestInfo | URL, init?: RequestInit) =>
+  fetch(input, init).then((res) => res.json());

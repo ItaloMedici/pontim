@@ -9,6 +9,6 @@ export const fibonacciChoiceOptions: ChoiceOptions = [
   { value: "13", label: "13" },
   { value: "20", label: "20" },
   { value: "40", label: "40" },
-  { value: "coffe", label: "☕" },
-  { value: "question", label: "?" },
+  { value: "☕", label: "☕" },
+  { value: "?", label: "?" },
 ];

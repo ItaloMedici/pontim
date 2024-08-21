@@ -1,6 +1,6 @@
 {
   "name": "pontim",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "postinstall": "npx prisma generate",
-    "db:push": "prisma db push --preview-feature"
+    "db:push": "npx prisma db push"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.3.4",
@@ -33,9 +33,8 @@
     "react": "^18",
     "react-dom": "^18",
     "react-hook-form": "^7.50.1",
-    "socket.io": "^4.7.5",
-    "socket.io-client": "^4.7.5",
     "sonner": "^1.4.0",
+    "swr": "^2.2.5",
     "tailwind-merge": "^2.2.1",
     "tailwindcss-animate": "^1.0.7",
     "usehooks-ts": "^2.14.0",

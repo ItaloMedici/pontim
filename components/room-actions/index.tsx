@@ -30,7 +30,6 @@ export const RoomActions = ({
   side,
   sideOffset,
   id,
-  name,
   roomOwnerEmail,
 }: ActionsProps) => {
   const { data } = useSession();
