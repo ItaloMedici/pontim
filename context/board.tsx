@@ -14,6 +14,7 @@ import {
   useCallback,
   useContext,
   useEffect,
+  useMemo,
   useRef,
   useState,
 } from "react";
@@ -26,6 +27,8 @@ type BoardContextProps = {
   reveal: boolean;
   choiceOptions: ChoiceOptions;
   selfChoice?: string | null;
+  totalPlayers: number;
+  totalChoices: number;
   handleChoice: (choice: string) => Promise<void>;
   handleRevealCards: () => Promise<void>;
   handleReset: () => Promise<void>;
@@ -121,6 +124,17 @@ export const BoardProvider = ({
     };
   }, []);
 
+  const totalChoices = useMemo(() => {
+    const othersSum =
+      boardStatus?.others.reduce((acc, player) => {
+        return player.choice ? acc + 1 : acc;
+      }, 0) ?? 0;
+
+    if (!boardStatus?.self.choice) return othersSum;
+
+    return othersSum + 1;
+  }, [boardStatus?.others, boardStatus?.self.choice]);
+
   const handleNotification = async () => {
     if (!boardStatus?.self.notified) return;
 
@@ -181,6 +195,8 @@ export const BoardProvider = ({
     });
   };
 
+  const totalPlayers = boardStatus?.others.length + 1;
+
   return (
     <BoardContext.Provider
       value={{
@@ -188,6 +204,8 @@ export const BoardProvider = ({
         ...boardStatus,
         choiceOptions: fibonacciChoiceOptions,
         reveal: revealOptimistc,
+        totalChoices,
+        totalPlayers,
         selfChoice,
         handleChoice,
         handleRevealCards,

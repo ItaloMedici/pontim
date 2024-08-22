@@ -1,12 +1,15 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { useBoard } from "@/context/board";
+import { useIsMobile } from "@/hooks/use-is-mobile";
 import { cn } from "@/lib/utils";
 
-const MAX_AVATAR_DISPLAY = 5;
+const MAX_AVATAR_DISPLAY_DESKTOP = 5;
+const MAX_AVATAR_DISPLAY_MOBILE = 2;
 
-export const BoardToolbar = () => {
+export const BoardDock = () => {
   const { others, self, handleRevealCards, reveal, handleReset } = useBoard();
+  const isMobile = useIsMobile();
 
   if (!others.length) {
     return null;
@@ -21,6 +24,7 @@ export const BoardToolbar = () => {
 
   const playersAvatar = () => {
     let avatarList = [self, ...others].map((player) => ({
+      key: player.id,
       name: player.name
         .split(" ")
         .map((name) => name[0])
@@ -29,11 +33,17 @@ export const BoardToolbar = () => {
       imageUrl: player.imageUrl ?? undefined,
     }));
 
-    if (avatarList.length > MAX_AVATAR_DISPLAY) {
-      avatarList = avatarList.slice(0, MAX_AVATAR_DISPLAY);
+    const maxAvatarDisplay = isMobile
+      ? MAX_AVATAR_DISPLAY_MOBILE
+      : MAX_AVATAR_DISPLAY_DESKTOP;
+
+    if (avatarList.length > maxAvatarDisplay) {
+      avatarList = avatarList.slice(0, maxAvatarDisplay);
+      console.log(others.length, maxAvatarDisplay);
       avatarList.push({
-        name: `+${others.length - MAX_AVATAR_DISPLAY}`,
+        name: `+${others.length - maxAvatarDisplay + 1}`,
         imageUrl: undefined,
+        key: "more",
       });
     }
 
@@ -41,7 +51,7 @@ export const BoardToolbar = () => {
       <div className="flex items-center gap-[-4px]">
         {avatarList.map((player, index) => (
           <Avatar
-            key={player.name}
+            key={player.key}
             className={cn("border-2 border-white", {
               "-ml-2": index > 0,
             })}
