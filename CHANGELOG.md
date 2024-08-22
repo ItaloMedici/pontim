@@ -1,5 +1,17 @@
 
 
+# [0.4.0](https://github.com/ItaloMedici/pontim/compare/v0.3.0...v0.4.0) (2024-08-22)
+
+
+### Bug Fixes
+
+* adjust fibonacci options ([bc850c6](https://github.com/ItaloMedici/pontim/commit/bc850c655957ea5bdc79652e0b81891a6f464220))
+
+
+### Features
+
+* create board status ([dbffb09](https://github.com/ItaloMedici/pontim/commit/dbffb095ab53974949347ab77ddb175db70016d7))
+
 # [0.3.0](https://github.com/ItaloMedici/pontim/compare/v0.2.0...v0.3.0) (2024-08-21)
 
 
