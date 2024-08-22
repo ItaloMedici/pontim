@@ -12,11 +12,6 @@ export const PlayerCard = ({ player }: PlayerCardProps) => {
 
   const isSelf = player.id === self.id;
 
-  const formatedChoice =
-    reveal && player.choice
-      ? Buffer.from(player.choice, "base64").toString()
-      : "";
-
   return (
     <>
       {isSelf ? (
@@ -29,7 +24,7 @@ export const PlayerCard = ({ player }: PlayerCardProps) => {
       ) : (
         <PlayerNotificationPopup player={player}>
           <NumericCard
-            value={formatedChoice}
+            value={reveal ? player.choice : undefined}
             color={reveal && player.choice ? "primary" : "gray"}
             bgColor={reveal ? "white" : player.choice ? "primary" : "gray"}
             size={"large"}
