@@ -3,7 +3,7 @@ import { useState } from "react";
 type ApiMutationFunction<T, K> = (payload: T) => Promise<K>;
 
 export const useAction = <T, K>(
-  mutationFunction: ApiMutationFunction<T, K>
+  mutationFunction: ApiMutationFunction<T, K>,
 ) => {
   const [isPending, setIsPending] = useState(false);
 

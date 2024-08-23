@@ -11,7 +11,7 @@ export const dynamic = "force-dynamic";
 
 export async function GET(
   _: Request,
-  { params }: { params: { roomId: string } }
+  { params }: { params: { roomId: string } },
 ) {
   try {
     const session = await getServerSession();

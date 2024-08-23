@@ -11,7 +11,7 @@ export async function POST(request: Request) {
     if (!playerId) {
       return Response.json(
         { message: "Player ID is required" },
-        { status: 400 }
+        { status: 400 },
       );
     }
 

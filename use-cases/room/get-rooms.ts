@@ -43,7 +43,7 @@ export const getRooms = validator({
 
     if (typeof search === "string") {
       userRooms = userRooms.filter((userRoom) =>
-        userRoom.room.name.includes(search)
+        userRoom.room.name.includes(search),
       );
     }
 

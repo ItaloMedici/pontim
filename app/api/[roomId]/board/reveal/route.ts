@@ -2,7 +2,7 @@ import { toggleRevealBoard } from "@/use-cases/board/revel-board";
 
 export async function POST(
   _: Request,
-  { params }: { params: { roomId: string } }
+  { params }: { params: { roomId: string } },
 ) {
   try {
     const { roomId } = params;

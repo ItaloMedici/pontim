@@ -29,7 +29,7 @@ const numericCardVariants = cva(
       size: "default",
       bgColor: "white",
     },
-  }
+  },
 );
 
 type NumericCardProps = VariantProps<typeof numericCardVariants> & {

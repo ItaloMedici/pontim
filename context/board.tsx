@@ -34,12 +34,12 @@ type BoardContextProps = {
   handleReset: () => Promise<void>;
   handleNotifyPlayer: (
     playerId: string,
-    notification?: EnumNotification
+    notification?: EnumNotification,
   ) => Promise<void>;
 };
 
 export const BoardContext = createContext<BoardContextProps>(
-  {} as BoardContextProps
+  {} as BoardContextProps,
 );
 
 export const useBoard = () => {
@@ -66,7 +66,7 @@ export const BoardProvider = ({
   const selfId = useRef(boardStatus?.self?.id);
 
   const [revealOptimistc, setRevealOptimistc] = useState(
-    boardStatus?.reveal || false
+    boardStatus?.reveal || false,
   );
 
   const isFirstRender = useRef(true);
@@ -81,7 +81,7 @@ export const BoardProvider = ({
     if (othersPrev.current?.length === boardStatus?.others?.length) return;
 
     const newPlayers = boardStatus?.others?.filter(
-      (player) => !othersPrev.current?.find((prev) => prev.id === player.id)
+      (player) => !othersPrev.current?.find((prev) => prev.id === player.id),
     );
 
     if (newPlayers?.length) {
@@ -91,7 +91,7 @@ export const BoardProvider = ({
     }
 
     const leftPlayers = othersPrev.current?.filter(
-      (player) => !boardStatus?.others?.find((prev) => prev.id === player.id)
+      (player) => !boardStatus?.others?.find((prev) => prev.id === player.id),
     );
 
     if (leftPlayers?.length) {
@@ -139,7 +139,7 @@ export const BoardProvider = ({
     if (!boardStatus?.self.notified) return;
 
     const audio = new Audio(
-      `/sounds/${boardStatus.self.notified.toLowerCase()}.mp3`
+      `/sounds/${boardStatus.self.notified.toLowerCase()}.mp3`,
     );
 
     audio.play();
@@ -187,7 +187,7 @@ export const BoardProvider = ({
 
   const handleNotifyPlayer = async (
     playerId: string,
-    notification?: EnumNotification
+    notification?: EnumNotification,
   ) => {
     await http.post(`/${roomId}/player/notify`, {
       playerId,

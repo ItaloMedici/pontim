@@ -2,7 +2,7 @@ import { notifyPlayer } from "@/use-cases/player/notify";
 
 export async function POST(
   request: Request,
-  { params }: { params: { roomId: string } }
+  { params }: { params: { roomId: string } },
 ) {
   try {
     const { roomId } = params;
