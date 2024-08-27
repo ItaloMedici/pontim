@@ -1,5 +1,3 @@
-import { User } from "@/lib/schemas/user";
-import { Session } from "next-auth";
 import { ZodRawShape, z } from "zod";
 
 type ValidatorProps<T extends ZodRawShape, K> = {
@@ -15,7 +13,7 @@ export function validator<T extends ZodRawShape, K>({
     const parse = input.safeParse(data);
 
     if (!parse.success) {
-      throw new Error(parse.error.errors[0].message);
+      throw new Error(parse.error.message);
     }
 
     return handler(parse.data);
