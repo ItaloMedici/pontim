@@ -18,6 +18,9 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Sync db
+        run: npm run db:generate
+
       - name: Run lint
         run: npm run lint
 
