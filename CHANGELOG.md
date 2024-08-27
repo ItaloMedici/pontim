@@ -1,3 +1,17 @@
+
+
+# [0.5.0](https://github.com/ItaloMedici/pontim/compare/v0.4.0...v0.5.0) (2024-08-27)
+
+
+### Features
+
+* crate update nickname action ([82ddf0b](https://github.com/ItaloMedici/pontim/commit/82ddf0bf2046e2ed2595952437b943f09efca4be))
+* create delete http method ([04c4927](https://github.com/ItaloMedici/pontim/commit/04c49275f908fb3e4e751ed4a91a356b9a755d8e))
+* create hideChoice method ([c5f8cf3](https://github.com/ItaloMedici/pontim/commit/c5f8cf38c54fb76f70f1ca727d7f18fadbc7d42e))
+* create nickname dialog ([8acd89a](https://github.com/ItaloMedici/pontim/commit/8acd89a381ac345b0ca8919040779c83f20f46a1))
+* implement notification flow ([635ff4b](https://github.com/ItaloMedici/pontim/commit/635ff4b30cb18e3ecdf2ac6310a7599b98dc6ee5))
+* show average points result ([27c43b7](https://github.com/ItaloMedici/pontim/commit/27c43b7f094491980432701f8efa6a930140fb79))
+
 # [0.4.0](https://github.com/ItaloMedici/pontim/compare/v0.3.0...v0.4.0) (2024-08-22)
 
 ### Bug Fixes
