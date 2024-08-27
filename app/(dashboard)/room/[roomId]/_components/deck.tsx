@@ -6,7 +6,6 @@ import { PlayerCard } from "./player-card";
 export const Deck = () => {
   const { others, self, reveal } = useBoard();
 
-
   const formatedOthers = useMemo(() => {
     return others.map((player) => ({
       ...player,
