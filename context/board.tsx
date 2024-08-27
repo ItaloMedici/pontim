@@ -1,20 +1,25 @@
+import { NicknameDialogForm } from "@/app/(dashboard)/room/[roomId]/_components/nickname-dialog-form";
 import { LoadingLogo } from "@/components/loading-logo/loading";
 import { toast } from "@/components/toast";
 import { fetcher, http } from "@/lib/api";
 import { Player } from "@/lib/schemas/player";
-import { notificationMessages } from "@/messages/notification";
+import {
+  notificationIcons,
+  notificationMessages,
+  notificationMessageThirdPerson,
+} from "@/messages/notification";
 import { randomLeaveMessage, randomWellcomeMessage } from "@/messages/wellcome";
-import { BoardStatus } from "@/types/board-status";
+import { BoardStatus, BoardStatusNotification } from "@/types/board-status";
 import { ChoiceOptions } from "@/types/choice-options";
 import { EnumNotification } from "@/types/notifications";
 import { fibonacciChoiceOptions } from "@/use-cases/board/choice-options";
 import {
-  ReactNode,
   createContext,
+  Fragment,
+  ReactNode,
   useCallback,
   useContext,
   useEffect,
-  useMemo,
   useRef,
   useState,
 } from "react";
@@ -29,6 +34,7 @@ type BoardContextProps = {
   selfChoice?: string | null;
   totalPlayers: number;
   totalChoices: number;
+  average: number;
   handleChoice: (choice: string) => Promise<void>;
   handleRevealCards: () => Promise<void>;
   handleReset: () => Promise<void>;
@@ -72,6 +78,8 @@ export const BoardProvider = ({
   const isFirstRender = useRef(true);
 
   useEffect(() => {
+    if (!boardStatus?.others?.length) return;
+
     if (isFirstRender.current && boardStatus?.others?.length) {
       isFirstRender.current = false;
       othersPrev.current = boardStatus?.others;
@@ -86,7 +94,7 @@ export const BoardProvider = ({
 
     if (newPlayers?.length) {
       newPlayers.forEach((player) => {
-        toast(`${player.name}, ${randomWellcomeMessage}`);
+        toast(`${player.nickname}, ${randomWellcomeMessage}`);
       });
     }
 
@@ -96,7 +104,7 @@ export const BoardProvider = ({
 
     if (leftPlayers?.length) {
       leftPlayers.forEach((player) => {
-        toast(`${player.name}, ${randomLeaveMessage}`);
+        toast(`${player.nickname}, ${randomLeaveMessage}`);
       });
     }
 
@@ -124,38 +132,54 @@ export const BoardProvider = ({
     };
   }, []);
 
-  const totalChoices = useMemo(() => {
-    const othersSum =
-      boardStatus?.others.reduce((acc, player) => {
-        return player.choice ? acc + 1 : acc;
-      }, 0) ?? 0;
+  const handleDeleteNotification = useCallback(
+    async (notificationId: string) => {
+      await http.delete(`/${roomId}/board/notification`, {
+        notificationId,
+      });
+    },
+    [roomId],
+  );
 
-    if (!boardStatus?.self.choice) return othersSum;
+  const handleNotification = useCallback(
+    async (notification: BoardStatusNotification) => {
+      if (!boardStatus?.notifications?.length) return;
 
-    return othersSum + 1;
-  }, [boardStatus?.others, boardStatus?.self.choice]);
+      const audio = new Audio(
+        `/sounds/${notification.sound.toLowerCase()}.mp3`,
+      );
 
-  const handleNotification = async () => {
-    if (!boardStatus?.self.notified) return;
+      audio.play();
 
-    const audio = new Audio(
-      `/sounds/${boardStatus.self.notified.toLowerCase()}.mp3`,
-    );
+      toast(notificationMessages[notification.sound as EnumNotification], {
+        duration: 5000,
+      });
 
-    audio.play();
-
-    toast(notificationMessages[boardStatus.self.notified as EnumNotification], {
-      duration: 5000,
-    });
-
-    handleNotifyPlayer(boardStatus?.self.id);
-  };
+      handleDeleteNotification(notification.id);
+    },
+    [boardStatus?.notifications?.length, handleDeleteNotification],
+  );
 
   useEffect(() => {
-    if (!boardStatus?.self.notified) return;
+    if (!boardStatus?.notifications?.length || !boardStatus.self) return;
 
-    handleNotification();
-  }, [boardStatus?.self?.notified]);
+    boardStatus.notifications.forEach((notification) => {
+      if (notification.isSelf) {
+        handleNotification(notification);
+        return;
+      }
+
+      const soundMessage =
+        notificationMessageThirdPerson[notification.sound as EnumNotification];
+
+      const message = `${notification.sender} ${soundMessage} ${notification.target}`;
+
+      toast(message, {
+        duration: 5000,
+        icon: notificationIcons[notification.sound as EnumNotification],
+      });
+    });
+  }, [boardStatus?.notifications, boardStatus?.self, handleNotification]);
 
   if (error) {
     toast.error(error);
@@ -175,6 +199,8 @@ export const BoardProvider = ({
   }
 
   const handleChoice = async (choice: string) => {
+    if (!boardStatus.self) return;
+
     await http.post<Player>(`/${roomId}/make-choice`, {
       playerId: boardStatus.self.id,
       choice,
@@ -198,23 +224,21 @@ export const BoardProvider = ({
     playerId: string,
     notification?: EnumNotification,
   ) => {
-    await http.post(`/${roomId}/player/notify`, {
-      playerId,
+    await http.post(`/${roomId}/board/notification`, {
+      targetId: playerId,
+      senderId: boardStatus.self?.id,
+      boardId: boardStatus.boardId,
       notification,
     });
   };
-
-  const totalPlayers = boardStatus?.others.length + 1;
 
   return (
     <BoardContext.Provider
       value={{
         roomId,
-        ...boardStatus,
+        ...(boardStatus as Required<BoardStatus>),
         choiceOptions: fibonacciChoiceOptions,
         reveal: revealOptimistc,
-        totalChoices,
-        totalPlayers,
         selfChoice,
         handleChoice,
         handleRevealCards,
