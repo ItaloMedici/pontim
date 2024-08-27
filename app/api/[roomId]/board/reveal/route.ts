@@ -1,8 +1,9 @@
 import { toggleRevealBoard } from "@/use-cases/board/revel-board";
+import { revalidatePath } from "next/cache";
 
 export async function POST(
   _: Request,
-  { params }: { params: { roomId: string } }
+  { params }: { params: { roomId: string } },
 ) {
   try {
     const { roomId } = params;
@@ -12,6 +13,8 @@ export async function POST(
     }
 
     await toggleRevealBoard({ roomId });
+
+    revalidatePath(`/room/${roomId}`);
 
     return Response.json({ message: "Board updated" });
   } catch (error: any) {

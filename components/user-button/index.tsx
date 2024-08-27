@@ -25,9 +25,9 @@ export const UserButton = () => {
   return (
     <div>
       <Popover>
-        <PopoverTrigger>
+        <PopoverTrigger aria-label="Perfil do usuário">
           <Avatar className="outline outline-2 mt-[6px] outline-offset-2 outline-sky-500">
-            <AvatarImage src={user.image} />
+            <AvatarImage src={user.image} aria-label="Imagem de perfil" />
             <AvatarFallback>{fallback()}</AvatarFallback>
           </Avatar>
         </PopoverTrigger>
@@ -35,7 +35,7 @@ export const UserButton = () => {
           <div className="p-2">
             <div className="flex items-center space-x-4">
               <Avatar>
-                <AvatarImage src={user.image} />
+                <AvatarImage src={user.image} aria-label="Imagem de perfil" />
                 <AvatarFallback>{fallback()}</AvatarFallback>
               </Avatar>
               <div>

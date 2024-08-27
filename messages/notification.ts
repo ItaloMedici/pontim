@@ -12,3 +12,10 @@ export const notificationIcons: Record<EnumNotification, string> = {
   [EnumNotification.CAR_HORN]: "🚘",
   [EnumNotification.POLICE]: "🚓",
 };
+
+export const notificationMessageThirdPerson: Record<EnumNotification, string> =
+  {
+    [EnumNotification.KNOCK]: "bateu na porta de",
+    [EnumNotification.CAR_HORN]: "tocou a buzina para",
+    [EnumNotification.POLICE]: "chamou a polícia para",
+  };

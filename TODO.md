@@ -6,7 +6,7 @@
 ## Melhorias
 
 - [] Aprimorar UI
-- [] Não enviar a escolha do usuário no evento choice, e sim no evento reveal. 
+- [] Não enviar a escolha do usuário no evento choice, e sim no evento reveal.
 - [] Adicionar um botão para reiniciar o jogo.
 - [] No evento reveal, enviar a escolha do usuário e a média dos votos.
 - [] Alterar copiar link do card para copiar link de convite.
