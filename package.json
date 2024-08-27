@@ -1,14 +1,14 @@
 {
   "name": "pontim",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
+    "lint": "next lint && tsc --noEmit",
+    "type-check": "tsc --noEmit",
     "db:generate": "npx prisma generate",
-    "postinstall": "npm run db:generate",
     "db:push": "npx prisma db push",
     "db:deploy": "npx prisma migrate deploy"
   },
@@ -35,6 +35,7 @@
     "react": "^18",
     "react-dom": "^18",
     "react-hook-form": "^7.50.1",
+    "sharp": "^0.33.5",
     "sonner": "^1.4.0",
     "swr": "^2.2.5",
     "tailwind-merge": "^2.2.1",
