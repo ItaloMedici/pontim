@@ -28,7 +28,7 @@ export const PlayerCard = ({ player }: PlayerCardProps) => {
             color={reveal && player.choice ? "primary" : "gray"}
             bgColor={reveal ? "white" : player.choice ? "primary" : "gray"}
             size={"large"}
-            label={player.nickname ?? player.name}
+            label={player.nickname}
           />
         </PlayerNotificationPopup>
       )}
