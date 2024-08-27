@@ -17,7 +17,7 @@ export const CardsPicker = () => {
             key={option.value}
             className={cn(
               "cursor-pointer hover:-translate-y-2 transition-transform",
-              { "-translate-y-2": isSelfOption(option.value) }
+              { "-translate-y-2": isSelfOption(option.value) },
             )}
             onClick={() => handleChoice(option.value)}
           >

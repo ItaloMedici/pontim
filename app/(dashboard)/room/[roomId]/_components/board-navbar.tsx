@@ -27,7 +27,7 @@ export const BoardNavbar = () => {
     if (!roomId) return;
 
     navigator.clipboard.writeText(
-      buildInviteUrl(roomId, window.location.origin)
+      buildInviteUrl(roomId, window.location.origin),
     );
 
     setCopiedInvite(true);

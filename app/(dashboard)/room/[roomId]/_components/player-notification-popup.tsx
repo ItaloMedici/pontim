@@ -40,7 +40,7 @@ export function PlayerNotificationPopup({
             {
               "before:content-['🔉']": !player.choice,
               "before:scale-100": open,
-            }
+            },
           )}
         >
           {children}

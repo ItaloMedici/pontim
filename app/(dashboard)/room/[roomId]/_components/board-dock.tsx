@@ -25,11 +25,13 @@ export const BoardDock = () => {
   const playersAvatar = () => {
     let avatarList = [self, ...others].map((player) => ({
       key: player.id,
-      name: player.name
+      name: player.nickname
+        .toUpperCase()
         .split(" ")
         .map((name) => name[0])
         .slice(0, 2)
         .join(""),
+      imagemLabel: `Imagem de perfil do jogador ${player.nickname}`,
       imageUrl: player.imageUrl ?? undefined,
     }));
 
@@ -39,11 +41,12 @@ export const BoardDock = () => {
 
     if (avatarList.length > maxAvatarDisplay) {
       avatarList = avatarList.slice(0, maxAvatarDisplay);
-      console.log(others.length, maxAvatarDisplay);
+
       avatarList.push({
         name: `+${others.length - maxAvatarDisplay + 1}`,
         imageUrl: undefined,
         key: "more",
+        imagemLabel: "Mais jogadores",
       });
     }
 
@@ -56,7 +59,10 @@ export const BoardDock = () => {
               "-ml-2": index > 0,
             })}
           >
-            <AvatarImage src={player.imageUrl ?? undefined} />
+            <AvatarImage
+              src={player.imageUrl ?? undefined}
+              aria-label={player.imagemLabel}
+            />
             <AvatarFallback className="text-xs bg-gradient-to-tr from-sky-300 to-gray-300 ">
               {player.name}
             </AvatarFallback>

@@ -6,7 +6,7 @@ const numericCardVariants = cva(
   {
     variants: {
       color: {
-        primary: "text-sky-500 border-sky-500",
+        primary: "text-sky-700 border-sky-500",
         gray: "text-gray-500 border-gray-200",
       },
       bgColor: {
@@ -29,7 +29,7 @@ const numericCardVariants = cva(
       size: "default",
       bgColor: "white",
     },
-  }
+  },
 );
 
 type NumericCardProps = VariantProps<typeof numericCardVariants> & {

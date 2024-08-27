@@ -2,7 +2,7 @@ import { leaveBoard } from "@/use-cases/board/leave-board";
 
 export async function POST(
   request: Request,
-  { params }: { params: { roomId: string } }
+  { params }: { params: { roomId: string } },
 ) {
   try {
     const { roomId } = params;

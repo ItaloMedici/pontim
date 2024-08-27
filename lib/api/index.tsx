@@ -37,9 +37,20 @@ const post = <T,>(url: string, body?: any) =>
     });
   });
 
+const _delete = <T,>(url: string, body?: any) => {
+  return createHttpHandler<T>(async () => {
+    return await fetch(`/api/${url}`, {
+      method: "DELETE",
+      headers: { "Content-Type": "application/json" },
+      body: body ? JSON.stringify(body) : null,
+    });
+  });
+};
+
 export const http = {
   get,
   post,
+  delete: _delete,
 };
 
 export const fetcher = (input: RequestInfo | URL, init?: RequestInit) =>
