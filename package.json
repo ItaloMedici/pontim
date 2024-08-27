@@ -7,8 +7,10 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "postinstall": "npx prisma generate",
-    "db:push": "npx prisma db push"
+    "db:generate": "npx prisma generate",
+    "postinstall": "npm run db:generate",
+    "db:push": "npx prisma db push",
+    "db:deploy": "npx prisma migrate deploy"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.3.4",
