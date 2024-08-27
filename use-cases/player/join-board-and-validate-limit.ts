@@ -10,16 +10,17 @@ export const joinBoardAndValidateLimit = validator({
   input: z.object({
     boardId: z.string().uuid(),
     user: userSchema,
+    nickname: z.string(),
   }),
-  handler: async ({ boardId, user }) => {
+  handler: async ({ boardId, user, nickname }) => {
     await validateBoardLimit({ boardId: boardId });
 
     return await db.player.create({
       data: {
-        name: user.name,
         imageUrl: user.image,
         email: user.email,
         boardId: boardId,
+        nickname: nickname,
       },
     });
   },

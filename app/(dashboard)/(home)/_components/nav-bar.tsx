@@ -20,7 +20,7 @@ export function NavBar() {
             <span
               className={cn(
                 "hidden sm:block font-bold text-lg",
-                poppins.className
+                poppins.className,
               )}
             >
               Pontim

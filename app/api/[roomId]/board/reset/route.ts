@@ -20,7 +20,7 @@ export async function POST(request: Request) {
     if (!result.count)
       return Response.json(
         { message: "Error while reseting board" },
-        { status: 404 }
+        { status: 404 },
       );
 
     return Response.json({ message: "Succefully reset the board" });

@@ -36,7 +36,7 @@ export function DashboardFilters() {
             <Star
               className={cn(
                 "h-4 w-4 ",
-                favorites && "text-yellow-500 fill-yellow-500"
+                favorites && "text-yellow-500 fill-yellow-500",
               )}
             />
             <span className="hidden sm:block sm:ml-2">Favoritos</span>

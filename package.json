@@ -1,14 +1,16 @@
 {
   "name": "pontim",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "postinstall": "npx prisma generate",
-    "db:push": "npx prisma db push"
+    "db:generate": "npx prisma generate",
+    "postinstall": "npm run db:generate",
+    "db:push": "npx prisma db push",
+    "db:deploy": "npx prisma migrate deploy"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.3.4",
@@ -49,7 +51,10 @@
     "autoprefixer": "^10.0.1",
     "eslint": "^8",
     "eslint-config-next": "14.1.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.2.1",
     "postcss": "^8",
+    "prettier": "^3.3.3",
     "tailwindcss": "^3.3.0",
     "typescript": "^5"
   }

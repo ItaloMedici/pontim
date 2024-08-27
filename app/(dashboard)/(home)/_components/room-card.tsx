@@ -28,7 +28,7 @@ export function RoomCard({ room }: { room: Room }) {
   });
 
   const onFavoriteClick = (
-    event: React.MouseEvent<HTMLButtonElement, MouseEvent>
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
   ) => {
     event.stopPropagation();
     event.preventDefault();
@@ -68,7 +68,7 @@ export function RoomCard({ room }: { room: Room }) {
       <button
         className={cn(
           "absolute top-1 left-1 transition-opacity outline-none bg-black/10 px-2 py-2 rounded-sm",
-          !room.favorite && "opacity-0 group-hover:opacity-100 bg-black/25"
+          !room.favorite && "opacity-0 group-hover:opacity-100 bg-black/25",
         )}
         onClick={onFavoriteClick}
         disabled={isPending}
@@ -76,7 +76,7 @@ export function RoomCard({ room }: { room: Room }) {
         <Star
           className={cn(
             "text-white w-4 h-4",
-            room.favorite && "fill-yellow-500 text-yellow-500"
+            room.favorite && "fill-yellow-500 text-yellow-500",
           )}
         />
       </button>

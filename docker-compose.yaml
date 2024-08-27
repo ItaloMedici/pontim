@@ -10,6 +10,6 @@ services:
       - pontim_db:/bitnami/postgresql
     ports:
       - "5432:5432"
- 
+
 volumes:
   pontim_db:

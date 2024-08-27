@@ -1,7 +1,7 @@
 export const buildInviteUrl = (
   roomId: string,
   origin: string,
-  date = Date.now()
+  date = Date.now(),
 ) => {
   const url = new URL(`${origin}/invite`);
 

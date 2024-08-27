@@ -22,6 +22,7 @@ model Room {
 model UserRoom {
   id        String   @id @default(uuid())
   userEmail String
+  nickname  String?
   roomId    String
   room      Room     @relation(fields: [roomId], references: [id], onDelete: Cascade)
   favorite  Boolean?
@@ -40,12 +41,13 @@ model Board {
   room   Room    @relation(fields: [roomId], references: [id], onDelete: Cascade)
   reveal Boolean @default(false)
 
-  Player Player[]
+  Player       Player[]
+  Notification Notification[]
 }
 
 model Player {
   id        String   @id @default(uuid())
-  name      String
+  nickname  String
   imageUrl  String?
   email     String
   choice    String?
@@ -53,5 +55,18 @@ model Player {
   board     Board    @relation(fields: [boardId], references: [id], onDelete: Cascade)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  notified  String?
+
+  senderNotification Notification[] @relation("sender")
+  targetNotification Notification[] @relation("target")
+}
+
+model Notification {
+  id       String @id @default(uuid())
+  targetId String
+  target   Player @relation("target", fields: [targetId], references: [id])
+  senderId String
+  sender   Player @relation("sender", fields: [senderId], references: [id])
+  boardId  String
+  board    Board  @relation(fields: [boardId], references: [id], onDelete: Cascade)
+  sound    String
 }

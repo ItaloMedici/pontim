@@ -22,8 +22,6 @@ export const handleInvite = async (code: string) => {
     .split(":")
     .filter((part) => !invalidMap[part]);
 
-  console.log(roomId, createdAt);
-
   if (!roomId || !createdAt) {
     throw new Error("Invalid invite code");
   }
@@ -33,8 +31,6 @@ export const handleInvite = async (code: string) => {
   if (isExperired) {
     throw new Error("Invite code has expired");
   }
-
-  console.log(roomId);
 
   const room = await getRoom({ roomId });
 

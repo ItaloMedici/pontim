@@ -7,7 +7,7 @@ interface RoomIdPageProps {
   };
 }
 
-function RoomIdPage({ params: { roomId } }: RoomIdPageProps) {
+async function RoomPage({ params: { roomId } }: RoomIdPageProps) {
   return (
     <Room roomId={roomId}>
       <Board />
@@ -15,4 +15,4 @@ function RoomIdPage({ params: { roomId } }: RoomIdPageProps) {
   );
 }
 
-export default RoomIdPage;
+export default RoomPage;
