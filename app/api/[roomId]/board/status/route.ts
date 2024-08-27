@@ -58,6 +58,10 @@ export async function GET(
       });
     }
 
+    if (!player) {
+      return Response.json({ message: "Player not found" }, { status: 404 });
+    }
+
     const others = await getOthersPlayersOnBoard({
       boardId: board.id,
       userPlayerId: player.id,
@@ -103,10 +107,10 @@ export async function GET(
           sound: notification.sound,
           target: notification.target.nickname,
           sender:
-            notification.sender.id === player.id
+            notification.sender.id === player?.id
               ? "Você"
               : notification.sender.nickname,
-          isSelf: notification.target.id === player.id,
+          isSelf: notification.target.id === player?.id,
         }) as BoardStatusNotification,
     );
 

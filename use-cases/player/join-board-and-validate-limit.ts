@@ -17,7 +17,6 @@ export const joinBoardAndValidateLimit = validator({
 
     return await db.player.create({
       data: {
-        name: user.name,
         imageUrl: user.image,
         email: user.email,
         boardId: boardId,
