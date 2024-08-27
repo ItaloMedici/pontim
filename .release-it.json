@@ -7,10 +7,7 @@
   },
   "github": {
     "release": true,
-    "releaseName": "v${version}",
-    "releaseNotes": {
-      "filePath": "CHANGELOG.md"
-    }
+    "releaseName": "v${version}"
   },
   "npm": {
     "publish": false
