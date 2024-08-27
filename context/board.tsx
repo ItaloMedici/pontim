@@ -161,6 +161,15 @@ export const BoardProvider = ({
     toast.error(error);
   }
 
+  if (boardStatus?.firstTime && !boardStatus?.self?.nickname) {
+    return (
+      <Fragment>
+        <NicknameDialogForm roomId={roomId} />
+        <LoadingLogo />
+      </Fragment>
+    );
+  }
+
   if (!boardStatus?.self || isLoading) {
     return <LoadingLogo />;
   }

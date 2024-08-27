@@ -11,7 +11,6 @@ export const authOptions: AuthOptions = {
   ],
   pages: {
     signIn: "/login",
-    newUser: "/onboarding",
   },
   callbacks: {
     async jwt({ token, account }) {

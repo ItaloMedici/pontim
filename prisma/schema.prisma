@@ -22,6 +22,7 @@ model Room {
 model UserRoom {
   id        String   @id @default(uuid())
   userEmail String
+  nickname  String?
   roomId    String
   room      Room     @relation(fields: [roomId], references: [id], onDelete: Cascade)
   favorite  Boolean?
@@ -45,7 +46,7 @@ model Board {
 
 model Player {
   id        String   @id @default(uuid())
-  name      String
+  nickname  String
   imageUrl  String?
   email     String
   choice    String?
