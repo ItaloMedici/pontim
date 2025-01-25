@@ -1,4 +1,4 @@
-import { NumericCard } from "@/components/card/numeric-card";
+import { NumberCard } from "@/components/number-cards";
 import { useBoard } from "@/context/board";
 import { Player } from "@/lib/schemas/player";
 import { PlayerNotificationPopup } from "./player-notification-popup";
@@ -15,21 +15,10 @@ export const PlayerCard = ({ player }: PlayerCardProps) => {
   return (
     <>
       {isSelf ? (
-        <NumericCard
-          value={selfChoice}
-          color={selfChoice ? "primary" : "gray"}
-          size={"large"}
-          label={"Você"}
-        />
+        <NumberCard value={selfChoice} player={self} reveal={true} isSelf />
       ) : (
         <PlayerNotificationPopup player={player}>
-          <NumericCard
-            value={reveal ? player.choice : undefined}
-            color={reveal && player.choice ? "primary" : "gray"}
-            bgColor={reveal ? "white" : player.choice ? "primary" : "gray"}
-            size={"large"}
-            label={player.nickname}
-          />
+          <NumberCard value={player.choice} player={player} reveal={reveal} />
         </PlayerNotificationPopup>
       )}
     </>

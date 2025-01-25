@@ -23,35 +23,47 @@ export const UserButton = () => {
       .join("");
 
   return (
-    <div>
-      <Popover>
-        <PopoverTrigger aria-label="Perfil do usuário">
-          <Avatar className="outline outline-2 mt-[6px] outline-offset-2 outline-sky-500">
-            <AvatarImage src={user.image} aria-label="Imagem de perfil" />
-            <AvatarFallback>{fallback()}</AvatarFallback>
-          </Avatar>
-        </PopoverTrigger>
-        <PopoverContent align="end" sideOffset={10}>
-          <div className="p-2">
-            <div className="flex items-center space-x-4">
-              <Avatar>
-                <AvatarImage src={user.image} aria-label="Imagem de perfil" />
-                <AvatarFallback>{fallback()}</AvatarFallback>
-              </Avatar>
-              <div>
-                <div className="font-sm font-medium">{user.name}</div>
-                <div className="text-xs text-gray-500">{user.email}</div>
-              </div>
-            </div>
-            <div className="mt-6">
-              <Button variant="outline" size={"sm"} onClick={() => signOut()}>
-                <LogOutIcon className="w-4 h-4 mr-2" />
-                Sair
-              </Button>
+    <Popover>
+      <PopoverTrigger aria-label="Perfil do usuário">
+        <Avatar>
+          <AvatarImage
+            src={user.image}
+            width={32}
+            height={32}
+            aria-label="Imagem de perfil"
+          />
+          <AvatarFallback>{fallback()}</AvatarFallback>
+        </Avatar>
+      </PopoverTrigger>
+      <PopoverContent align="end" sideOffset={10}>
+        <div className="p-2">
+          <div className="flex items-center space-x-4">
+            <Avatar>
+              <AvatarImage
+                src={user.image}
+                width={32}
+                height={32}
+                aria-label="Imagem de perfil"
+              />
+              <AvatarFallback>{fallback()}</AvatarFallback>
+            </Avatar>
+            <div>
+              <div className="font-sm font-medium">{user.name}</div>
+              <div className="text-xs text-gray-500">{user.email}</div>
             </div>
           </div>
-        </PopoverContent>
-      </Popover>
-    </div>
+          <div className="mt-6">
+            <Button
+              variant="outline"
+              size={"sm"}
+              onClick={() => signOut({ callbackUrl: "/" })}
+            >
+              <LogOutIcon className="w-4 h-4 mr-2" />
+              Sair
+            </Button>
+          </div>
+        </div>
+      </PopoverContent>
+    </Popover>
   );
 };

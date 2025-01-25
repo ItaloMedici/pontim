@@ -17,7 +17,7 @@ export const Deck = () => {
   const players = [self, ...formatedOthers];
 
   return (
-    <div className="flex flex-row flex-wrap gap-4 md:gap-8 items-center justify-center max-w-md">
+    <div className="flex flex-row flex-wrap gap-4 items-center justify-center max-w-lg">
       {players.map((player) => (
         <PlayerCard key={player.id} player={player} />
       ))}
