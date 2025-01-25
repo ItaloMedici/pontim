@@ -37,6 +37,15 @@ const post = <T,>(url: string, body?: any) =>
     });
   });
 
+const put = <T,>(url: string, body?: any) =>
+  createHttpHandler<T>(async () => {
+    return await fetch(`/api/${url}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: body ? JSON.stringify(body) : null,
+    });
+  });
+
 const _delete = <T,>(url: string, body?: any) => {
   return createHttpHandler<T>(async () => {
     return await fetch(`/api/${url}`, {
@@ -50,6 +59,7 @@ const _delete = <T,>(url: string, body?: any) => {
 export const http = {
   get,
   post,
+  put,
   delete: _delete,
 };
 

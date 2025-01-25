@@ -1,7 +1,6 @@
-import { NicknameDialogForm } from "@/app/(dashboard)/room/[roomId]/_components/nickname-dialog-form";
 import { LoadingLogo } from "@/components/loading-logo/loading";
 import { toast } from "@/components/toast";
-import { fetcher, http } from "@/lib/api";
+import { http } from "@/lib/api";
 import { Player } from "@/lib/schemas/player";
 import {
   notificationIcons,
@@ -15,7 +14,6 @@ import { EnumNotification } from "@/types/notifications";
 import { fibonacciChoiceOptions } from "@/use-cases/board/choice-options";
 import {
   createContext,
-  Fragment,
   ReactNode,
   useCallback,
   useContext,
@@ -23,7 +21,6 @@ import {
   useRef,
   useState,
 } from "react";
-import useSWR from "swr";
 
 type BoardContextProps = {
   roomId: string;
@@ -35,6 +32,7 @@ type BoardContextProps = {
   totalPlayers: number;
   totalChoices: number;
   average: number;
+  agreementPercentage: number;
   handleChoice: (choice: string) => Promise<void>;
   handleRevealCards: () => Promise<void>;
   handleReset: () => Promise<void>;
@@ -42,6 +40,7 @@ type BoardContextProps = {
     playerId: string,
     notification?: EnumNotification,
   ) => Promise<void>;
+  handleLeave: () => Promise<void>;
 };
 
 export const BoardContext = createContext<BoardContextProps>(
@@ -59,30 +58,89 @@ export const BoardProvider = ({
   roomId: string;
   children: ReactNode;
 }) => {
-  const {
-    data: boardStatus,
-    error,
-    isLoading,
-  } = useSWR<BoardStatus>(`/api/${roomId}/board/status`, fetcher, {
-    refreshInterval: 1000,
-  });
-
-  const othersPrev = useRef(boardStatus?.others);
-  const [selfChoice, setSelfChoice] = useState(boardStatus?.self?.choice);
-  const selfId = useRef(boardStatus?.self?.id);
-
+  const [boardStatus, setBoardStatus] = useState<BoardStatus>();
+  const [error, setError] = useState<string>();
+  const [isLoading, setIsLoading] = useState(true);
+  const [selfChoice, setSelfChoice] = useState("");
   const [revealOptimistc, setRevealOptimistc] = useState(
     boardStatus?.reveal || false,
   );
 
+  const othersPrev = useRef(boardStatus?.others);
+  const selfId = useRef(boardStatus?.self?.id);
   const isFirstRender = useRef(true);
+  const seenNotifications = useRef<string[]>([]);
+  const boardSnapshot = useRef<string>();
+  const closeEventSource = useRef<() => void>();
+
+  const joinBoard = async () => {
+    try {
+      const board = await http.put<BoardStatus>(`/${roomId}/board/join`);
+      setBoardStatus(board as BoardStatus);
+      return board;
+    } catch (error: any) {
+      setError(error.message);
+    }
+  };
+
+  const subscribeToBoardStatus = useCallback(async () => {
+    const board = await joinBoard();
+
+    if (!board?.self) return;
+
+    const eventSource = new EventSource(
+      `/api/${roomId}/board/status-sse?playerId=${board.self.id}`,
+    );
+
+    closeEventSource.current = () => eventSource.close();
+
+    eventSource.onmessage = (event) => {
+      const data = JSON.parse(event.data) as BoardStatus;
+
+      if (boardSnapshot.current !== JSON.stringify(data)) {
+        boardSnapshot.current = JSON.stringify(data);
+
+        setBoardStatus(data);
+
+        if (!selfChoice && typeof data?.self?.choice === "string") {
+          console.log("Setting self choice", data.self.choice);
+          setSelfChoice(data.self.choice);
+        }
+
+        if (typeof data?.reveal === "boolean") {
+          setRevealOptimistc(data.reveal);
+        }
+
+        selfId.current = data?.self?.id;
+      }
+
+      if (isLoading) setIsLoading(false);
+    };
+
+    eventSource.onerror = (event) => {
+      console.error("SSE connection failed.", event);
+      eventSource.close();
+    };
+  }, []);
+
+  const unsubscribeToBoardStatus = useCallback(() => {
+    closeEventSource.current?.();
+  }, []);
 
   useEffect(() => {
-    if (!boardStatus?.others?.length) return;
+    subscribeToBoardStatus();
 
-    if (isFirstRender.current && boardStatus?.others?.length) {
+    return () => {
+      unsubscribeToBoardStatus();
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!boardStatus?.boardId) return;
+
+    if (isFirstRender.current) {
       isFirstRender.current = false;
-      othersPrev.current = boardStatus?.others;
+      othersPrev.current = boardStatus?.others ?? [];
       return;
     }
 
@@ -109,18 +167,11 @@ export const BoardProvider = ({
     }
 
     othersPrev.current = boardStatus?.others;
-  }, [boardStatus?.others]);
-
-  useEffect(() => {
-    setSelfChoice(boardStatus?.self?.choice);
-    setRevealOptimistc(boardStatus?.reveal || false);
-
-    if (selfId.current === boardStatus?.self?.id) return;
-
-    selfId.current = boardStatus?.self?.id;
-  }, [boardStatus?.self]);
+  }, [boardStatus?.others, boardStatus?.boardId]);
 
   const leaveBoard = useCallback(async () => {
+    unsubscribeToBoardStatus();
+
     await http.post(`/${roomId}/board/leave`, {
       playerId: selfId.current,
     });
@@ -128,7 +179,7 @@ export const BoardProvider = ({
 
   useEffect(() => {
     return () => {
-      leaveBoard();
+      seenNotifications.current = [];
     };
   }, []);
 
@@ -169,6 +220,9 @@ export const BoardProvider = ({
         return;
       }
 
+      if (seenNotifications.current.includes(notification.id)) return;
+      seenNotifications.current.push(notification.id);
+
       const soundMessage =
         notificationMessageThirdPerson[notification.sound as EnumNotification];
 
@@ -185,51 +239,71 @@ export const BoardProvider = ({
     toast.error(error);
   }
 
-  if (boardStatus?.firstTime && !boardStatus?.self?.nickname) {
-    return (
-      <Fragment>
-        <NicknameDialogForm roomId={roomId} />
-        <LoadingLogo />
-      </Fragment>
-    );
-  }
-
   if (!boardStatus?.self || isLoading) {
     return <LoadingLogo />;
   }
 
   const handleChoice = async (choice: string) => {
     if (!boardStatus.self) return;
-
-    await http.post<Player>(`/${roomId}/make-choice`, {
-      playerId: boardStatus.self.id,
-      choice,
-    });
-
     setSelfChoice(choice);
+
+    const updatedStatus = await http.post<BoardStatus>(
+      `/${roomId}/board/make-choice`,
+      {
+        playerId: boardStatus.self.id,
+        choice,
+      },
+    );
+
+    if (updatedStatus) setBoardStatus(updatedStatus);
   };
 
   const handleRevealCards = async () => {
-    await http.post(`/${roomId}/board/reveal`);
     setRevealOptimistc((prev) => !prev);
+
+    const updatedStatus = await http.post<BoardStatus>(
+      `/${roomId}/board/reveal?playerId=${boardStatus.self?.id}`,
+    );
+
+    if (updatedStatus) setBoardStatus(updatedStatus);
   };
 
   const handleReset = async () => {
-    await http.post(`/${roomId}/board/reset`, {
-      boardId: boardStatus.boardId,
+    setSelfChoice("");
+    setBoardStatus((prev) => {
+      return {
+        ...prev,
+        others: prev?.others?.map((player) => ({
+          ...player,
+          choice: null,
+        })),
+      } as BoardStatus;
     });
+
+    const updatedStatus = await http.post<BoardStatus>(
+      `/${roomId}/board/reset`,
+      {
+        boardId: boardStatus.boardId,
+        playerId: boardStatus.self?.id,
+      },
+    );
+    if (updatedStatus) setBoardStatus(updatedStatus);
   };
 
   const handleNotifyPlayer = async (
     playerId: string,
     notification?: EnumNotification,
   ) => {
-    await http.post(`/${roomId}/board/notification`, {
-      targetId: playerId,
-      senderId: boardStatus.self?.id,
-      boardId: boardStatus.boardId,
-      notification,
-    });
+    const updatedStatus = await http.post<BoardStatus>(
+      `/${roomId}/board/notification`,
+      {
+        targetId: playerId,
+        senderId: boardStatus.self?.id,
+        boardId: boardStatus.boardId,
+        notification,
+      },
+    );
+    if (updatedStatus) setBoardStatus(updatedStatus);
   };
 
   return (
@@ -244,6 +318,7 @@ export const BoardProvider = ({
         handleRevealCards,
         handleReset,
         handleNotifyPlayer,
+        handleLeave: leaveBoard,
       }}
     >
       {children}

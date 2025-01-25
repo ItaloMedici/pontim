@@ -1,6 +1,10 @@
+import { getBoardStatus } from "@/use-cases/board/get-board-status";
 import { makeChoice } from "@/use-cases/player/make-choice";
 
-export async function POST(request: Request) {
+export async function POST(
+  request: Request,
+  { params }: { params: { roomId: string } },
+) {
   try {
     const { choice, playerId } = await request.json();
 
@@ -17,7 +21,9 @@ export async function POST(request: Request) {
 
     await makeChoice({ playerId, choice });
 
-    return Response.json({ message: "Choice made" });
+    const status = await getBoardStatus({ roomId: params.roomId, playerId });
+
+    return Response.json(status);
   } catch (error: any) {
     console.error(error);
     return Response.json({ message: error?.message }, { status: 500 });

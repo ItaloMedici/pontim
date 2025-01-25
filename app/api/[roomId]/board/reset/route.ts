@@ -1,9 +1,13 @@
+import { getBoardStatus } from "@/use-cases/board/get-board-status";
 import { resetBoard } from "@/use-cases/board/reset-board";
 import { getServerSession } from "next-auth";
 
-export async function POST(request: Request) {
+export async function POST(
+  request: Request,
+  { params }: { params: { roomId: string } },
+) {
   try {
-    const { boardId } = await request.json();
+    const { boardId, playerId } = await request.json();
 
     const session = await getServerSession();
 
@@ -23,7 +27,12 @@ export async function POST(request: Request) {
         { status: 404 },
       );
 
-    return Response.json({ message: "Succefully reset the board" });
+    const status = await getBoardStatus({
+      roomId: params.roomId,
+      playerId,
+    });
+
+    return Response.json(status);
   } catch (error: any) {
     console.error(error);
     return Response.json({ message: error?.message }, { status: 500 });

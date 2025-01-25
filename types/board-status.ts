@@ -9,6 +9,7 @@ export type BoardStatus = {
   totalPlayers?: number;
   totalChoices?: number;
   average?: number;
+  agreementPercentage?: number;
 
   firstTime?: boolean;
 

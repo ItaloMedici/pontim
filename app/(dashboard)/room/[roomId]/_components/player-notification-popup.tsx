@@ -18,8 +18,10 @@ export function PlayerNotificationPopup({
   children: ReactNode;
   player: Player;
 }) {
-  const { handleNotifyPlayer } = useBoard();
+  const { handleNotifyPlayer, reveal } = useBoard();
   const [open, setOpen] = useState(false);
+
+  if (reveal) return <>{children}</>;
 
   const onNotifificationClick = (notification: EnumNotification) => {
     setOpen(false);
@@ -36,9 +38,9 @@ export function PlayerNotificationPopup({
       >
         <div
           className={cn(
-            "before:absolute before:top-1/2 before:-translate-x-1/2 before:-translate-y-full before:z-10 before:scale-0 before:hover:scale-100 before:transition-transform relative",
+            "before:absolute before:top-[50%] before:left-[50%] before:translate-x-[-50%] before:translate-y-[-50%] before:z-10 before:scale-0 before:hover:scale-100 before:transition-transform relative before:rounded-full before:w-8 before:h-8 before:flex before:items-center before:justify-center",
             {
-              "before:content-['🔉']": !player.choice,
+              "before:content-['🔉'] before:bg-gray-50": !player.choice,
               "before:scale-100": open,
             },
           )}
