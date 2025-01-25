@@ -1,4 +1,15 @@
+# Changelog
 
+# [0.6.0](https://github.com/ItaloMedici/pontim/compare/v0.5.1...v0.6.0) (2025-01-25)
+
+
+### Features
+
+* create board status with server sent events ([8e2eff9](https://github.com/ItaloMedici/pontim/commit/8e2eff9d51312774e77c69ce758018dac62a0d84))
+* create join board endoint ([b72f193](https://github.com/ItaloMedici/pontim/commit/b72f193e3cca3b5a1c3153f0258a6866c0a864f5))
+* extract validation from join board ([87d9e7c](https://github.com/ItaloMedici/pontim/commit/87d9e7c79ee6142d67b9bd37415b09bf4c8ae03e))
+* **rebranding:** create marketing page and update logo ([bdd9a44](https://github.com/ItaloMedici/pontim/commit/bdd9a44efff1ab845bf9b1946817b4dfa9441fc1))
+* **rebranding:** improve board ui ([4837fee](https://github.com/ItaloMedici/pontim/commit/4837fee9f5959e7595fe87dbdc59ac920d6c76b1))
 
 ## [0.5.1](https://github.com/ItaloMedici/pontim/compare/v0.5.0...v0.5.1) (2024-08-27)
 
