@@ -1,7 +1,11 @@
+import { getBoardStatus } from "@/use-cases/board/get-board-status";
 import { deleteNotification } from "@/use-cases/notification/delete-notification";
 import { sendNotification } from "@/use-cases/notification/send-notification";
 
-export async function POST(request: Request) {
+export async function POST(
+  request: Request,
+  { params }: { params: { roomId: string } },
+) {
   try {
     const { senderId, targetId, boardId, notification } = await request.json();
 
@@ -12,7 +16,12 @@ export async function POST(request: Request) {
       sound: notification,
     });
 
-    return Response.json({ message: "Succefully send notification to board" });
+    const status = await getBoardStatus({
+      roomId: params.roomId,
+      playerId: senderId,
+    });
+
+    return Response.json(status);
   } catch (error: any) {
     console.error(error);
     return Response.json({ message: error?.message }, { status: 500 });
