@@ -1,8 +1,9 @@
+import { getBoardStatus } from "@/use-cases/board/get-board-status";
 import { toggleRevealBoard } from "@/use-cases/board/revel-board";
-import { revalidatePath } from "next/cache";
+import { NextRequest } from "next/server";
 
 export async function POST(
-  _: Request,
+  req: NextRequest,
   { params }: { params: { roomId: string } },
 ) {
   try {
@@ -12,11 +13,18 @@ export async function POST(
       return Response.json({ message: "Invalid input" }, { status: 400 });
     }
 
+    const searchParams = req.nextUrl.searchParams;
+    const playerId = searchParams.get("playerId");
+
+    if (!playerId) {
+      return Response.json({ message: "Invalid input" }, { status: 400 });
+    }
+
     await toggleRevealBoard({ roomId });
 
-    revalidatePath(`/room/${roomId}`);
+    const status = await getBoardStatus({ roomId, playerId });
 
-    return Response.json({ message: "Board updated" });
+    return Response.json(status);
   } catch (error: any) {
     console.error(error);
     return Response.json({ message: error?.message }, { status: 500 });

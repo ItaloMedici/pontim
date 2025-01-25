@@ -1,4 +1,3 @@
-import { NumericCard } from "@/components/card/numeric-card";
 import { useBoard } from "@/context/board";
 import { cn } from "@/lib/utils";
 
@@ -10,23 +9,25 @@ export const CardsPicker = () => {
   return (
     <div className="flex flex-col items-center justify-center flex-wrap gap-6">
       <span className="text-gray-500 text-sm">Escolha uma carta: 👇</span>
-      <div className="flex flex-wrap items-center justify-center gap-4">
+      <div className="flex flex-wrap items-center justify-center gap-1 p-1 bg-gray-200 rounded-md">
         {choiceOptions.map((option) => (
-          <div
-            role="presentation"
+          <button
+            role="button"
             key={option.value}
-            className={cn(
-              "cursor-pointer hover:-translate-y-2 transition-transform",
-              { "-translate-y-2": isSelfOption(option.value) },
-            )}
+            className={"[all:unset]"}
             onClick={() => handleChoice(option.value)}
           >
-            <NumericCard
-              value={option.label}
-              size={"large"}
-              color={isSelfOption(option.value) ? "primary" : "gray"}
-            />
-          </div>
+            <div
+              className={cn(
+                "cursor-pointer w-[48px] h-[54px] bg-gray-50 border border-gray-200 text-sm text-gray-600 flex items-center justify-center  hover:bg-gray-100 transition-colors rounded-md",
+                {
+                  "outline outline-gray-950 ": isSelfOption(option.value),
+                },
+              )}
+            >
+              {option.label}
+            </div>
+          </button>
         ))}
       </div>
     </div>

@@ -1,6 +1,6 @@
 {
   "name": "pontim",
-  "version": "0.5.1",
+  "version": "0.6.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -27,6 +27,7 @@
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
     "date-fns": "^3.3.1",
+    "framer-motion": "^11.9.0",
     "lodash.debounce": "^4.0.8",
     "lucide-react": "^0.323.0",
     "next": "^14.2.4",

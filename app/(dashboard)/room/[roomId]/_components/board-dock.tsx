@@ -1,90 +1,104 @@
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { useBoard } from "@/context/board";
 import { useIsMobile } from "@/hooks/use-is-mobile";
-import { cn } from "@/lib/utils";
+import { Eraser, EyeIcon, EyeOffIcon, RotateCcw } from "lucide-react";
 
-const MAX_AVATAR_DISPLAY_DESKTOP = 5;
-const MAX_AVATAR_DISPLAY_MOBILE = 2;
+const ICON_SIZE = 16;
 
 export const BoardDock = () => {
-  const { others, self, handleRevealCards, reveal, handleReset } = useBoard();
+  const {
+    others,
+    handleRevealCards,
+    reveal,
+    handleReset,
+    average,
+    agreementPercentage,
+  } = useBoard();
   const isMobile = useIsMobile();
 
   if (!others.length) {
     return null;
   }
 
-  const onRevealClick = () => {
+  const onResetClick = () => {
     if (reveal) {
-      handleReset();
+      handleRevealCards();
     }
-    handleRevealCards();
+
+    handleReset();
   };
 
-  const playersAvatar = () => {
-    let avatarList = [self, ...others].map((player) => ({
-      key: player.id,
-      name: player.nickname
-        .toUpperCase()
-        .split(" ")
-        .map((name) => name[0])
-        .slice(0, 2)
-        .join(""),
-      imagemLabel: `Imagem de perfil do jogador ${player.nickname}`,
-      imageUrl: player.imageUrl ?? undefined,
-    }));
-
-    const maxAvatarDisplay = isMobile
-      ? MAX_AVATAR_DISPLAY_MOBILE
-      : MAX_AVATAR_DISPLAY_DESKTOP;
-
-    if (avatarList.length > maxAvatarDisplay) {
-      avatarList = avatarList.slice(0, maxAvatarDisplay);
-
-      avatarList.push({
-        name: `+${others.length - maxAvatarDisplay + 1}`,
-        imageUrl: undefined,
-        key: "more",
-        imagemLabel: "Mais jogadores",
-      });
+  const agreementIcon = () => {
+    if (agreementPercentage === 95) {
+      return "🤩";
     }
 
+    if (agreementPercentage >= 75) {
+      return "😍";
+    }
+
+    if (agreementPercentage >= 50) {
+      return "🤔";
+    }
+
+    if (agreementPercentage >= 25) {
+      return "😐";
+    }
+
+    return "🤨";
+  };
+
+  const ResultDesktop = () => {
+    if (!reveal || isMobile) return null;
+
     return (
-      <div className="flex items-center gap-[-4px]">
-        {avatarList.map((player, index) => (
-          <Avatar
-            key={player.key}
-            className={cn("border-2 border-white", {
-              "-ml-2": index > 0,
-            })}
-          >
-            <AvatarImage
-              src={player.imageUrl ?? undefined}
-              aria-label={player.imagemLabel}
-            />
-            <AvatarFallback className="text-xs bg-gradient-to-tr from-sky-300 to-gray-300 ">
-              {player.name}
-            </AvatarFallback>
-          </Avatar>
-        ))}
+      <div className="flex items-center gap-2 bg-white p-1 rounded-md border border-gray-200 font-medium">
+        <span className="text-md mr-2">{agreementIcon()}</span>
+        <span className="text-xs text-gray-500">Média:</span>
+        <span className="text-sm text-gray-800">{average}</span>
+        <span className="text-xs text-gray-500">Concordância:</span>
+        <span className="text-sm text-gray-800">{agreementPercentage}%</span>
+      </div>
+    );
+  };
+
+  const ResultMobile = () => {
+    if (!reveal || !isMobile) return null;
+
+    return (
+      <div className="flex items-center w-fit gap-2 bg-white p-2 rounded-lg border border-gray-200">
+        <span className="text-md mr-2">{agreementIcon()}</span>
+        <span className="text-sm text-gray-500">Média:</span>
+        <span className="text-sm text-gray-800">{average}</span>
+        <span className="text-sm text-gray-500">Concordância:</span>
+        <span className="text-sm text-gray-800">{agreementPercentage}%</span>
       </div>
     );
   };
 
   return (
-    <div className=" border border-gray-200 p-2 rounded-xl flex items-center justify-between gap-2">
-      <Button onClick={onRevealClick} size={"sm"}>
-        {reveal ? "Iniciar outro jogo" : "Revelar cartas 👀"}
-      </Button>
+    <div className="flex flex-col gap-4 items-center">
+      <div className="border bg-gray-50 border-gray-200 p-[6px] rounded-lg flex items-center justify-between gap-[6px]">
+        <Button onClick={handleRevealCards} size={"sm"} variant={"outline"}>
+          {reveal ? (
+            <EyeOffIcon size={ICON_SIZE} />
+          ) : (
+            <EyeIcon size={ICON_SIZE} />
+          )}{" "}
+          {reveal ? "Esconder" : "Revelar"}
+        </Button>
 
-      <Button variant={"ghost"} onClick={handleReset} size={"sm"}>
-        Limpar
-      </Button>
+        <Button onClick={onResetClick} size={"sm"} variant={"outline"}>
+          <RotateCcw size={ICON_SIZE} /> Reiniciar
+        </Button>
 
-      <hr className="w-[1px] border-l border-gray-200 h-full" />
+        <Button variant={"ghost"} onClick={handleReset} size={"sm"}>
+          <Eraser size={ICON_SIZE} /> Limpar
+        </Button>
 
-      {playersAvatar()}
+        <ResultDesktop />
+      </div>
+      <ResultMobile />
     </div>
   );
 };

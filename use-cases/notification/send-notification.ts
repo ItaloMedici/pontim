@@ -12,12 +12,6 @@ export const sendNotification = validator({
     sound: z.string(),
   }),
   handler: async ({ senderId, targetId, sound, boardId }) => {
-    console.log({
-      senderId,
-      targetId,
-      sound,
-      boardId,
-    });
     return await db.notification.create({
       data: {
         senderId,
