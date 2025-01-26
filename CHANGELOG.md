@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.6.1](https://github.com/ItaloMedici/pontim/compare/v0.6.0...v0.6.1) (2025-01-26)
+
+
+### Bug Fixes
+
+* adjust prisma binary ([2d57aa8](https://github.com/ItaloMedici/pontim/commit/2d57aa8985346bc31727f11a6765fe466ccaf900))
+
 # [0.6.0](https://github.com/ItaloMedici/pontim/compare/v0.5.1...v0.6.0) (2025-01-25)
 
 
