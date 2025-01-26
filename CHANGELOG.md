@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.6.2](https://github.com/ItaloMedici/pontim/compare/v0.6.1...v0.6.2) (2025-01-26)
+
+
+### Bug Fixes
+
+* adjust linux plataform ([80e8e40](https://github.com/ItaloMedici/pontim/commit/80e8e401dc96c8bc03026ff70d31588c4855a5f3))
+
 ## [0.6.1](https://github.com/ItaloMedici/pontim/compare/v0.6.0...v0.6.1) (2025-01-26)
 
 
