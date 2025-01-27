@@ -47,6 +47,7 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+          platforms: linux/amd64,linux/arm64
           secrets: |
             "NEXTAUTH_URL=${{ secrets.NEXTAUTH_URL }}"
             "NEXTAUTH_SECRET=${{ secrets.NEXTAUTH_SECRET }}"
