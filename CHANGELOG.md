@@ -1,5 +1,7 @@
 # Changelog
 
+## [0.6.3](https://github.com/ItaloMedici/pontim/compare/v0.6.2...v0.6.3) (2025-01-27)
+
 ## [0.6.2](https://github.com/ItaloMedici/pontim/compare/v0.6.1...v0.6.2) (2025-01-26)
 
 
