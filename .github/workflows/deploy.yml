@@ -1,12 +1,6 @@
 name: Deploy to EC2
 
-on:
-  workflow_run:
-    workflows:
-      - Build and Publish Docker Image
-    types:
-      - completed
-  workflow_dispatch:
+on: [workflow_call, workflow_dispatch]
 
 jobs:
   deploy:
@@ -28,7 +22,7 @@ jobs:
             sudo docker stop pontim || true
             sudo docker rm pontim || true
 
-            sudo docker run --platform linux/amd64 -d --name pontim -p 80:3000 ${{ secrets.DOCKER_IMAGE }}
+            sudo docker run --platform linux/arm64 -d --name pontim -p 80:3000 ${{ secrets.DOCKER_IMAGE }}
 
             sudo docker ps
             
