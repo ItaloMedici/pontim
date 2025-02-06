@@ -1,5 +1,5 @@
 import { createBoard } from "@/use-cases/board/create-board";
-import { getBoard } from "@/use-cases/board/get-board";
+import { getBoardByRoomId } from "@/use-cases/board/get-board-by-room";
 import { getBoardStatus } from "@/use-cases/board/get-board-status";
 import { canAddMorePlayersBoard } from "@/use-cases/board/validate-board-limit";
 import { getUserPlayer } from "@/use-cases/player/get-user-player";
@@ -28,10 +28,10 @@ export const PUT = async (
     const userRoom = await getUserRoom({ roomId, user: session.user });
 
     if (!userRoom) {
-      return Response.json({ message: "User not in room" }, { status: 403 });
+      return Response.json({ message: "Room not found" }, { status: 404 });
     }
 
-    let board = await getBoard({ roomId });
+    let board = await getBoardByRoomId({ roomId });
 
     if (!board) {
       board = await createBoard({ roomId });

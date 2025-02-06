@@ -14,6 +14,8 @@ export type BoardStatus = {
   firstTime?: boolean;
 
   notifications: Array<BoardStatusNotification>;
+
+  availableRounds?: number;
 };
 
 export type BoardStatusNotification = {
