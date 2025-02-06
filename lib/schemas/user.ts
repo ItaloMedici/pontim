@@ -1,3 +1,4 @@
+import { User as PrismaUser } from "@prisma/client";
 import { z } from "zod";
 
 export const userSchema = z.object({
@@ -6,4 +7,11 @@ export const userSchema = z.object({
   image: z.string().url().optional(),
 });
 
-export type User = z.infer<typeof userSchema>;
+export const userSchemaWithId = z.object({
+  email: z.string().email(),
+  name: z.string(),
+  image: z.string().url().optional(),
+  id: z.string(),
+});
+
+export type User = PrismaUser;
