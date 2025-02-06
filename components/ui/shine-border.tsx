@@ -1,16 +1,16 @@
-"use client"
+"use client";
 
-import { cn } from "@/lib/utils"
+import { cn } from "@/lib/utils";
 
-type TColorProp = string | string[]
+type TColorProp = string | string[];
 
 interface ShineBorderProps {
-  borderRadius?: number
-  borderWidth?: number
-  duration?: number
-  color?: TColorProp
-  className?: string
-  children: React.ReactNode
+  borderRadius?: number;
+  borderWidth?: number;
+  duration?: number;
+  color?: TColorProp;
+  className?: string;
+  children: React.ReactNode;
 }
 
 /**
@@ -57,5 +57,5 @@ export function ShineBorder({
       ></div>
       {children}
     </div>
-  )
+  );
 }

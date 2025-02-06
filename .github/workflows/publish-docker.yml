@@ -2,12 +2,11 @@ name: Create and publish a Docker image
 
 on:
   push:
-    branches: 
-      - 'main'
-    tags: 
-      - 'v*'
+    branches:
+      - "main"
+    tags:
+      - "v*"
   workflow_dispatch:
-
 
 env:
   REGISTRY: ghcr.io
@@ -54,7 +53,7 @@ jobs:
             "GOOGLE_CLIENT_ID=${{ secrets.GOOGLE_CLIENT_ID }}"
             "GOOGLE_CLIENT_SECRET=${{ secrets.GOOGLE_CLIENT_SECRET }}"
             "MAXIMUM_PLAYERS_PER_BOARD=${{ secrets.MAXIMUM_PLAYERS_PER_BOARD }}"
-      
+
       - name: Generate artifact attestation
         uses: actions/attest-build-provenance@v1
         with:
