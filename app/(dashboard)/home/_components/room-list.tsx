@@ -1,6 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+import { SearchParams } from "@/lib/consts";
 import { Room } from "@/lib/schemas/room";
 import { Plus } from "lucide-react";
 import Link from "next/link";
@@ -26,7 +27,10 @@ export function RoomList({ rooms }: { rooms: Room[] }) {
     return <RoomListSkeleton />;
   }
 
-  if (!rooms?.length && params?.size !== 0) {
+  const isFavorites = params?.get(SearchParams.FAVORITES);
+  const isSearching = params?.get(SearchParams.SEARCH);
+
+  if (!rooms?.length && (isFavorites || isSearching)) {
     return (
       <div className="flex items-center justify-center flex-col space-y-2">
         <span className="text-4xl">🧐</span>
@@ -61,7 +65,7 @@ export function RoomList({ rooms }: { rooms: Room[] }) {
       ))}
       <CreateRoomDialog
         trigger={
-          <button className="flex flex-col gap-2 bg-gray-50 w-[150px] min-h-[140px] border-2 border-dashed rounded-lg overflow-hidden hover:shadow-md transition-shadow items-center justify-center">
+          <button className="flex flex-col gap-2 bg-gray-50 w-[150px] min-h-[140px] border-2 border-dashed rounded-lg overflow-hidden hover:shadow-md transition-shadow items-center justify-center outline-none">
             <Plus className="h-4 w-4 text-muted-foreground" />
             <h2 className="text-muted-foreground text-sm">Nova sala</h2>
           </button>
