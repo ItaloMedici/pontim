@@ -29,14 +29,20 @@ RUN --mount=type=secret,id=NEXTAUTH_URL \
     --mount=type=secret,id=NEXT_PUBLIC_SITE_URL \
     --mount=type=secret,id=GOOGLE_CLIENT_ID \
     --mount=type=secret,id=GOOGLE_CLIENT_SECRET \
-    --mount=type=secret,id=MAXIMUM_PLAYERS_PER_BOARD \
+    --mount=type=secret,id=STRIPE_SECRET_KEY \
+    --mount=type=secret,id=STRIPE_PUBLISH_KEY \
+    --mount=type=secret,id=STRIPE_WEBHOOK_SECRET \
+    --mount=type=secret,id=FREE_PLAN_NAME \
     sh -c 'echo "NEXTAUTH_URL=$(cat /run/secrets/NEXTAUTH_URL)" > .env && \
            echo "NEXTAUTH_SECRET=$(cat /run/secrets/NEXTAUTH_SECRET)" >> .env && \
            echo "DATABASE_URL=$(cat /run/secrets/DATABASE_URL)" >> .env && \
            echo "NEXT_PUBLIC_SITE_URL=$(cat /run/secrets/NEXT_PUBLIC_SITE_URL)" >> .env && \
            echo "GOOGLE_CLIENT_ID=$(cat /run/secrets/GOOGLE_CLIENT_ID)" >> .env && \
            echo "GOOGLE_CLIENT_SECRET=$(cat /run/secrets/GOOGLE_CLIENT_SECRET)" >> .env && \
-           echo "MAXIMUM_PLAYERS_PER_BOARD=$(cat /run/secrets/MAXIMUM_PLAYERS_PER_BOARD)" >> .env'
+           echo "STRIPE_SECRET_KEY=$(cat /run/secrets/STRIPE_SECRET_KEY)" >> .env && \
+           echo "STRIPE_PUBLISH_KEY=$(cat /run/secrets/STRIPE_PUBLISH_KEY)" >> .env && \
+           echo "STRIPE_WEBHOOK_SECRET=$(cat /run/secrets/STRIPE_WEBHOOK_SECRET)" >> .env && \
+           echo "FREE_PLAN_NAME=$(cat /run/secrets/FREE_PLAN_NAME)" >> .env'
 
 RUN npm run db:generate
 
