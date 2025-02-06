@@ -3,7 +3,7 @@ import { z } from "zod";
 import { getPlayersByBoardId } from "../player/get-players-by-board-id";
 import { validator } from "../validator";
 import { deleteBoard } from "./delete-board";
-import { getBoard } from "./get-board";
+import { getBoardByRoomId } from "./get-board-by-room";
 
 export const leaveBoard = validator({
   input: z.object({
@@ -11,7 +11,7 @@ export const leaveBoard = validator({
     playerId: z.string().uuid(),
   }),
   handler: async ({ roomId, playerId }) => {
-    const board = await getBoard({ roomId });
+    const board = await getBoardByRoomId({ roomId });
 
     if (!board) {
       throw new Error("Board not found");

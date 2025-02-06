@@ -2,11 +2,12 @@ import { BoardStatus, BoardStatusNotification } from "@/types/board-status";
 import { getServerSession } from "next-auth";
 import { z } from "zod";
 import { getNotifications } from "../notification/get-notifications";
+import { getBoardOwnerPlan } from "../plan/get-board-owner-plan";
 import { hideChoice } from "../player/convert-choice";
 import { getOthersPlayersOnBoard } from "../player/get-others-players-on-board";
 import { getUserPlayer } from "../player/get-user-player";
 import { validator } from "../validator";
-import { getBoard } from "./get-board";
+import { getBoardByRoomId } from "./get-board-by-room";
 
 export const getBoardStatus = validator({
   input: z.object({
@@ -20,7 +21,7 @@ export const getBoardStatus = validator({
       throw { message: "Unauthorized", status: 401 };
     }
 
-    const board = await getBoard({ roomId });
+    const board = await getBoardByRoomId({ roomId });
 
     if (!board) {
       throw { message: "Board not found", status: 404 };
@@ -105,6 +106,9 @@ export const getBoardStatus = validator({
         }) as BoardStatusNotification,
     );
 
+    const ownerPlan = await getBoardOwnerPlan({ boardId: board.id });
+    const availableRounds = ownerPlan.plan.maxRounds - board.round;
+
     const boardStatus: Required<BoardStatus> = {
       boardId: board.id,
       self: player,
@@ -116,6 +120,7 @@ export const getBoardStatus = validator({
       average,
       notifications: boardNotifications,
       agreementPercentage,
+      availableRounds,
     };
 
     return boardStatus;
