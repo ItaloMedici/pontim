@@ -53,7 +53,11 @@ export const HowItWorks = () => {
                 <p className="text-gray-600">{step.description}</p>
               </div>
               {index < steps.length - 1 && (
-                <ArrowRight className="hidden xl:block absolute top-1/2 -right-4 transform -translate-y-1/2 text-gray-300" />
+                <ArrowRight
+                  className="hidden lg:block absolute top-1/2 -right-4 transform -translate-y-1/2 text-gray-300"
+                  aria-label="Próximo passo"
+                  role="img"
+                />
               )}
             </div>
           ))}
