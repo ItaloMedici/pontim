@@ -1,4 +1,7 @@
+"use client";
+
 import { ArrowRight } from "lucide-react";
+import { motion } from "framer-motion";
 
 const steps = [
   {
@@ -26,22 +29,61 @@ const steps = [
       "Discuta as estimativas e chegue a um consenso em equipe de forma eficiente.",
   },
 ];
+
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.2,
+    },
+  },
+};
+
+const itemVariants = {
+  hidden: {
+    opacity: 0,
+    y: 20,
+  },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.5,
+      ease: "easeOut",
+    },
+  },
+};
+
 export const HowItWorks = () => {
   return (
     <section className="container py-20 bg-white">
-      <div className="mx-auto">
-        <h2 className="text-4xl font-bold text-center mb-4 text-black">
+      <motion.div
+        className="mx-auto"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-100px" }}
+        variants={containerVariants}
+      >
+        <motion.h2
+          className="text-4xl font-bold text-center mb-4 text-black"
+          variants={itemVariants}
+        >
           Como Funciona
-        </h2>
-        <p className="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
+        </motion.h2>
+        <motion.p
+          className="text-center text-gray-600 mb-12 max-w-2xl mx-auto"
+          variants={itemVariants}
+        >
           Comece a usar o Pontim em quatro passos simples
-        </p>
+        </motion.p>
 
         <div className="flex flex-wrap justify-center gap-8">
           {steps.map((step, index) => (
-            <div
+            <motion.div
               key={step.number}
               className="relative flex-1 min-w-[250px] max-w-[300px]"
+              variants={itemVariants}
             >
               <div className="flex flex-col items-center text-center">
                 <div className="text-5xl font-bold text-gray-900 mb-4">
@@ -59,10 +101,10 @@ export const HowItWorks = () => {
                   role="img"
                 />
               )}
-            </div>
+            </motion.div>
           ))}
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 };
