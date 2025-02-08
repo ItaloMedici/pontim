@@ -1,7 +1,7 @@
 import { createBoard } from "@/use-cases/board/create-board";
 import { getBoardByRoomId } from "@/use-cases/board/get-board-by-room";
 import { getBoardStatus } from "@/use-cases/board/get-board-status";
-import { canAddMorePlayersBoard } from "@/use-cases/board/validate-board-limit";
+import { canJoinBoard } from "@/use-cases/plan/can-join-board";
 import { getUserPlayer } from "@/use-cases/player/get-user-player";
 import { joinBoard } from "@/use-cases/player/join-board";
 import { getUserRoom } from "@/use-cases/room";
@@ -40,11 +40,10 @@ export const PUT = async (
     let player = await getUserPlayer({ boardId: board.id, user: session.user });
 
     if (!player) {
-      const canAddMorePlayers = await canAddMorePlayersBoard({
-        boardId: board.id,
+      const canAddMorePlayers = await canJoinBoard({
+        roomId,
       });
 
-      // TODO: criar página de erro para quando a sala estiver cheia
       if (!canAddMorePlayers) {
         return redirect(`/room/${roomId}/is-full`);
       }
