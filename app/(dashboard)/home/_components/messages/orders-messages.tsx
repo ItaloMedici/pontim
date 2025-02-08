@@ -9,8 +9,7 @@ import {
 } from "@/components/ui/dialog";
 import { SearchParams } from "@/lib/consts";
 import confetti from "canvas-confetti";
-import { useSearchParams } from "next/navigation";
-import { useRouter } from "next/router";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
 const OrderSuccessDialog = () => {
