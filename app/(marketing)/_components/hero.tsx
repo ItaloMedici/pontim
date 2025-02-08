@@ -32,7 +32,8 @@ export const Hero = () => {
       </div>
       <div className="mt-12 p-1 border rounded-lg shadow-xl">
         <Image
-          src="/marketing/hero.png"
+          priority
+          src="/marketing/hero.webp"
           layout="responsive"
           alt="Board do pontim"
           width={1920}
