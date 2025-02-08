@@ -32,7 +32,7 @@ RUN --mount=type=secret,id=NEXTAUTH_URL \
     --mount=type=secret,id=STRIPE_SECRET_KEY \
     --mount=type=secret,id=STRIPE_PUBLISH_KEY \
     --mount=type=secret,id=STRIPE_WEBHOOK_SECRET \
-    --mount=type=secret,id=FREE_PLAN_NAME \
+    --mount=type=secret,id=FREE_PLAN_PRICE_ID \
     sh -c 'echo "NEXTAUTH_URL=$(cat /run/secrets/NEXTAUTH_URL)" > .env && \
            echo "NEXTAUTH_SECRET=$(cat /run/secrets/NEXTAUTH_SECRET)" >> .env && \
            echo "DATABASE_URL=$(cat /run/secrets/DATABASE_URL)" >> .env && \
@@ -42,7 +42,7 @@ RUN --mount=type=secret,id=NEXTAUTH_URL \
            echo "STRIPE_SECRET_KEY=$(cat /run/secrets/STRIPE_SECRET_KEY)" >> .env && \
            echo "STRIPE_PUBLISH_KEY=$(cat /run/secrets/STRIPE_PUBLISH_KEY)" >> .env && \
            echo "STRIPE_WEBHOOK_SECRET=$(cat /run/secrets/STRIPE_WEBHOOK_SECRET)" >> .env && \
-           echo "FREE_PLAN_NAME=$(cat /run/secrets/FREE_PLAN_NAME)" >> .env'
+           echo "FREE_PLAN_PRICE_ID=$(cat /run/secrets/FREE_PLAN_PRICE_ID)" >> .env'
 
 RUN npm run db:generate
 

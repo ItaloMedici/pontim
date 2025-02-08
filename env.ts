@@ -12,9 +12,8 @@ export const env = createEnv({
     GOOGLE_CLIENT_ID: z.string(),
     GOOGLE_CLIENT_SECRET: z.string(),
     DATABASE_URL: z.string(),
-    MAXIMUM_PLAYERS_PER_BOARD: z.string(),
     STRIPE_SECRET_KEY: z.string(),
-    FREE_PLAN_NAME: z.string(),
+    FREE_PLAN_PRICE_ID: z.string(),
     STRIPE_WEBHOOK_SECRET: z.string(),
   },
   runtimeEnvStrict: {
@@ -24,9 +23,8 @@ export const env = createEnv({
     GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID,
     GOOGLE_CLIENT_SECRET: process.env.GOOGLE_CLIENT_SECRET,
     DATABASE_URL: process.env.DATABASE_URL,
-    MAXIMUM_PLAYERS_PER_BOARD: process.env.MAXIMUM_PLAYERS_PER_BOARD,
     STRIPE_SECRET_KEY: process.env.STRIPE_SECRET_KEY,
-    FREE_PLAN_NAME: process.env.FREE_PLAN_NAME,
+    FREE_PLAN_PRICE_ID: process.env.FREE_PLAN_PRICE_ID,
     STRIPE_WEBHOOK_SECRET: process.env.STRIPE_WEBHOOK_SECRET,
   },
 });
