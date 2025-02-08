@@ -5,5 +5,8 @@ export async function getSubscriptionByUser({ userId }: { userId: string }) {
     where: {
       userId,
     },
+    include: {
+      plan: true,
+    },
   });
 }

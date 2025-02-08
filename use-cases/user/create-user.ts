@@ -16,6 +16,16 @@ export async function createUser(authUser: z.infer<typeof input>) {
     return;
   }
 
+  const userExists = await db.user.findFirst({
+    where: {
+      email: validUser.data.email,
+    },
+  });
+
+  if (userExists) {
+    return userExists;
+  }
+
   const user = await db.user.create({
     data: {
       email: validUser.data.email,

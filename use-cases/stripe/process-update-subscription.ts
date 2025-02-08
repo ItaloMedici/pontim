@@ -4,6 +4,10 @@ import Stripe from "stripe";
 export const processUpdateSubscription = async (event: {
   object: Stripe.Subscription;
 }) => {
+  console.log(
+    `Updating subscription ${event.object.id} with price id ${event.object.items.data[0].price.id}`,
+  );
+
   const stripeCustomerId = event.object.customer as string;
   const stripeSubscriptionId = event.object.id as string;
   const stripeSubscriptionStatus = event.object.status;
@@ -20,6 +24,9 @@ export const processUpdateSubscription = async (event: {
         },
       ],
     },
+    include: {
+      plan: true,
+    },
   });
 
   if (!subscription) {
@@ -35,6 +42,10 @@ export const processUpdateSubscription = async (event: {
   if (!newPlan) {
     throw new Error("plan not found");
   }
+
+  console.log(
+    `Updating subscription ${subscription.plan.name} to plan ${newPlan.name}`,
+  );
 
   await db.subscription.update({
     where: {
