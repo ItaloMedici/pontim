@@ -52,7 +52,6 @@ export function PricingCard({
               format={{
                 style: "currency",
                 currency,
-                trailingZeroDisplay: "auto",
               }}
               value={price}
               className="text-4xl font-medium"
