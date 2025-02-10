@@ -49,7 +49,7 @@ jobs:
             "NEXTAUTH_URL=${{ secrets.NEXTAUTH_URL }}"
             "NEXTAUTH_SECRET=${{ secrets.NEXTAUTH_SECRET }}"
             "DATABASE_URL=${{ secrets.DATABASE_URL }}"
-            "NEXT_PUBLIC_SITE_URL=${{ secrets.NEXT_PUBLIC_SITE_URL }}"
+            "SITE_URL=${{ secrets.SITE_URL }}"
             "GOOGLE_CLIENT_ID=${{ secrets.GOOGLE_CLIENT_ID }}"
             "GOOGLE_CLIENT_SECRET=${{ secrets.GOOGLE_CLIENT_SECRET }}"
             STRIPE_SECRET_KEY=${{ secrets.STRIPE_SECRET_KEY }}
