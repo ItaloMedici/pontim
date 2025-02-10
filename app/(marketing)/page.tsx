@@ -1,9 +1,15 @@
+import { getPlanPricings } from "@/use-cases/plan/get-pricings";
+import { Footer } from "./_components/footer";
 import { Header } from "./_components/header";
 import { Hero } from "./_components/hero";
-import { Footer } from "./_components/footer";
 import { HowItWorks } from "./_components/how-it-works";
+import { Pricings } from "./_components/pricings";
 
-const MarketingPage = () => {
+export const dynamic = "force-dynamic";
+
+const MarketingPage = async () => {
+  const pricings = await getPlanPricings();
+
   return (
     <>
       <Header />
@@ -11,6 +17,7 @@ const MarketingPage = () => {
       <main>
         <Hero />
         <HowItWorks />
+        <Pricings pricings={pricings} />
       </main>
 
       <Footer />

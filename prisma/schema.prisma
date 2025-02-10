@@ -9,6 +9,17 @@ datasource db {
   directUrl = env("POSTGRES_URL_NON_POOLING")
 }
 
+model User {
+  id           String        @id @default(uuid())
+  email        String        @unique
+  name         String
+  imageUrl     String?
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  UserRoom     UserRoom[]
+  Subscription Subscription?
+}
+
 model Room {
   id         String     @id @default(uuid())
   name       String
@@ -23,7 +34,7 @@ model Room {
 model UserRoom {
   id        String   @id @default(uuid())
   userEmail String
-  nickname  String?
+  user      User     @relation(fields: [userEmail], references: [email], onDelete: Cascade)
   roomId    String
   room      Room     @relation(fields: [roomId], references: [id], onDelete: Cascade)
   favorite  Boolean?
@@ -41,6 +52,7 @@ model Board {
   roomId String  @unique
   room   Room    @relation(fields: [roomId], references: [id], onDelete: Cascade)
   reveal Boolean @default(false)
+  round  Int     @default(0)
 
   Player       Player[]
   Notification Notification[]
@@ -70,4 +82,30 @@ model Notification {
   boardId  String
   board    Board  @relation(fields: [boardId], references: [id], onDelete: Cascade)
   sound    String
+}
+
+model Subscription {
+  id                   String   @id @default(uuid())
+  userId               String   @unique
+  user                 User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  status               String
+  stripeSubscriptionId String
+  customerId           String
+  currentPeriodEnd     DateTime
+  createdAt            DateTime @default(now())
+  updatedAt            DateTime @updatedAt
+  planId               String
+  plan                 Plan     @relation(fields: [planId], references: [id])
+}
+
+model Plan {
+  id           String         @id @default(uuid())
+  name         String         @unique
+  priceId      String         @unique
+  maxRooms     Int
+  maxPlayers   Int
+  maxRounds    Int
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+  Subscription Subscription[]
 }

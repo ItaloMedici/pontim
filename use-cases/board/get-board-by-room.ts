@@ -2,7 +2,7 @@ import { db } from "@/lib/db";
 import { z } from "zod";
 import { validator } from "../validator";
 
-export const getBoard = validator({
+export const getBoardByRoomId = validator({
   input: z.object({
     roomId: z.string().uuid(),
   }),

@@ -1,9 +1,6 @@
 import { Logo } from "@/components/logo";
 import { UserButton } from "@/components/user-button";
-import { Poppins } from "next/font/google";
 import Link from "next/link";
-
-const poppins = Poppins({ subsets: ["latin"], weight: ["600"] });
 
 export function NavBar() {
   return (

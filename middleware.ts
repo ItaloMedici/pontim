@@ -1,6 +1,8 @@
 import { withAuth } from "next-auth/middleware";
 import { NextResponse } from "next/server";
 
+const openRoutes = ["/", "/api/stripe/webhook"];
+
 export default withAuth(
   function middleware(req) {
     const token = req.nextauth.token;
@@ -18,7 +20,7 @@ export default withAuth(
       authorized({ req, token }) {
         const url = new URL(req.url).pathname;
 
-        if (url === "/") {
+        if (openRoutes.includes(url)) {
           return true;
         }
 
@@ -27,7 +29,6 @@ export default withAuth(
     },
   },
 );
-
 export const config = {
   matcher: ["/((?!.+\\.[\\w]+$|_next).*)", "/(api|trpc)(.*)"],
 };

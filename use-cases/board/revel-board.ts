@@ -1,7 +1,7 @@
 import { db } from "@/lib/db";
 import { z } from "zod";
 import { validator } from "../validator";
-import { getBoard } from "./get-board";
+import { getBoardByRoomId } from "./get-board-by-room";
 
 const input = z.object({
   roomId: z.string(),
@@ -10,7 +10,7 @@ const input = z.object({
 export const toggleRevealBoard = validator({
   input,
   handler: async ({ roomId }) => {
-    const board = await getBoard({ roomId });
+    const board = await getBoardByRoomId({ roomId });
 
     return await db.board.update({
       where: {

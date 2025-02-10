@@ -1,5 +1,13 @@
 import { LoadingLogo } from "@/components/loading-logo/loading";
 import { toast } from "@/components/toast";
+import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+} from "@/components/ui/dialog";
 import { http } from "@/lib/api";
 import { Player } from "@/lib/schemas/player";
 import {
@@ -12,6 +20,8 @@ import { BoardStatus, BoardStatusNotification } from "@/types/board-status";
 import { ChoiceOptions } from "@/types/choice-options";
 import { EnumNotification } from "@/types/notifications";
 import { fibonacciChoiceOptions } from "@/use-cases/board/choice-options";
+import { DialogTitle } from "@radix-ui/react-dialog";
+import { useRouter } from "next/navigation";
 import {
   createContext,
   ReactNode,
@@ -58,13 +68,14 @@ export const BoardProvider = ({
   roomId: string;
   children: ReactNode;
 }) => {
+  const router = useRouter();
   const [boardStatus, setBoardStatus] = useState<BoardStatus>();
-  const [error, setError] = useState<string>();
   const [isLoading, setIsLoading] = useState(true);
   const [selfChoice, setSelfChoice] = useState("");
   const [revealOptimistc, setRevealOptimistc] = useState(
     boardStatus?.reveal || false,
   );
+  const [openPlanOfferDialog, setOpenPlanOfferDialog] = useState(false);
 
   const othersPrev = useRef(boardStatus?.others);
   const selfId = useRef(boardStatus?.self?.id);
@@ -74,13 +85,15 @@ export const BoardProvider = ({
   const closeEventSource = useRef<() => void>();
 
   const joinBoard = async () => {
-    try {
-      const board = await http.put<BoardStatus>(`/${roomId}/board/join`);
-      setBoardStatus(board as BoardStatus);
-      return board;
-    } catch (error: any) {
-      setError(error.message);
+    const board = await http.put<BoardStatus>(`/${roomId}/board/join`);
+
+    if (board === null) {
+      router.push("/");
+      return;
     }
+
+    setBoardStatus(board as BoardStatus);
+    return board;
   };
 
   const subscribeToBoardStatus = useCallback(async () => {
@@ -235,10 +248,6 @@ export const BoardProvider = ({
     });
   }, [boardStatus?.notifications, boardStatus?.self, handleNotification]);
 
-  if (error) {
-    toast.error(error);
-  }
-
   if (!boardStatus?.self || isLoading) {
     return <LoadingLogo />;
   }
@@ -269,6 +278,12 @@ export const BoardProvider = ({
   };
 
   const handleReset = async () => {
+    if (boardStatus.availableRounds === 0) {
+      toast.error("Você atingiu o limite de rodadas.");
+      setOpenPlanOfferDialog(true);
+      return;
+    }
+
     setSelfChoice("");
     setBoardStatus((prev) => {
       return {
@@ -322,6 +337,27 @@ export const BoardProvider = ({
       }}
     >
       {children}
+      <Dialog open={openPlanOfferDialog} onOpenChange={setOpenPlanOfferDialog}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Limite de rodadas atingido 😢</DialogTitle>
+          </DialogHeader>
+          <DialogDescription>
+            Oops! Você atingiu o limite de rodadas desta sala. Não deixe a
+            diversão parar! Entre em contato com o dono da sala e descubra
+            nossos planos incríveis para continuar jogando sem interrupções.
+          </DialogDescription>
+          <DialogFooter>
+            <Button
+              variant={"outline"}
+              onClick={() => setOpenPlanOfferDialog(false)}
+            >
+              Continuar
+            </Button>
+            <Button onClick={() => router.push("/pricing")}>Ver planos</Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </BoardContext.Provider>
   );
 };

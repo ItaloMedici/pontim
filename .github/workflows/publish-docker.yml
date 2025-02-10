@@ -2,12 +2,11 @@ name: Create and publish a Docker image
 
 on:
   push:
-    branches: 
-      - 'main'
-    tags: 
-      - 'v*'
+    branches:
+      - "main"
+    tags:
+      - "v*"
   workflow_dispatch:
-
 
 env:
   REGISTRY: ghcr.io
@@ -50,11 +49,14 @@ jobs:
             "NEXTAUTH_URL=${{ secrets.NEXTAUTH_URL }}"
             "NEXTAUTH_SECRET=${{ secrets.NEXTAUTH_SECRET }}"
             "DATABASE_URL=${{ secrets.DATABASE_URL }}"
-            "NEXT_PUBLIC_SITE_URL=${{ secrets.NEXT_PUBLIC_SITE_URL }}"
+            "SITE_URL=${{ secrets.SITE_URL }}"
             "GOOGLE_CLIENT_ID=${{ secrets.GOOGLE_CLIENT_ID }}"
             "GOOGLE_CLIENT_SECRET=${{ secrets.GOOGLE_CLIENT_SECRET }}"
-            "MAXIMUM_PLAYERS_PER_BOARD=${{ secrets.MAXIMUM_PLAYERS_PER_BOARD }}"
-      
+            STRIPE_SECRET_KEY=${{ secrets.STRIPE_SECRET_KEY }}
+            STRIPE_PUBLISH_KEY=${{ secrets.STRIPE_PUBLISH_KEY }}
+            STRIPE_WEBHOOK_SECRET=${{ secrets.STRIPE_WEBHOOK_SECRET }}
+            FREE_PLAN_PRICE_ID=${{ secrets.FREE_PLAN_PRICE_ID }}
+          
       - name: Generate artifact attestation
         uses: actions/attest-build-provenance@v1
         with:

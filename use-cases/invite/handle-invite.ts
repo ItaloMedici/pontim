@@ -1,8 +1,11 @@
 "use server";
 
+import { SearchParams } from "@/lib/consts";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
+import { canJoinRoom } from "../plan/can-join-room";
 import { getRoom, joinRoom } from "../room";
+import { getUserByEmail } from "../user/get-user-by-email";
 
 const EXPIRATION_TIME = 1000 * 60 * 60 * 24 * 30; // 30 days
 
@@ -44,6 +47,24 @@ export const handleInvite = async (code: string) => {
     const inviteUrl = `/invite?code=${code}`;
 
     return redirect(`/login?callbackUrl=${inviteUrl}`);
+  }
+
+  const user = await getUserByEmail(session.user.email);
+
+  if (!user) {
+    const inviteUrl = `/invite?code=${code}`;
+    const callbackUrl = `/login?callbackUrl=${inviteUrl}`;
+
+    return redirect(`/logout?callbackUrl=${callbackUrl}`);
+  }
+
+  const canJoinInRoom = await canJoinRoom({
+    roomId,
+    userEmail: session?.user.email,
+  });
+
+  if (!canJoinInRoom?.can) {
+    redirect(`/home?${SearchParams.STATE}=${canJoinInRoom?.reason ?? ""}`);
   }
 
   await joinRoom({ roomId, user: session?.user });

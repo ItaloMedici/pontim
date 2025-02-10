@@ -4,6 +4,7 @@ import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 import { Suspense } from "react";
 import { DashboardFilters } from "./_components/dashboard-filters";
+import { DashboardMessages } from "./_components/messages";
 import { RoomList, RoomListSkeleton } from "./_components/room-list";
 
 async function DashBoardPage({
@@ -23,9 +24,14 @@ async function DashBoardPage({
     user: session.user,
   });
 
+  if (searchParams?.error) {
+    console.error(searchParams?.error);
+  }
+
   return (
     <div className="space-y-10">
       <DashboardFilters />
+      <DashboardMessages />
       <Suspense fallback={<RoomListSkeleton />}>
         <RoomList rooms={rooms} />
       </Suspense>

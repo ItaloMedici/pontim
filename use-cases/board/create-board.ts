@@ -1,14 +1,14 @@
 import { db } from "@/lib/db";
 import { z } from "zod";
 import { validator } from "../validator";
-import { getBoard } from "./get-board";
+import { getBoardByRoomId } from "./get-board-by-room";
 
 export const createBoard = validator({
   input: z.object({
     roomId: z.string().uuid(),
   }),
   handler: async ({ roomId }) => {
-    const board = await getBoard({ roomId });
+    const board = await getBoardByRoomId({ roomId });
 
     if (board) {
       return board;
