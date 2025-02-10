@@ -5,6 +5,8 @@ import { Hero } from "./_components/hero";
 import { HowItWorks } from "./_components/how-it-works";
 import { Pricings } from "./_components/pricings";
 
+export const dynamic = "force-dynamic";
+
 const MarketingPage = async () => {
   const pricings = await getPlanPricings();
 
