@@ -1,5 +1,38 @@
 # Changelog
 
+# [0.7.0](https://github.com/ItaloMedici/pontim/compare/v0.6.3...v0.7.0) (2025-02-10)
+
+
+### Bug Fixes
+
+* change router path ([cd0147f](https://github.com/ItaloMedici/pontim/commit/cd0147f229c4f238e8a9be129b22b10d58a89752))
+* **webhook:** rename route ([929602a](https://github.com/ItaloMedici/pontim/commit/929602a9e1de3872695317f4aadb443a480af2d7))
+
+
+### Features
+
+* add animations to the component how does this work ([afdf970](https://github.com/ItaloMedici/pontim/commit/afdf970fd277d5afc257730b0a1af310533e4e06))
+* add aria label to arrow icon ([a671696](https://github.com/ItaloMedici/pontim/commit/a6716966c37d4fcf04ee4a2d2b3e29ce639aa8e6))
+* add plan name on jwt ([ee8b5b9](https://github.com/ItaloMedici/pontim/commit/ee8b5b943897eca147f1f63f66ddc922d24091de))
+* authorize webhook url ([9b9c667](https://github.com/ItaloMedici/pontim/commit/9b9c66739276938e8c09e6e471a2e7e95dbbd727))
+* create footer component ([02d1ff8](https://github.com/ItaloMedici/pontim/commit/02d1ff8072d035aa223b10897be43ee4176e2f16))
+* create home dialog messages ([a0398e6](https://github.com/ItaloMedici/pontim/commit/a0398e6d8d2f295e26a956d10804729e24fd31df))
+* create how it works component ([919b624](https://github.com/ItaloMedici/pontim/commit/919b6240ac15c0c3578136c760801770358f8fa0))
+* create loggout page ([15cbaab](https://github.com/ItaloMedici/pontim/commit/15cbaabbe43e9cdbc564a978795f7a1e222d95e3))
+* create pricing page ([e8b5f53](https://github.com/ItaloMedici/pontim/commit/e8b5f53e06827a54563dec0ebeac432e4b24e5d0))
+* create room is full page ([e1ee63a](https://github.com/ItaloMedici/pontim/commit/e1ee63a2287aa0098f78f145c486ee7930095b3d))
+* **marketing:** improve homepage ([3defd1f](https://github.com/ItaloMedici/pontim/commit/3defd1f1359b1a544e7c6ea225a0a2014f7971e5))
+* setup stripe ([6eb5675](https://github.com/ItaloMedici/pontim/commit/6eb567590502e66f3f52b92cd6d16866c1b55a36))
+* **stripe:** add board rounds limit ([1bb5b70](https://github.com/ItaloMedici/pontim/commit/1bb5b70a6d84344caeff19a119c0f92dbf366a08))
+* **stripe:** add webhook events handling ([5c176a1](https://github.com/ItaloMedici/pontim/commit/5c176a102d823ae62ff170aba469398e4c479009))
+* **stripe:** create customer when new user signIn ([294939c](https://github.com/ItaloMedici/pontim/commit/294939c65d11636cb929ff08d5ca01729b8e086b))
+* **stripe:** create plan, subscription and user tables ([e78ef05](https://github.com/ItaloMedici/pontim/commit/e78ef05d359674e5373c378f04e00bb00cbd5f4a))
+
+
+### Performance Improvements
+
+* **marketing:** change hero image png to webp ([8a4459a](https://github.com/ItaloMedici/pontim/commit/8a4459a618e00ec18f912e16f73b11a9f8974828))
+
 ## [0.6.3](https://github.com/ItaloMedici/pontim/compare/v0.6.2...v0.6.3) (2025-01-27)
 
 ## [0.6.2](https://github.com/ItaloMedici/pontim/compare/v0.6.1...v0.6.2) (2025-01-26)
