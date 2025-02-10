@@ -3,9 +3,7 @@ import { z } from "zod";
 
 export const env = createEnv({
   clientPrefix: "NEXT_PUBLIC_",
-  client: {
-    NEXT_PUBLIC_SITE_URL: z.string().url(),
-  },
+  client: {},
   server: {
     NEXTAUTH_URL: z.string(),
     NEXTAUTH_SECRET: z.string(),
@@ -15,11 +13,12 @@ export const env = createEnv({
     STRIPE_SECRET_KEY: z.string(),
     FREE_PLAN_PRICE_ID: z.string(),
     STRIPE_WEBHOOK_SECRET: z.string(),
+    SITE_URL: z.string().url(),
   },
   runtimeEnvStrict: {
     NEXTAUTH_URL: process.env.NEXTAUTH_URL,
     NEXTAUTH_SECRET: process.env.NEXTAUTH_SECRET,
-    NEXT_PUBLIC_SITE_URL: process.env.NEXT_PUBLIC_SITE_URL,
+    SITE_URL: process.env.SITE_URL,
     GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID,
     GOOGLE_CLIENT_SECRET: process.env.GOOGLE_CLIENT_SECRET,
     DATABASE_URL: process.env.DATABASE_URL,
