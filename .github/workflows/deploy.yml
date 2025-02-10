@@ -17,14 +17,18 @@ jobs:
       - name: Deploy to EC2
         run: |
           ssh -o StrictHostKeyChecking=no ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} << 'EOF'
+            sudo systemctl start docker
+
+            sudo docker stop pontim
+            sudo docker remove pontim
+
             sudo docker pull ${{ secrets.DOCKER_IMAGE }}
 
-            sudo docker stop pontim || true
-            sudo docker rm pontim || true
-
-            sudo docker run --platform linux/arm64 -d --name pontim -p 80:3000 ${{ secrets.DOCKER_IMAGE }}
+            sudo docker run --platform linux/arm64 --name pontim -p 80:3000 ${{ secrets.DOCKER_IMAGE }}
 
             sudo docker ps
+
+            sudo docker logs pontim
             
             sudo docker image prune -f
           EOF
