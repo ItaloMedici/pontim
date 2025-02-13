@@ -1,5 +1,6 @@
 "use server";
 
+import { UNLIMITED_PLAN_VALUE } from "@/lib/consts";
 import { getPlayersByBoardId } from "../player/get-players-by-board-id";
 import { getRoom } from "../room";
 import { getSubscriptionByUser } from "../subscription/get-subscription-by-user";
@@ -29,6 +30,8 @@ export async function canJoinBoard({ roomId }: Input) {
   }
 
   const playersOnBoard = await getPlayersByBoardId({ boardId: roomId });
+
+  if (subscription.plan.maxPlayers === UNLIMITED_PLAN_VALUE) return true;
 
   return playersOnBoard.length < subscription.plan.maxPlayers;
 }

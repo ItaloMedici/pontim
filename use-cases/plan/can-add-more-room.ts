@@ -1,5 +1,6 @@
 "use server";
 
+import { UNLIMITED_PLAN_VALUE } from "@/lib/consts";
 import { db } from "@/lib/db";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
@@ -40,6 +41,8 @@ export async function canAddMoreRoom() {
       userEmail: user.email,
     },
   });
+
+  if (plan.maxRooms === UNLIMITED_PLAN_VALUE) return true;
 
   return plan.maxRooms > usersRooms;
 }
