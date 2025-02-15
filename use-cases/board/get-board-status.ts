@@ -1,3 +1,4 @@
+import { UNLIMITED_PLAN_VALUE } from "@/lib/consts";
 import { BoardStatus, BoardStatusNotification } from "@/types/board-status";
 import { getServerSession } from "next-auth";
 import { z } from "zod";
@@ -7,6 +8,7 @@ import { hideChoice } from "../player/convert-choice";
 import { getOthersPlayersOnBoard } from "../player/get-others-players-on-board";
 import { getUserPlayer } from "../player/get-user-player";
 import { validator } from "../validator";
+import { fibonacciChoiceOptions } from "./choice-options";
 import { getBoardByRoomId } from "./get-board-by-room";
 
 export const getBoardStatus = validator({
@@ -90,6 +92,12 @@ export const getBoardStatus = validator({
     const agreementPercentage =
       majorityChoice > 1 ? (majorityChoice / playersChoices.length) * 100 : 0;
 
+    const closestStoryPoint = fibonacciChoiceOptions.reduce((prev, curr) => {
+      return Math.abs(curr.weight - average) < Math.abs(prev - average)
+        ? curr.weight
+        : prev;
+    }, 0);
+
     const notifications = await getNotifications({ boardId: board.id });
 
     const boardNotifications = notifications.map(
@@ -107,6 +115,9 @@ export const getBoardStatus = validator({
     );
 
     const ownerPlan = await getBoardOwnerPlan({ boardId: board.id });
+
+    const isUnlimitedRounds = ownerPlan.plan.maxRounds === UNLIMITED_PLAN_VALUE;
+
     const availableRounds = ownerPlan.plan.maxRounds - board.round;
 
     const boardStatus: Required<BoardStatus> = {
@@ -120,7 +131,10 @@ export const getBoardStatus = validator({
       average,
       notifications: boardNotifications,
       agreementPercentage,
-      availableRounds,
+      availableRounds: isUnlimitedRounds
+        ? UNLIMITED_PLAN_VALUE
+        : availableRounds,
+      closestStoryPoint,
     };
 
     return boardStatus;

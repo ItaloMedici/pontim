@@ -6,7 +6,7 @@ const input = z.object({
   boardId: z.string(),
 });
 
-export const resetBoard = validator({
+export const resetBoardChoices = validator({
   input,
   handler: async ({ boardId }) => {
     return await db.player.updateMany({

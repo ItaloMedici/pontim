@@ -28,6 +28,7 @@ import {
   useCallback,
   useContext,
   useEffect,
+  useMemo,
   useRef,
   useState,
 } from "react";
@@ -43,9 +44,11 @@ type BoardContextProps = {
   totalChoices: number;
   average: number;
   agreementPercentage: number;
+  availableRounds: number;
+  closestStoryPoint: number;
   handleChoice: (choice: string) => Promise<void>;
-  handleRevealCards: () => Promise<void>;
-  handleReset: () => Promise<void>;
+  handlePlay: () => Promise<void>;
+  loadingPlay: boolean;
   handleNotifyPlayer: (
     playerId: string,
     notification?: EnumNotification,
@@ -69,23 +72,32 @@ export const BoardProvider = ({
   children: ReactNode;
 }) => {
   const router = useRouter();
-  const [boardStatus, setBoardStatus] = useState<BoardStatus>();
-  const [isLoading, setIsLoading] = useState(true);
+  const [boardStatus, setBoardStatus] = useState<BoardStatus>(
+    {} as BoardStatus,
+  );
+  const [isOnFirstLoad, setIsOnFirstLoad] = useState(true);
+  const [loadingPlay, setPlayLoading] = useState(false);
+
   const [selfChoice, setSelfChoice] = useState("");
   const [revealOptimistc, setRevealOptimistc] = useState(
     boardStatus?.reveal || false,
   );
   const [openPlanOfferDialog, setOpenPlanOfferDialog] = useState(false);
 
+  const selfChoiceRef = useRef(selfChoice);
   const othersPrev = useRef(boardStatus?.others);
   const selfId = useRef(boardStatus?.self?.id);
   const isFirstRender = useRef(true);
   const seenNotifications = useRef<string[]>([]);
   const boardSnapshot = useRef<string>();
   const closeEventSource = useRef<() => void>();
+  const hasSubscribed = useRef(false);
 
-  const joinBoard = async () => {
-    const board = await http.put<BoardStatus>(`/${roomId}/board/join`);
+  const choiceSignal = useRef<AbortController>(new AbortController());
+  const revealSignal = useRef<AbortController>(new AbortController());
+
+  const joinBoard = useCallback(async () => {
+    const board = await http.put<BoardStatus>(`${roomId}/board/join`);
 
     if (board === null) {
       router.push("/");
@@ -94,9 +106,33 @@ export const BoardProvider = ({
 
     setBoardStatus(board as BoardStatus);
     return board;
-  };
+  }, [roomId, router]);
+
+  const onEventSourceMessage = useCallback((event: MessageEvent) => {
+    const data = JSON.parse(event.data) as BoardStatus;
+
+    if (isOnFirstLoad) setIsOnFirstLoad(false);
+
+    if (boardSnapshot.current === JSON.stringify(data)) return;
+
+    boardSnapshot.current = JSON.stringify(data);
+
+    setBoardStatus(data);
+
+    if (!selfChoiceRef.current && typeof data?.self?.choice === "string") {
+      setSelfChoice(data.self.choice);
+    }
+
+    if (typeof data?.reveal === "boolean") {
+      setRevealOptimistc(data.reveal);
+    }
+
+    selfId.current = data?.self?.id;
+  }, []);
 
   const subscribeToBoardStatus = useCallback(async () => {
+    if (hasSubscribed.current) return;
+
     const board = await joinBoard();
 
     if (!board?.self) return;
@@ -106,35 +142,15 @@ export const BoardProvider = ({
     );
 
     closeEventSource.current = () => eventSource.close();
+    hasSubscribed.current = true;
 
-    eventSource.onmessage = (event) => {
-      const data = JSON.parse(event.data) as BoardStatus;
-
-      if (boardSnapshot.current !== JSON.stringify(data)) {
-        boardSnapshot.current = JSON.stringify(data);
-
-        setBoardStatus(data);
-
-        if (!selfChoice && typeof data?.self?.choice === "string") {
-          console.log("Setting self choice", data.self.choice);
-          setSelfChoice(data.self.choice);
-        }
-
-        if (typeof data?.reveal === "boolean") {
-          setRevealOptimistc(data.reveal);
-        }
-
-        selfId.current = data?.self?.id;
-      }
-
-      if (isLoading) setIsLoading(false);
-    };
+    eventSource.onmessage = onEventSourceMessage;
 
     eventSource.onerror = (event) => {
       console.error("SSE connection failed.", event);
       eventSource.close();
     };
-  }, []);
+  }, [joinBoard, onEventSourceMessage, roomId]);
 
   const unsubscribeToBoardStatus = useCallback(() => {
     closeEventSource.current?.();
@@ -188,7 +204,7 @@ export const BoardProvider = ({
     await http.post(`/${roomId}/board/leave`, {
       playerId: selfId.current,
     });
-  }, [roomId]);
+  }, [roomId, unsubscribeToBoardStatus]);
 
   useEffect(() => {
     return () => {
@@ -248,42 +264,48 @@ export const BoardProvider = ({
     });
   }, [boardStatus?.notifications, boardStatus?.self, handleNotification]);
 
-  if (!boardStatus?.self || isLoading) {
-    return <LoadingLogo />;
-  }
+  const handleChoice = useCallback(
+    async (choice: string) => {
+      if (!boardStatus.self) return;
+      setSelfChoice(choice);
 
-  const handleChoice = async (choice: string) => {
-    if (!boardStatus.self) return;
-    setSelfChoice(choice);
+      if (!choiceSignal.current.signal.aborted) {
+        choiceSignal.current.abort("Aborted previous request.");
+      }
 
-    const updatedStatus = await http.post<BoardStatus>(
-      `/${roomId}/board/make-choice`,
-      {
-        playerId: boardStatus.self.id,
-        choice,
-      },
-    );
+      choiceSignal.current = new AbortController();
 
-    if (updatedStatus) setBoardStatus(updatedStatus);
-  };
+      const updatedStatus = await http.post<BoardStatus>(
+        `/${roomId}/board/make-choice`,
+        {
+          playerId: boardStatus.self.id,
+          choice,
+        },
+        choiceSignal.current.signal,
+      );
 
-  const handleRevealCards = async () => {
+      if (updatedStatus) setBoardStatus(updatedStatus);
+    },
+    [boardStatus.self, roomId],
+  );
+
+  const handleRevealCards = useCallback(async () => {
     setRevealOptimistc((prev) => !prev);
+
+    if (!revealSignal.current.signal.aborted) {
+      revealSignal.current.abort("Aborted previous request.");
+    }
+
+    revealSignal.current = new AbortController();
 
     const updatedStatus = await http.post<BoardStatus>(
       `/${roomId}/board/reveal?playerId=${boardStatus.self?.id}`,
     );
 
     if (updatedStatus) setBoardStatus(updatedStatus);
-  };
+  }, [boardStatus.availableRounds, boardStatus.self?.id, roomId]);
 
-  const handleReset = async () => {
-    if (boardStatus.availableRounds === 0) {
-      toast.error("Você atingiu o limite de rodadas.");
-      setOpenPlanOfferDialog(true);
-      return;
-    }
-
+  const handleReset = useCallback(async () => {
     setSelfChoice("");
     setBoardStatus((prev) => {
       return {
@@ -303,39 +325,90 @@ export const BoardProvider = ({
       },
     );
     if (updatedStatus) setBoardStatus(updatedStatus);
-  };
+  }, [
+    boardStatus.availableRounds,
+    boardStatus.boardId,
+    boardStatus.self?.id,
+    roomId,
+  ]);
 
-  const handleNotifyPlayer = async (
-    playerId: string,
-    notification?: EnumNotification,
-  ) => {
-    const updatedStatus = await http.post<BoardStatus>(
-      `/${roomId}/board/notification`,
-      {
-        targetId: playerId,
-        senderId: boardStatus.self?.id,
-        boardId: boardStatus.boardId,
-        notification,
-      },
-    );
-    if (updatedStatus) setBoardStatus(updatedStatus);
-  };
+  const handlePlay = useCallback(async () => {
+    try {
+      setPlayLoading(true);
+
+      if (boardStatus.availableRounds === 0) {
+        toast.error("Você atingiu o limite de rodadas.");
+        setOpenPlanOfferDialog(true);
+        return;
+      }
+
+      if (revealOptimistc) {
+        setRevealOptimistc(false);
+        await handleReset();
+        return;
+      }
+
+      await handleRevealCards();
+    } finally {
+      setPlayLoading(false);
+    }
+  }, [
+    handleRevealCards,
+    handleReset,
+    boardStatus.availableRounds,
+    revealOptimistc,
+  ]);
+
+  const handleNotifyPlayer = useCallback(
+    async (playerId: string, notification?: EnumNotification) => {
+      const updatedStatus = await http.post<BoardStatus>(
+        `/${roomId}/board/notification`,
+        {
+          targetId: playerId,
+          senderId: boardStatus.self?.id,
+          boardId: boardStatus.boardId,
+          notification,
+        },
+      );
+      if (updatedStatus) setBoardStatus(updatedStatus);
+    },
+    [boardStatus.boardId, boardStatus.self?.id, roomId],
+  );
+
+  const contextValue = useMemo(
+    () => ({
+      roomId,
+      ...(boardStatus as Required<BoardStatus>),
+      choiceOptions: fibonacciChoiceOptions,
+      reveal: revealOptimistc,
+      selfChoice,
+      handleChoice,
+      handlePlay,
+      loadingPlay,
+      handleNotifyPlayer,
+      handleLeave: leaveBoard,
+    }),
+    [
+      roomId,
+      boardStatus,
+      revealOptimistc,
+      selfChoice,
+      handleChoice,
+      handleRevealCards,
+      handleReset,
+      handleNotifyPlayer,
+      leaveBoard,
+      loadingPlay,
+      handlePlay,
+    ],
+  );
+
+  if (!boardStatus?.self || isOnFirstLoad) {
+    return <LoadingLogo />;
+  }
 
   return (
-    <BoardContext.Provider
-      value={{
-        roomId,
-        ...(boardStatus as Required<BoardStatus>),
-        choiceOptions: fibonacciChoiceOptions,
-        reveal: revealOptimistc,
-        selfChoice,
-        handleChoice,
-        handleRevealCards,
-        handleReset,
-        handleNotifyPlayer,
-        handleLeave: leaveBoard,
-      }}
-    >
+    <BoardContext.Provider value={contextValue}>
       {children}
       <Dialog open={openPlanOfferDialog} onOpenChange={setOpenPlanOfferDialog}>
         <DialogContent>

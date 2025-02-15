@@ -1,5 +1,7 @@
 "use server";
 
+import { env } from "@/env";
+import { UNLIMITED_PLAN_VALUE } from "@/lib/consts";
 import { db } from "@/lib/db";
 import { ValidationState } from "@/messages/state";
 import { getSubscriptionByUser } from "../subscription/get-subscription-by-user";
@@ -19,37 +21,25 @@ export async function canJoinRoom({ roomId, userEmail }: Input) {
 
   const subscription = await getSubscriptionByUser({ userId: user.id });
 
-  console.log(subscription);
-
   if (!subscription) {
     throw new Error("User plan not found");
   }
 
-  const plan = await db.plan.findFirst({
+  const userPlan = await db.plan.findFirst({
     where: {
       id: subscription.planId,
     },
   });
 
-  if (!plan) {
+  if (!userPlan) {
     throw new Error("Plan not found");
   }
 
-  const usersRooms = await db.userRoom.count({
+  const userRoomsCount = await db.userRoom.count({
     where: {
       userEmail: user.email,
     },
   });
-
-  const canJoinInMoreRooms = plan.maxRooms > usersRooms;
-
-  if (!canJoinInMoreRooms) {
-    const response = {
-      can: false,
-      reason: ValidationState.USER_REACH_MAX_ROOMS,
-    };
-    return response;
-  }
 
   const boardPlayers = await db.player.count({
     where: {
@@ -75,15 +65,17 @@ export async function canJoinRoom({ roomId, userEmail }: Input) {
   const isOwner = roomOwner.ownerEmail === user.email;
 
   if (isOwner) {
-    const can = plan.maxPlayers > boardPlayers;
+    const canJoinBoard =
+      userPlan.maxRooms !== UNLIMITED_PLAN_VALUE &&
+      userPlan.maxPlayers > boardPlayers;
 
     return {
-      can,
-      reason: can ? undefined : ValidationState.BOARD_IS_FULL,
+      can: canJoinBoard,
+      reason: canJoinBoard ? undefined : ValidationState.BOARD_IS_FULL,
     };
   }
 
-  const roomOwnerPlan = await db.user.findFirst({
+  const owner = await db.user.findFirst({
     where: {
       email: roomOwner.ownerEmail,
     },
@@ -96,14 +88,28 @@ export async function canJoinRoom({ roomId, userEmail }: Input) {
     },
   });
 
-  if (!roomOwnerPlan?.Subscription?.plan) {
+  if (!owner?.Subscription?.plan) {
     throw new Error("Room owner plan not found");
   }
 
-  const can = roomOwnerPlan.Subscription.plan.maxPlayers > boardPlayers;
+  const roomOwnerPlan = owner.Subscription.plan;
+
+  const isFreePlan = roomOwnerPlan.priceId === env.FREE_PLAN_PRICE_ID;
+
+  if (isFreePlan && userRoomsCount >= roomOwnerPlan.maxRooms) {
+    return {
+      can: false,
+      reason: ValidationState.USER_REACH_MAX_ROOMS,
+    };
+  }
+
+  const unlimitedPlayers = roomOwnerPlan.maxPlayers === UNLIMITED_PLAN_VALUE;
+
+  const canPlayerJoin =
+    unlimitedPlayers || roomOwnerPlan.maxPlayers > boardPlayers;
 
   return {
-    can,
-    reason: can ? undefined : ValidationState.BOARD_IS_FULL,
+    can: canPlayerJoin,
+    reason: canPlayerJoin ? undefined : ValidationState.BOARD_IS_FULL,
   };
 }

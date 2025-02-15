@@ -5,3 +5,5 @@ export enum SearchParams {
   ORDER = "order",
   STATE = "state",
 }
+
+export const UNLIMITED_PLAN_VALUE = -1;
