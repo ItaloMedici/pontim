@@ -1,5 +1,6 @@
 import { getBoardStatus } from "@/use-cases/board/get-board-status";
-import { resetBoard } from "@/use-cases/board/reset-board";
+import { resetBoardChoices } from "@/use-cases/board/reset-board-choices";
+import { updateBoardRound } from "@/use-cases/board/update-board-round";
 import { canPlayMoreRound } from "@/use-cases/plan/can-play-more-round";
 import { getServerSession } from "next-auth";
 
@@ -32,7 +33,9 @@ export async function POST(
       );
     }
 
-    const result = await resetBoard({ boardId });
+    await updateBoardRound({ boardId });
+
+    const result = await resetBoardChoices({ boardId });
 
     if (!result.count)
       return Response.json(
