@@ -1,7 +1,7 @@
 import { getBoardStatus } from "@/use-cases/board/get-board-status";
 import { NextRequest, NextResponse } from "next/server";
 
-const INTERVAL_POOLING = 500;
+const INTERVAL_POOLING = 250;
 
 const textEnconder = {
   encodeData: (data: object) =>
