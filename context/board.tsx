@@ -44,9 +44,11 @@ type BoardContextProps = {
   totalChoices: number;
   average: number;
   agreementPercentage: number;
+  availableRounds: number;
+  closestStoryPoint: number;
   handleChoice: (choice: string) => Promise<void>;
-  handleRevealCards: () => Promise<void>;
-  handleReset: () => Promise<void>;
+  handlePlay: () => Promise<void>;
+  loadingPlay: boolean;
   handleNotifyPlayer: (
     playerId: string,
     notification?: EnumNotification,
@@ -73,7 +75,9 @@ export const BoardProvider = ({
   const [boardStatus, setBoardStatus] = useState<BoardStatus>(
     {} as BoardStatus,
   );
-  const [isLoading, setIsLoading] = useState(true);
+  const [isOnFirstLoad, setIsOnFirstLoad] = useState(true);
+  const [loadingPlay, setPlayLoading] = useState(false);
+
   const [selfChoice, setSelfChoice] = useState("");
   const [revealOptimistc, setRevealOptimistc] = useState(
     boardStatus?.reveal || false,
@@ -101,30 +105,27 @@ export const BoardProvider = ({
     return board;
   }, [roomId, router]);
 
-  const onEventSourceMessage = useCallback(
-    (event: MessageEvent) => {
-      const data = JSON.parse(event.data) as BoardStatus;
+  const onEventSourceMessage = useCallback((event: MessageEvent) => {
+    const data = JSON.parse(event.data) as BoardStatus;
 
-      if (isLoading) setIsLoading(false);
+    if (isOnFirstLoad) setIsOnFirstLoad(false);
 
-      if (boardSnapshot.current === JSON.stringify(data)) return;
+    if (boardSnapshot.current === JSON.stringify(data)) return;
 
-      boardSnapshot.current = JSON.stringify(data);
+    boardSnapshot.current = JSON.stringify(data);
 
-      setBoardStatus(data);
+    setBoardStatus(data);
 
-      if (!selfChoiceRef.current && typeof data?.self?.choice === "string") {
-        setSelfChoice(data.self.choice);
-      }
+    if (!selfChoiceRef.current && typeof data?.self?.choice === "string") {
+      setSelfChoice(data.self.choice);
+    }
 
-      if (typeof data?.reveal === "boolean") {
-        setRevealOptimistc(data.reveal);
-      }
+    if (typeof data?.reveal === "boolean") {
+      setRevealOptimistc(data.reveal);
+    }
 
-      selfId.current = data?.self?.id;
-    },
-    [isLoading],
-  );
+    selfId.current = data?.self?.id;
+  }, []);
 
   const subscribeToBoardStatus = useCallback(async () => {
     if (hasSubscribed.current) return;
@@ -158,7 +159,7 @@ export const BoardProvider = ({
     return () => {
       unsubscribeToBoardStatus();
     };
-  }, [subscribeToBoardStatus, unsubscribeToBoardStatus]);
+  }, []);
 
   useEffect(() => {
     if (!boardStatus?.boardId) return;
@@ -286,15 +287,9 @@ export const BoardProvider = ({
     );
 
     if (updatedStatus) setBoardStatus(updatedStatus);
-  }, [boardStatus.self?.id, roomId]);
+  }, [boardStatus.availableRounds, boardStatus.self?.id, roomId]);
 
   const handleReset = useCallback(async () => {
-    if (boardStatus.availableRounds === 0) {
-      toast.error("Você atingiu o limite de rodadas.");
-      setOpenPlanOfferDialog(true);
-      return;
-    }
-
     setSelfChoice("");
     setBoardStatus((prev) => {
       return {
@@ -321,6 +316,33 @@ export const BoardProvider = ({
     roomId,
   ]);
 
+  const handlePlay = useCallback(async () => {
+    try {
+      setPlayLoading(true);
+
+      if (boardStatus.availableRounds === 0) {
+        toast.error("Você atingiu o limite de rodadas.");
+        setOpenPlanOfferDialog(true);
+        return;
+      }
+
+      if (revealOptimistc) {
+        setRevealOptimistc(false);
+        await handleReset();
+        return;
+      }
+
+      await handleRevealCards();
+    } finally {
+      setPlayLoading(false);
+    }
+  }, [
+    handleRevealCards,
+    handleReset,
+    boardStatus.availableRounds,
+    revealOptimistc,
+  ]);
+
   const handleNotifyPlayer = useCallback(
     async (playerId: string, notification?: EnumNotification) => {
       const updatedStatus = await http.post<BoardStatus>(
@@ -345,8 +367,8 @@ export const BoardProvider = ({
       reveal: revealOptimistc,
       selfChoice,
       handleChoice,
-      handleRevealCards,
-      handleReset,
+      handlePlay,
+      loadingPlay,
       handleNotifyPlayer,
       handleLeave: leaveBoard,
     }),
@@ -360,10 +382,12 @@ export const BoardProvider = ({
       handleReset,
       handleNotifyPlayer,
       leaveBoard,
+      loadingPlay,
+      handlePlay,
     ],
   );
 
-  if (!boardStatus?.self || isLoading) {
+  if (!boardStatus?.self || isOnFirstLoad) {
     return <LoadingLogo />;
   }
 

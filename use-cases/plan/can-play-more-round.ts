@@ -1,3 +1,4 @@
+import { UNLIMITED_PLAN_VALUE } from "@/lib/consts";
 import { db } from "@/lib/db";
 import { getUserByEmail } from "../user/get-user-by-email";
 
@@ -43,6 +44,8 @@ export const canPlayMoreRound = async ({ boardId, userEmail }: Input) => {
       throw new Error("User plan not found");
     }
 
+    if (userPlan.plan.maxRounds === UNLIMITED_PLAN_VALUE) return true;
+
     return userPlan.plan.maxRounds > board.round;
   }
 
@@ -60,6 +63,8 @@ export const canPlayMoreRound = async ({ boardId, userEmail }: Input) => {
   if (!ownerPlan) {
     throw new Error("Owner plan not found");
   }
+
+  if (ownerPlan.plan.maxRounds === UNLIMITED_PLAN_VALUE) return true;
 
   return ownerPlan.plan.maxRounds > board.round;
 };

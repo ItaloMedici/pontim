@@ -1,104 +1,155 @@
 import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import { Separator } from "@/components/ui/separator";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 import { useBoard } from "@/context/board";
-import { useIsMobile } from "@/hooks/use-is-mobile";
-import { Eraser, EyeIcon, EyeOffIcon, RotateCcw } from "lucide-react";
-
-const ICON_SIZE = 16;
+import { UNLIMITED_PLAN_VALUE } from "@/lib/consts";
+import { cn } from "@/lib/utils";
+import { fibonacciAverageOptions } from "@/use-cases/board/choice-options";
+import { ArrowRight, Eye, Loader, Plus, Users } from "lucide-react";
+import { useMemo } from "react";
 
 export const BoardDock = () => {
   const {
-    others,
-    handleRevealCards,
     reveal,
-    handleReset,
     average,
+    totalChoices,
+    totalPlayers,
+    availableRounds,
+    closestStoryPoint,
+    handlePlay,
+    loadingPlay,
     agreementPercentage,
   } = useBoard();
-  const isMobile = useIsMobile();
 
-  if (!others.length) {
-    return null;
-  }
+  const averageEmoji = useMemo(() => {
+    if (!reveal || !average) return "🃏";
 
-  const onResetClick = () => {
-    if (reveal) {
-      handleRevealCards();
-    }
+    if (average <= fibonacciAverageOptions.small) return "☕";
+    if (average <= fibonacciAverageOptions.medium) return "👍";
+    if (average <= fibonacciAverageOptions.large) return "🤔";
 
-    handleReset();
+    return "💀";
+  }, [average, reveal]);
+
+  const formatAverage = (value: number | null | undefined) => {
+    if (value === null || value === undefined) return "-";
+    return Number(value).toFixed(1).replace(/\.0$/, "");
   };
 
-  const agreementIcon = () => {
-    if (agreementPercentage === 95) {
-      return "🤩";
-    }
+  const votingProcess = useMemo(() => {
+    return `${totalChoices}/${totalPlayers} votos`;
+  }, [totalChoices, totalPlayers]);
 
-    if (agreementPercentage >= 75) {
-      return "😍";
-    }
+  const playAction = useMemo(() => {
+    if (loadingPlay)
+      return (
+        <>
+          <Loader className="h-4 w-4 animate-spin" />
+          <span>Carregando...</span>
+        </>
+      );
 
-    if (agreementPercentage >= 50) {
-      return "🤔";
-    }
-
-    if (agreementPercentage >= 25) {
-      return "😐";
-    }
-
-    return "🤨";
-  };
-
-  const ResultDesktop = () => {
-    if (!reveal || isMobile) return null;
+    if (reveal)
+      return (
+        <>
+          <Plus className="h-4 w-4" />
+          <span>Nova Rodada</span>
+        </>
+      );
 
     return (
-      <div className="flex items-center gap-2 bg-white p-1 rounded-md border border-gray-200 font-medium">
-        <span className="text-md mr-2">{agreementIcon()}</span>
-        <span className="text-xs text-gray-500">Média:</span>
-        <span className="text-sm text-gray-800">{average}</span>
-        <span className="text-xs text-gray-500">Concordância:</span>
-        <span className="text-sm text-gray-800">{agreementPercentage}%</span>
-      </div>
+      <>
+        <Eye className="h-4 w-4" />
+        <span>Revelar</span>
+      </>
     );
-  };
-
-  const ResultMobile = () => {
-    if (!reveal || !isMobile) return null;
-
-    return (
-      <div className="flex items-center w-fit gap-2 bg-white p-2 rounded-lg border border-gray-200">
-        <span className="text-md mr-2">{agreementIcon()}</span>
-        <span className="text-sm text-gray-500">Média:</span>
-        <span className="text-sm text-gray-800">{average}</span>
-        <span className="text-sm text-gray-500">Concordância:</span>
-        <span className="text-sm text-gray-800">{agreementPercentage}%</span>
-      </div>
-    );
-  };
+  }, [reveal, loadingPlay]);
 
   return (
-    <div className="flex flex-col gap-4 items-center">
-      <div className="border bg-gray-50 border-gray-200 p-[6px] rounded-lg flex items-center justify-between gap-[6px]">
-        <Button onClick={handleRevealCards} size={"sm"} variant={"outline"}>
-          {reveal ? (
-            <EyeOffIcon size={ICON_SIZE} />
-          ) : (
-            <EyeIcon size={ICON_SIZE} />
-          )}{" "}
-          {reveal ? "Esconder" : "Revelar"}
-        </Button>
+    <TooltipProvider>
+      <Card className="flex flex-col items-stretch gap-2 p-2 shadow-lg transition-all duration-200 hover:shadow-md">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <Button size="sm" onClick={handlePlay} disabled={loadingPlay}>
+              {playAction}
+            </Button>
+          </div>
 
-        <Button onClick={onResetClick} size={"sm"} variant={"outline"}>
-          <RotateCcw size={ICON_SIZE} /> Reiniciar
-        </Button>
-
-        <Button variant={"ghost"} onClick={handleReset} size={"sm"}>
-          <Eraser size={ICON_SIZE} /> Limpar
-        </Button>
-
-        <ResultDesktop />
-      </div>
-      <ResultMobile />
-    </div>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <div className="ml-6 flex items-center gap-4 rounded-md">
+                <div className="flex items-center gap-4">
+                  <span className="text-3xl">{averageEmoji}</span>
+                  <div className="flex flex-col">
+                    <span className="text-xs text-muted-foreground opacity-95">
+                      Média
+                    </span>
+                    <span className="text-xs">
+                      {average === 0 || !reveal ? (
+                        "-"
+                      ) : (
+                        <div className="flex items-center gap-1">
+                          <span>{formatAverage(average)}</span>
+                          <ArrowRight className="h-3 w-3 opacity-70" />
+                          <span>{closestStoryPoint}</span>
+                        </div>
+                      )}
+                    </span>
+                  </div>
+                </div>
+                <Separator orientation="vertical" className="h-8" />
+                <div className="flex items-center gap-2">
+                  <Users className="h-4 w-4 text-muted-foreground" />
+                  <span className="text-xs text-muted-foreground">
+                    {votingProcess}
+                  </span>
+                </div>
+              </div>
+            </TooltipTrigger>
+            <TooltipContent>
+              <div className="flex flex-col gap-4 text-sm">
+                <div className="flex items-center justify-between gap-4">
+                  <span className="text-muted-foreground">Média atual:</span>
+                  <span className="font-semibold">
+                    {formatAverage(average)}
+                  </span>
+                </div>
+                <div className="flex items-center justify-between gap-4">
+                  <span className="text-muted-foreground">
+                    Pontuação sugerida:
+                  </span>
+                  <span className="font-semibold">{closestStoryPoint}</span>
+                </div>
+                <div className="flex items-center justify-between gap-4">
+                  <span className="text-muted-foreground">Concordância:</span>
+                  <span className="font-semibold">{agreementPercentage}%</span>
+                </div>
+                <div className="flex items-center justify-between gap-4">
+                  <span className="text-muted-foreground">
+                    Rodadas restantes:
+                  </span>
+                  <span
+                    className={cn("font-semibold", {
+                      "text-red-500": availableRounds === 0,
+                      "text-orange-500": availableRounds <= 1,
+                    })}
+                  >
+                    {availableRounds === UNLIMITED_PLAN_VALUE
+                      ? "Ilimitadas"
+                      : availableRounds}
+                  </span>
+                </div>
+              </div>
+            </TooltipContent>
+          </Tooltip>
+        </div>
+      </Card>
+    </TooltipProvider>
   );
 };
