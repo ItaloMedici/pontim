@@ -93,6 +93,9 @@ export const BoardProvider = ({
   const closeEventSource = useRef<() => void>();
   const hasSubscribed = useRef(false);
 
+  const choiceSignal = useRef<AbortController>(new AbortController());
+  const revealSignal = useRef<AbortController>(new AbortController());
+
   const joinBoard = useCallback(async () => {
     const board = await http.put<BoardStatus>(`${roomId}/board/join`);
 
@@ -266,12 +269,19 @@ export const BoardProvider = ({
       if (!boardStatus.self) return;
       setSelfChoice(choice);
 
+      if (!choiceSignal.current.signal.aborted) {
+        choiceSignal.current.abort("Aborted previous request.");
+      }
+
+      choiceSignal.current = new AbortController();
+
       const updatedStatus = await http.post<BoardStatus>(
         `/${roomId}/board/make-choice`,
         {
           playerId: boardStatus.self.id,
           choice,
         },
+        choiceSignal.current.signal,
       );
 
       if (updatedStatus) setBoardStatus(updatedStatus);
@@ -281,6 +291,12 @@ export const BoardProvider = ({
 
   const handleRevealCards = useCallback(async () => {
     setRevealOptimistc((prev) => !prev);
+
+    if (!revealSignal.current.signal.aborted) {
+      revealSignal.current.abort("Aborted previous request.");
+    }
+
+    revealSignal.current = new AbortController();
 
     const updatedStatus = await http.post<BoardStatus>(
       `/${roomId}/board/reveal?playerId=${boardStatus.self?.id}`,

@@ -20,38 +20,42 @@ const createHttpHandler = async <T,>(fn: () => Promise<Response>) => {
   return null;
 };
 
-const get = <T,>(url: string) =>
+const get = <T,>(url: string, signal?: AbortSignal) =>
   createHttpHandler<T>(async () => {
     return await fetch(`/api/${url}`, {
       method: "GET",
       headers: { "Content-Type": "application/json" },
+      signal,
     });
   });
 
-const post = <T,>(url: string, body?: any) =>
+const post = <T,>(url: string, body?: any, signal?: AbortSignal) =>
   createHttpHandler<T>(async () => {
     return await fetch(`/api/${url}`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: body ? JSON.stringify(body) : null,
+      signal,
     });
   });
 
-const put = <T,>(url: string, body?: any) =>
+const put = <T,>(url: string, body?: any, signal?: AbortSignal) =>
   createHttpHandler<T>(async () => {
     return await fetch(`/api/${url}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: body ? JSON.stringify(body) : null,
+      signal,
     });
   });
 
-const _delete = <T,>(url: string, body?: any) => {
+const _delete = <T,>(url: string, body?: any, signal?: AbortSignal) => {
   return createHttpHandler<T>(async () => {
     return await fetch(`/api/${url}`, {
       method: "DELETE",
       headers: { "Content-Type": "application/json" },
       body: body ? JSON.stringify(body) : null,
+      signal,
     });
   });
 };
