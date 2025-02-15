@@ -1,5 +1,28 @@
 # Changelog
 
+# [0.8.0](https://github.com/ItaloMedici/pontim/compare/v0.7.0...v0.8.0) (2025-02-15)
+
+
+### Bug Fixes
+
+* validate if plan is unlimited ([c4d22aa](https://github.com/ItaloMedici/pontim/commit/c4d22aaf5e19b3ea3383557c9e5c5a628f7f94de))
+
+
+### Features
+
+* **board:** update rounds count on reset ([08916e2](https://github.com/ItaloMedici/pontim/commit/08916e276588f8fdd7418b4f14e39a4180c708c0))
+* create report page ([58fe995](https://github.com/ItaloMedici/pontim/commit/58fe995fe77601fda9729d9303ded8c3131a6550))
+* create submit report page ([ff4cab9](https://github.com/ItaloMedici/pontim/commit/ff4cab9e26d18c7ab2a709b748bf625ecd2278df))
+* enchase board dock ([9c9ca3a](https://github.com/ItaloMedici/pontim/commit/9c9ca3aa522098c1cae70b00520f8b47fc144b62))
+* setup resend ([221eb85](https://github.com/ItaloMedici/pontim/commit/221eb856e05797f3597ada70233379fdff9a244e))
+
+
+### Performance Improvements
+
+* add signals to abort request when needed ([347b153](https://github.com/ItaloMedici/pontim/commit/347b15333579c8cd404ec83430d790821e112211))
+* avoid re-render on choice submit ([8f5c126](https://github.com/ItaloMedici/pontim/commit/8f5c126085a3b377556ab5a72935b81edaeee968))
+* reduce interval pooling ([915a1ad](https://github.com/ItaloMedici/pontim/commit/915a1ada80655321672cb57c5cb74c1aad668dc5))
+
 # [0.7.0](https://github.com/ItaloMedici/pontim/compare/v0.6.3...v0.7.0) (2025-02-10)
 
 
