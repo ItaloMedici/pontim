@@ -15,6 +15,7 @@ export const env = createEnv({
     STRIPE_WEBHOOK_SECRET: z.string(),
     SITE_URL: z.string().url(),
     RESEND_API_KEY: z.string(),
+    GA_ID: z.string(),
   },
   runtimeEnvStrict: {
     NEXTAUTH_URL: process.env.NEXTAUTH_URL,
@@ -27,5 +28,6 @@ export const env = createEnv({
     FREE_PLAN_PRICE_ID: process.env.FREE_PLAN_PRICE_ID,
     STRIPE_WEBHOOK_SECRET: process.env.STRIPE_WEBHOOK_SECRET,
     RESEND_API_KEY: process.env.RESEND_API_KEY,
+    GA_ID: process.env.GA_ID,
   },
 });

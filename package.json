@@ -1,6 +1,6 @@
 {
   "name": "pontim",
-  "version": "0.8.0",
+  "version": "0.8.1",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -14,6 +14,7 @@
   },
   "dependencies": {
     "@hookform/resolvers": "^3.3.4",
+    "@next/third-parties": "^15.1.7",
     "@number-flow/react": "^0.5.5",
     "@prisma/client": "^5.16.1",
     "@radix-ui/react-alert-dialog": "^1.0.5",
