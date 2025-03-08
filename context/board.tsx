@@ -96,6 +96,8 @@ export const BoardProvider = ({
   const choiceSignal = useRef<AbortController>(new AbortController());
   const revealSignal = useRef<AbortController>(new AbortController());
 
+  const currentRound = useRef(boardStatus?.currentRound ?? 0);
+
   const joinBoard = useCallback(async () => {
     const board = await http.put<BoardStatus>(`${roomId}/board/join`);
 
@@ -127,6 +129,11 @@ export const BoardProvider = ({
       setRevealOptimistc(data.reveal);
     }
 
+    if (currentRound.current !== data?.currentRound) {
+      currentRound.current = data?.currentRound as number;
+      setSelfChoice("");
+    }
+
     selfId.current = data?.self?.id;
   }, []);
 
@@ -153,6 +160,7 @@ export const BoardProvider = ({
   }, [joinBoard, onEventSourceMessage, roomId]);
 
   const unsubscribeToBoardStatus = useCallback(() => {
+    console.log("Unsubscribing to board status.");
     closeEventSource.current?.();
   }, []);
 
@@ -303,7 +311,7 @@ export const BoardProvider = ({
     );
 
     if (updatedStatus) setBoardStatus(updatedStatus);
-  }, [boardStatus.availableRounds, boardStatus.self?.id, roomId]);
+  }, [boardStatus.self?.id, roomId]);
 
   const handleReset = useCallback(async () => {
     setSelfChoice("");
@@ -316,6 +324,7 @@ export const BoardProvider = ({
         })),
       } as BoardStatus;
     });
+    currentRound.current += 1;
 
     const updatedStatus = await http.post<BoardStatus>(
       `/${roomId}/board/reset`,
@@ -324,13 +333,9 @@ export const BoardProvider = ({
         playerId: boardStatus.self?.id,
       },
     );
+
     if (updatedStatus) setBoardStatus(updatedStatus);
-  }, [
-    boardStatus.availableRounds,
-    boardStatus.boardId,
-    boardStatus.self?.id,
-    roomId,
-  ]);
+  }, [boardStatus.boardId, boardStatus.self?.id, roomId]);
 
   const handlePlay = useCallback(async () => {
     try {

@@ -17,6 +17,7 @@ export type BoardStatus = {
   notifications: Array<BoardStatusNotification>;
 
   availableRounds?: number;
+  currentRound?: number;
 };
 
 export type BoardStatusNotification = {

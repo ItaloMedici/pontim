@@ -28,27 +28,6 @@ export const canPlayMoreRound = async ({ boardId, userEmail }: Input) => {
     throw new Error("User not found");
   }
 
-  const isBoardOwner = board.room.ownerEmail === user.email;
-
-  if (isBoardOwner) {
-    const userPlan = await db.subscription.findFirst({
-      where: {
-        userId: user.id,
-      },
-      select: {
-        plan: true,
-      },
-    });
-
-    if (!userPlan) {
-      throw new Error("User plan not found");
-    }
-
-    if (userPlan.plan.maxRounds === UNLIMITED_PLAN_VALUE) return true;
-
-    return userPlan.plan.maxRounds > board.round;
-  }
-
   const ownerPlan = await db.subscription.findFirst({
     where: {
       user: {
