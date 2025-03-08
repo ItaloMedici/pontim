@@ -1,5 +1,17 @@
 # Changelog
 
+# [0.9.0](https://github.com/ItaloMedici/pontim/compare/v0.8.2...v0.9.0) (2025-03-08)
+
+
+### Bug Fixes
+
+* **board:** adjust board round count ([b472249](https://github.com/ItaloMedici/pontim/commit/b47224904f6e9f73dbfaa72b90576b98d43371fa))
+
+
+### Features
+
+* **user-plans:** add user plan badge ([23f1252](https://github.com/ItaloMedici/pontim/commit/23f1252fc6e4a80074c5d84eab9a70ee1cb9cd63))
+
 ## [0.8.2](https://github.com/ItaloMedici/pontim/compare/v0.8.1...v0.8.2) (2025-03-08)
 
 ## [0.8.1](https://github.com/ItaloMedici/pontim/compare/v0.8.0...v0.8.1) (2025-02-18)
