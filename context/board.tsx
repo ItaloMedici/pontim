@@ -399,8 +399,6 @@ export const BoardProvider = ({
       revealOptimistc,
       selfChoice,
       handleChoice,
-      handleRevealCards,
-      handleReset,
       handleNotifyPlayer,
       leaveBoard,
       loadingPlay,
