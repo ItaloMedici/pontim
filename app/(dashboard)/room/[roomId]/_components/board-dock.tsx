@@ -138,6 +138,8 @@ export const BoardDock = () => {
                     className={cn("font-semibold", {
                       "text-red-500": availableRounds === 0,
                       "text-orange-500": availableRounds <= 1,
+                      "text-green-500":
+                        availableRounds === UNLIMITED_PLAN_VALUE,
                     })}
                   >
                     {availableRounds === UNLIMITED_PLAN_VALUE
