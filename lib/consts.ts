@@ -7,3 +7,9 @@ export enum SearchParams {
 }
 
 export const UNLIMITED_PLAN_VALUE = -1;
+
+export enum Plans {
+  Free = "Grátis",
+  Pro = "Pro",
+  Master = "Master",
+}

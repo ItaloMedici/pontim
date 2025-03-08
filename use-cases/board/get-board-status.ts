@@ -134,6 +134,7 @@ export const getBoardStatus = validator({
       availableRounds: isUnlimitedRounds
         ? UNLIMITED_PLAN_VALUE
         : availableRounds,
+      currentRound: board.round,
       closestStoryPoint,
     };
 
