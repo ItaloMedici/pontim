@@ -57,6 +57,7 @@ jobs:
             STRIPE_WEBHOOK_SECRET=${{ secrets.STRIPE_WEBHOOK_SECRET }}
             FREE_PLAN_PRICE_ID=${{ secrets.FREE_PLAN_PRICE_ID }}
             RESEND_API_KEY=${{ secrets.RESEND_API_KEY }}
+            REDIS_URL=${{ secrets.REDIS_URL }}
             GA_ID=${{ secrets.GA_ID }}
           
       - name: Generate artifact attestation
