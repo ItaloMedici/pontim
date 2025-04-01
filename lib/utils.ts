@@ -1,4 +1,4 @@
-import { Player } from "@/lib/schemas/player";
+import { Player } from "@/types/player";
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 
@@ -7,6 +7,8 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 export function buildPlayerFallbackImage(player: Player) {
+  if (!player.nickname) return "";
+
   return player.nickname
     .toUpperCase()
     .split(" ")

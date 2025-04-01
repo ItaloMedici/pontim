@@ -1,8 +1,8 @@
 import { useBoard } from "@/context/board";
-import { Player } from "@/lib/schemas/player";
 import { cn } from "@/lib/utils";
 import { notificationIcons } from "@/messages/notification";
 import { EnumNotification } from "@/types/notifications";
+import { Player } from "@/types/player";
 import {
   Popover,
   PopoverContent,

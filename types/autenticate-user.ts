@@ -3,4 +3,5 @@ export type AuthenticatedUser = {
   email: string;
   image?: string;
   planName?: string;
+  id: string;
 };

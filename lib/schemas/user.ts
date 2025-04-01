@@ -14,4 +14,4 @@ export const userSchemaWithId = z.object({
   id: z.string(),
 });
 
-export type User = PrismaUser;
+export type User = PrismaUser & z.infer<typeof userSchema>;

@@ -1,40 +1,47 @@
-import { getBoardStatus } from "@/use-cases/board/get-board-status";
-import { deleteNotification } from "@/use-cases/notification/delete-notification";
-import { sendNotification } from "@/use-cases/notification/send-notification";
+import { authOptions } from "@/authOptions";
+import { NotificationService } from "@/use-cases/notification/notification-service";
+import { getServerSession } from "next-auth";
 
 export async function POST(
   request: Request,
   { params }: { params: { roomId: string } },
 ) {
   try {
-    const { senderId, targetId, boardId, notification } = await request.json();
+    const { targetId, notification } = await request.json();
 
-    await sendNotification({
-      senderId,
-      targetId,
-      boardId,
-      sound: notification,
-    });
+    const session = await getServerSession(authOptions);
 
-    const status = await getBoardStatus({
-      roomId: params.roomId,
-      playerId: senderId,
-    });
+    if (!session?.user) {
+      return Response.json({ message: "Unauthorized" }, { status: 401 });
+    }
 
-    return Response.json(status);
+    const notificationService = new NotificationService(params.roomId, session);
+
+    notificationService.sendNotification(notification, targetId);
+
+    return Response.json(`Notification sent to ${targetId}`);
   } catch (error: any) {
     console.error(error);
     return Response.json({ message: error?.message }, { status: 500 });
   }
 }
 
-export async function DELETE(request: Request) {
+export async function DELETE(
+  request: Request,
+  { params }: { params: { roomId: string } },
+) {
   try {
-    const { notificationId } = await request.json();
+    const session = await getServerSession(authOptions);
 
-    await deleteNotification({ notificationId });
+    if (!session?.user) {
+      return Response.json({ message: "Unauthorized" }, { status: 401 });
+    }
 
-    return Response.json({ message: "Succefully delete notification" });
+    const notificationService = new NotificationService(params.roomId, session);
+
+    notificationService.deleteNotifications();
+
+    return Response.json({ message: "Succefully delete notifications" });
   } catch (error: any) {
     console.error(error);
     return Response.json({ message: error?.message }, { status: 500 });

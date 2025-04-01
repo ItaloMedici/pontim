@@ -1,6 +1,6 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Player } from "@/lib/schemas/player";
 import { buildPlayerFallbackImage, cn } from "@/lib/utils";
+import { Player } from "@/types/player";
 
 type NumberCardsProps = {
   value: number | string | undefined | null;

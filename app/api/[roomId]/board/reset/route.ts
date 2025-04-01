@@ -1,30 +1,24 @@
-import { getBoardStatus } from "@/use-cases/board/get-board-status";
-import { resetBoardChoices } from "@/use-cases/board/reset-board-choices";
-import { updateBoardRound } from "@/use-cases/board/update-board-round";
-import { canPlayMoreRound } from "@/use-cases/plan/can-play-more-round";
+import { authOptions } from "@/authOptions";
+import { BoardService } from "@/use-cases/board/board-service";
+import { PlanService } from "@/use-cases/plan/plan-board-service";
 import { getServerSession } from "next-auth";
 
 export async function POST(
-  request: Request,
+  _: Request,
   { params }: { params: { roomId: string } },
 ) {
   try {
-    const { boardId, playerId } = await request.json();
-
-    const session = await getServerSession();
+    const session = await getServerSession(authOptions);
 
     if (!session?.user) {
       return Response.json({ message: "Unauthorized" }, { status: 401 });
     }
 
-    if (!boardId) {
-      return Response.json({ message: "Invalid input" }, { status: 400 });
-    }
+    const boardService = new BoardService(params.roomId, session);
 
-    const canPlay = await canPlayMoreRound({
-      boardId,
-      userEmail: session.user.email,
-    });
+    const planService = new PlanService(params.roomId, boardService);
+
+    const canPlay = await planService.canPlayMoreRound();
 
     if (!canPlay) {
       return Response.json(
@@ -33,22 +27,15 @@ export async function POST(
       );
     }
 
-    await updateBoardRound({ boardId });
+    const updatedBoard = boardService.nextRound();
 
-    const result = await resetBoardChoices({ boardId });
-
-    if (!result.count)
+    if (!updatedBoard)
       return Response.json(
         { message: "Error while reseting board" },
         { status: 404 },
       );
 
-    const status = await getBoardStatus({
-      roomId: params.roomId,
-      playerId,
-    });
-
-    return Response.json(status);
+    return Response.json(updatedBoard);
   } catch (error: any) {
     console.error(error);
     return Response.json({ message: error?.message }, { status: 500 });
