@@ -6,6 +6,10 @@ export async function POST(
   request: Request,
   { params }: { params: { roomId: string } },
 ) {
+  if (request.signal.aborted) {
+    return Response.json({ message: "Request aborted" }, { status: 408 });
+  }
+
   try {
     const { choice } = await request.json();
     const session = await getServerSession(authOptions);
