@@ -1,5 +1,12 @@
 # Changelog
 
+# [0.10.0](https://github.com/ItaloMedici/pontim/compare/v0.9.0...v0.10.0) (2025-04-01)
+
+
+### Features
+
+* add glow component and improvements to hero component ([27a5f63](https://github.com/ItaloMedici/pontim/commit/27a5f63f3871f2fe20f2a0ec91e59c515f97d98c))
+
 # [0.9.0](https://github.com/ItaloMedici/pontim/compare/v0.8.2...v0.9.0) (2025-03-08)
 
 
