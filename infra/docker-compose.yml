@@ -1,0 +1,16 @@
+version: "3.8"
+
+services:
+  redis:
+    image: redis:7.4.2
+    container_name: pontim-redis
+    restart: always
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    command: redis-server --appendonly yes
+
+volumes:
+  redis_data:
+    driver: local
