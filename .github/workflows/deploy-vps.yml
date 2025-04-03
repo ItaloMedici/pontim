@@ -49,16 +49,16 @@ jobs:
             cd ~/pontim/infra
             
             echo "Pulling the latest image..."
-            docker compose pull pontim
+            docker compose pull pontim-app
             
             echo "Stopping the current container..."
-            docker compose stop pontim
+            docker compose stop pontim-app
             
             echo "Removing the current container..."
-            docker compose rm -f pontim
+            docker compose rm -f pontim-app
             
             echo "Starting the new container..."
-            docker compose up -d pontim
+            docker compose up -d pontim-app
 
             echo "Current running containers:"
             docker ps
