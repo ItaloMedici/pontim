@@ -1,6 +1,6 @@
 import { NumberCard } from "@/components/number-cards";
 import { useBoard } from "@/context/board";
-import { Player } from "@/lib/schemas/player";
+import { Player } from "@/types/player";
 import { PlayerNotificationPopup } from "./player-notification-popup";
 
 type PlayerCardProps = {

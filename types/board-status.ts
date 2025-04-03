@@ -1,4 +1,18 @@
-import { Player } from "@/lib/schemas/player";
+import { Player } from "./player";
+
+export type Board = {
+  roomId: string;
+  players: Array<Player>;
+  totalPlayers: number;
+  totalChoices: number;
+  currentRound: number;
+  reveal: boolean;
+  average: number;
+  agreementPercentage: number;
+  availableRounds: number;
+  closestStoryPoint: number;
+  maxRounds: number;
+};
 
 export type BoardStatus = {
   boardId?: string;
@@ -14,8 +28,6 @@ export type BoardStatus = {
 
   firstTime?: boolean;
 
-  notifications: Array<BoardStatusNotification>;
-
   availableRounds?: number;
   currentRound?: number;
 };
@@ -26,4 +38,10 @@ export type BoardStatusNotification = {
   target: string;
   sender: string;
   isSelf: boolean;
+};
+
+export type BoardNotification = {
+  senderId: string;
+  targetId: string;
+  sound: string;
 };

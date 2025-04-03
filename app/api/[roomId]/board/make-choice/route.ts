@@ -1,29 +1,38 @@
-import { getBoardStatus } from "@/use-cases/board/get-board-status";
-import { makeChoice } from "@/use-cases/player/make-choice";
+import { authOptions } from "@/authOptions";
+import { BoardService } from "@/use-cases/board/board-service";
+import { getServerSession } from "next-auth";
 
 export async function POST(
   request: Request,
   { params }: { params: { roomId: string } },
 ) {
+  if (request.signal.aborted) {
+    return Response.json({ message: "Request aborted" }, { status: 408 });
+  }
+
   try {
-    const { choice, playerId } = await request.json();
+    const { choice } = await request.json();
+    const session = await getServerSession(authOptions);
 
     if (!choice) {
       return Response.json({ message: "Choice is required" }, { status: 400 });
     }
 
-    if (!playerId) {
-      return Response.json(
-        { message: "Player ID is required" },
-        { status: 400 },
-      );
+    if (!session?.user) {
+      return Response.json({ message: "Unauthorized" }, { status: 401 });
     }
 
-    await makeChoice({ playerId, choice });
+    const service = new BoardService(params.roomId, session);
 
-    const status = await getBoardStatus({ roomId: params.roomId, playerId });
+    if (!service.getBoard()) {
+      return Response.json({ message: "Board not found" }, { status: 404 });
+    }
 
-    return Response.json(status);
+    const updated = service.makeChoice({
+      choice,
+    });
+
+    return Response.json(updated);
   } catch (error: any) {
     console.error(error);
     return Response.json({ message: error?.message }, { status: 500 });

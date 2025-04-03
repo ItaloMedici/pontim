@@ -1,0 +1,29 @@
+services:
+  redis:
+    image: redis:7.4.2
+    container_name: pontim-redis
+    restart: always
+    volumes:
+      - redis_data:/data
+    command: redis-server --appendonly yes
+    networks:
+      - pontim-network
+  
+  pontim:
+    image: ghcr.io/italomedici/pontim:main
+    container_name: pontim-app
+    ports:
+      - "80:3000"
+    depends_on:
+      - redis
+    restart: always
+    networks:
+      - pontim-network
+
+volumes:
+  redis_data:
+    driver: local
+
+networks:
+  pontim-network:
+    driver: bridge
