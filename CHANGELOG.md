@@ -1,5 +1,21 @@
 # Changelog
 
+# [0.11.0](https://github.com/ItaloMedici/pontim/compare/v0.10.0...v0.11.0) (2025-04-03)
+
+
+### Bug Fixes
+
+* pass redis url to docker env ([bafb2c2](https://github.com/ItaloMedici/pontim/commit/bafb2c2f556277e4fe4eb26c440ded2188859721))
+
+
+### Features
+
+* create use board events hook ([90ab2b9](https://github.com/ItaloMedici/pontim/commit/90ab2b985bf469d47ba2165e2226b668fe0d0df6))
+* create use http hook ([7bbd1d3](https://github.com/ItaloMedici/pontim/commit/7bbd1d36f963e8c5c08c31d92b6be0bdfe69013a))
+* create use notification ([550008c](https://github.com/ItaloMedici/pontim/commit/550008c4fc79bd90c38c1523ac65691398aafb7c))
+* creste rounds reach limit dialog ([8b9e182](https://github.com/ItaloMedici/pontim/commit/8b9e1828fa58932958b92c889ac42dac41f12635))
+* migrate all board events to redis ([2f98f4f](https://github.com/ItaloMedici/pontim/commit/2f98f4f739fd2658a8d349b824632fb3a8ce2510))
+
 # [0.10.0](https://github.com/ItaloMedici/pontim/compare/v0.9.0...v0.10.0) (2025-04-01)
 
 
