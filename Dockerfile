@@ -34,6 +34,7 @@ RUN --mount=type=secret,id=NEXTAUTH_URL \
     --mount=type=secret,id=STRIPE_WEBHOOK_SECRET \
     --mount=type=secret,id=FREE_PLAN_PRICE_ID \
     --mount=type=secret,id=RESEND_API_KEY \
+    --mount=type=secret,id=REDIS_URL \
     --mount=type=secret,id=GA_ID \
     sh -c 'echo "NEXTAUTH_URL=$(cat /run/secrets/NEXTAUTH_URL)" > .env && \
            echo "NEXTAUTH_SECRET=$(cat /run/secrets/NEXTAUTH_SECRET)" >> .env && \
