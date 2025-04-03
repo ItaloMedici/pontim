@@ -33,6 +33,8 @@ jobs:
             if ! docker ps --filter "name=pontim-redis" --filter "status=running" | grep "pontim-redis"; then
               echo "Redis is not running. Starting Redis..."
               docker-compose -f ~/infra/docker-compose.yml up -d redis
+              echo "Redis started."
+              docker ps
             else
               echo "Redis is already running."
             fi
@@ -45,5 +47,18 @@ jobs:
           password: ${{ secrets.VPS_PASSWORD }}
           script: |
             cd ~/infra
+            
+            echo "Pulling the latest image..."
             docker-compose pull pontim
+            
+            echo "Stopping the current container..."
+            docker-compose stop pontim
+            
+            echo "Removing the current container..."
+            docker-compose rm -f pontim
+            
+            echo "Starting the new container..."
             docker-compose up -d pontim
+
+            echo "Current running containers:"
+            docker ps
