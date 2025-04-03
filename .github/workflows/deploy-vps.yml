@@ -20,7 +20,7 @@ jobs:
           username: ${{ secrets.VPS_USER }}
           password: ${{ secrets.VPS_PASSWORD }}
           source: "infra/docker-compose.yml"
-          target: "~/infra"
+          target: "~/infra/docker-compose.yml"
 
       - name: Check if Redis is running
         uses: appleboy/ssh-action@master
@@ -29,7 +29,7 @@ jobs:
           username: ${{ secrets.VPS_USER }}
           password: ${{ secrets.VPS_PASSWORD }}
           script: |
-            echo "Verificando se o Redis está rodando..."
+            echo "Checking if Redis is running..."
             if ! docker ps --filter "name=pontim-redis" --filter "status=running" | grep "pontim-redis"; then
               echo "Redis is not running. Starting Redis..."
               docker-compose -f ~/infra/docker-compose.yml up -d redis
