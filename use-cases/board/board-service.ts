@@ -86,6 +86,7 @@ class BoardEntity {
     };
 
     await this.setBoard(board);
+    await redis.expire(this.boardKey, 60 * 60 * 24);
 
     return board;
   }
@@ -138,7 +139,7 @@ class BoardEntity {
 
     const actionHandlers: Record<
       Actions,
-      (board: Board, data?: any) => Promise<Board>
+      (board: Board, data?: any) => Promise<Board | undefined>
     > = {
       join: this.joinAction.bind(this),
       leave: this.leaveAction.bind(this),
@@ -149,17 +150,19 @@ class BoardEntity {
 
     this._board = await actionHandlers[action](this._board, data);
 
-    this._board = this.calculateBoardMetrics(this._board);
+    if (typeof this._board !== "undefined") {
+      this._board = this.calculateBoardMetrics(this._board);
 
-    await this.setBoard(this._board);
+      await this.setBoard(this._board);
 
-    const boardUptatedEvent: EventEnvelope = {
-      action: EventAction.BOARD_UPDATED,
-      data: JSON.stringify(this._board),
-      from: this.session.user.id,
-    };
+      const boardUptatedEvent: EventEnvelope = {
+        action: EventAction.BOARD_UPDATED,
+        data: JSON.stringify(this._board),
+        from: this.session.user.id,
+      };
 
-    redis.publish(this.eventsKey, JSON.stringify(boardUptatedEvent));
+      redis.publish(this.eventsKey, JSON.stringify(boardUptatedEvent));
+    }
 
     if (action === "leave") {
       const leaveEvent: EventEnvelope = {
@@ -187,7 +190,7 @@ class BoardEntity {
       redis.publish(this.eventsKey, JSON.stringify(joinEvent));
     }
 
-    if (action === "reveal") {
+    if (action === "reveal" && this._board) {
       const revealEvent: EventEnvelope = {
         action: EventAction.REVEAL,
         data: JSON.stringify({ reveal: this._board.reveal }),
@@ -225,7 +228,7 @@ class BoardEntity {
     return board;
   }
 
-  async leaveAction(board: Board): Promise<Board> {
+  async leaveAction(board: Board): Promise<Board | undefined> {
     board.players = board.players.filter(
       (player) => player.id !== this.session.user.id,
     );
@@ -234,7 +237,7 @@ class BoardEntity {
     if (board.totalPlayers === 0) {
       await this.deleteBoard();
       await redis.del(this.eventsKey);
-      return board;
+      return undefined;
     }
 
     return board;
