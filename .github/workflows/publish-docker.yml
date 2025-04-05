@@ -62,6 +62,7 @@ jobs:
             RESEND_API_KEY=${{ secrets.RESEND_API_KEY }}
             REDIS_URL=${{ secrets.REDIS_URL }}
             GA_ID=${{ secrets.GA_ID }}
+            LOKI_URL=${{ secrets.LOKI_URL }}
           
       - name: Generate artifact attestation
         uses: actions/attest-build-provenance@v1

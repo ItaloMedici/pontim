@@ -35,6 +35,7 @@ RUN --mount=type=secret,id=NEXTAUTH_URL \
     --mount=type=secret,id=FREE_PLAN_PRICE_ID \
     --mount=type=secret,id=RESEND_API_KEY \
     --mount=type=secret,id=REDIS_URL \
+    --mount=type=secret,id=LOKI_URL \
     --mount=type=secret,id=GA_ID \
     sh -c 'echo "NEXTAUTH_URL=$(cat /run/secrets/NEXTAUTH_URL)" > .env && \
            echo "NEXTAUTH_SECRET=$(cat /run/secrets/NEXTAUTH_SECRET)" >> .env && \
@@ -48,6 +49,7 @@ RUN --mount=type=secret,id=NEXTAUTH_URL \
            echo "RESEND_API_KEY=$(cat /run/secrets/RESEND_API_KEY)" >> .env && \
            echo "GA_ID=$(cat /run/secrets/GA_ID)" >> .env && \
            echo "REDIS_URL=$(cat /run/secrets/REDIS_URL)" >> .env && \
+           echo "REDIS_URL=$(cat /run/secrets/LOKI_URL)" >> .env && \
            echo "FREE_PLAN_PRICE_ID=$(cat /run/secrets/FREE_PLAN_PRICE_ID)" >> .env'
 
 RUN npm run db:generate
