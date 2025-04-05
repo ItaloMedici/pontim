@@ -22,22 +22,28 @@ jobs:
           source: "infra/docker-compose.yml"
           target: "~/pontim"
 
-      - name: Check if Redis is running
+      - name: Ensure essential containers are running
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.VPS_HOST }}
           username: ${{ secrets.VPS_USER }}
           password: ${{ secrets.VPS_PASSWORD }}
           script: |
-            echo "Checking if Redis is running..."
-            if ! docker ps --filter "name=pontim-redis" --filter "status=running" | grep "pontim-redis"; then
-              echo "Redis is not running. Starting Redis..."
-              docker compose -f ~/pontim/infra/docker-compose.yml up -d redis
-              echo "Redis started."
-              docker ps
-            else
-              echo "Redis is already running."
-            fi
+            cd ~/pontim/infra
+
+            REQUIRED_CONTAINERS=("redis" "prometheus" "grafana" "loki" "node-exporter" "nginx")
+
+            for SERVICE in "${REQUIRED_CONTAINERS[@]}"; do
+              CONTAINER_NAME="pontim-$SERVICE"
+              if ! docker ps --filter "name=$CONTAINER_NAME" --filter "status=running" | grep -q "$CONTAINER_NAME"; then
+                echo "🔁 $CONTAINER_NAME is not running. Starting..."
+                docker compose up -d $SERVICE
+              else
+                echo "✅ $CONTAINER_NAME is already running."
+              fi
+            done
+            echo "All required containers are running."
+            docker ps
 
       - name: Run Pontim
         uses: appleboy/ssh-action@master
@@ -47,18 +53,13 @@ jobs:
           password: ${{ secrets.VPS_PASSWORD }}
           script: |
             cd ~/pontim/infra
-            
-            echo "Stopping the current container..."
+
+            echo "🔄 Updating pontim-app..."
+
             docker compose stop pontim
-            
-            echo "Removing the current container..."
             docker compose rm -f pontim
-            
-            echo "Pulling the latest image..."
             docker compose pull pontim
-            
-            echo "Starting the new container..."
             docker compose up -d pontim
 
-            echo "Current running containers:"
+            echo "🚀 pontim-app updated!"
             docker ps
