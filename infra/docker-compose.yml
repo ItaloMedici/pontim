@@ -8,19 +8,77 @@ services:
     command: redis-server --appendonly yes
     networks:
       - pontim-network
-  
+
   pontim:
     image: ghcr.io/italomedici/pontim:main
     container_name: pontim-app
-    ports:
-      - "80:3000"
+    expose:
+      - "3000"
     depends_on:
       - redis
     restart: always
     networks:
       - pontim-network
 
+  prometheus:
+    image: prom/prometheus
+    container_name: pontim-prometheus
+    restart: always
+    expose:
+      - "9090"
+    volumes:
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+    networks:
+      - pontim-network
+
+  grafana:
+    image: grafana/grafana
+    container_name: pontim-grafana
+    restart: always
+    expose:
+      - "3000"
+    networks:
+      - pontim-network
+    volumes:
+      - grafana-storage:/var/lib/grafana
+
+  loki:
+    image: grafana/loki:2.9.1
+    container_name: pontim-loki
+    expose:
+      - "3100"
+    volumes:
+      - ./loki/loki.yml:/etc/loki/loki.yml
+    command: -config.file=/etc/loki/loki.yml
+    networks:
+      - pontim-network
+
+  node-exporter:
+    image: prom/node-exporter
+    container_name: pontim-node-exporter
+    restart: always
+    expose:
+      - "9100"
+    networks:
+      - pontim-network
+
+  nginx:
+    image: nginx:latest
+    container_name: pontim-nginx
+    restart: always
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/sites:/etc/nginx/conf.d:ro
+    depends_on:
+      - pontim
+      - grafana
+    networks:
+      - pontim-network
+
 volumes:
+  grafana-storage:
   redis_data:
     driver: local
 

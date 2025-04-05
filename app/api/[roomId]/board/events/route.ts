@@ -1,5 +1,6 @@
 import { authOptions } from "@/authOptions";
 import { EventAction, EventEnvelope } from "@/lib/consts";
+import { registerSseConnection, unregisterSseConnection } from "@/lib/metrics";
 import { redis } from "@/lib/redis";
 import { BoardService } from "@/use-cases/board/board-service";
 import { NotificationService } from "@/use-cases/notification/notification-service";
@@ -31,6 +32,8 @@ export async function GET(
 
     const subscriberNotification = redis.duplicate();
     await subscriberNotification.subscribe(notificationService.key);
+
+    registerSseConnection(params.roomId);
 
     const sendEvent = (data: EventEnvelope | string) => {
       if (isControllerClosed) return;
@@ -78,6 +81,7 @@ export async function GET(
       subscriberBoard.quit();
       subscriberNotification.quit();
 
+      unregisterSseConnection(params.roomId);
       controller.close();
     };
   };

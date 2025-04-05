@@ -17,6 +17,7 @@ export const env = createEnv({
     RESEND_API_KEY: z.string(),
     GA_ID: z.string(),
     REDIS_URL: z.string(),
+    LOKI_URL: z.string(),
   },
   runtimeEnvStrict: {
     NEXTAUTH_URL: process.env.NEXTAUTH_URL,
@@ -31,5 +32,6 @@ export const env = createEnv({
     RESEND_API_KEY: process.env.RESEND_API_KEY,
     GA_ID: process.env.GA_ID,
     REDIS_URL: process.env.REDIS_URL,
+    LOKI_URL: process.env.LOKI_URL,
   },
 });

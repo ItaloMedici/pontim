@@ -82,8 +82,6 @@ export const BoardProvider = ({
   const eventHandlers = useMemo<Record<EventAction, any>>(
     () => ({
       [EventAction.BOARD_UPDATED]: (data: BoardStatus, from: string) => {
-        const isFromMe = from === selfId.current;
-        if (isFromMe) return;
         setBoardStatus((prev) => ({ ...prev, ...data }));
       },
       [EventAction.PLAYER_JOINED]: (data: Player) => {

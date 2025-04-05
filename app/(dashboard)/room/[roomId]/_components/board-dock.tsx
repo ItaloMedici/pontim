@@ -42,10 +42,6 @@ export const BoardDock = () => {
     return Number(value).toFixed(1).replace(/\.0$/, "");
   };
 
-  const votingProcess = useMemo(() => {
-    return `${totalChoices}/${totalPlayers} votos`;
-  }, [totalChoices, totalPlayers]);
-
   const playAction = useMemo(() => {
     if (loadingPlay)
       return (
@@ -107,7 +103,7 @@ export const BoardDock = () => {
                 <div className="flex items-center gap-2">
                   <Users className="h-4 w-4 text-muted-foreground" />
                   <span className="text-xs text-muted-foreground">
-                    {votingProcess}
+                    {`${totalChoices}/${totalPlayers} votos`}
                   </span>
                 </div>
               </div>

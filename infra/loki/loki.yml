@@ -1,0 +1,46 @@
+auth_enabled: false
+
+server:
+  http_listen_port: 3100
+  log_level: info
+
+common:
+  # Base directory for Loki's data storage
+  path_prefix: /tmp/loki
+  # Storage configuration - using local filesystem
+  storage:
+    filesystem:
+      # Directory where Loki stores data chunks
+      chunks_directory: /tmp/loki/chunks
+  # Number of copies of each stream to maintain (1 for single instance)
+  replication_factor: 1
+  # Ring is Loki's internal coordination system
+  ring:
+    # Key-Value store configuration for ring
+    kvstore:
+      # Using in-memory storage (good for testing, NOT for production)
+      store: inmemory
+    
+limits_config:
+  retention_period: 168h  # 7 days
+schema_config:
+  configs:
+    - from: 2020-10-24
+      # Using TSDB (Time Series Database) storage format
+      store: tsdb
+      # Using local filesystem for object storage
+      object_store: filesystem
+      # Schema version
+      schema: v13
+      # Index configuration
+      index:
+        # Prefix for index files
+        prefix: index_
+        # Create new index files every 24 hours
+        period: 24h
+
+ruler:
+  storage:
+    type: local
+    local:
+      directory: /loki/rules

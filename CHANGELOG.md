@@ -1,5 +1,21 @@
 # Changelog
 
+# [0.12.0](https://github.com/ItaloMedici/pontim/compare/v0.11.0...v0.12.0) (2025-04-05)
+
+
+### Bug Fixes
+
+* **board:** update status even if is from self ([2e138f5](https://github.com/ItaloMedici/pontim/commit/2e138f574c0792c056afccd357edba9821c34143))
+* **redis:** avoid re set the board key after delete ([fb3f2c4](https://github.com/ItaloMedici/pontim/commit/fb3f2c4ab724c6d87e6958ab6faa7081ddb7a376))
+
+
+### Features
+
+* **metrics:** create metrics api route ([dec23e1](https://github.com/ItaloMedici/pontim/commit/dec23e176991c24741af44df31382ee46f881b94))
+* **metrics:** send sse connections metrics by room ([6885718](https://github.com/ItaloMedici/pontim/commit/68857186a5d66df70e04f47ecd46fb98721b5bf8))
+* **metrics:** setup loki logger ([91e684d](https://github.com/ItaloMedici/pontim/commit/91e684dfc6695f585bbfc5b76230f7aa65e286d6))
+* **reverse-proxy:** setup nginx ([0650836](https://github.com/ItaloMedici/pontim/commit/065083669c5b66344d8423bead95140dc02db22c))
+
 # [0.11.0](https://github.com/ItaloMedici/pontim/compare/v0.10.0...v0.11.0) (2025-04-03)
 
 
