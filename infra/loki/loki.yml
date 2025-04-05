@@ -22,8 +22,7 @@ common:
       store: inmemory
     
 limits_config:
-  retention_period: 168h  # 7 dias
-
+  retention_period: 168h  # 7 days
 schema_config:
   configs:
     - from: 2020-10-24
