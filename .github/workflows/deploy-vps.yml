@@ -56,10 +56,7 @@ jobs:
 
             echo "🔄 Updating pontim-app..."
 
-            docker compose stop pontim
-            docker compose rm -f pontim
-            docker compose pull pontim
-            docker compose up -d pontim
+            docker compose up -d --no-deps --pull always pontim
 
             echo "🚀 pontim-app updated!"
             docker ps
