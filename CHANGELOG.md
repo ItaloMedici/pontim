@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.12.1](https://github.com/ItaloMedici/pontim/compare/v0.12.0...v0.12.1) (2025-04-05)
+
+
+### Bug Fixes
+
+* adjust loki url ([38c1bba](https://github.com/ItaloMedici/pontim/commit/38c1bbaa7c910ffee54bca152f0bd721390aa349))
+
 # [0.12.0](https://github.com/ItaloMedici/pontim/compare/v0.11.0...v0.12.0) (2025-04-05)
 
 
