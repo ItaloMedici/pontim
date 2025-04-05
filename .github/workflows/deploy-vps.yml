@@ -19,7 +19,7 @@ jobs:
           host: ${{ secrets.VPS_HOST }}
           username: ${{ secrets.VPS_USER }}
           password: ${{ secrets.VPS_PASSWORD }}
-          source: "infra/docker-compose.yml"
+          source: "infra"
           target: "~/pontim"
 
       - name: Ensure essential containers are running
