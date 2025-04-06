@@ -2,11 +2,6 @@ import { Logger } from "pino";
 
 const _logger = globalThis.logger as Logger;
 
-type ErrorConfig = {
-  message: string;
-  [key: string]: unknown;
-};
-
 const error = (
   error: unknown,
   message: string,
@@ -19,8 +14,11 @@ const error = (
   });
 };
 
-const info = (message: string) => {
-  _logger.info(message);
+const info = (message: string, metadata?: Record<string, unknown>) => {
+  _logger.info({
+    message,
+    ...metadata,
+  });
 };
 
 export const logger = {
