@@ -14,3 +14,8 @@ const lokiTransport = pinoLoki({
 const logger = pino(lokiTransport);
 
 globalThis.logger = logger;
+
+console.log("Logger initialized", {
+  logger: !!globalThis.logger,
+  lokiUrl: env.LOKI_URL,
+});
