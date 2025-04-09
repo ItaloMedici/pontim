@@ -9,7 +9,7 @@ export const Toaster = () => {
   return <ToasterSonner />;
 };
 
-interface ToastOptions extends ExternalToast {}
+type ToastOptions = ExternalToast;
 
 const basicToast = (message: string, options?: ToastOptions) => {
   toastSonner(message, options);

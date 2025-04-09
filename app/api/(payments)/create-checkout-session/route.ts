@@ -18,7 +18,7 @@ export async function GET(req: NextRequest) {
     }
 
     return Response.redirect(response.sessionUrl);
-  } catch (error: any) {
+  } catch {
     return Response.redirect(
       `${env.SITE_URL}/home/?error=Error creating checkout session`,
     );

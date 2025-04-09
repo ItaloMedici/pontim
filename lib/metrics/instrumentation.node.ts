@@ -1,6 +1,7 @@
 import { collectDefaultMetrics, Gauge, Histogram, Registry } from "prom-client";
 
 declare global {
+  // eslint-disable-next-line no-var
   var instrumentationMetrics:
     | {
         register: Registry;

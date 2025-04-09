@@ -1,7 +1,20 @@
 {
-  "extends": ["next", "prettier", "plugin:prettier/recommended"],
+  "extends": [
+    "next",
+    "next/typescript",
+    "prettier",
+    "plugin:prettier/recommended"
+  ],
   "plugins": ["prettier"],
   "rules": {
-    "prettier/prettier": "error"
+    "prettier/prettier": "error",
+    "@typescript-eslint/no-explicit-any": "off",
+    "@typescript-eslint/no-unused-vars": [
+      "error",
+      {
+        "argsIgnorePattern": "^_",
+        "varsIgnorePattern": "^_"
+      }
+    ]
   }
 }
