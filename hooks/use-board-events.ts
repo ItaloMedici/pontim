@@ -47,7 +47,7 @@ export function useBoardEvents(props: Props) {
       propsRef.current.handlers[action]?.(eventData, data.from);
     };
 
-    eventSource.current.onerror = (error) => {
+    eventSource.current.onerror = () => {
       eventSource.current?.close();
       propsRef.current.onUnsubscribe();
     };

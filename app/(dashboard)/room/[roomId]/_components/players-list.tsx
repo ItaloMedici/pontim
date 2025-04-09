@@ -8,7 +8,7 @@ const MAX_AVATAR_DISPLAY_DESKTOP = 5;
 const MAX_AVATAR_DISPLAY_MOBILE = 2;
 
 export const PlayersList = () => {
-  const { others, self } = useBoard();
+  const { others } = useBoard();
   const isMobile = useIsMobile();
 
   const avatarList = useMemo(() => {

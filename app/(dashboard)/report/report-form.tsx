@@ -162,13 +162,14 @@ export default function ReportForm() {
         <FormField
           control={form.control}
           name="attachment"
-          render={({ field: { value, onChange, ...field } }) => (
+          render={({ field: { onChange, ...field } }) => (
             <FormItem>
               <FormLabel>Anexo</FormLabel>
               <FormControl>
                 <Input
                   type="file"
-                  {...field}
+                  name={field.name}
+                  ref={field.ref}
                   onChange={(event) => {
                     const file = event.target.files?.[0];
                     if (file) {
