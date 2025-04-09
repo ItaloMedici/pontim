@@ -25,7 +25,9 @@ jobs:
         run: npm run lint
 
       - name: Setup Environment
-        run: cp .env.example .env
+        run: |
+          cp .env.example .env
+          echo "CI=true" >> .env
 
       - name: Build
         run: npm run build --if-present

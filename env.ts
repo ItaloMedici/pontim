@@ -18,6 +18,7 @@ export const env = createEnv({
     GA_ID: z.string(),
     REDIS_URL: z.string(),
     LOKI_URL: z.string(),
+    CI: z.boolean().optional().default(false),
   },
   runtimeEnvStrict: {
     NEXTAUTH_URL: process.env.NEXTAUTH_URL,
@@ -33,5 +34,6 @@ export const env = createEnv({
     GA_ID: process.env.GA_ID,
     REDIS_URL: process.env.REDIS_URL,
     LOKI_URL: process.env.LOKI_URL,
+    CI: process.env.CI,
   },
 });
