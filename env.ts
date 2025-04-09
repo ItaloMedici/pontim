@@ -34,6 +34,6 @@ export const env = createEnv({
     GA_ID: process.env.GA_ID,
     REDIS_URL: process.env.REDIS_URL,
     LOKI_URL: process.env.LOKI_URL,
-    CI: process.env.CI,
+    CI: !!process.env.CI,
   },
 });
