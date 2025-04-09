@@ -79,9 +79,9 @@ export const BoardProvider = ({
   const { play: handleNotification, send: sendNotification } =
     useNotification(roomId);
 
-  const eventHandlers = useMemo<Record<EventAction, any>>(
+  const eventHandlers = useMemo<Record<EventAction, (data: any) => void>>(
     () => ({
-      [EventAction.BOARD_UPDATED]: (data: BoardStatus, from: string) => {
+      [EventAction.BOARD_UPDATED]: (data: BoardStatus) => {
         setBoardStatus((prev) => ({ ...prev, ...data }));
       },
       [EventAction.PLAYER_JOINED]: (data: Player) => {
@@ -94,6 +94,7 @@ export const BoardProvider = ({
         handleNotification(data, boardStatus.others);
       },
       [EventAction.HAND_SHAKE]: () => {},
+      [EventAction.KEEP_ALIVE]: () => {},
       [EventAction.REVEAL]: (data: { reveal: boolean }) => {
         setRevealOptimistc(data.reveal);
       },

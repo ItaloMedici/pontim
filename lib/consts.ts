@@ -22,6 +22,7 @@ export enum EventAction {
   PLAYER_JOINED = "PLAYER_JOINED",
   REVEAL = "REVEAL",
   NEXT_ROUND = "NEXT_ROUND",
+  KEEP_ALIVE = "KEEP_ALIVE",
 }
 
 export type EventEnvelope = {

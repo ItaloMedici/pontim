@@ -12,11 +12,6 @@ export async function GET(
   { params }: { params: { roomId: string } },
 ) {
   try {
-    logger.info("SSE connection", {
-      roomId: params.roomId,
-      userId: req.headers.get("userId"),
-    });
-
     const session = await getServerSession(authOptions);
 
     if (!session?.user) {
@@ -84,6 +79,15 @@ export async function GET(
         });
       });
 
+      const interval = setInterval(() => {
+        if (isControllerClosed) return;
+        sendEvent({
+          action: EventAction.KEEP_ALIVE,
+          data: "",
+          from: session.user.id,
+        });
+      }, 60000); // 1 minute
+
       sendEvent({
         action: EventAction.HAND_SHAKE,
         data: "",
@@ -92,6 +96,7 @@ export async function GET(
 
       req.signal.onabort = () => {
         isControllerClosed = true;
+        clearInterval(interval);
 
         subscriberBoard.unsubscribe(boardService.eventsKey);
         subscriberNotification.unsubscribe(notificationService.key);
