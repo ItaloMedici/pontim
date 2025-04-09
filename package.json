@@ -8,9 +8,9 @@
     "start": "next start",
     "lint": "next lint && tsc --noEmit",
     "type-check": "tsc --noEmit",
-    "db:generate": "npx prisma generate",
-    "db:push": "npx prisma db push",
-    "db:deploy": "npx prisma migrate deploy",
+    "db:generate": "prisma generate",
+    "db:push": "prisma db push",
+    "db:deploy": "prisma migrate deploy",
     "infra:up": "cd infra && docker-compose up -d",
     "infra:redis:up": "cd infra && docker-compose up redis"
   },
@@ -18,7 +18,7 @@
     "@hookform/resolvers": "^3.3.4",
     "@next/third-parties": "^15.1.7",
     "@number-flow/react": "^0.5.5",
-    "@prisma/client": "^5.16.1",
+    "@prisma/client": "6.6.0",
     "@radix-ui/react-alert-dialog": "^1.0.5",
     "@radix-ui/react-avatar": "^1.1.0",
     "@radix-ui/react-dialog": "^1.0.5",
@@ -73,6 +73,7 @@
     "eslint-plugin-prettier": "^5.2.1",
     "postcss": "^8",
     "prettier": "^3.3.3",
+    "prisma": "6.6.0",
     "tailwindcss": "^3.3.0",
     "typescript": "^5"
   }
