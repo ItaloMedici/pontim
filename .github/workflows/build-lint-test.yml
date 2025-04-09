@@ -1,6 +1,6 @@
 name: Build, Lint and Test
 
-on: push
+on: [push, pull_request]
 
 jobs:
   build:
@@ -18,16 +18,16 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Sync db
-        run: npm run db:generate
-
       - name: Run lint
         run: npm run lint
-
+        
       - name: Setup Environment
         run: |
           cp .env.example .env
           echo "CI=true" >> .env
-
+        
+      - name: Sync db
+        run: npm run db:generate
+        
       - name: Build
         run: npm run build --if-present
