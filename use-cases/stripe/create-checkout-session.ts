@@ -1,6 +1,7 @@
 "use server";
 
 import { env } from "@/env";
+import { logger } from "@/lib/logger";
 import stripe from "@/lib/stripe";
 import { getServerSession } from "next-auth";
 import { getPlanById } from "../plan/get-plan-by-id";
@@ -69,7 +70,10 @@ export async function createCheckoutSession(
 
     return { sessionUrl: session.url };
   } catch (error: any) {
-    console.log(error);
+    logger.error(error, "Error creating checkout session", {
+      planId,
+      error: error?.message,
+    });
     return { error: error?.message };
   }
 }

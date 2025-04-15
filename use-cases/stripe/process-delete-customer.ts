@@ -1,10 +1,11 @@
 import { db } from "@/lib/db";
+import { logger } from "@/lib/logger";
 import Stripe from "stripe";
 
 export const processDeleteCustomer = async (event: {
   object: Stripe.Customer;
 }) => {
-  console.log(`Deleting customer ${event.object.id}`);
+  logger.info(`Deleting customer ${event.object.id}`);
 
   const stripeCustomerId = event.object.id as string;
 
@@ -27,5 +28,5 @@ export const processDeleteCustomer = async (event: {
     },
   });
 
-  console.log(`Deleted user ${subscription.user.email}`);
+  logger.info(`Deleted user ${subscription.user.email}`);
 };

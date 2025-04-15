@@ -1,6 +1,7 @@
 import Stripe from "stripe";
 
 import { env } from "@/env";
+import { logger } from "@/lib/logger";
 import stripe from "@/lib/stripe";
 import { processDeleteCustomer } from "@/use-cases/stripe/process-delete-customer";
 import { processDeleteSubscription } from "@/use-cases/stripe/process-delete-subscription";
@@ -8,11 +9,11 @@ import { processUpdateSubscription } from "@/use-cases/stripe/process-update-sub
 import { headers } from "next/headers";
 
 export async function POST(req: Request) {
-  console.log("Received webhook");
+  logger.info("Received webhook");
   const body = await req.text();
   const signature = headers().get("Stripe-Signature") as string;
 
-  console.log(`Received webhook with signature ${signature}`);
+  logger.info(`Received webhook with signature ${signature}`);
 
   let event: Stripe.Event;
 
@@ -27,7 +28,7 @@ export async function POST(req: Request) {
     return new Response(`Webhook Error: ${error.message}`, { status: 400 });
   }
 
-  console.log(`Received event: ${event.type}`);
+  logger.info(`Received event: ${event.type}`);
 
   switch (event.type) {
     case "customer.subscription.created":
@@ -41,7 +42,7 @@ export async function POST(req: Request) {
       processDeleteCustomer(event.data);
       break;
     default:
-      console.log(`Unhandled event type ${event.type}`);
+      logger.info(`Unhandled event type ${event.type}`);
   }
 
   return new Response('{ "received": true }', { status: 200 });
