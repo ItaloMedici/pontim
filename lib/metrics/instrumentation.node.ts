@@ -37,7 +37,3 @@ globalThis.instrumentationMetrics = {
   httpRequestDurationMicroseconds,
   sseConnections,
 };
-
-console.log("Instrumentation metrics initialized", {
-  register: globalThis.instrumentationMetrics,
-});

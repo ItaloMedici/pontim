@@ -1,10 +1,11 @@
 import { db } from "@/lib/db";
+import { logger } from "@/lib/logger";
 import Stripe from "stripe";
 
 export const processUpdateSubscription = async (event: {
   object: Stripe.Subscription;
 }) => {
-  console.log(
+  logger.info(
     `Updating subscription ${event.object.id} with price id ${event.object.items.data[0].price.id}`,
   );
 
@@ -43,7 +44,7 @@ export const processUpdateSubscription = async (event: {
     throw new Error("plan not found");
   }
 
-  console.log(
+  logger.info(
     `Updating subscription ${subscription.plan.name} to plan ${newPlan.name}`,
   );
 

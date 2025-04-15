@@ -42,8 +42,6 @@ export function useBoardEvents(props: Props) {
       const action = data.action as EventAction;
       const eventData = data.data.length ? JSON.parse(data.data) : "";
 
-      console.log("Event received", action, eventData);
-
       propsRef.current.handlers[action]?.(eventData, data.from);
     };
 

@@ -118,14 +118,11 @@ export const BoardProvider = ({
     setBoardStatus(board as BoardStatus);
     setSelfChoice(board.self?.choice || "");
 
-    console.log("board", board);
-
     return board;
   }, [http, router]);
 
   const leaveBoard = useCallback(async () => {
     await http.post(`/leave`);
-    console.log("leave board");
     router.push("/");
   }, [http, router]);
 
