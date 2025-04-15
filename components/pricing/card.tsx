@@ -17,6 +17,7 @@ export function PricingCard({
   highlighted,
   name,
   features,
+  ctaDisabled,
 }: Pricing) {
   const isHighlighted = highlighted === true;
 
@@ -86,6 +87,7 @@ export function PricingCard({
         variant={isHighlighted ? "secondary" : "default"}
         className="w-full z-10"
         type="submit"
+        disabled={ctaDisabled}
       >
         {cta}
         <ArrowRight className="ml-2 h-4 w-4" />

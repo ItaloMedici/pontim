@@ -1,11 +1,28 @@
 "use server";
 
+import { authOptions } from "@/authOptions";
 import { Pricing } from "@/lib/schemas/pricings";
 import stripe from "@/lib/stripe";
+import { getServerSession } from "next-auth";
+import { getSubscriptionByUser } from "../subscription/get-subscription-by-user";
 import { getPlans } from "./get-plans";
 
 export async function getPlanPricings(): Promise<Pricing[]> {
   const plans = await getPlans();
+
+  const session = await getServerSession(authOptions);
+
+  let userPlanId: string;
+
+  if (session?.user) {
+    const subscription = await getSubscriptionByUser({
+      userId: session.user.id,
+    });
+
+    if (subscription && subscription.status === "active") {
+      userPlanId = subscription.planId;
+    }
+  }
 
   const { data: stripePlans } = await stripe.plans.list();
   const { data: stripeProducts } = await stripe.products.list();
@@ -21,10 +38,16 @@ export async function getPlanPricings(): Promise<Pricing[]> {
 
       if (typeof stripePlan?.amount !== "number" || !product) return;
 
+      const freePlanCta = userPlanId
+        ? "Perder funcionalidades"
+        : "Começar grátis";
+
       const cta =
         stripePlan.amount === 0
-          ? "Começar grátis"
+          ? freePlanCta
           : `Escolher plano ${product.name}`;
+
+      const isPlanSameAsUser = userPlanId === plan.id;
 
       return {
         id: plan.id,
@@ -35,7 +58,8 @@ export async function getPlanPricings(): Promise<Pricing[]> {
         features: product.marketing_features.map(
           (feature) => feature.name ?? "",
         ),
-        cta,
+        cta: isPlanSameAsUser ? "Plano ativo" : cta,
+        ctaDisabled: isPlanSameAsUser,
         highlighted: product.metadata.highlighted === "true",
       } satisfies Pricing;
     })

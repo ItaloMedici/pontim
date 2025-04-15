@@ -1,5 +1,5 @@
+import { NavBar } from "@/components/nav-bar";
 import { getServerSession } from "next-auth";
-import { NavBar } from "./_components/nav-bar";
 
 interface DashBoardLayoutProps {
   children: React.ReactNode;
