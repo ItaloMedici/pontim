@@ -40,7 +40,7 @@ export async function POST(
   } catch (error: any) {
     logger.error({
       error,
-      message: "Error while reseting board",
+      message: "Error while resetting board",
       metadata: {
         userId: error?.userId,
         roomId: error?.roomId,
