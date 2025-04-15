@@ -2,6 +2,8 @@ const _metrics = globalThis.instrumentationMetrics;
 
 export const register = _metrics?.register;
 
+console.log("Metrics", register);
+
 const sseConnections = _metrics?.sseConnections;
 
 export function registerSseConnection(roomId: string) {
