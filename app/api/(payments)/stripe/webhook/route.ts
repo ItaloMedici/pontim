@@ -24,7 +24,10 @@ export async function POST(req: Request) {
       env.STRIPE_WEBHOOK_SECRET,
     );
   } catch (error: any) {
-    console.error(`Webhook Error: ${error.message}`);
+    logger.error({
+      error,
+      message: "Webhook signature verification failed",
+    });
     return new Response(`Webhook Error: ${error.message}`, { status: 400 });
   }
 

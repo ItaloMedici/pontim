@@ -1,9 +1,11 @@
 "use server";
 
+import { authOptions } from "@/authOptions";
 import { env } from "@/env";
 import { logger } from "@/lib/logger";
 import stripe from "@/lib/stripe";
 import { getServerSession } from "next-auth";
+import { redirect } from "next/navigation";
 import { getPlanById } from "../plan/get-plan-by-id";
 import { getSubscriptionByUser } from "../subscription/get-subscription-by-user";
 import { getUserByEmail } from "../user/get-user-by-email";
@@ -13,7 +15,7 @@ export async function createCheckoutSession(
   planId: string,
 ): Promise<{ error: string } | { sessionUrl: string }> {
   try {
-    const authSession = await getServerSession();
+    const authSession = await getServerSession(authOptions);
 
     const plan = await getPlanById(planId);
 
@@ -26,6 +28,17 @@ export async function createCheckoutSession(
     const user = await getUserByEmail(authSession.user.email);
 
     if (!user) return { error: "User not found" };
+
+    const currentUserSubscription = await getSubscriptionByUser({
+      userId: user.id,
+    });
+
+    if (
+      currentUserSubscription?.planId === plan.id &&
+      currentUserSubscription.status === "active"
+    ) {
+      redirect("/home");
+    }
 
     const customer = await createCustomer(user);
 
@@ -70,9 +83,12 @@ export async function createCheckoutSession(
 
     return { sessionUrl: session.url };
   } catch (error: any) {
-    logger.error(error, "Error creating checkout session", {
-      planId,
-      error: error?.message,
+    logger.error({
+      error,
+      message: "Error creating checkout session",
+      metadata: {
+        planId,
+      },
     });
     return { error: error?.message };
   }

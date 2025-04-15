@@ -7,4 +7,5 @@ export interface Pricing {
   features: string[];
   cta: string;
   highlighted: boolean;
+  ctaDisabled: boolean;
 }

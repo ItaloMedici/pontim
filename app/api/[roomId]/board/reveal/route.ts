@@ -1,4 +1,5 @@
 import { authOptions } from "@/authOptions";
+import { logger } from "@/lib/logger";
 import { BoardService } from "@/use-cases/board/board-service";
 import { getServerSession } from "next-auth";
 import { NextRequest } from "next/server";
@@ -30,7 +31,14 @@ export async function PUT(
 
     return Response.json(newBoard);
   } catch (error: any) {
-    console.error(error);
+    logger.error({
+      error,
+      message: "Error while revealing board",
+      metadata: {
+        userId: error?.userId,
+        roomId: error?.roomId,
+      },
+    });
     return Response.json({ message: error?.message }, { status: 500 });
   }
 }

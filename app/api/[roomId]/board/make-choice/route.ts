@@ -1,4 +1,5 @@
 import { authOptions } from "@/authOptions";
+import { logger } from "@/lib/logger";
 import { BoardService } from "@/use-cases/board/board-service";
 import { getServerSession } from "next-auth";
 
@@ -34,7 +35,14 @@ export async function POST(
 
     return Response.json(updated);
   } catch (error: any) {
-    console.error(error);
+    logger.error({
+      error,
+      message: "Error while making choice",
+      metadata: {
+        userId: error?.userId,
+        roomId: error?.roomId,
+      },
+    });
     return Response.json({ message: error?.message }, { status: 500 });
   }
 }
