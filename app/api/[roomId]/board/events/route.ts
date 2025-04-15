@@ -66,16 +66,24 @@ export async function GET(
       });
 
       subscriberBoard.on("error", (err) => {
-        logger.error(err, "Error on board subscriber", {
-          roomId: params.roomId,
-          userId: session.user.id,
+        logger.error({
+          error: err,
+          message: "Error on board subscriber",
+          metadata: {
+            roomId: params.roomId,
+            userId: session.user.id,
+          },
         });
       });
 
       subscriberNotification.on("error", (err) => {
-        logger.error(err, "Error on notification subscriber", {
-          roomId: params.roomId,
-          userId: session.user.id,
+        logger.error({
+          error: err,
+          message: "Error on notification subscriber",
+          metadata: {
+            roomId: params.roomId,
+            userId: session.user.id,
+          },
         });
       });
 
@@ -120,8 +128,12 @@ export async function GET(
       },
     });
   } catch (error) {
-    logger.error(error, "Error on SSE connection", {
-      roomId: params.roomId,
+    logger.error({
+      error,
+      message: "Error on SSE connection",
+      metadata: {
+        roomId: params.roomId,
+      },
     });
 
     return Response.json(

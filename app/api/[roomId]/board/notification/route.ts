@@ -1,4 +1,5 @@
 import { authOptions } from "@/authOptions";
+import { logger } from "@/lib/logger";
 import { NotificationService } from "@/use-cases/notification/notification-service";
 import { getServerSession } from "next-auth";
 
@@ -21,7 +22,14 @@ export async function POST(
 
     return Response.json(`Notification sent to ${targetId}`);
   } catch (error: any) {
-    console.error(error);
+    logger.error({
+      error,
+      message: "Error while sending notification",
+      metadata: {
+        userId: error?.userId,
+        roomId: error?.roomId,
+      },
+    });
     return Response.json({ message: error?.message }, { status: 500 });
   }
 }
@@ -43,7 +51,14 @@ export async function DELETE(
 
     return Response.json({ message: "Succefully delete notifications" });
   } catch (error: any) {
-    console.error(error);
+    logger.error({
+      error,
+      message: "Error while deleting notifications",
+      metadata: {
+        userId: error?.userId,
+        roomId: error?.roomId,
+      },
+    });
     return Response.json({ message: error?.message }, { status: 500 });
   }
 }

@@ -1,5 +1,6 @@
 "use server";
 
+import { logger } from "@/lib/logger";
 import { resend } from "@/lib/resend";
 
 const getReportTypeEmoji = (type: string) => {
@@ -61,7 +62,16 @@ ${message}
   try {
     await resend.emails.send(emailOptions);
   } catch (error) {
-    console.error("Erro ao enviar e-mail:", error);
+    logger.error({
+      error: error,
+      message: "Error while sending report",
+      metadata: {
+        name,
+        email,
+        type,
+        message,
+      },
+    });
     throw new Error(
       "Falha ao enviar o relatório. Por favor, tente novamente mais tarde.",
     );

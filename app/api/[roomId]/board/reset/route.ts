@@ -1,4 +1,5 @@
 import { authOptions } from "@/authOptions";
+import { logger } from "@/lib/logger";
 import { BoardService } from "@/use-cases/board/board-service";
 import { PlanService } from "@/use-cases/plan/plan-board-service";
 import { getServerSession } from "next-auth";
@@ -37,7 +38,14 @@ export async function POST(
 
     return Response.json(updatedBoard);
   } catch (error: any) {
-    console.error(error);
+    logger.error({
+      error,
+      message: "Error while reseting board",
+      metadata: {
+        userId: error?.userId,
+        roomId: error?.roomId,
+      },
+    });
     return Response.json({ message: error?.message }, { status: 500 });
   }
 }

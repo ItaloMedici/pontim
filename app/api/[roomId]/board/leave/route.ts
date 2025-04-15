@@ -1,4 +1,5 @@
 import { authOptions } from "@/authOptions";
+import { logger } from "@/lib/logger";
 import { BoardService } from "@/use-cases/board/board-service";
 import { getServerSession } from "next-auth";
 
@@ -28,7 +29,14 @@ export async function POST(
       data: newBoard,
     });
   } catch (error: any) {
-    console.error(error);
+    logger.error({
+      error,
+      message: "Error while leaving board",
+      metadata: {
+        userId: error?.userId,
+        roomId: error?.roomId,
+      },
+    });
     return Response.json({ message: error?.message }, { status: 500 });
   }
 }
