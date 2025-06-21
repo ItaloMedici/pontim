@@ -1,4 +1,5 @@
 import { SearchParams } from "@/lib/consts";
+import { getDecksSelection } from "@/use-cases/deck";
 import { getRooms } from "@/use-cases/room";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
@@ -24,6 +25,10 @@ async function DashBoardPage({
     user: session.user,
   });
 
+  const decks = await getDecksSelection({
+    userEmail: session.user.email,
+  });
+
   if (searchParams?.error) {
     console.error(searchParams?.error);
   }
@@ -33,7 +38,7 @@ async function DashBoardPage({
       <DashboardFilters />
       <DashboardMessages />
       <Suspense fallback={<RoomListSkeleton />}>
-        <RoomList rooms={rooms} />
+        <RoomList rooms={rooms} decks={decks} />
       </Suspense>
     </div>
   );

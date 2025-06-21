@@ -1,14 +1,25 @@
-import { useBoard } from "@/context/board";
 import { cn } from "@/lib/utils";
 
-export const CardsPicker = () => {
-  const { choiceOptions, handleChoice, selfChoice } = useBoard();
+type CardsPickerProps = {
+  choiceOptions: { value: string }[];
+  handleChoice: (choice: string) => void;
+  selfChoice?: string | null;
+  showTitle?: boolean;
+};
 
+export const CardsPicker = ({
+  choiceOptions,
+  handleChoice,
+  selfChoice,
+  showTitle = true,
+}: CardsPickerProps) => {
   const isSelfOption = (option: string) => selfChoice == option;
 
   return (
     <div className="flex flex-col items-center justify-center flex-wrap gap-6">
-      <span className="text-gray-500 text-sm">Escolha uma carta: 👇</span>
+      {showTitle ? (
+        <span className="text-gray-500 text-sm">Escolha uma carta: 👇</span>
+      ) : null}
       <div className="flex flex-wrap items-center justify-center gap-1 p-1 bg-gray-200 rounded-md">
         {choiceOptions.map((option) => (
           <button
@@ -25,7 +36,7 @@ export const CardsPicker = () => {
                 },
               )}
             >
-              {option.label}
+              {option.value}
             </div>
           </button>
         ))}

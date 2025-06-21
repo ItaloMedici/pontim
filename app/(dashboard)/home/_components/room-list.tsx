@@ -3,6 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { SearchParams } from "@/lib/consts";
 import { Room } from "@/lib/schemas/room";
+import { ChoiceSelectOptions } from "@/types/choice-options";
 import { Plus } from "lucide-react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
@@ -20,7 +21,13 @@ export function RoomListSkeleton() {
   );
 }
 
-export function RoomList({ rooms }: { rooms: Room[] }) {
+export function RoomList({
+  rooms,
+  decks,
+}: {
+  rooms: Room[];
+  decks: ChoiceSelectOptions[];
+}) {
   const params = useSearchParams();
 
   if (rooms === undefined) {
@@ -52,7 +59,7 @@ export function RoomList({ rooms }: { rooms: Room[] }) {
         <p className="text-sm text-gray-500 mt-2 mb-4">
           Cria uma nova sala e convide os participantes 👇
         </p>
-        <CreateRoomDialog />
+        <CreateRoomDialog decks={decks} />
       </div>
     );
 
@@ -64,6 +71,7 @@ export function RoomList({ rooms }: { rooms: Room[] }) {
         </Link>
       ))}
       <CreateRoomDialog
+        decks={decks}
         trigger={
           <button className="flex flex-col gap-2 bg-gray-50 w-[150px] min-h-[140px] border-2 border-dashed rounded-lg overflow-hidden hover:shadow-md transition-shadow items-center justify-center outline-none">
             <Plus className="h-4 w-4 text-muted-foreground" />

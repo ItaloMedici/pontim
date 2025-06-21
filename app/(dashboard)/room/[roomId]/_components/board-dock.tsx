@@ -10,7 +10,6 @@ import {
 import { useBoard } from "@/context/board";
 import { UNLIMITED_PLAN_VALUE } from "@/lib/consts";
 import { cn } from "@/lib/utils";
-import { fibonacciAverageOptions } from "@/use-cases/board/choice-options";
 import { ArrowRight, Eye, Loader, Plus, Users } from "lucide-react";
 import { useMemo } from "react";
 
@@ -21,21 +20,36 @@ export const BoardDock = () => {
     totalChoices,
     totalPlayers,
     availableRounds,
-    closestStoryPoint,
+    majorityChoice,
     handlePlay,
     loadingPlay,
     agreementPercentage,
+    choiceOptions,
   } = useBoard();
 
+  // TODO: Rever isso
   const averageEmoji = useMemo(() => {
-    if (!reveal || !average) return "🃏";
+    if (!reveal || !majorityChoice) return "🃏";
 
-    if (average <= fibonacciAverageOptions.small) return "☕";
-    if (average <= fibonacciAverageOptions.medium) return "👍";
-    if (average <= fibonacciAverageOptions.large) return "🤔";
+    const indexOfMajority = choiceOptions.findIndex(
+      (choice) => choice.value === majorityChoice,
+    );
+
+    const smallIndex = 20;
+    const mediumIndex = 50;
+    const largeIndex = 80;
+
+    const indexPercentage =
+      (indexOfMajority * 100) / (choiceOptions.length - 2);
+
+    console.log({ indexPercentage, majorityChoice, indexOfMajority });
+
+    if (indexPercentage <= smallIndex) return "☕";
+    if (indexPercentage <= mediumIndex) return "👍";
+    if (indexPercentage <= largeIndex) return "🤔";
 
     return "💀";
-  }, [average, reveal]);
+  }, [choiceOptions, majorityChoice, reveal]);
 
   const formatAverage = (value: number | null | undefined) => {
     if (value === null || value === undefined) return "-";
@@ -67,6 +81,43 @@ export const BoardDock = () => {
     );
   }, [reveal, loadingPlay]);
 
+  const avarageDisplay = () => {
+    if (typeof average !== "number" || isNaN(average))
+      return (
+        <div className="flex flex-col">
+          <span className="text-xs text-muted-foreground opacity-95">
+            Mais votado
+          </span>
+          <span className="text-xs">
+            {!reveal ? (
+              "-"
+            ) : (
+              <div className="flex items-center gap-1">
+                <span>{majorityChoice}</span>
+              </div>
+            )}
+          </span>
+        </div>
+      );
+
+    return (
+      <div className="flex flex-col">
+        <span className="text-xs text-muted-foreground opacity-95">Média</span>
+        <span className="text-xs">
+          {average === 0 || !reveal ? (
+            "-"
+          ) : (
+            <div className="flex items-center gap-1">
+              <span>{formatAverage(average)}</span>
+              <ArrowRight className="h-3 w-3 opacity-70" />
+              <span>{majorityChoice}</span>
+            </div>
+          )}
+        </span>
+      </div>
+    );
+  };
+
   return (
     <TooltipProvider>
       <Card className="flex flex-col items-stretch gap-2 p-2 shadow-lg transition-all duration-200 hover:shadow-md">
@@ -82,22 +133,7 @@ export const BoardDock = () => {
               <div className="ml-6 flex items-center gap-4 rounded-md">
                 <div className="flex items-center gap-4">
                   <span className="text-3xl">{averageEmoji}</span>
-                  <div className="flex flex-col">
-                    <span className="text-xs text-muted-foreground opacity-95">
-                      Média
-                    </span>
-                    <span className="text-xs">
-                      {average === 0 || !reveal ? (
-                        "-"
-                      ) : (
-                        <div className="flex items-center gap-1">
-                          <span>{formatAverage(average)}</span>
-                          <ArrowRight className="h-3 w-3 opacity-70" />
-                          <span>{closestStoryPoint}</span>
-                        </div>
-                      )}
-                    </span>
-                  </div>
+                  {avarageDisplay()}
                 </div>
                 <Separator orientation="vertical" className="h-8" />
                 <div className="flex items-center gap-2">
@@ -117,10 +153,8 @@ export const BoardDock = () => {
                   </span>
                 </div>
                 <div className="flex items-center justify-between gap-4">
-                  <span className="text-muted-foreground">
-                    Pontuação sugerida:
-                  </span>
-                  <span className="font-semibold">{closestStoryPoint}</span>
+                  <span className="text-muted-foreground">Mais votado:</span>
+                  <span className="font-semibold">{majorityChoice ?? "-"}</span>
                 </div>
                 <div className="flex items-center justify-between gap-4">
                   <span className="text-muted-foreground">Concordância:</span>

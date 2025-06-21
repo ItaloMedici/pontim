@@ -30,3 +30,15 @@ export type EventEnvelope = {
   data: string;
   from: string;
 };
+
+export const DECK_DELIMITER = ",";
+export const DECK_MAX_CARD_LENGTH = 3;
+export const DECK_MAX_CARDS = 10;
+export const DECK_NON_VALUE_CARDS = ["?", "🃏", "❓", "☕"];
+
+export enum DefaultDecks {
+  FIBONACCI = "deck_fibonacci",
+  T_SHIRT = "deck_t_shirt",
+  PONTIM = "deck_pontim",
+  CUSTOM = "deck_custom",
+}

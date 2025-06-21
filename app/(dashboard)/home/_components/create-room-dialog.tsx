@@ -12,12 +12,18 @@ import {
 import { useAction } from "@/hooks/use-action";
 import { SearchParams } from "@/lib/consts";
 import { ValidationState } from "@/messages/state";
+import { ChoiceSelectOptions } from "@/types/choice-options";
 import { canAddMoreRoom } from "@/use-cases/plan/can-add-more-room";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { ReactNode, useState } from "react";
 import { CreateRoomForm } from "./create-room-form";
 
-export function CreateRoomDialog({ trigger }: { trigger?: React.ReactNode }) {
+type CreateRoomDialog = {
+  trigger?: ReactNode;
+  decks: ChoiceSelectOptions[];
+};
+
+export function CreateRoomDialog({ trigger, decks }: CreateRoomDialog) {
   const [open, setOpen] = useState(false);
   const { mutation, isPending } = useAction(canAddMoreRoom);
   const router = useRouter();
@@ -52,11 +58,11 @@ export function CreateRoomDialog({ trigger }: { trigger?: React.ReactNode }) {
       <DialogTrigger asChild disabled={isPending}>
         {trigger ?? <Button size="lg">Criar nova sala</Button>}
       </DialogTrigger>
-      <DialogContent>
+      <DialogContent className="max-w-screen-sm">
         <DialogHeader>
           <DialogTitle>Criar nova sala</DialogTitle>
         </DialogHeader>
-        <CreateRoomForm />
+        <CreateRoomForm decks={decks} />
       </DialogContent>
     </Dialog>
   );
