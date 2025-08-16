@@ -290,7 +290,7 @@ class BoardEntity {
 
     const filledChoices = board.players
       .map((player) => player.choice)
-      .filter((choice) => choice !== null);
+      .filter((choice) => choice !== null) as string[];
 
     const isChoicesNumeric = valuableChoices.every(
       (choice) => !isNaN(Number(choice.value)),
