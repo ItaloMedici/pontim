@@ -63,22 +63,15 @@ jobs:
           fetch-depth: 0
           token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Create release tag
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version-file: .nvmrc
+          cache: "npm"
+
+      - name: Generate semantic version tag
         id: create-tag
-        run: |
-          # Gera tag baseada na data e commit
-          TIMESTAMP=$(date +"%Y%m%d-%H%M%S")
-          SHORT_SHA=$(git rev-parse --short HEAD)
-          TAG="v${TIMESTAMP}-${SHORT_SHA}"
-
-          echo "Creating tag: $TAG"
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git tag -a "$TAG" -m "Production release $TAG"
-          git push origin "$TAG"
-
-          echo "tag=$TAG" >> $GITHUB_OUTPUT
-          echo "✅ Tag created: $TAG"
+        run: ./.github/scripts/create-semantic-tag.sh
 
       - name: Log in to the Container registry
         uses: docker/login-action@v3
@@ -95,7 +88,9 @@ jobs:
           tags: |
             type=raw,value=latest
             type=raw,value=${{ steps.create-tag.outputs.tag }}
-            type=sha,prefix={{branch}}-
+            type=semver,pattern={{version}},value=${{ steps.create-tag.outputs.version }}
+            type=semver,pattern={{major}}.{{minor}},value=${{ steps.create-tag.outputs.version }}
+            type=semver,pattern={{major}},value=${{ steps.create-tag.outputs.version }}
 
       - name: Build and push Docker image
         id: push
@@ -190,32 +185,39 @@ jobs:
             cd ~/pontim/infra
 
             echo "🚀 Starting production deployment..."
-            echo "� Logging into GitHub Container Registry..."
+            echo "🏷️ Deploying version: ${{ needs.build-image.outputs.release-tag }}"
+            echo "🔐 Logging into GitHub Container Registry..."
 
             # Login no registry privado
             echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
 
-            echo "�📦 Pulling latest pontim image..."
+            echo "📦 Pulling specific pontim image version..."
 
-            # Pull da imagem mais recente
+            # Define a versão específica a ser deployada
+            export PONTIM_VERSION=${{ needs.build-image.outputs.release-tag }}
+            echo "🎯 Using PONTIM_VERSION=$PONTIM_VERSION"
+
+            # Pull da imagem com a versão específica
             docker compose pull pontim
 
-            echo "🔄 Updating pontim-app container..."
+            echo "🔄 Updating pontim-app container with version $PONTIM_VERSION..."
 
-            # Para o container atual e inicia o novo
+            # Para o container atual e inicia o novo com a versão específica
             docker compose up -d --no-deps pontim
 
             echo "✅ Production deployment completed!"
+            echo "🏷️ Deployed version: ${{ needs.build-image.outputs.release-tag }}"
             echo "📊 Container status:"
-            docker ps --filter "name=pontim-pontim" --format "table {{.Names}}\t{{.Status}}\t{{.Ports}}"
+            docker ps --filter "name=pontim-app" --format "table {{.Names}}\t{{.Status}}\t{{.Ports}}"
 
             # Verifica se o container está saudável
             echo "🔍 Checking container health..."
             sleep 10
-            if docker ps --filter "name=pontim-pontim" --filter "status=running" | grep -q "pontim-pontim"; then
+            if docker ps --filter "name=pontim-app" --filter "status=running" | grep -q "pontim-app"; then
               echo "✅ Pontim is running successfully!"
+              echo "🐳 Container is using image: $(docker inspect pontim-app --format='{{.Config.Image}}')"
             else
               echo "❌ Pontim failed to start properly"
-              docker logs pontim-pontim --tail 20
+              docker logs pontim-app --tail 20
               exit 1
             fi

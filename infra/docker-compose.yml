@@ -10,7 +10,7 @@ services:
       - pontim-network
 
   pontim:
-    image: ghcr.io/italomedici/pontim:main
+    image: ghcr.io/italomedici/pontim:${PONTIM_VERSION:-latest}
     container_name: pontim-app
     expose:
       - "3000"
