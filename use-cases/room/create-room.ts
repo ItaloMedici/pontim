@@ -7,12 +7,14 @@ import {
   DefaultDecks,
 } from "@/lib/consts";
 import { db } from "@/lib/db";
+import { logger } from "@/lib/logger";
 import { userSchema } from "@/lib/schemas/user";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { z } from "zod";
 import { fetchRandomImage } from "../image/fetch-ramdom-image";
 import { canAddMoreRoom } from "../plan/can-add-more-room";
+import { canCreateCustomDecks } from "../plan/can-create-custom-decks";
 import { validator } from "../validator";
 
 const input = z.object({
@@ -42,6 +44,19 @@ export const createRoom = validator({
     let deckIdToUse = deckId ?? DefaultDecks.FIBONACCI;
 
     if (customDeck) {
+      const allowedToCreateDeck = await canCreateCustomDecks();
+
+      if (!allowedToCreateDeck) {
+        logger.error({
+          message: "User is not allowed to create custom decks",
+          metadata: {
+            user,
+            customDeck,
+          },
+        });
+        throw new Error("User is not allowed to create custom decks");
+      }
+
       const { name, values } = customDeck;
 
       if (!name || !values) {

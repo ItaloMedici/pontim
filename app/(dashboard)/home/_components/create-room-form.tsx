@@ -1,7 +1,7 @@
 "use client";
 
 import { toast } from "@/components/toast";
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import {
   Form,
   FormControl,
@@ -19,12 +19,15 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useAction } from "@/hooks/use-action";
-import { DefaultDecks } from "@/lib/consts";
+import { useUser } from "@/hooks/use-user";
+import { DefaultDecks, Plans } from "@/lib/consts";
 import { CreateRoom, createRoomSchema } from "@/lib/schemas/create-room";
+import { cn } from "@/lib/utils";
 import { ChoiceSelectOptions } from "@/types/choice-options";
 import { createRoom } from "@/use-cases/room";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useSession } from "next-auth/react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -37,6 +40,7 @@ type CreateRoomForm = {
 export function CreateRoomForm({ decks }: CreateRoomForm) {
   const router = useRouter();
   const { data } = useSession();
+  const { user } = useUser();
   const { mutation, isPending } = useAction(createRoom);
   const [showCustomDeckForm, setShowCustomDeckForm] = useState(false);
 
@@ -87,6 +91,9 @@ export function CreateRoomForm({ decks }: CreateRoomForm) {
     setShowCustomDeckForm(value === DefaultDecks.CUSTOM);
   };
 
+  const canCreateCustomDecks = user?.planName !== Plans.Free;
+  const showCustomDeckNotAllowed = !canCreateCustomDecks && showCustomDeckForm;
+
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
@@ -129,12 +136,32 @@ export function CreateRoomForm({ decks }: CreateRoomForm) {
             </FormItem>
           )}
         />
-        {showCustomDeckForm ? <CreateDeckForm /> : null}
+        {showCustomDeckNotAllowed ? (
+          <div className="flex flex-col items-center justify-center p-8 border-2 border-dashed border-muted-foreground/30 rounded-lg">
+            <div className="text-center space-y-4 max-w-md">
+              <h3 className="text-md font-semibold text-foreground">
+                Desbloqueie todo poder do Pontim! 💪
+              </h3>
+              <p className="text-sm leading-relaxed">
+                Crie decks exclusivos e trabalhe do seu jeito. Faça upgrade
+                agora e não fique de fora dessa!
+              </p>
+              <Link
+                href={"/pricing"}
+                className={cn(buttonVariants({ variant: "outline" }))}
+              >
+                Fazer upgrade agora
+              </Link>
+            </div>
+          </div>
+        ) : showCustomDeckForm ? (
+          <CreateDeckForm />
+        ) : null}
         <Button
           type="submit"
           className="float-end"
           size={"lg"}
-          disabled={isPending}
+          disabled={isPending || showCustomDeckNotAllowed}
         >
           Criar sala
         </Button>
