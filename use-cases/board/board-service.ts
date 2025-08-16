@@ -3,17 +3,17 @@ import { redis } from "@/lib/redis";
 import { Board, BoardStatus } from "@/types/board-status";
 import { Player } from "@/types/player";
 import { Session } from "next-auth";
-import { getSubscriptionByUser } from "../subscription/get-subscription-by-user";
-import { fibonacciChoiceOptions } from "./choice-options";
+import { getRoomChoiceOptions } from "../deck";
+import { getRoomOwnerSubscription } from "../subscription/get-room-owner-subscription";
 
 type Actions = "join" | "leave" | "choice" | "reveal" | "nextRound";
 
 type DataMap = {
-  join: {};
-  leave: {};
+  join: object;
+  leave: object;
   choice: { choice: string };
-  reveal: {};
-  nextRound: {};
+  reveal: object;
+  nextRound: object;
 };
 
 type Data<T extends Actions> = DataMap[T];
@@ -65,11 +65,15 @@ class BoardEntity {
       imageUrl: this.session.user.image as string,
     };
 
-    const userSubscripton = await getSubscriptionByUser({
-      userId: this.session.user.id,
+    const userSubscripton = await getRoomOwnerSubscription({
+      roomId: this.roomId,
     });
 
     const maxRounds = userSubscripton?.plan.maxRounds ?? 0;
+
+    const choiceOptions = await getRoomChoiceOptions({
+      roomId: this.roomId,
+    });
 
     const board: Board = {
       roomId: this.roomId,
@@ -78,14 +82,16 @@ class BoardEntity {
       totalPlayers: 1,
       totalChoices: 0,
       currentRound: 1,
-      average: 0,
       agreementPercentage: 0,
-      availableRounds: 0,
-      closestStoryPoint: 0,
+      agreementEmoji: "🃏",
+      availableRounds: maxRounds,
       maxRounds,
+      choiceOptions,
     };
 
-    await this.setBoard(board);
+    const boardWithInititalMetrics = this.calculateBoardMetrics(board);
+
+    await this.setBoard(boardWithInititalMetrics);
     await redis.expire(this.boardKey, 60 * 60 * 24);
 
     return board;
@@ -148,9 +154,14 @@ class BoardEntity {
       nextRound: this.nextRoundAction.bind(this),
     };
 
+    console.log(
+      `Executing action: ${action} for room: ${this.roomId} by user: ${this.session.user.id}`,
+    );
+
     this._board = await actionHandlers[action](this._board, data);
 
     if (typeof this._board !== "undefined") {
+      console.log("Calculating board metrics after action execution");
       this._board = this.calculateBoardMetrics(this._board);
 
       await this.setBoard(this._board);
@@ -274,14 +285,18 @@ class BoardEntity {
   }
 
   private calculateBoardMetrics(board: Board) {
-    const choices = board.players
-      .map((player) => Number(player.choice))
-      .filter((choice) => !isNaN(choice) && choice > 0);
+    const choiceOptions = board.choiceOptions;
+    const valuableChoices = choiceOptions.filter((choice) => choice.weight > 0);
 
-    const totalSum = choices.reduce((acc, choice) => acc + choice, 0);
-    const average = board.reveal ? Math.round(totalSum / choices.length) : 0;
+    const filledChoices = board.players
+      .map((player) => player.choice)
+      .filter((choice) => choice !== null) as string[];
 
-    const choiceCounts = choices.reduce<Record<number, number>>(
+    const isChoicesNumeric = valuableChoices.every(
+      (choice) => !isNaN(Number(choice.value)),
+    );
+
+    const choiceCounts = filledChoices.reduce<Record<string, number>>(
       (counts, choice) => {
         counts[choice] = (counts[choice] || 0) + 1;
         return counts;
@@ -289,31 +304,63 @@ class BoardEntity {
       {},
     );
 
-    const majorityChoice = Math.max(...Object.values(choiceCounts));
+    const majorityChoiceCount = Math.max(...Object.values(choiceCounts));
 
-    const agreementPercentage =
-      majorityChoice > 1 ? (majorityChoice / choices.length) * 100 : 0;
+    if (isChoicesNumeric) {
+      const choices = filledChoices
+        .map((choice) => Number(choice))
+        .filter((choice) => !isNaN(choice) && choice > 0);
 
-    const closestStoryPoint = fibonacciChoiceOptions.reduce((prev, curr) => {
-      return Math.abs(curr.weight - average) < Math.abs(prev - average)
-        ? curr.weight
-        : prev;
-    }, 0);
+      const totalSum = choices.reduce((acc, choice) => acc + choice, 0);
+      const average = board.reveal ? Math.round(totalSum / choices.length) : 0;
+
+      board.average = average;
+    }
+
+    const majorityChoice = Object.keys(choiceCounts).find(
+      (choice) => choiceCounts[choice] === majorityChoiceCount,
+    );
+
+    board.majorityChoice = majorityChoice;
+
+    board.agreementPercentage =
+      filledChoices.length > 0
+        ? (majorityChoiceCount / filledChoices.length) * 100
+        : 0;
+
+    board.agreementEmoji = this.calculateBoardAgreetmentEmoji(board);
+
+    board.totalChoices = filledChoices.length;
+    board.totalPlayers = board.players.length;
 
     const availableRounds =
       board.maxRounds === UNLIMITED_PLAN_VALUE
         ? UNLIMITED_PLAN_VALUE
         : board.maxRounds - board.currentRound;
 
-    board.agreementPercentage = agreementPercentage;
-    board.average = average;
-    board.closestStoryPoint = closestStoryPoint;
-    board.totalChoices = choices.length;
-    board.totalPlayers = board.players.length;
-
     board.availableRounds = availableRounds;
 
     return board;
+  }
+
+  private calculateBoardAgreetmentEmoji(board: Board): string {
+    if (!board.reveal || board.totalChoices === 0) return "🃏";
+
+    const { agreementPercentage } = board;
+
+    if (agreementPercentage === 100) return "🤝";
+
+    if (agreementPercentage >= 80) return "👍";
+
+    if (agreementPercentage >= 60) return "😊";
+
+    if (agreementPercentage >= 40) return "😐";
+
+    if (agreementPercentage >= 20) return "😕";
+
+    if (agreementPercentage > 0) return "😞";
+
+    return "🤷";
   }
 }
 

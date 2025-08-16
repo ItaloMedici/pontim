@@ -1,3 +1,4 @@
+import { ChoiceOptions } from "./choice-options";
 import { Player } from "./player";
 
 export type Board = {
@@ -7,11 +8,13 @@ export type Board = {
   totalChoices: number;
   currentRound: number;
   reveal: boolean;
-  average: number;
+  average?: number;
   agreementPercentage: number;
+  agreementEmoji: string;
   availableRounds: number;
-  closestStoryPoint: number;
+  majorityChoice?: string;
   maxRounds: number;
+  choiceOptions: Array<ChoiceOptions>;
 };
 
 export type BoardStatus = {
@@ -24,12 +27,15 @@ export type BoardStatus = {
   totalChoices?: number;
   average?: number;
   agreementPercentage?: number;
-  closestStoryPoint?: number;
+  agreementEmoji?: string;
+  majorityChoice?: string;
 
   firstTime?: boolean;
 
   availableRounds?: number;
   currentRound?: number;
+
+  choiceOptions?: Array<ChoiceOptions>;
 };
 
 export type BoardStatusNotification = {

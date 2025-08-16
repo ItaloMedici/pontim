@@ -27,8 +27,19 @@ model Room {
   imageUrl   String
   createdAt  DateTime   @default(now())
   updatedAt  DateTime   @updatedAt
+  deckId     String?
   UserRoom   UserRoom[]
   Board      Board?
+}
+
+model Deck {
+  id          String  @id @default(uuid())
+  name        String
+  value       String
+  cutomRoomId String?
+
+  @@index([cutomRoomId], name: "by_custom_room")
+  @@index([name], name: "by_name")
 }
 
 model UserRoom {

@@ -18,10 +18,26 @@ export const deleteRoom = validator({
       throw new Error("Unauthorized");
     }
 
-    await db.room.delete({
-      where: {
-        id: roomId,
-      },
+    await db.$transaction(async (tx) => {
+      const hasCustomDeck = await tx.deck.findFirst({
+        where: {
+          cutomRoomId: roomId,
+        },
+      });
+
+      if (hasCustomDeck?.id) {
+        await tx.deck.delete({
+          where: {
+            id: hasCustomDeck.id,
+          },
+        });
+      }
+
+      await tx.room.delete({
+        where: {
+          id: roomId,
+        },
+      });
     });
 
     revalidatePath("/(dasgboard)/(home)", "page");

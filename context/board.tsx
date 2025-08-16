@@ -10,7 +10,6 @@ import { BoardNotification, BoardStatus } from "@/types/board-status";
 import { ChoiceOptions } from "@/types/choice-options";
 import { EnumNotification } from "@/types/notifications";
 import { Player } from "@/types/player";
-import { fibonacciChoiceOptions } from "@/use-cases/board/choice-options";
 import { useRouter } from "next/navigation";
 import {
   createContext,
@@ -27,14 +26,15 @@ type BoardContextProps = {
   self: Player;
   others: Player[];
   reveal: boolean;
-  choiceOptions: ChoiceOptions;
+  choiceOptions: ChoiceOptions[];
   selfChoice?: string | null;
   totalPlayers: number;
   totalChoices: number;
   average: number;
   agreementPercentage: number;
+  agreementEmoji: string;
   availableRounds: number;
-  closestStoryPoint: number;
+  majorityChoice: string;
   handleChoice: (choice: string) => Promise<void>;
   handlePlay: () => Promise<void>;
   loadingPlay: boolean;
@@ -73,6 +73,7 @@ export const BoardProvider = ({
     boardStatus?.reveal || false,
   );
   const [openPlanOfferDialog, setOpenPlanOfferDialog] = useState(false);
+  const [choiceOptions, setChoiceOptions] = useState<ChoiceOptions[]>([]);
 
   const selfId = useRef(boardStatus?.self?.id);
 
@@ -85,10 +86,14 @@ export const BoardProvider = ({
         setBoardStatus((prev) => ({ ...prev, ...data }));
       },
       [EventAction.PLAYER_JOINED]: (data: Player) => {
-        toast(`${data.nickname}, ${randomWellcomeMessage}`);
+        toast(`${data.nickname}, ${randomWellcomeMessage}`, {
+          duration: 5000,
+        });
       },
       [EventAction.PLAYER_LEFT]: (data: Player) => {
-        toast(`${data.nickname}, ${randomLeaveMessage}`);
+        toast(`${data.nickname}, ${randomLeaveMessage}`, {
+          duration: 5000,
+        });
       },
       [EventAction.NOTIFICATION]: (data: BoardNotification) => {
         handleNotification(data, boardStatus.others);
@@ -117,6 +122,7 @@ export const BoardProvider = ({
     selfId.current = board?.self?.id;
     setBoardStatus(board as BoardStatus);
     setSelfChoice(board.self?.choice || "");
+    setChoiceOptions(board.choiceOptions ?? []);
 
     return board;
   }, [http, router]);
@@ -197,7 +203,7 @@ export const BoardProvider = ({
     () => ({
       roomId,
       ...(boardStatus as Required<BoardStatus>),
-      choiceOptions: fibonacciChoiceOptions,
+      choiceOptions,
       reveal: revealOptimistc,
       selfChoice,
       handleChoice,
@@ -216,6 +222,7 @@ export const BoardProvider = ({
       loadingPlay,
       sendNotification,
       leaveBoard,
+      choiceOptions,
     ],
   );
 

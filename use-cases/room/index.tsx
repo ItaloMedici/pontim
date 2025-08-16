@@ -5,4 +5,5 @@ export { getRoom } from "./get-room";
 export { getRooms } from "./get-rooms";
 export { getUserRoom } from "./get-user-room";
 export { joinRoom } from "./join-room";
+export { leaveRoom } from "./leave-room";
 export { updateRoom } from "./update-room";
