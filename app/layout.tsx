@@ -2,7 +2,6 @@ import { env } from "@/env";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import Script from "next/script";
 import "./globals.css";
 import { Providers } from "./providers";
 
@@ -24,12 +23,15 @@ export default function RootLayout({
   return (
     <html lang="pt-BR">
       <head>
-        <Script
+        <script
           async
           src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${env.NEXT_PUBLIC_GOOGLE_ADSENSE_ID}`}
           crossOrigin="anonymous"
-          strategy="afterInteractive"
-        />
+        ></script>
+        <meta
+          name="google-adsense-account"
+          content={env.NEXT_PUBLIC_GOOGLE_ADSENSE_ID}
+        ></meta>
       </head>
       <body className={inter.className}>
         <Providers>{children}</Providers>
