@@ -36,6 +36,7 @@ RUN --mount=type=secret,id=NEXTAUTH_URL \
     --mount=type=secret,id=RESEND_API_KEY \
     --mount=type=secret,id=REDIS_URL \
     --mount=type=secret,id=LOKI_URL \
+    --mount=type=secret,id=NEXT_PUBLIC_GOOGLE_ADSENSE_ID \
     --mount=type=secret,id=GA_ID \
     sh -c 'echo "NEXTAUTH_URL=$(cat /run/secrets/NEXTAUTH_URL)" > .env && \
            echo "NEXTAUTH_SECRET=$(cat /run/secrets/NEXTAUTH_SECRET)" >> .env && \
@@ -50,6 +51,7 @@ RUN --mount=type=secret,id=NEXTAUTH_URL \
            echo "GA_ID=$(cat /run/secrets/GA_ID)" >> .env && \
            echo "REDIS_URL=$(cat /run/secrets/REDIS_URL)" >> .env && \
            echo "LOKI_URL=$(cat /run/secrets/LOKI_URL)" >> .env && \
+           echo "NEXT_PUBLIC_GOOGLE_ADSENSE_ID=$(cat /run/secrets/NEXT_PUBLIC_GOOGLE_ADSENSE_ID)" >> .env && \
            echo "FREE_PLAN_PRICE_ID=$(cat /run/secrets/FREE_PLAN_PRICE_ID)" >> .env'
 
 RUN npm run db:generate
