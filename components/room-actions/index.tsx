@@ -6,13 +6,14 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
+  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useAction } from "@/hooks/use-action";
 import { buildInviteUrl } from "@/use-cases/invite/build-invite-url";
-import { deleteRoom } from "@/use-cases/room";
+import { deleteRoom, leaveRoom } from "@/use-cases/room";
 import { DropdownMenuContentProps } from "@radix-ui/react-dropdown-menu";
-import { Link2, Trash2 } from "lucide-react";
+import { Link2, LogOut, Trash2 } from "lucide-react";
 import { useSession } from "next-auth/react";
 import { toast } from "../toast";
 
@@ -35,6 +36,8 @@ export const RoomActions = ({
   const { data } = useSession();
   const roomOwner = roomOwnerEmail === data?.user?.email;
   const { isPending, mutation } = useAction(deleteRoom);
+  const { isPending: isLeavePending, mutation: leaveMutation } =
+    useAction(leaveRoom);
 
   const onCopyLink = () => {
     navigator.clipboard
@@ -51,6 +54,14 @@ export const RoomActions = ({
       .catch(() => toast.error());
   };
 
+  const onLeaveRoomClick = () => {
+    if (!data?.user) return;
+
+    leaveMutation({ roomId: id, user: data?.user })
+      .then(() => toast.success("Você saiu da sala!", { icon: "👋" }))
+      .catch((error) => toast.error(error));
+  };
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>{children}</DropdownMenuTrigger>
@@ -60,11 +71,13 @@ export const RoomActions = ({
         sideOffset={sideOffset}
         className="w-60"
       >
-        <DropdownMenuItem onClick={onCopyLink} className="p-3 cursor-pointer">
+        <DropdownMenuItem onClick={onCopyLink} className="cursor-pointer">
           <Link2 className="h-4 w-4 mr-2" />
           Copiar convite
         </DropdownMenuItem>
-        {roomOwner && (
+        <DropdownMenuSeparator />
+
+        {roomOwner ? (
           <ConfirmDialog
             header="Tem certeza? 🤔"
             description="Ao confirmar você ira deletar a sala para todos os participantes!"
@@ -73,12 +86,23 @@ export const RoomActions = ({
             <Button
               variant={"ghost"}
               disabled={isPending}
-              className="w-full justify-start p-3 cursor-pointer text-sm font-normal"
+              className="w-full justify-start cursor-pointer text-sm font-normal"
             >
               <Trash2 className="h-4 w-4 mr-2" />
               Deletar sala
             </Button>
           </ConfirmDialog>
+        ) : (
+          <DropdownMenuItem
+            className="cursor-pointer"
+            onClick={onLeaveRoomClick}
+            disabled={isLeavePending}
+          >
+            <div className="flex-1 hover:text-red-700 flex items-center">
+              <LogOut className="h-4 w-4 mr-2" />
+              <span>Sair da sala</span>
+            </div>
+          </DropdownMenuItem>
         )}
         {/* <DropdownMenuItem
           onClick={() => onOpen(id, title)}
