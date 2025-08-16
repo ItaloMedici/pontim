@@ -97,11 +97,6 @@ jobs:
             type=raw,value=${{ steps.create-tag.outputs.tag }}
             type=sha,prefix={{branch}}-
 
-      - name: Log secrets
-        run: |
-          echo "🔐 Logging into GitHub Container Registry..."
-          echo "SITE_URL=${{ secrets.SITE_URL }} - ${{ secrets }}"
-
       - name: Build and push Docker image
         id: push
         uses: docker/build-push-action@v5
@@ -147,6 +142,13 @@ jobs:
     needs: build-image
 
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref }}
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Copy docker-compose.yml to VPS
         uses: appleboy/scp-action@master
         with:
