@@ -10,6 +10,7 @@ export type Board = {
   reveal: boolean;
   average?: number;
   agreementPercentage: number;
+  agreementEmoji: string;
   availableRounds: number;
   majorityChoice?: string;
   maxRounds: number;
@@ -26,6 +27,7 @@ export type BoardStatus = {
   totalChoices?: number;
   average?: number;
   agreementPercentage?: number;
+  agreementEmoji?: string;
   majorityChoice?: string;
 
   firstTime?: boolean;

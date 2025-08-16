@@ -32,6 +32,7 @@ type BoardContextProps = {
   totalChoices: number;
   average: number;
   agreementPercentage: number;
+  agreementEmoji: string;
   availableRounds: number;
   majorityChoice: string;
   handleChoice: (choice: string) => Promise<void>;

@@ -10,7 +10,7 @@ import {
 import { useBoard } from "@/context/board";
 import { UNLIMITED_PLAN_VALUE } from "@/lib/consts";
 import { cn } from "@/lib/utils";
-import { ArrowRight, Eye, Loader, Plus, Users } from "lucide-react";
+import { Eye, Loader, Plus, Target, TrendingUp, Users } from "lucide-react";
 import { useMemo } from "react";
 
 export const BoardDock = () => {
@@ -24,32 +24,8 @@ export const BoardDock = () => {
     handlePlay,
     loadingPlay,
     agreementPercentage,
-    choiceOptions,
+    agreementEmoji,
   } = useBoard();
-
-  // TODO: Rever isso
-  const averageEmoji = useMemo(() => {
-    if (!reveal || !majorityChoice) return "🃏";
-
-    const indexOfMajority = choiceOptions.findIndex(
-      (choice) => choice.value === majorityChoice,
-    );
-
-    const smallIndex = 20;
-    const mediumIndex = 50;
-    const largeIndex = 80;
-
-    const indexPercentage =
-      (indexOfMajority * 100) / (choiceOptions.length - 2);
-
-    console.log({ indexPercentage, majorityChoice, indexOfMajority });
-
-    if (indexPercentage <= smallIndex) return "☕";
-    if (indexPercentage <= mediumIndex) return "👍";
-    if (indexPercentage <= largeIndex) return "🤔";
-
-    return "💀";
-  }, [choiceOptions, majorityChoice, reveal]);
 
   const formatAverage = (value: number | null | undefined) => {
     if (value === null || value === undefined) return "-";
@@ -81,40 +57,48 @@ export const BoardDock = () => {
     );
   }, [reveal, loadingPlay]);
 
-  const avarageDisplay = () => {
-    if (typeof average !== "number" || isNaN(average))
-      return (
-        <div className="flex flex-col">
-          <span className="text-xs text-muted-foreground opacity-95">
-            Mais votado
-          </span>
-          <span className="text-xs">
-            {!reveal ? (
-              "-"
-            ) : (
-              <div className="flex items-center gap-1">
-                <span>{majorityChoice}</span>
-              </div>
-            )}
-          </span>
-        </div>
-      );
+  const statsDisplay = () => {
+    if (!reveal) return null;
 
-    return (
+    const avarageDisplay = (
       <div className="flex flex-col">
         <span className="text-xs text-muted-foreground opacity-95">Média</span>
         <span className="text-xs">
-          {average === 0 || !reveal ? (
+          {average === 0 ? (
             "-"
           ) : (
             <div className="flex items-center gap-1">
+              <TrendingUp className="h-3 w-3 opacity-70" />
               <span>{formatAverage(average)}</span>
-              <ArrowRight className="h-3 w-3 opacity-70" />
-              <span>{majorityChoice}</span>
             </div>
           )}
         </span>
       </div>
+    );
+
+    const mostVoted = (
+      <div className="flex flex-col">
+        <span className="text-xs text-muted-foreground opacity-95">
+          Mais votado
+        </span>
+        <span className="text-xs">
+          <div className="flex items-center gap-1">
+            <Target className="h-3 w-3 opacity-70" />
+            <span>{majorityChoice}</span>
+          </div>
+        </span>
+      </div>
+    );
+
+    if (typeof average !== "number" || isNaN(average)) {
+      return mostVoted;
+    }
+
+    return (
+      <>
+        {avarageDisplay}
+        {mostVoted}
+      </>
     );
   };
 
@@ -132,8 +116,8 @@ export const BoardDock = () => {
             <TooltipTrigger asChild>
               <div className="ml-6 flex items-center gap-4 rounded-md">
                 <div className="flex items-center gap-4">
-                  <span className="text-3xl">{averageEmoji}</span>
-                  {avarageDisplay()}
+                  <span className="text-3xl">{agreementEmoji}</span>
+                  {statsDisplay()}
                 </div>
                 <Separator orientation="vertical" className="h-8" />
                 <div className="flex items-center gap-2">
@@ -159,6 +143,12 @@ export const BoardDock = () => {
                 <div className="flex items-center justify-between gap-4">
                   <span className="text-muted-foreground">Concordância:</span>
                   <span className="font-semibold">{agreementPercentage}%</span>
+                </div>
+                <div className="flex items-center justify-between gap-4">
+                  <span className="text-muted-foreground">
+                    Termômetro do acordo:
+                  </span>
+                  <span className="text-xl">{agreementEmoji}</span>
                 </div>
                 <div className="flex items-center justify-between gap-4">
                   <span className="text-muted-foreground">

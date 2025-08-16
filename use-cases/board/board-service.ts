@@ -75,10 +75,6 @@ class BoardEntity {
       roomId: this.roomId,
     });
 
-    console.log({
-      maxRounds,
-    });
-
     const board: Board = {
       roomId: this.roomId,
       players: [selfPlayer],
@@ -87,6 +83,7 @@ class BoardEntity {
       totalChoices: 0,
       currentRound: 1,
       agreementPercentage: 0,
+      agreementEmoji: "🃏",
       availableRounds: maxRounds,
       maxRounds,
       choiceOptions,
@@ -309,11 +306,6 @@ class BoardEntity {
 
     const majorityChoiceCount = Math.max(...Object.values(choiceCounts));
 
-    const agreementPercentage =
-      majorityChoiceCount > 1
-        ? (majorityChoiceCount / filledChoices.length) * 100
-        : 0;
-
     if (isChoicesNumeric) {
       const choices = filledChoices
         .map((choice) => Number(choice))
@@ -330,7 +322,13 @@ class BoardEntity {
     );
 
     board.majorityChoice = majorityChoice;
-    board.agreementPercentage = agreementPercentage;
+
+    board.agreementPercentage =
+      filledChoices.length > 0
+        ? (majorityChoiceCount / filledChoices.length) * 100
+        : 0;
+
+    board.agreementEmoji = this.calculateBoardAgreetmentEmoji(board);
 
     board.totalChoices = filledChoices.length;
     board.totalPlayers = board.players.length;
@@ -343,6 +341,26 @@ class BoardEntity {
     board.availableRounds = availableRounds;
 
     return board;
+  }
+
+  private calculateBoardAgreetmentEmoji(board: Board): string {
+    if (!board.reveal || board.totalChoices === 0) return "🃏";
+
+    const { agreementPercentage } = board;
+
+    if (agreementPercentage === 100) return "🤝";
+
+    if (agreementPercentage >= 80) return "👍";
+
+    if (agreementPercentage >= 60) return "😊";
+
+    if (agreementPercentage >= 40) return "😐";
+
+    if (agreementPercentage >= 20) return "😕";
+
+    if (agreementPercentage > 0) return "😞";
+
+    return "🤷";
   }
 }
 

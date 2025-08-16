@@ -18,6 +18,7 @@ export const BoardNavbar = () => {
   const [copiedInvite, setCopiedInvite] = useState(false);
   const isMobile = useIsMobile();
   const { handleLeave } = useBoard();
+  const [disabled, setDisabled] = useState(false);
 
   useEffect(() => {
     if (!copiedInvite) return;
@@ -42,15 +43,24 @@ export const BoardNavbar = () => {
     });
   };
 
+  const onLeaveClick = () => {
+    setDisabled(true);
+    handleLeave();
+  };
+
   const Icon = copiedInvite ? CheckIcon : PlusIcon;
 
   return (
     <nav className="fixed top-0 right-0 left-0 mx-auto">
       <div className="flex items-center justify-end p-4 gap-6 mx-auto">
         <Link
-          className={cn(buttonVariants({ variant: "ghost" }), "mr-auto")}
+          className={cn(buttonVariants({ variant: "ghost" }), "mr-auto", {
+            "opacity-50": disabled,
+            "pointer-events-none": disabled,
+          })}
           href={"/"}
-          onClick={handleLeave}
+          onClick={onLeaveClick}
+          aria-disabled={disabled}
         >
           <ChevronLeft className="w-4 h-4" />
           Voltar
