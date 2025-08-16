@@ -34,12 +34,12 @@ else
     COMMITS_SINCE_TAG=$(git log ${LAST_TAG}..HEAD --oneline)
     
     # Verifica se há breaking changes (MAJOR)
-    if echo "$COMMITS_SINCE_TAG" | grep -qiE "(breaking change|breaking:|BREAKING CHANGE|!:)"; then
+    if echo "$COMMITS_SINCE_TAG" | grep -qiE "(breaking change|BREAKING CHANGE|[a-z]+(\([^)]*\))?!:)"; then
         NEW_MAJOR=$((MAJOR + 1))
         NEW_VERSION="${NEW_MAJOR}.0.0"
         echo "🔥 Breaking changes detected. Bumping MAJOR version."
     # Verifica se há features (MINOR)
-    elif echo "$COMMITS_SINCE_TAG" | grep -qiE "(feat:|feature:|add:|new:)"; then
+    elif echo "$COMMITS_SINCE_TAG" | grep -qiE "(feat|feature|add|new)(\([^)]*\))?:"; then
         NEW_MINOR=$((MINOR + 1))
         NEW_VERSION="${MAJOR}.${NEW_MINOR}.0"
         echo "✨ Features detected. Bumping MINOR version."
