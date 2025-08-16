@@ -15,6 +15,12 @@ export const CardsPicker = ({
 }: CardsPickerProps) => {
   const isSelfOption = (option: string) => selfChoice == option;
 
+  const handleChoiceClick = (event: React.MouseEvent, option: string) => {
+    event.preventDefault();
+
+    handleChoice(option);
+  };
+
   return (
     <div className="flex flex-col items-center justify-center flex-wrap gap-6">
       {showTitle ? (
@@ -26,7 +32,7 @@ export const CardsPicker = ({
             role="button"
             key={option.value}
             className={"[all:unset]"}
-            onClick={() => handleChoice(option.value)}
+            onClick={(event) => handleChoiceClick(event, option.value)}
           >
             <div
               className={cn(
