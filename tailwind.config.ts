@@ -1,4 +1,5 @@
 import type { Config } from "tailwindcss";
+import animate from "tailwindcss-animate";
 import { PluginAPI } from "tailwindcss/types/config";
 
 const config = {
@@ -52,6 +53,12 @@ const config = {
         card: {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
+        },
+        adblock: {
+          icon: "hsl(var(--muted-foreground))",
+          accent: "hsl(var(--primary))",
+          "text-primary": "hsl(var(--foreground))",
+          "text-secondary": "hsl(var(--muted-foreground))",
         },
       },
       borderRadius: {
@@ -108,7 +115,7 @@ const config = {
     },
   },
   plugins: [
-    require("tailwindcss-animate"),
+    animate,
     function ({ addUtilities }: PluginAPI) {
       const newUtilities = {
         ".rotate-y-180": {

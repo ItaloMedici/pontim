@@ -21,6 +21,7 @@ export const env = createEnv({
     REDIS_URL: z.string(),
     LOKI_URL: z.string(),
     CI: z.boolean().optional().default(false),
+    AD_FREE_PLAN_PRICE_ID: z.string(),
   },
   runtimeEnvStrict: {
     NEXT_PUBLIC_GOOGLE_ADSENSE_ID: process.env.NEXT_PUBLIC_GOOGLE_ADSENSE_ID,
@@ -32,6 +33,7 @@ export const env = createEnv({
     DATABASE_URL: process.env.DATABASE_URL,
     STRIPE_SECRET_KEY: process.env.STRIPE_SECRET_KEY,
     FREE_PLAN_PRICE_ID: process.env.FREE_PLAN_PRICE_ID,
+    AD_FREE_PLAN_PRICE_ID: process.env.AD_FREE_PLAN_PRICE_ID,
     STRIPE_WEBHOOK_SECRET: process.env.STRIPE_WEBHOOK_SECRET,
     RESEND_API_KEY: process.env.RESEND_API_KEY,
     GA_ID: process.env.GA_ID,
