@@ -65,8 +65,11 @@ echo "🏷️ Creating release tag: $TAG"
 # Atualiza package.json com a nova versão
 npm version $NEW_VERSION --no-git-tag-version
 
-# Commit da mudança no package.json
-git add package.json
+# Atualiza package-lock.json
+npm install --no-save
+
+# Commit da mudança no package.json e package-lock.json
+git add package.json package-lock.json
 git commit -m "chore: bump version to $NEW_VERSION [skip ci]"
 
 # Cria a tag com changelog
