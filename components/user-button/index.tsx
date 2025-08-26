@@ -10,7 +10,7 @@ import {
 import { useUser } from "@/hooks/use-user";
 import { Plans } from "@/lib/consts";
 import { cn } from "@/lib/utils";
-import { Crown, LogOutIcon, Shield, Zap } from "lucide-react";
+import { Crown, LogOutIcon, Shield, ShieldBan, Zap } from "lucide-react";
 import { signOut } from "next-auth/react";
 import Link from "next/link";
 
@@ -35,6 +35,13 @@ const plans: Record<Plans, object> = {
     color: "bg-indigo-600",
     textColor: "text-indigo-600",
     badgeColor: "bg-indigo-100 text-indigo-700",
+  },
+  [Plans.AdFree]: {
+    name: Plans.AdFree,
+    icon: ShieldBan,
+    color: "bg-pink-600",
+    textColor: "text-pink-600",
+    badgeColor: "bg-pink-100 text-pink-600",
   },
 };
 

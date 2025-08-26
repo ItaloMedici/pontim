@@ -12,6 +12,7 @@ export enum Plans {
   Free = "Grátis",
   Pro = "Pro",
   Master = "Master",
+  AdFree = "Sem Anúncios",
 }
 
 export enum EventAction {

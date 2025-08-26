@@ -1,6 +1,7 @@
 "use server";
 
 import { authOptions } from "@/authOptions";
+import { env } from "@/env";
 import { Pricing } from "@/lib/schemas/pricings";
 import stripe from "@/lib/stripe";
 import { getServerSession } from "next-auth";
@@ -8,7 +9,11 @@ import { getSubscriptionByUser } from "../subscription/get-subscription-by-user"
 import { getPlans } from "./get-plans";
 
 export async function getPlanPricings(): Promise<Pricing[]> {
-  const plans = await getPlans();
+  const allPlans = await getPlans();
+
+  const plansWithoutAdFree = allPlans.filter(
+    (plan) => plan.priceId !== env.AD_FREE_PLAN_PRICE_ID,
+  );
 
   const session = await getServerSession(authOptions);
 
@@ -27,7 +32,7 @@ export async function getPlanPricings(): Promise<Pricing[]> {
   const { data: stripePlans } = await stripe.plans.list();
   const { data: stripeProducts } = await stripe.products.list();
 
-  const pricings = plans
+  const pricings = plansWithoutAdFree
     .map((plan): Pricing | undefined => {
       const stripePlan = stripePlans.find(
         (stripePlan) => stripePlan.id === plan.priceId,

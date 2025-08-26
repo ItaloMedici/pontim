@@ -13,6 +13,8 @@ import { createCustomer } from "./create-customer";
 
 export async function createCheckoutSession(
   planId: string,
+  returnUrl: string = "/home",
+  successUrl: string = "/home?session_id={CHECKOUT_SESSION_ID}&order=success",
 ): Promise<{ error: string } | { sessionUrl: string }> {
   try {
     const authSession = await getServerSession(authOptions);
@@ -57,13 +59,13 @@ export async function createCheckoutSession(
 
     const session = await stripe.billingPortal.sessions.create({
       customer: customer.id,
-      return_url: `${env.NEXTAUTH_URL}/home`,
+      return_url: `${env.NEXTAUTH_URL}${returnUrl}`,
       flow_data: {
         type: "subscription_update_confirm",
         after_completion: {
           type: "redirect",
           redirect: {
-            return_url: `${env.NEXTAUTH_URL}/home?session_id={CHECKOUT_SESSION_ID}&order=success`,
+            return_url: `${env.NEXTAUTH_URL}${successUrl}`,
           },
         },
         subscription_update_confirm: {
