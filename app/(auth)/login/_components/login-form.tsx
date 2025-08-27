@@ -1,6 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+import { Track } from "@/lib/track-events";
 import { signIn } from "next-auth/react";
 import { useSearchParams } from "next/navigation";
 
@@ -9,6 +10,9 @@ export const LoginForm = () => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    Track.user.login("google");
+
     signIn("google", { callbackUrl: searchParams?.get("callbackUrl") ?? "/" });
   };
 

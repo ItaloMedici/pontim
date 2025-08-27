@@ -7,6 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Pricing } from "@/lib/schemas/pricings";
+import { Track } from "@/lib/track-events";
 import { cn } from "@/lib/utils";
 
 export function PricingCard({
@@ -20,6 +21,14 @@ export function PricingCard({
   ctaDisabled,
 }: Pricing) {
   const isHighlighted = highlighted === true;
+
+  const sendEvent = () => {
+    Track.subscription.beginCheckout({
+      price,
+      currency,
+      planName: name,
+    });
+  };
 
   return (
     <Card
@@ -88,6 +97,7 @@ export function PricingCard({
         className="w-full z-10"
         type="submit"
         disabled={ctaDisabled}
+        onClick={sendEvent}
       >
         {cta}
         <ArrowRight className="ml-2 h-4 w-4" />

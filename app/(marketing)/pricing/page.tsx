@@ -1,9 +1,31 @@
 import { NavBar } from "@/components/nav-bar";
 import { PricingSection } from "@/components/pricing";
+import { env } from "@/env";
+import { keywords, openGraph } from "@/lib/seo";
 import { getPlanPricings } from "@/use-cases/plan/get-pricings";
+import { Metadata } from "next";
 import { redirect } from "next/navigation";
 
 export const dynamic = "force-dynamic";
+
+export const metadata: Metadata = {
+  title: "Preços e Planos",
+  description:
+    "Conheça os planos do Pontim para estimativas ágeis. Plano gratuito disponível com funcionalidades básicas. Planos premium para equipes maiores.",
+  keywords: [
+    ...keywords,
+    "planning poker",
+    "scrum poker",
+    "preços pontim",
+    "planos scrum poker",
+    "assinatura planning poker",
+    "preço estimativas ágeis",
+  ],
+  openGraph: openGraph,
+  alternates: {
+    canonical: `${env.SITE_URL}/pricing`,
+  },
+};
 
 export default async function PricingPage() {
   const pricings = await getPlanPricings();
