@@ -1,7 +1,18 @@
 import { withAuth } from "next-auth/middleware";
 import { NextResponse } from "next/server";
 
-const openRoutes = ["/", "/api/stripe/webhook", "/api/metrics"];
+const openRoutes = [
+  "/",
+  "/api/stripe/webhook",
+  "/api/metrics",
+  "/pricing",
+  "/scrum-poker",
+  "/faq",
+  "/story-points",
+  "/fibonacci",
+  "/politica-de-privacidade",
+  "/termos-de-uso",
+];
 
 export default withAuth(
   function middleware(req) {
