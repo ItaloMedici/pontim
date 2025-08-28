@@ -5,6 +5,7 @@ import { keywords, openGraph } from "@/lib/seo";
 import { getPlanPricings } from "@/use-cases/plan/get-pricings";
 import { Metadata } from "next";
 import { redirect } from "next/navigation";
+import { Footer } from "../_components/footer";
 
 export const dynamic = "force-dynamic";
 
@@ -47,6 +48,8 @@ export default async function PricingPage() {
           />
         </div>
       </main>
+
+      <Footer />
     </>
   );
 }
