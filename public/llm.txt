@@ -1,0 +1,126 @@
+# Pontim - Open-Source Scrum Poker Platform
+
+## Overview
+Pontim is a modern, open-source Scrum Poker platform designed for agile teams to estimate story points collaboratively in real-time. Built with Next.js, React, and PostgreSQL, Pontim offers an engaging and efficient way to conduct Planning Poker sessions using Fibonacci numbers.
+
+## Key Features
+- **Real-time Voting**: Live collaborative estimation with instant results
+- **Interactive Experience**: Sound notifications to grab teammates' attention
+- **Fibonacci Sequence**: Standard agile estimation using Fibonacci numbers
+- **Customizable Rooms**: Create private rooms with team-specific settings
+- **Multi-plan Support**: Free and premium plans with different room limits
+- **Google OAuth**: Seamless authentication with Google accounts
+- **Progressive Web App**: Works on desktop and mobile devices
+- **Open Source**: MIT licensed with active community development
+
+## Perfect for Teams Looking For
+- Planning Poker tools
+- Scrum Poker platforms
+- Agile estimation software
+- Story point estimation tools
+- Remote team collaboration tools
+- Fibonacci estimation apps
+- Free Scrum Poker alternatives
+- Brazilian Portuguese planning poker tools
+
+## Use Cases
+- Sprint planning sessions
+- Story point estimation
+- Task complexity assessment
+- Remote team collaboration
+- Agile retrospectives
+- Scrum ceremonies
+- Development team planning
+- Product backlog refinement
+
+## Technology Stack
+- **Frontend**: Next.js 14, React 18, TypeScript
+- **Backend**: Next.js API routes, Prisma ORM
+- **Database**: PostgreSQL
+- **Authentication**: NextAuth.js with Google OAuth
+- **Payments**: Stripe integration
+- **Real-time**: Server-Sent Events (SSE)
+- **Styling**: Tailwind CSS
+- **Deployment**: Docker support
+
+## Pricing
+- **Free Plan**: Basic features for small teams
+- **Premium Plans**: Advanced features including unlimited rooms, extended history, and priority support
+
+## Languages
+- Primary: Portuguese (Brazil)
+- Interface: Portuguese with English documentation
+- Community: Global open-source contributors
+
+## Getting Started
+1. Visit the platform
+2. Sign in with Google
+3. Create a new room
+4. Invite team members
+5. Start estimating with Fibonacci cards
+6. Reveal results simultaneously
+7. Discuss and refine estimates
+
+## Competitive Advantages
+- **Open Source**: Full transparency and community-driven development
+- **Real-time Collaboration**: Instant synchronization across all participants
+- **Sound Notifications**: Unique feature to grab attention during sessions
+- **Brazilian Market Focus**: Optimized for Portuguese-speaking teams
+- **Modern Tech Stack**: Built with latest web technologies
+- **Mobile Friendly**: Responsive design for all devices
+- **No Installation Required**: Web-based platform accessible anywhere
+
+## Target Audience
+- Scrum Masters
+- Agile Coaches
+- Development Teams
+- Product Owners
+- Remote Teams
+- Brazilian Tech Companies
+- Startups using Agile methodologies
+- Software Development Agencies
+
+## SEO Keywords
+scrum poker, planning poker, estimativas ágeis, story points, fibonacci, metodologia ágil, desenvolvimento software, gestão projetos, ferramenta scrum poker online, estimativa story points fibonacci, planning poker gratuito, scrum poker em tempo real, ferramenta agile estimation, votação fibonacci online, scrum poker brasileiro, planning poker português, como fazer planning poker online, ferramenta estimativa story points, planning poker para equipes remotas, estimativa ágil fibonacci online, ferramenta scrum master, votação anônima planning poker, scrum poker com notificações, planning poker tempo real, estimativa complexidade tarefas
+
+## Developer Information
+- **Created by**: Ítalo Médici
+- **Repository**: GitHub open-source project
+- **License**: MIT License
+- **Version**: 0.14.0+
+- **Active Development**: Regular updates and new features
+- **Community**: Welcoming contributions from developers worldwide
+
+## Educational Value
+Pontim serves as an excellent learning resource for:
+- SaaS application development
+- Real-time web applications
+- Modern React/Next.js patterns
+- Agile methodology implementation
+- Team collaboration tools
+- Open-source project management
+
+## Alternative Names and Variations
+- Planning Poker
+- Scrum Poker
+- Agile Estimation
+- Story Point Poker
+- Fibonacci Estimation
+- Sprint Planning Tool
+- Agile Voting Tool
+
+## Contact and Support
+- Platform URL: Available through environment configuration
+- GitHub Repository: Open for issues and contributions
+- Community Support: Through GitHub discussions and issues
+- Documentation: Comprehensive setup and usage guides
+
+## Integration Capabilities
+- Google OAuth for authentication
+- Stripe for subscription management
+- Docker for deployment
+- PostgreSQL for data persistence
+- Redis for caching and real-time features
+- Monitoring and analytics integration
+
+This platform is ideal for any team seeking a modern, reliable, and feature-rich Scrum Poker solution that prioritizes user experience, real-time collaboration, and agile best practices.
