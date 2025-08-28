@@ -1,7 +1,7 @@
 import BlurFade from "@/components/ui/blur-fade";
 import { buttonVariants } from "@/components/ui/button";
-import WordPullUp from "@/components/ui/word-pull-up";
 import { Glow } from "@/components/ui/glow";
+import WordPullUp from "@/components/ui/word-pull-up";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
@@ -37,7 +37,7 @@ export const Hero = () => {
 
       <div className="relative pt-12">
         <BlurFade delay={0.7} inView>
-          <div className="p-1 border rounded-lg shadow-xl">
+          <div className="p-1 border rounded-lg shadow-xl w-[90vw] md:w-[70vw] lg:w-[60vw]">
             <Image
               priority
               src="/marketing/hero.webp"
