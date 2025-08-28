@@ -12,10 +12,15 @@ export default function robots(): MetadataRoute.Robots {
           "/",
           "/pricing",
           "/login",
+          "/scrum-poker",
+          "/faq",
+          "/story-points",
+          "/fibonacci",
           "/marketing/*",
           "/_next/static/*",
           "/sounds/*",
           "/manifest.json",
+          "/llm.txt",
         ],
         disallow: [
           // Área de usuário autenticado
@@ -43,13 +48,13 @@ export default function robots(): MetadataRoute.Robots {
       // Regras específicas para Googlebot
       {
         userAgent: "Googlebot",
-        allow: ["/", "/pricing", "/marketing/*", "/sounds/*"],
+        allow: ["/", "/pricing", "/marketing/*", "/sounds/*", "/llm.txt"],
         disallow: ["/api/", "/home/", "/room/", "/invite/"],
       },
       // Regras específicas para Bingbot
       {
         userAgent: "Bingbot",
-        allow: ["/", "/pricing", "/marketing/*"],
+        allow: ["/", "/pricing", "/marketing/*", "/llm.txt"],
         disallow: ["/api/", "/home/", "/room/", "/invite/"],
       },
       // Bloquear bots maliciosos conhecidos
