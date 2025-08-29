@@ -5,6 +5,7 @@ export const env = createEnv({
   clientPrefix: "NEXT_PUBLIC_",
   client: {
     NEXT_PUBLIC_GOOGLE_ADSENSE_ID: z.string(),
+    NEXT_PUBLIC_STRIPE_PAYMENT_LINK: z.string().url(),
   },
   server: {
     NEXTAUTH_URL: z.string(),
@@ -35,6 +36,8 @@ export const env = createEnv({
     FREE_PLAN_PRICE_ID: process.env.FREE_PLAN_PRICE_ID,
     AD_FREE_PLAN_PRICE_ID: process.env.AD_FREE_PLAN_PRICE_ID,
     STRIPE_WEBHOOK_SECRET: process.env.STRIPE_WEBHOOK_SECRET,
+    NEXT_PUBLIC_STRIPE_PAYMENT_LINK:
+      process.env.NEXT_PUBLIC_STRIPE_PAYMENT_LINK,
     RESEND_API_KEY: process.env.RESEND_API_KEY,
     GA_ID: process.env.GA_ID,
     REDIS_URL: process.env.REDIS_URL,

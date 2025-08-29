@@ -117,6 +117,7 @@ jobs:
             LOKI_URL=${{ secrets.LOKI_URL }}
             NEXT_PUBLIC_GOOGLE_ADSENSE_ID=${{ secrets.NEXT_PUBLIC_GOOGLE_ADSENSE_ID }}
             AD_FREE_PLAN_PRICE_ID=${{ secrets.AD_FREE_PLAN_PRICE_ID }}
+            NEXT_PUBLIC_STRIPE_PAYMENT_LINK=${{ secrets.NEXT_PUBLIC_STRIPE_PAYMENT_LINK }}
 
       - name: Generate artifact attestation
         uses: actions/attest-build-provenance@v1

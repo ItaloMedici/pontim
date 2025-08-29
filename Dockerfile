@@ -39,6 +39,7 @@ RUN --mount=type=secret,id=NEXTAUTH_URL \
     --mount=type=secret,id=NEXT_PUBLIC_GOOGLE_ADSENSE_ID \
     --mount=type=secret,id=GA_ID \
     --mount=type=secret,id=AD_FREE_PLAN_PRICE_ID \
+    --mount=type=secret,id=NEXT_PUBLIC_STRIPE_PAYMENT_LINK \
     sh -c 'echo "NEXTAUTH_URL=$(cat /run/secrets/NEXTAUTH_URL)" > .env && \
            echo "NEXTAUTH_SECRET=$(cat /run/secrets/NEXTAUTH_SECRET)" >> .env && \
            echo "DATABASE_URL=$(cat /run/secrets/DATABASE_URL)" >> .env && \
@@ -54,6 +55,7 @@ RUN --mount=type=secret,id=NEXTAUTH_URL \
            echo "LOKI_URL=$(cat /run/secrets/LOKI_URL)" >> .env && \
            echo "NEXT_PUBLIC_GOOGLE_ADSENSE_ID=$(cat /run/secrets/NEXT_PUBLIC_GOOGLE_ADSENSE_ID)" >> .env && \
            echo "AD_FREE_PLAN_PRICE_ID=$(cat /run/secrets/AD_FREE_PLAN_PRICE_ID)" >> .env && \
+           echo "NEXT_PUBLIC_STRIPE_PAYMENT_LINK=$(cat /run/secrets/NEXT_PUBLIC_STRIPE_PAYMENT_LINK)" >> .env && \
            echo "FREE_PLAN_PRICE_ID=$(cat /run/secrets/FREE_PLAN_PRICE_ID)" >> .env'
 
 RUN npm run db:generate

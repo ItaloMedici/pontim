@@ -1,5 +1,6 @@
 "use client";
 
+import { env } from "@/env";
 import confetti from "canvas-confetti";
 import { Heart } from "lucide-react";
 import { useState } from "react";
@@ -45,10 +46,7 @@ export const SupportButton = () => {
     setTimeout(shoot, 100);
     setTimeout(shoot, 200);
     setTimeout(() => {
-      window.open(
-        "https://buy.stripe.com/test_eVq5kFd6F70qf3ydtu7g400",
-        "_blank",
-      );
+      window.open(env.NEXT_PUBLIC_STRIPE_PAYMENT_LINK, "_blank");
     }, 800);
 
     setTimeout(() => {
@@ -65,6 +63,7 @@ export const SupportButton = () => {
         variant={"pinkOnHover"}
         className="flex items-center justify-start transition-transform duration-300 ease-out"
         onClick={handleClick}
+        aria-label="Botão para apoiar o projeto"
       >
         <Heart className="min-w-4 h-4" />
         <span className="">{buttonText}</span>
