@@ -1,7 +1,10 @@
 import { ReportButton } from "@/components/report-button";
+import { getRoom } from "@/use-cases/room";
+import { Metadata } from "next";
 import { Board } from "./_components/board";
-import { Room } from "./_components/room";
 import { BoardAds } from "./_components/board-ads";
+import { Room } from "./_components/room";
+import { SupportButton } from "@/components/support-button";
 
 interface RoomIdPageProps {
   params: {
@@ -25,6 +28,7 @@ async function RoomPage({ params: { roomId } }: RoomIdPageProps) {
   return (
     <Room roomId={roomId}>
       <ReportButton />
+      <SupportButton />
       <BoardAds />
       <Board />
     </Room>
