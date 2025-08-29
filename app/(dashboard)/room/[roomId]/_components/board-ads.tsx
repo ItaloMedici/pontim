@@ -11,6 +11,8 @@ import { createPortal } from "react-dom";
 const LEFT_BANNER_AD_SLOT = "4681337846";
 const RIGHT_BANNER_AD_SLOT = "2306043568";
 
+const DISABLE_ADS = true;
+
 const AdBlockWrapper = ({
   children,
   pos,
@@ -20,6 +22,10 @@ const AdBlockWrapper = ({
 }) => {
   const { isAdBlockerActive, isLoading } = useAdBlockerDetection();
   const { user } = useUser();
+
+  if (DISABLE_ADS) {
+    return null;
+  }
 
   if (isLoading) {
     return null;
