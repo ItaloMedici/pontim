@@ -3,7 +3,7 @@ import { env } from "../../../env";
 import { organizationSchema } from "../../../lib/seo";
 
 export const metadata: Metadata = {
-  title: "Story Points: Guia Completo para Estimativas Ágeis | Pontim",
+  title: "Story Points: Guia Completo para Estimativas Ágeis",
   description:
     "Aprenda tudo sobre Story Points: o que são, como usar, vantagens e como aplicar essa técnica de estimativa ágil em seus projetos de software.",
   keywords: [

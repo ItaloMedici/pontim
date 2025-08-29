@@ -3,7 +3,7 @@ import { env } from "../../../env";
 import { organizationSchema } from "../../../lib/seo";
 
 export const metadata: Metadata = {
-  title: "Termos de Uso | Pontim",
+  title: "Termos de Uso",
   description:
     "Conheça os termos e condições de uso da plataforma Pontim. Direitos, deveres e responsabilidades dos usuários.",
   keywords: [

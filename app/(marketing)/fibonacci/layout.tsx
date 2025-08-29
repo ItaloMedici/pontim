@@ -1,9 +1,9 @@
 import { Metadata } from "next";
 import { env } from "../../../env";
-import { organizationSchema } from "../../../lib/seo";
+import { keywords, organizationSchema } from "../../../lib/seo";
 
 export const metadata: Metadata = {
-  title: "Sequência de Fibonacci no Planning Poker | Guia Completo | Pontim",
+  title: "Sequência de Fibonacci no Planning Poker",
   description:
     "Descubra por que a sequência de Fibonacci é usada no Planning Poker e Scrum. Entenda as vantagens dessa escala para estimativas ágeis.",
   keywords: [
@@ -17,6 +17,7 @@ export const metadata: Metadata = {
     "metodologia ágil",
     "números fibonacci",
     "estimativa software",
+    ...keywords,
   ],
   openGraph: {
     title: "Sequência de Fibonacci no Planning Poker | Guia Completo",

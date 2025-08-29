@@ -3,7 +3,7 @@ import { env } from "../../../env";
 import { faqSchema, organizationSchema } from "../../../lib/seo";
 
 export const metadata: Metadata = {
-  title: "FAQ - Perguntas Frequentes sobre Scrum Poker | Pontim",
+  title: "FAQ - Perguntas Frequentes sobre Scrum Poker",
   description:
     "Respostas para as principais dúvidas sobre Scrum Poker, Planning Poker, Story Points e estimativas ágeis. Tudo que você precisa saber sobre o Pontim.",
   keywords: [

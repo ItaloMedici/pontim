@@ -3,7 +3,7 @@ import { env } from "../../../env";
 import { keywords, organizationSchema } from "../../../lib/seo";
 
 export const metadata: Metadata = {
-  title: "Como Funciona o Scrum Poker | Pontim - Guia Completo",
+  title: "Como Funciona o Scrum Poker",
   description:
     "Aprenda como funciona o Scrum Poker passo a passo. Guia completo com exemplos práticos, técnicas de Planning Poker e estimativas ágeis com Fibonacci.",
   keywords: [

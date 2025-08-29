@@ -3,7 +3,7 @@ import { env } from "../../../env";
 import { organizationSchema } from "../../../lib/seo";
 
 export const metadata: Metadata = {
-  title: "Política de Privacidade | Pontim",
+  title: "Política de Privacidade",
   description:
     "Saiba como o Pontim coleta, usa e protege seus dados pessoais. Política de privacidade em conformidade com a LGPD.",
   keywords: [
