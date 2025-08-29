@@ -9,6 +9,18 @@ interface RoomIdPageProps {
   };
 }
 
+export const generateMetadata = async ({
+  params: { roomId },
+}: RoomIdPageProps): Promise<Metadata> => {
+  const room = await getRoom({ roomId });
+
+  const roomName = room.name;
+
+  return {
+    title: roomName,
+  };
+};
+
 async function RoomPage({ params: { roomId } }: RoomIdPageProps) {
   return (
     <Room roomId={roomId}>
