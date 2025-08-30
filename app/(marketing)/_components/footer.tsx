@@ -6,7 +6,7 @@ export const Footer = () => {
     <footer className="w-full bg-gray-950 py-12 px-4">
       <div className="container mx-auto">
         {/* Main Footer Content */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 mb-8">
           {/* Brand Section */}
           <div className="lg:col-span-2">
             <div className="flex flex-col gap-4">
@@ -59,6 +59,45 @@ export const Footer = () => {
                   className="text-gray-400 hover:text-white text-sm transition-colors"
                 >
                   Fibonacci
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* Blog Section */}
+          <div>
+            <h3 className="text-white font-semibold mb-4">Blog</h3>
+            <ul className="space-y-3">
+              <li>
+                <Link
+                  href="/blog"
+                  className="text-gray-400 hover:text-white text-sm transition-colors"
+                >
+                  Todos os Posts
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/blog/dicas-performance-planning-poker"
+                  className="text-gray-400 hover:text-white text-sm transition-colors"
+                >
+                  Dicas de Performance
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/blog/metricas-eficiencia-planning"
+                  className="text-gray-400 hover:text-white text-sm transition-colors"
+                >
+                  Métricas de Eficiência
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/blog/casos-reais-planning-poker"
+                  className="text-gray-400 hover:text-white text-sm transition-colors"
+                >
+                  Casos Reais
                 </Link>
               </li>
             </ul>
