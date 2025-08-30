@@ -12,6 +12,7 @@ const openRoutes = [
   "/fibonacci",
   "/politica-de-privacidade",
   "/termos-de-uso",
+  "/blog",
 ];
 
 export default withAuth(
@@ -35,6 +36,10 @@ export default withAuth(
     callbacks: {
       authorized({ req, token }) {
         const url = new URL(req.url).pathname;
+
+        if (url.startsWith("/blog")) {
+          return true;
+        }
 
         if (openRoutes.includes(url)) {
           return true;
