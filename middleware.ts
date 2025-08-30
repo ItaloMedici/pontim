@@ -18,8 +18,13 @@ export default withAuth(
   function middleware(req) {
     const token = req.nextauth.token;
     const path = req.nextUrl.pathname;
+    const query = req.nextUrl.search;
 
     if (path === "/" && token) {
+      if (query.includes("from=home")) {
+        return NextResponse.next();
+      }
+
       return NextResponse.redirect(new URL("/home", req.url));
     }
   },

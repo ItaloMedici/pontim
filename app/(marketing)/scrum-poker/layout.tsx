@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import { env } from "../../../env";
-import { keywords, organizationSchema } from "../../../lib/seo";
+import { keywords } from "../../../lib/seo";
 
 export const metadata: Metadata = {
   title: "Como Funciona o Scrum Poker",
@@ -33,15 +33,5 @@ export default function ScrumPokerLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return (
-    <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify([organizationSchema]),
-        }}
-      />
-      {children}
-    </>
-  );
+  return <>{children}</>;
 }

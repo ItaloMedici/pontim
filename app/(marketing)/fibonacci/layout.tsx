@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import { env } from "../../../env";
-import { keywords, organizationSchema } from "../../../lib/seo";
+import { keywords } from "../../../lib/seo";
 
 export const metadata: Metadata = {
   title: "Sequência de Fibonacci no Planning Poker",
@@ -40,15 +40,5 @@ export default function FibonacciLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return (
-    <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify([organizationSchema]),
-        }}
-      />
-      {children}
-    </>
-  );
+  return <>{children}</>;
 }

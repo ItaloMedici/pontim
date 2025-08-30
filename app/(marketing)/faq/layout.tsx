@@ -1,6 +1,5 @@
 import { Metadata } from "next";
 import { env } from "../../../env";
-import { faqSchema, organizationSchema } from "../../../lib/seo";
 
 export const metadata: Metadata = {
   title: "FAQ - Perguntas Frequentes sobre Scrum Poker",
@@ -30,15 +29,5 @@ export const metadata: Metadata = {
 };
 
 export default function FAQLayout({ children }: { children: React.ReactNode }) {
-  return (
-    <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify([faqSchema, organizationSchema]),
-        }}
-      />
-      {children}
-    </>
-  );
+  return children;
 }

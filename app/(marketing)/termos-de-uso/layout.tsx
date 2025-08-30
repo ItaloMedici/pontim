@@ -1,6 +1,5 @@
 import { Metadata } from "next";
 import { env } from "../../../env";
-import { organizationSchema } from "../../../lib/seo";
 
 export const metadata: Metadata = {
   title: "Termos de Uso",
@@ -34,15 +33,5 @@ export default function TermosDeUsoLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return (
-    <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify([organizationSchema]),
-        }}
-      />
-      {children}
-    </>
-  );
+  return <>{children}</>;
 }

@@ -7,7 +7,7 @@ export function NavBar() {
     <>
       <nav className="fixed top-0 left-0 right-0 bg-white/30 dark:bg-slate-900/30 backdrop-blur-md border-b">
         <div className="max-w-screen-lg flex items-center justify-between mx-auto py-2 px-6 z-10">
-          <Link href={"/"} className="flex gap-2">
+          <Link href={"/?from=home"} className="flex gap-2">
             <Logo.Text color="black" size="sm" />
           </Link>
           <UserButton />
