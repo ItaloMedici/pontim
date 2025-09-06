@@ -21,6 +21,7 @@ export default function robots(): MetadataRoute.Robots {
           "/sounds/*",
           "/manifest.json",
           "/llm.txt",
+          "ads.txt",
         ],
         disallow: [
           // Área de usuário autenticado
