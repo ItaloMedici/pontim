@@ -1,5 +1,6 @@
 "use client";
 
+import { LanguageSwitcher } from "@/components/language-switcher";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import {
@@ -142,7 +143,10 @@ export const UserButton = () => {
             </div>
           </div>
 
-          <div className="p-2">
+          <div className="p-2 border-t border-gray-100">
+            <div className="mb-2">
+              <LanguageSwitcher variant="user" />
+            </div>
             <Button
               variant="ghost"
               size={"sm"}
