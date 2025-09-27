@@ -3,10 +3,12 @@
 import { useIsMobile } from "@/hooks/use-is-mobile";
 import { cn } from "@/lib/utils";
 import { FlagIcon } from "lucide-react";
+import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { buttonVariants } from "../ui/button";
 
 export const ReportButton = () => {
+  const t = useTranslations();
   const isMobile = useIsMobile();
 
   return (
@@ -20,10 +22,10 @@ export const ReportButton = () => {
           hidden: isMobile,
         },
       )}
-      aria-label="Botão para reportar"
+      aria-label={t("dashboard.reportButton.label")}
     >
       <FlagIcon className="min-w-4 h-4" />
-      <span className="">Reportar</span>
+      <span className="">{t("dashboard.reportButton.text")}</span>
     </Link>
   );
 };

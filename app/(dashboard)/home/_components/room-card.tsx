@@ -11,15 +11,17 @@ import { formatDistanceToNow } from "date-fns";
 import { ptBR } from "date-fns/locale";
 import { MoreHorizontal, Star } from "lucide-react";
 import { useSession } from "next-auth/react";
+import { useTranslations } from "next-intl";
 import Image from "next/image";
 
 export function RoomCard({ room }: { room: Room }) {
+  const t = useTranslations();
   const { data } = useSession();
   const { isPending, mutation } = useAction(favoriteRoom);
 
   const ownerLabel =
     room.ownerEmail === data?.user?.email
-      ? "Você"
+      ? t("dashboard.home.roomCard.you")
       : room.ownerEmail.split("@")[0];
 
   const lastUpdated = formatDistanceToNow(room.updatedAt, {
@@ -40,7 +42,7 @@ export function RoomCard({ room }: { room: Room }) {
       favorite: !room.favorite,
       user: data?.user,
     }).catch(() => {
-      toast.error();
+      toast.error(t("dashboard.home.roomCard.favoriteError"));
     });
   };
 

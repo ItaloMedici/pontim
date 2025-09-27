@@ -1,29 +1,36 @@
 import { toast } from "@/components/toast";
 import {
+  getNotificationMessage,
+  getNotificationMessageThirdPerson,
   notificationIcons,
-  notificationMessages,
-  notificationMessageThirdPerson,
 } from "@/messages/notification";
 import { BoardNotification } from "@/types/board-status";
 import { EnumNotification } from "@/types/notifications";
 import { Player } from "@/types/player";
+import { useTranslations } from "next-intl";
 import { useCallback } from "react";
 import { useHttp } from "./use-http";
 import { useUser } from "./use-user";
 
 export function useNotification(roomId: string) {
+  const t = useTranslations();
   const session = useUser();
   const http = useHttp({ baseUrl: `/api/${roomId}/board` });
 
-  const playSound = useCallback(async (notification: BoardNotification) => {
-    const audio = new Audio(`/sounds/${notification.sound.toLowerCase()}.mp3`);
+  const playSound = useCallback(
+    async (notification: BoardNotification) => {
+      const audio = new Audio(
+        `/sounds/${notification.sound.toLowerCase()}.mp3`,
+      );
 
-    audio.play();
+      audio.play();
 
-    toast(notificationMessages[notification.sound], {
-      duration: 5000,
-    });
-  }, []);
+      toast(getNotificationMessage(t, notification.sound as EnumNotification), {
+        duration: 5000,
+      });
+    },
+    [t],
+  );
 
   const showNotificationToast = useCallback(
     (notification: BoardNotification, players?: Player[]) => {
@@ -41,7 +48,7 @@ export function useNotification(roomId: string) {
         players.find((player) => player.id === notification.targetId)
           ?.nickname || "alguém";
 
-      const soundMessage = notificationMessageThirdPerson[sound];
+      const soundMessage = getNotificationMessageThirdPerson(t, sound);
 
       const message = `${senderNickname} ${soundMessage} ${targetNickname}`;
 
@@ -50,7 +57,7 @@ export function useNotification(roomId: string) {
         icon: notificationIcons[sound],
       });
     },
-    [session.user?.id],
+    [session.user?.id, t],
   );
 
   const play = useCallback(

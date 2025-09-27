@@ -4,17 +4,21 @@ import { Button } from "@/components/ui/button";
 import { SearchParams } from "@/lib/consts";
 import { cn } from "@/lib/utils";
 import { Star } from "lucide-react";
+import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { SearchInput } from "./search-input";
 
 export function DashboardFilters() {
+  const t = useTranslations();
   const params = useSearchParams();
   const favorites = params?.get(SearchParams.FAVORITES);
 
   return (
     <div className="flex items-center justify-end sm:justify-between gap-4">
-      <h2 className="font-semibold text-2xl hidden sm:block">Salas</h2>
+      <h2 className="font-semibold text-2xl hidden sm:block">
+        {t("dashboard.home.title")}
+      </h2>
       <div className="inline-flex gap-4">
         <SearchInput />
         <Button
@@ -39,7 +43,9 @@ export function DashboardFilters() {
                 favorites && "text-yellow-500 fill-yellow-500",
               )}
             />
-            <span className="hidden sm:block sm:ml-2">Favoritos</span>
+            <span className="hidden sm:block sm:ml-2">
+              {t("dashboard.home.filters.favorites")}
+            </span>
           </Link>
         </Button>
       </div>

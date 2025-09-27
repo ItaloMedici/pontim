@@ -15,6 +15,7 @@ import { deleteRoom, leaveRoom } from "@/use-cases/room";
 import { DropdownMenuContentProps } from "@radix-ui/react-dropdown-menu";
 import { Link2, LogOut, Trash2 } from "lucide-react";
 import { useSession } from "next-auth/react";
+import { useTranslations } from "next-intl";
 import { toast } from "../toast";
 
 interface ActionsProps {
@@ -33,6 +34,7 @@ export const RoomActions = ({
   id,
   roomOwnerEmail,
 }: ActionsProps) => {
+  const t = useTranslations();
   const { data } = useSession();
   const roomOwner = roomOwnerEmail === data?.user?.email;
   const { isPending, mutation } = useAction(deleteRoom);
@@ -42,23 +44,35 @@ export const RoomActions = ({
   const onCopyLink = () => {
     navigator.clipboard
       .writeText(buildInviteUrl(id, window.location.origin))
-      .then(() => toast.success("Copiado!", { icon: "📋" }))
-      .catch(() => toast.error());
+      .then(() =>
+        toast.success(t("dashboard.room.roomActions.copySuccess"), {
+          icon: "📋",
+        }),
+      )
+      .catch(() => toast.error(t("dashboard.room.roomActions.copyError")));
   };
 
   const onDelete = () => {
     if (!data?.user) return;
 
     mutation({ roomId: id, user: data?.user })
-      .then(() => toast.success("Sala deletada!", { icon: "🗑️" }))
-      .catch(() => toast.error());
+      .then(() =>
+        toast.success(t("dashboard.room.roomActions.deleteSuccess"), {
+          icon: "🗑️",
+        }),
+      )
+      .catch(() => toast.error(t("dashboard.room.roomActions.deleteError")));
   };
 
   const onLeaveRoomClick = () => {
     if (!data?.user) return;
 
     leaveMutation({ roomId: id, user: data?.user })
-      .then(() => toast.success("Você saiu da sala!", { icon: "👋" }))
+      .then(() =>
+        toast.success(t("dashboard.room.roomActions.leaveSuccess"), {
+          icon: "👋",
+        }),
+      )
       .catch((error) => toast.error(error));
   };
 
@@ -73,14 +87,16 @@ export const RoomActions = ({
       >
         <DropdownMenuItem onClick={onCopyLink} className="cursor-pointer">
           <Link2 className="h-4 w-4 mr-2" />
-          Copiar convite
+          {t("dashboard.room.roomActions.copyInvite")}
         </DropdownMenuItem>
         <DropdownMenuSeparator />
 
         {roomOwner ? (
           <ConfirmDialog
-            header="Tem certeza? 🤔"
-            description="Ao confirmar você ira deletar a sala para todos os participantes!"
+            header={t("dashboard.room.roomActions.confirmDelete.header")}
+            description={t(
+              "dashboard.room.roomActions.confirmDelete.description",
+            )}
             onConfirm={onDelete}
           >
             <Button
@@ -89,7 +105,7 @@ export const RoomActions = ({
               className="w-full justify-start cursor-pointer text-sm font-normal"
             >
               <Trash2 className="h-4 w-4 mr-2" />
-              Deletar sala
+              {t("dashboard.room.roomActions.deleteRoom")}
             </Button>
           </ConfirmDialog>
         ) : (
@@ -100,7 +116,7 @@ export const RoomActions = ({
           >
             <div className="flex-1 hover:text-red-700 flex items-center">
               <LogOut className="h-4 w-4 mr-2" />
-              <span>Sair da sala</span>
+              <span>{t("dashboard.room.roomActions.leaveRoom")}</span>
             </div>
           </DropdownMenuItem>
         )}

@@ -18,19 +18,6 @@ export const useHttp = (options?: Options) => {
   const isMounted = useRef(true);
   const optionsRef = useRef<Options | undefined>(options);
 
-  const getAbortController = useCallback((url: string) => {
-    let abortController = aborts.current.get(url);
-
-    if (abortController) {
-      abortController.abort();
-    }
-
-    abortController = new AbortController();
-    aborts.current.set(url, abortController);
-
-    return abortController;
-  }, []);
-
   useEffect(() => {
     const _aborts = aborts.current;
     return () => {
@@ -81,7 +68,7 @@ export const useHttp = (options?: Options) => {
         if (!isMounted.current) return;
 
         if (!response.ok) {
-          toast.error();
+          toast.error("Erro na requisição");
           return;
         }
 

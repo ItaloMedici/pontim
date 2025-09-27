@@ -4,10 +4,12 @@ import { Input } from "@/components/ui/input";
 import { SearchParams } from "@/lib/consts";
 import debounce from "lodash.debounce";
 import { Search } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useRef, useState } from "react";
 
 export function SearchInput() {
+  const t = useTranslations();
   const router = useRouter();
   const params = useSearchParams();
   const searchParam = params?.get(SearchParams.SEARCH);
@@ -40,7 +42,7 @@ export function SearchInput() {
       <Search className="absolute top-1/2 transform -translate-y-1/2 left-3 h-4 w-4 text-muted-foreground" />
       <Input
         className="w-full max-w-lg pl-9"
-        placeholder="Pesquisar"
+        placeholder={t("dashboard.home.filters.search.placeholder")}
         type="search"
         onChange={handleChange}
         value={value}

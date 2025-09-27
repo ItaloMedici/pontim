@@ -8,12 +8,14 @@ import { useIsMobile } from "@/hooks/use-is-mobile";
 import { cn } from "@/lib/utils";
 import { buildInviteUrl } from "@/use-cases/invite/build-invite-url";
 import { CheckIcon, ChevronLeft, PlusIcon } from "lucide-react";
+import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { PlayersList } from "./players-list";
 
 export const BoardNavbar = () => {
+  const t = useTranslations();
   const params = useParams<{ roomId: string }>();
   const [copiedInvite, setCopiedInvite] = useState(false);
   const isMobile = useIsMobile();
@@ -38,7 +40,7 @@ export const BoardNavbar = () => {
 
     setCopiedInvite(true);
 
-    toast("Link de convite copiado para a área de transferência", {
+    toast(t("dashboard.room.navbar.inviteCopied"), {
       icon: "📋",
     });
   };
@@ -63,7 +65,7 @@ export const BoardNavbar = () => {
           aria-disabled={disabled}
         >
           <ChevronLeft className="w-4 h-4" />
-          Voltar
+          {t("dashboard.room.navbar.backButton")}
         </Link>
 
         <PlayersList />
@@ -75,7 +77,7 @@ export const BoardNavbar = () => {
           size={isMobile ? "icon" : "default"}
         >
           <Icon className="w-4 h-4" />
-          {isMobile ? null : "Convidar jogadores"}
+          {isMobile ? null : t("dashboard.room.navbar.inviteButton")}
         </Button>
         <UserButton />
       </div>

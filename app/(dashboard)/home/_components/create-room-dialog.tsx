@@ -14,6 +14,7 @@ import { SearchParams } from "@/lib/consts";
 import { ValidationState } from "@/messages/state";
 import { ChoiceSelectOptions } from "@/types/choice-options";
 import { canAddMoreRoom } from "@/use-cases/plan/can-add-more-room";
+import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { ReactNode, useState } from "react";
 import { CreateRoomForm } from "./create-room-form";
@@ -24,6 +25,7 @@ type CreateRoomDialog = {
 };
 
 export function CreateRoomDialog({ trigger, decks }: CreateRoomDialog) {
+  const t = useTranslations();
   const [open, setOpen] = useState(false);
   const { mutation, isPending } = useAction(canAddMoreRoom);
   const router = useRouter();
@@ -47,7 +49,7 @@ export function CreateRoomDialog({ trigger, decks }: CreateRoomDialog) {
       setOpen(true);
     } catch (error) {
       console.error(error);
-      toast.error("Algo deu errado ao tentar criar a sala", {
+      toast.error(t("dashboard.home.createRoomDialog.error"), {
         icon: "😢",
       });
     }
@@ -56,11 +58,17 @@ export function CreateRoomDialog({ trigger, decks }: CreateRoomDialog) {
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogTrigger asChild disabled={isPending}>
-        {trigger ?? <Button size="lg">Criar nova sala</Button>}
+        {trigger ?? (
+          <Button size="lg">
+            {t("dashboard.home.createRoomDialog.trigger")}
+          </Button>
+        )}
       </DialogTrigger>
       <DialogContent className="max-w-screen-sm">
         <DialogHeader>
-          <DialogTitle>Criar nova sala</DialogTitle>
+          <DialogTitle>
+            {t("dashboard.home.createRoomDialog.title")}
+          </DialogTitle>
         </DialogHeader>
         <CreateRoomForm decks={decks} />
       </DialogContent>

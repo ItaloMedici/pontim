@@ -12,6 +12,7 @@ import { Plans } from "@/lib/consts";
 import { cn } from "@/lib/utils";
 import { Crown, LogOutIcon, Shield, ShieldBan, Zap } from "lucide-react";
 import { signOut } from "next-auth/react";
+import { useTranslations } from "next-intl";
 import Link from "next/link";
 
 const plans: Record<Plans, object> = {
@@ -46,6 +47,7 @@ const plans: Record<Plans, object> = {
 };
 
 export const UserButton = () => {
+  const t = useTranslations();
   const { user } = useUser();
 
   if (!user) return null;
@@ -62,13 +64,13 @@ export const UserButton = () => {
 
   return (
     <Popover>
-      <PopoverTrigger aria-label="Perfil do usuário">
+      <PopoverTrigger aria-label={t("dashboard.userButton.profileAlt")}>
         <Avatar>
           <AvatarImage
             src={user.image}
             width={32}
             height={32}
-            aria-label="Imagem de perfil"
+            aria-label={t("dashboard.userButton.avatarAlt")}
           />
           <AvatarFallback>{fallback()}</AvatarFallback>
         </Avatar>
@@ -81,7 +83,7 @@ export const UserButton = () => {
                 src={user.image}
                 width={32}
                 height={32}
-                aria-label="Imagem de perfil"
+                aria-label={t("dashboard.userButton.avatarAlt")}
               />
               <AvatarFallback>{fallback()}</AvatarFallback>
             </Avatar>
@@ -96,14 +98,14 @@ export const UserButton = () => {
           <div className="p-4 pt-2 border-b border-gray-100">
             <div className="flex items-center justify-between mb-2">
               <span className="text-xs font-medium text-gray-600">
-                Seu Plano
+                {t("dashboard.userButton.planSection.title")}
               </span>
               <Link
                 href="/pricing"
                 target="_blank"
                 className="text-xs text-gray-600 hover:text-gray-900 font-medium"
               >
-                Alterar
+                {t("dashboard.userButton.planSection.changeLink")}
               </Link>
             </div>
 
@@ -123,7 +125,9 @@ export const UserButton = () => {
               <div className="flex-1">
                 <div className="flex items-center justify-between">
                   <span className="font-medium text-sm text-gray-800">
-                    Plano {currentPlan.name}
+                    {t("dashboard.userButton.planSection.planLabel", {
+                      planName: currentPlan.name,
+                    })}
                   </span>
                   <span
                     className={cn(
@@ -131,7 +135,7 @@ export const UserButton = () => {
                       currentPlan.badgeColor,
                     )}
                   >
-                    Ativo
+                    {t("dashboard.userButton.planSection.activeStatus")}
                   </span>
                 </div>
               </div>
@@ -146,7 +150,7 @@ export const UserButton = () => {
               onClick={() => signOut({ callbackUrl: "/" })}
             >
               <LogOutIcon className="w-4 h-4 mr-2" />
-              Sair
+              {t("dashboard.userButton.signOut")}
             </Button>
           </div>
         </div>

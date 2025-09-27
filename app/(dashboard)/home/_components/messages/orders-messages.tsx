@@ -1,3 +1,5 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -9,10 +11,12 @@ import {
 } from "@/components/ui/dialog";
 import { SearchParams } from "@/lib/consts";
 import confetti from "canvas-confetti";
+import { useTranslations } from "next-intl";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
 const OrderSuccessDialog = () => {
+  const t = useTranslations();
   const [open, setOpen] = useState(true);
   const router = useRouter();
 
@@ -61,16 +65,16 @@ const OrderSuccessDialog = () => {
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Oba! 🤩</DialogTitle>
+          <DialogTitle>
+            {t("dashboard.home.orderMessages.success.title")}
+          </DialogTitle>
         </DialogHeader>
         <DialogDescription>
-          Parabéns! Seu plano está ativo e pronto para ser utilizado. Aproveite
-          todas as funcionalidades exclusivas e leve sua experiência ao próximo
-          nível! 🎉
+          {t("dashboard.home.orderMessages.success.description")}
         </DialogDescription>
         <DialogFooter>
           <Button onClick={() => onOpenChange(false)}>
-            Começar a aproveitar
+            {t("dashboard.home.orderMessages.success.button")}
           </Button>
         </DialogFooter>
       </DialogContent>

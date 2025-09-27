@@ -1,3 +1,5 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
@@ -11,9 +13,11 @@ import { useBoard } from "@/context/board";
 import { UNLIMITED_PLAN_VALUE } from "@/lib/consts";
 import { cn } from "@/lib/utils";
 import { Eye, Loader, Plus, Target, TrendingUp, Users } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { useMemo } from "react";
 
 export const BoardDock = () => {
+  const t = useTranslations();
   const {
     reveal,
     average,
@@ -37,7 +41,7 @@ export const BoardDock = () => {
       return (
         <>
           <Loader className="h-4 w-4 animate-spin" />
-          <span>Carregando...</span>
+          <span>{t("dashboard.room.dock.loading")}</span>
         </>
       );
 
@@ -45,24 +49,26 @@ export const BoardDock = () => {
       return (
         <>
           <Plus className="h-4 w-4" />
-          <span>Nova Rodada</span>
+          <span>{t("dashboard.room.dock.newRound")}</span>
         </>
       );
 
     return (
       <>
         <Eye className="h-4 w-4" />
-        <span>Revelar</span>
+        <span>{t("dashboard.room.dock.reveal")}</span>
       </>
     );
-  }, [reveal, loadingPlay]);
+  }, [reveal, loadingPlay, t]);
 
   const statsDisplay = () => {
     if (!reveal) return null;
 
     const avarageDisplay = (
       <div className="flex flex-col">
-        <span className="text-xs text-muted-foreground opacity-95">Média</span>
+        <span className="text-xs text-muted-foreground opacity-95">
+          {t("dashboard.room.dock.stats.average")}
+        </span>
         <span className="text-xs">
           {average === 0 ? (
             "-"
@@ -79,7 +85,7 @@ export const BoardDock = () => {
     const mostVoted = (
       <div className="flex flex-col">
         <span className="text-xs text-muted-foreground opacity-95">
-          Mais votado
+          {t("dashboard.room.dock.stats.mostVoted")}
         </span>
         <span className="text-xs">
           <div className="flex items-center gap-1">
@@ -123,7 +129,10 @@ export const BoardDock = () => {
                 <div className="flex items-center gap-2">
                   <Users className="h-4 w-4 text-muted-foreground" />
                   <span className="text-xs text-muted-foreground">
-                    {`${totalChoices}/${totalPlayers} votos`}
+                    {t("dashboard.room.dock.stats.votes", {
+                      totalChoices,
+                      totalPlayers,
+                    })}
                   </span>
                 </div>
               </div>
@@ -131,28 +140,34 @@ export const BoardDock = () => {
             <TooltipContent>
               <div className="flex flex-col gap-4 text-sm">
                 <div className="flex items-center justify-between gap-4">
-                  <span className="text-muted-foreground">Média atual:</span>
+                  <span className="text-muted-foreground">
+                    {t("dashboard.room.dock.stats.currentAverage")}
+                  </span>
                   <span className="font-semibold">
                     {formatAverage(average)}
                   </span>
                 </div>
                 <div className="flex items-center justify-between gap-4">
-                  <span className="text-muted-foreground">Mais votado:</span>
+                  <span className="text-muted-foreground">
+                    {t("dashboard.room.dock.stats.mostVoted")}:
+                  </span>
                   <span className="font-semibold">{majorityChoice ?? "-"}</span>
                 </div>
                 <div className="flex items-center justify-between gap-4">
-                  <span className="text-muted-foreground">Concordância:</span>
+                  <span className="text-muted-foreground">
+                    {t("dashboard.room.dock.stats.concordance")}
+                  </span>
                   <span className="font-semibold">{agreementPercentage}%</span>
                 </div>
                 <div className="flex items-center justify-between gap-4">
                   <span className="text-muted-foreground">
-                    Termômetro do acordo:
+                    {t("dashboard.room.dock.stats.agreementThermometer")}
                   </span>
                   <span className="text-xl">{agreementEmoji}</span>
                 </div>
                 <div className="flex items-center justify-between gap-4">
                   <span className="text-muted-foreground">
-                    Rodadas restantes:
+                    {t("dashboard.room.dock.stats.remainingRounds")}
                   </span>
                   <span
                     className={cn("font-semibold", {
@@ -163,7 +178,7 @@ export const BoardDock = () => {
                     })}
                   >
                     {availableRounds === UNLIMITED_PLAN_VALUE
-                      ? "Ilimitadas"
+                      ? t("dashboard.room.dock.stats.unlimited")
                       : availableRounds}
                   </span>
                 </div>

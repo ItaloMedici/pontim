@@ -1,10 +1,12 @@
-const errorMessages = [
-  "Ops, algo deu errado",
-  "Puts, de novo?",
-  "Vish, algo deu errado",
-  "Vacilamos nessa, tenta de novo",
-  "Deu ruim, algo deu errado",
-];
-
-export const randomErrorMessage =
-  errorMessages[Math.floor(Math.random() * errorMessages.length)];
+// Helper function to get random error message with translations
+export const getRandomErrorMessage = (t: (key: string) => string): string => {
+  const errorKeys = [
+    "general",
+    "again",
+    "somethingWrong",
+    "tryAgain",
+    "failed",
+  ];
+  const randomKey = errorKeys[Math.floor(Math.random() * errorKeys.length)];
+  return t(`dashboard.shared.errors.${randomKey}`);
+};

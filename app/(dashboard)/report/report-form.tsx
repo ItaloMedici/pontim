@@ -20,6 +20,8 @@ import {
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Loader2 } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
@@ -28,28 +30,29 @@ import { sendReport } from "./actions";
 
 const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5 MB
 
-const formSchema = z.object({
-  name: z
-    .string()
-    .min(2, { message: "O nome deve ter pelo menos 2 caracteres." }),
-  email: z.string().email({ message: "Endereço de e-mail inválido." }),
-  type: z.enum(["BUG", "FEEDBACK", "FEATURE"], {
-    required_error: "Por favor, selecione um tipo de relatório.",
-  }),
-  message: z
-    .string()
-    .min(10, { message: "A mensagem deve ter pelo menos 10 caracteres." }),
-  attachment: z
-    .instanceof(File)
-    .refine(
-      (file) => file.size <= MAX_FILE_SIZE,
-      `O tamanho máximo do arquivo é 5MB.`,
-    )
-    .optional(),
-});
-
 export default function ReportForm() {
+  const t = useTranslations();
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const formSchema = z.object({
+    name: z.string().min(2, { message: t("dashboard.report.form.name.error") }),
+    email: z
+      .string()
+      .email({ message: t("dashboard.report.form.email.error") }),
+    type: z.enum(["BUG", "FEEDBACK", "FEATURE"], {
+      required_error: t("dashboard.report.form.type.error"),
+    }),
+    message: z
+      .string()
+      .min(10, { message: t("dashboard.report.form.message.error") }),
+    attachment: z
+      .instanceof(File)
+      .refine(
+        (file) => file.size <= MAX_FILE_SIZE,
+        t("dashboard.report.form.attachment.error"),
+      )
+      .optional(),
+  });
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -71,18 +74,17 @@ export default function ReportForm() {
 
       await sendReport(formData);
 
-      toast.success("Relatório enviado", {
-        description:
-          "Obrigado pelo seu feedback! Iremos analisar sua mensagem com atenção.",
+      toast.success(t("dashboard.report.form.success.title"), {
+        description: t("dashboard.report.form.success.description"),
         icon: "🙏",
       });
       form.reset();
     } catch (error) {
-      toast.error("Erro", {
+      toast.error(t("dashboard.report.form.error.title"), {
         description:
           error instanceof Error
             ? error.message
-            : "Houve um problema ao enviar seu relatório. Por favor, tente novamente.",
+            : t("dashboard.report.form.error.description"),
       });
     } finally {
       setIsSubmitting(false);
@@ -97,9 +99,12 @@ export default function ReportForm() {
           name="name"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Nome</FormLabel>
+              <FormLabel>{t("dashboard.report.form.name.label")}</FormLabel>
               <FormControl>
-                <Input placeholder="Seu nome" {...field} />
+                <Input
+                  placeholder={t("dashboard.report.form.name.placeholder")}
+                  {...field}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -110,9 +115,13 @@ export default function ReportForm() {
           name="email"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>E-mail</FormLabel>
+              <FormLabel>{t("dashboard.report.form.email.label")}</FormLabel>
               <FormControl>
-                <Input type="email" placeholder="Seu e-mail" {...field} />
+                <Input
+                  type="email"
+                  placeholder={t("dashboard.report.form.email.placeholder")}
+                  {...field}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -123,18 +132,24 @@ export default function ReportForm() {
           name="type"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Tipo de Relatório</FormLabel>
+              <FormLabel>{t("dashboard.report.form.type.label")}</FormLabel>
               <Select onValueChange={field.onChange} defaultValue={field.value}>
                 <FormControl>
                   <SelectTrigger>
-                    <SelectValue placeholder="Selecione um tipo de relatório" />
+                    <SelectValue
+                      placeholder={t("dashboard.report.form.type.placeholder")}
+                    />
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
-                  <SelectItem value="BUG">🐞 Bug</SelectItem>
-                  <SelectItem value="FEEDBACK">💬 Feedback</SelectItem>
+                  <SelectItem value="BUG">
+                    {t("dashboard.report.form.type.options.bug")}
+                  </SelectItem>
+                  <SelectItem value="FEEDBACK">
+                    {t("dashboard.report.form.type.options.feedback")}
+                  </SelectItem>
                   <SelectItem value="FEATURE">
-                    ✨ Sugestão de Funcionalidade
+                    {t("dashboard.report.form.type.options.feature")}
                   </SelectItem>
                 </SelectContent>
               </Select>
@@ -147,10 +162,10 @@ export default function ReportForm() {
           name="message"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Mensagem</FormLabel>
+              <FormLabel>{t("dashboard.report.form.message.label")}</FormLabel>
               <FormControl>
                 <Textarea
-                  placeholder="Descreva seu bug, feedback ou sugestão de funcionalidade"
+                  placeholder={t("dashboard.report.form.message.placeholder")}
                   className="resize-none"
                   {...field}
                 />
@@ -164,7 +179,9 @@ export default function ReportForm() {
           name="attachment"
           render={({ field: { onChange, ...field } }) => (
             <FormItem>
-              <FormLabel>Anexo</FormLabel>
+              <FormLabel>
+                {t("dashboard.report.form.attachment.label")}
+              </FormLabel>
               <FormControl>
                 <Input
                   type="file"
@@ -179,14 +196,21 @@ export default function ReportForm() {
                 />
               </FormControl>
               <FormDescription>
-                Envie um arquivo (opcional, máx. 5MB)
+                {t("dashboard.report.form.attachment.description")}
               </FormDescription>
               <FormMessage />
             </FormItem>
           )}
         />
-        <Button type="submit" disabled={isSubmitting}>
-          {isSubmitting ? "Enviando..." : "Enviar Relatório"}
+        <Button type="submit" className="w-full" disabled={isSubmitting}>
+          {isSubmitting ? (
+            <>
+              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              {t("dashboard.report.form.submit.submitting")}
+            </>
+          ) : (
+            t("dashboard.report.form.submit.idle")
+          )}
         </Button>
       </form>
     </Form>

@@ -1,6 +1,9 @@
+"use client";
+
 import { useBoard } from "@/context/board";
 import { useIsMobile } from "@/hooks/use-is-mobile";
 import { buildPlayerFallbackImage, cn } from "@/lib/utils";
+import { useTranslations } from "next-intl";
 import Image from "next/image";
 import { useMemo } from "react";
 
@@ -8,6 +11,7 @@ const MAX_AVATAR_DISPLAY_DESKTOP = 5;
 const MAX_AVATAR_DISPLAY_MOBILE = 2;
 
 export const PlayersList = () => {
+  const t = useTranslations();
   const { others } = useBoard();
   const isMobile = useIsMobile();
 
@@ -19,7 +23,9 @@ export const PlayersList = () => {
     let list = others.map((player) => ({
       key: player.id,
       name: buildPlayerFallbackImage(player),
-      imagemLabel: `Imagem de perfil do jogador ${player.nickname}`,
+      imagemLabel: t("dashboard.room.playersList.playerImageAlt", {
+        nickname: player.nickname,
+      }),
       imageUrl: player.imageUrl ?? undefined,
     }));
 
@@ -34,7 +40,7 @@ export const PlayersList = () => {
         name: `+${others.length - maxAvatarDisplay + 1}`,
         imageUrl: undefined,
         key: "more",
-        imagemLabel: "Mais jogadores",
+        imagemLabel: t("dashboard.room.playersList.morePlayersAlt"),
       });
     }
 
@@ -66,7 +72,7 @@ export const PlayersList = () => {
         </div>
       );
     });
-  }, [isMobile, others]);
+  }, [isMobile, others, t]);
 
   if (!avatarList.length) {
     return null;

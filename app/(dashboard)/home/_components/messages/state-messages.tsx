@@ -9,6 +9,7 @@ import {
 } from "@/components/ui/dialog";
 import { SearchParams } from "@/lib/consts";
 import { ValidationState } from "@/messages/state";
+import { useTranslations } from "next-intl";
 import { useRouter, useSearchParams } from "next/navigation";
 import { ReactNode, useState } from "react";
 
@@ -31,23 +32,21 @@ const DialogBase = ({ children }: { children: ReactNode }) => {
 
 const UserReachMaxRooms = () => {
   const router = useRouter();
+  const t = useTranslations("dashboard.shared.state.maxRooms");
 
   return (
     <DialogBase>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Calma lá parceiro 🤠✋</DialogTitle>
+          <DialogTitle>{t("title")}</DialogTitle>
         </DialogHeader>
-        <DialogDescription>
-          Você atingiu o limite de salas permitidas no seu plano. Para criar
-          mais salas, atualize seu plano.
-        </DialogDescription>
+        <DialogDescription>{t("description")}</DialogDescription>
         <DialogFooter>
           <Button variant={"ghost"} onClick={() => router.replace("/home")}>
-            Cancelar
+            {t("cancel")}
           </Button>
           <Button autoFocus onClick={() => router.push("/pricing")}>
-            Atualizar plano
+            {t("upgrade")}
           </Button>
         </DialogFooter>
       </DialogContent>
@@ -57,26 +56,21 @@ const UserReachMaxRooms = () => {
 
 const BoardIsFull = () => {
   const router = useRouter();
+  const t = useTranslations("dashboard.shared.state.roomFull");
 
   return (
     <DialogBase>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Sala cheia parceiro 🤠✋</DialogTitle>
+          <DialogTitle>{t("title")}</DialogTitle>
         </DialogHeader>
-        <DialogDescription>
-          Esta sala atingiu o limite máximo de participantes. Caso seja o
-          proprietário da sala, você pode aumentar o limite de participantes
-          atualizando seu plano. Alternativamente, entre em contato com o
-          proprietário da sala para solicitar o aumento do limite de
-          participantes.
-        </DialogDescription>
+        <DialogDescription>{t("description")}</DialogDescription>
         <DialogFooter>
           <Button variant={"ghost"} onClick={() => router.replace("/home")}>
-            Cancelar
+            {t("cancel")}
           </Button>
           <Button autoFocus onClick={() => router.push("/pricing")}>
-            Atualizar plano
+            {t("upgrade")}
           </Button>
         </DialogFooter>
       </DialogContent>

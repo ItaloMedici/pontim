@@ -6,10 +6,12 @@ import { Card } from "@/components/ui/card";
 import { Glow } from "@/components/ui/glow";
 import confetti from "canvas-confetti";
 import { CheckCircle2, Home, X } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useRef } from "react";
 
 export default function CloseWindowPage() {
+  const t = useTranslations();
   const searchParams = useSearchParams();
   const isSuccess = useRef(searchParams.get("success") === "true");
 
@@ -82,15 +84,14 @@ export default function CloseWindowPage() {
               {/* Success Heading */}
               <BlurFade delay={1} inView>
                 <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-                  Obrigado! 🎉
+                  {t("dashboard.closeWindow.success.title")}
                 </h1>
               </BlurFade>
 
               {/* Thankful Message */}
               <BlurFade delay={1.4} inView>
                 <p className="text-md text-muted-foreground leading-relaxed mb-8 max-w-md mx-auto">
-                  Agradecemos por confiar no Pontim! Tudo foi processado
-                  corretamente e você pode fechar esta janela tranquilamente.
+                  {t("dashboard.closeWindow.success.message")}
                 </p>
               </BlurFade>
 
@@ -103,7 +104,7 @@ export default function CloseWindowPage() {
                     className="font-semibold"
                   >
                     <X className="w-5 h-5 mr-2" />
-                    Fechar Janela
+                    {t("dashboard.closeWindow.buttons.close")}
                   </Button>
                   <Button
                     variant="outline"
@@ -112,7 +113,7 @@ export default function CloseWindowPage() {
                     className="font-semibold"
                   >
                     <Home className="w-5 h-5 mr-2" />
-                    Continuar no Pontim
+                    {t("dashboard.closeWindow.buttons.continue")}
                   </Button>
                 </div>
               </BlurFade>
@@ -120,7 +121,7 @@ export default function CloseWindowPage() {
               {/* Success Footer */}
               <BlurFade delay={2} inView>
                 <p className="text-sm text-muted-foreground mt-8 opacity-75">
-                  Você faz a diferença! Muito obrigado! 💚
+                  {t("dashboard.closeWindow.success.thanks")}
                 </p>
               </BlurFade>
             </div>
@@ -138,11 +139,11 @@ export default function CloseWindowPage() {
         <Card className="relative z-10 max-w-2xl w-full p-8 md:p-12 text-center shadow-md border-2 backdrop-blur-sm bg-card/95">
           <div className="space-y-6">
             <h1 className="text-4xl md:text-4xl font-bold text-foreground mb-4">
-              Tudo em ordem! 👍
+              {t("dashboard.closeWindow.default.title")}
             </h1>
 
             <p className="text-md text-muted-foreground leading-relaxed mb-8 max-w-md mx-auto">
-              Esta janela pode ser fechada sem problemas.
+              {t("dashboard.closeWindow.default.message")}
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -152,7 +153,7 @@ export default function CloseWindowPage() {
                 className="font-semibold"
               >
                 <X className="w-5 h-5 mr-2" />
-                Fechar Janela
+                {t("dashboard.closeWindow.buttons.close")}
               </Button>
 
               <Button
@@ -162,7 +163,7 @@ export default function CloseWindowPage() {
                 className="font-semibold"
               >
                 <Home className="w-5 h-5 mr-2" />
-                Ir para o Pontim
+                {t("dashboard.closeWindow.buttons.goHome")}
               </Button>
             </div>
           </div>

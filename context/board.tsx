@@ -5,15 +5,19 @@ import { useBoardEvents } from "@/hooks/use-board-events";
 import { useHttp } from "@/hooks/use-http";
 import { useNotification } from "@/hooks/use-notification";
 import { EventAction } from "@/lib/consts";
-import { randomLeaveMessage, randomWellcomeMessage } from "@/messages/wellcome";
+import {
+  getRandomLeaveMessage,
+  getRandomWelcomeMessage,
+} from "@/messages/wellcome";
 import { BoardNotification, BoardStatus } from "@/types/board-status";
 import { ChoiceOptions } from "@/types/choice-options";
 import { EnumNotification } from "@/types/notifications";
 import { Player } from "@/types/player";
+import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import {
-  createContext,
   ReactNode,
+  createContext,
   useCallback,
   useContext,
   useMemo,
@@ -60,6 +64,7 @@ export const BoardProvider = ({
   roomId: string;
   children: ReactNode;
 }) => {
+  const t = useTranslations();
   const http = useHttp({ baseUrl: `/api/${roomId}/board` });
   const router = useRouter();
   const [boardStatus, setBoardStatus] = useState<BoardStatus>(
@@ -86,12 +91,12 @@ export const BoardProvider = ({
         setBoardStatus((prev) => ({ ...prev, ...data }));
       },
       [EventAction.PLAYER_JOINED]: (data: Player) => {
-        toast(`${data.nickname}, ${randomWellcomeMessage}`, {
+        toast(`${data.nickname}, ${getRandomWelcomeMessage(t)}`, {
           duration: 5000,
         });
       },
       [EventAction.PLAYER_LEFT]: (data: Player) => {
-        toast(`${data.nickname}, ${randomLeaveMessage}`, {
+        toast(`${data.nickname}, ${getRandomLeaveMessage(t)}`, {
           duration: 5000,
         });
       },
@@ -108,7 +113,7 @@ export const BoardProvider = ({
         setSelfChoice("");
       },
     }),
-    [handleNotification, boardStatus.others],
+    [handleNotification, boardStatus.others, t],
   );
 
   const joinBoard = useCallback(async () => {
@@ -177,7 +182,7 @@ export const BoardProvider = ({
       setPlayLoading(true);
 
       if (boardStatus.availableRounds === 0) {
-        toast.error("Você atingiu o limite de rodadas.");
+        toast.error(t("dashboard.shared.state.maxRounds"));
         setOpenPlanOfferDialog(true);
         return;
       }
@@ -197,6 +202,7 @@ export const BoardProvider = ({
     handleReset,
     boardStatus.availableRounds,
     revealOptimistc,
+    t,
   ]);
 
   const contextValue = useMemo(

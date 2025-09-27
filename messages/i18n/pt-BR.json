@@ -590,5 +590,667 @@
       "subtitle": "Faça login com sua conta para continuar",
       "googleButton": "Entre com Google"
     }
+  },
+  "dashboard": {
+    "shared": {
+      "errors": {
+        "general": "Ops, algo deu errado",
+        "again": "Puts, de novo?",
+        "somethingWrong": "Vish, algo deu errado",
+        "tryAgain": "Vacilamos nessa, tenta de novo",
+        "failed": "Deu ruim, algo deu errado"
+      },
+      "welcome": {
+        "joined": {
+          "jumped": "pulou sala 🪂",
+          "entered": "entrou na sala 🎉",
+          "arrived": "chegou junto 🚀",
+          "cameToPlay": "veio pra jogar 🎲",
+          "inTheArea": "está na área 🏟",
+          "cameToAdd": "chegou pra somar 🧮",
+          "joinedUs": "colou com nóis 🤙",
+          "inTheGame": "está no jogo 🃏",
+          "cameToScore": "veio pra pontuar 🏆"
+        },
+        "left": {
+          "leftRoom": "saiu da sala 🏃‍♂️💨",
+          "jumpedOut": "pulou fora 🪂",
+          "couldntHandle": "não aguentou a pressão 🥵",
+          "gaveUp": "desistiu 🤦‍♂️",
+          "wentAway": "foi embora 😢",
+          "didntWantToPlay": "não quis jogar 😔",
+          "didntWantAnything": "não quis saber de nada 🙄",
+          "didntWantToRisk": "não quis se arriscar 🤷‍♂️"
+        }
+      },
+      "notifications": {
+        "knock": {
+          "message": "óh de casa, hora de jogar! 🚪✊",
+          "icon": "🚪",
+          "action": "bateu na porta de"
+        },
+        "carHorn": {
+          "message": "Ei! Você esta causando engarrafamento aqui! 📣🚗",
+          "icon": "🚘",
+          "action": "tocou a buzina para"
+        },
+        "police": {
+          "message": "Escolha seu voto e siga seu caminho 🚨🚓",
+          "icon": "🚓",
+          "action": "chamou a polícia para"
+        }
+      },
+      "state": {
+        "maxRounds": "Você atingiu o limite de rodadas.",
+        "maxRooms": {
+          "title": "Calma lá parceiro 🤠✋",
+          "description": "Você atingiu o limite de salas permitidas no seu plano. Para criar mais salas, atualize seu plano.",
+          "cancel": "Cancelar",
+          "upgrade": "Atualizar plano"
+        },
+        "roomFull": {
+          "title": "Sala cheia parceiro 🤠✋",
+          "description": "Esta sala atingiu o limite máximo de participantes. Caso seja o proprietário da sala, você pode aumentar o limite de participantes atualizando seu plano. Alternativamente, entre em contato com o proprietário da sala para solicitar o aumento do limite de participantes.",
+          "cancel": "Cancelar",
+          "upgrade": "Atualizar plano"
+        }
+      }
+    },
+    "home": {
+      "title": "Salas",
+      "filters": {
+        "favorites": "Favoritos",
+        "search": {
+          "placeholder": "Pesquisar"
+        }
+      },
+      "orderMessages": {
+        "success": {
+          "title": "Oba! 🤩",
+          "description": "Parabéns! Seu plano está ativo e pronto para ser utilizado. Aproveite todas as funcionalidades exclusivas e leve sua experiência ao próximo nível! 🎉",
+          "button": "Começar a aproveitar"
+        }
+      },
+      "roomList": {
+        "empty": {
+          "noResults": {
+            "emoji": "🧐",
+            "title": "Nada encontrado por aqui...",
+            "button": "Voltar"
+          },
+          "welcome": {
+            "emoji": "🎉",
+            "title": "Olá, seja bem-vindo ao Pontim!",
+            "description": "Cria uma nova sala e convide os participantes 👇"
+          }
+        },
+        "createRoom": {
+          "title": "Nova sala"
+        }
+      },
+      "createRoomDialog": {
+        "trigger": "Criar nova sala",
+        "title": "Criar nova sala",
+        "error": "Algo deu errado ao tentar criar a sala"
+      },
+      "createRoomForm": {
+        "success": "Sala criada com sucesso!",
+        "error": "Algo deu errado ao criar a sala",
+        "roomName": {
+          "label": "Nome da sala",
+          "placeholder": "Um nome legal"
+        },
+        "deckSelection": {
+          "label": "Escolha seu deck",
+          "placeholder": "Selecione um tipo de deck"
+        },
+        "customDeckUpgrade": {
+          "title": "Desbloqueie todo poder do Pontim! 💪",
+          "description": "Crie decks exclusivos e trabalhe do seu jeito. Faça upgrade agora e não fique de fora dessa!",
+          "upgradeButton": "Fazer upgrade agora"
+        },
+        "submitButton": "Criar sala"
+      },
+      "roomCard": {
+        "favoriteError": "Erro ao favoritar sala",
+        "you": "Você"
+      }
+    },
+    "room": {
+      "navbar": {
+        "backButton": "Voltar",
+        "inviteButton": "Convidar jogadores",
+        "inviteCopied": "Link de convite copiado para a área de transferência"
+      },
+      "dock": {
+        "loading": "Carregando...",
+        "newRound": "Nova Rodada",
+        "reveal": "Revelar",
+        "stats": {
+          "average": "Média",
+          "mostVoted": "Mais votado",
+          "votes": "{totalChoices}/{totalPlayers} votos",
+          "currentAverage": "Média atual:",
+          "concordance": "Concordância:",
+          "agreementThermometer": "Termômetro do acordo:",
+          "remainingRounds": "Rodadas restantes:",
+          "unlimited": "Ilimitadas"
+        }
+      },
+      "status": {
+        "noVotes": "Ninguém escolheu ainda... 😴",
+        "allVoted": "Todos escolheram! 🎉",
+        "averageResult": "Temos uma média de {average} pontos 📊",
+        "alone": "Sozinho por aqui... 😴, tente convidar mais jogadores!",
+        "votesCount": "{totalChoices} de {totalPlayers} votos 🗳️"
+      },
+      "playersList": {
+        "playerImageAlt": "Imagem de perfil do jogador {nickname}",
+        "morePlayersAlt": "Mais jogadores"
+      },
+      "roomActions": {
+        "copyInvite": "Copiar convite",
+        "copySuccess": "Copiado!",
+        "copyError": "Erro ao copiar convite",
+        "deleteRoom": "Deletar sala",
+        "deleteSuccess": "Sala deletada!",
+        "deleteError": "Erro ao deletar sala",
+        "leaveRoom": "Sair da sala",
+        "leaveSuccess": "Você saiu da sala!",
+        "confirmDelete": {
+          "header": "Tem certeza? 🤔",
+          "description": "Ao confirmar você ira deletar a sala para todos os participantes!"
+        }
+      },
+      "roomFull": {
+        "emoji": "🙁",
+        "title": "Sala Cheia",
+        "description": "A sala atingiu sua capacidade máxima. Entre em contato com o administrador para aumentar o limite de jogadores.",
+        "buttons": {
+          "back": "Voltar",
+          "tryAgain": "Tentar novamente",
+          "viewPlans": "Ver planos"
+        }
+      },
+      "cardsPicker": {
+        "title": "Escolha uma carta: 👇"
+      }
+    },
+    "userButton": {
+      "profileAlt": "Perfil do usuário",
+      "avatarAlt": "Imagem de perfil",
+      "planSection": {
+        "title": "Seu Plano",
+        "changeLink": "Alterar",
+        "planLabel": "Plano {planName}",
+        "activeStatus": "Ativo"
+      },
+      "signOut": "Sair"
+    },
+    "reportButton": {
+      "label": "Botão para reportar",
+      "text": "Reportar"
+    },
+    "supportButton": {
+      "label": "Botão para apoiar o projeto",
+      "text": "Apoiar",
+      "thanks": "Obrigado! 🫰",
+      "tooltip": "Ajude a alimentar nossos servidores 🫰"
+    },
+    "invite": {
+      "title": "Convite Especial",
+      "description": "Você foi convidado para participar de uma sala do pontim 🎉."
+    },
+    "report": {
+      "title": "Enviar um Report",
+      "form": {
+        "name": {
+          "label": "Nome",
+          "placeholder": "Seu nome",
+          "error": "O nome deve ter pelo menos 2 caracteres."
+        },
+        "email": {
+          "label": "E-mail",
+          "placeholder": "Seu e-mail",
+          "error": "Endereço de e-mail inválido."
+        },
+        "type": {
+          "label": "Tipo de Relatório",
+          "placeholder": "Selecione um tipo de relatório",
+          "error": "Por favor, selecione um tipo de relatório.",
+          "options": {
+            "bug": "🐞 Bug",
+            "feedback": "💬 Feedback",
+            "feature": "✨ Sugestão de Funcionalidade"
+          }
+        },
+        "message": {
+          "label": "Mensagem",
+          "placeholder": "Descreva seu bug, feedback ou sugestão de funcionalidade",
+          "error": "A mensagem deve ter pelo menos 10 caracteres."
+        },
+        "attachment": {
+          "label": "Anexo",
+          "description": "Envie um arquivo (opcional, máx. 5MB)",
+          "error": "O tamanho máximo do arquivo é 5MB."
+        },
+        "submit": {
+          "idle": "Enviar Relatório",
+          "submitting": "Enviando..."
+        },
+        "success": {
+          "title": "Relatório enviado",
+          "description": "Obrigado pelo seu feedback! Iremos analisar sua mensagem com atenção."
+        },
+        "error": {
+          "title": "Erro",
+          "description": "Houve um problema ao enviar seu relatório. Por favor, tente novamente."
+        }
+      }
+    },
+    "closeWindow": {
+      "success": {
+        "title": "Obrigado! 🎉",
+        "message": "Agradecemos por confiar no Pontim! Tudo foi processado corretamente e você pode fechar esta janela tranquilamente.",
+        "footer": "Você faz a diferença! Muito obrigado! 💚",
+        "buttons": {
+          "close": "Fechar Janela",
+          "continue": "Continuar no Pontim"
+        }
+      },
+      "default": {
+        "title": "Tudo em ordem! 👍",
+        "message": "Esta janela pode ser fechada sem problemas.",
+        "buttons": {
+          "close": "Fechar Janela",
+          "goHome": "Ir para o Pontim"
+        }
+      }
+    }
+  },
+  "components": {
+    "createInstantRoom": {
+      "form": {
+        "ownerName": {
+          "label": "Seu nome",
+          "placeholder": "Seu melhor nick"
+        },
+        "roomName": {
+          "label": "Nome da sala",
+          "placeholder": "Um nome legal"
+        },
+        "deckOption": {
+          "label": "Tipo de deck",
+          "placeholder": "Selecione um tipo de deck"
+        },
+        "toast": {
+          "success": "Sala criada com sucesso!",
+          "error": "Algo deu errado ao criar a sala"
+        },
+        "customDeckInfo": {
+          "title": "Desbloqueie todo poder do Pontim! 💪",
+          "message": "Crie decks exclusivos e trabalhe do seu jeito, crie uma conta gratuita agora mesmo!",
+          "button": "Bora!"
+        },
+        "submitButton": "Criar sala"
+      }
+    },
+    "homeError": {
+      "title": "Eita não! Algo deu errado.",
+      "tryAgain": "Tente novamente",
+      "goBack": "Voltar",
+      "reportError": "Reportar erro"
+    }
+  },
+  "actions": {
+    "report": {
+      "email": {
+        "subject": "Novo {reportType} {emoji} de {name}",
+        "content": "Um novo relatório de {reportType} foi enviado:",
+        "fields": {
+          "name": "Nome",
+          "email": "E-mail",
+          "type": "Tipo",
+          "message": "Mensagem"
+        }
+      },
+      "types": {
+        "BUG": "Bug",
+        "FEEDBACK": "Feedback",
+        "FEATURE": "Sugestão de Funcionalidade"
+      },
+      "error": "Falha ao enviar o relatório. Por favor, tente novamente mais tarde."
+    }
+  },
+  "schemas": {
+    "createInstantRoom": {
+      "name": {
+        "min": "Nome da sala deve ter no mínimo 4 caracteres"
+      },
+      "ownername": {
+        "max": "Seu nome deve ter no máximo 25 caracteres"
+      },
+      "deckname": {
+        "max": "Nome do deck deve ter no máximo 50 caracteres"
+      }
+    },
+    "createRoom": {
+      "name": {
+        "min": "Nome da sala deve ter no mínimo 4 caracteres"
+      },
+      "deckname": {
+        "max": "Nome do deck deve ter no máximo 50 caracteres",
+        "required": "Nome do deck é obrigatório quando o deck é customizado"
+      },
+      "values": {
+        "required": "Valores do deck são obrigatórios quando o deck é customizado"
+      }
+    }
+  },
+  "legal": {
+    "privacy": {
+      "metadata": {
+        "title": "Política de Privacidade - Pontim",
+        "description": "Entenda como coletamos, usamos e protegemos seus dados pessoais conforme a LGPD"
+      },
+      "header": {
+        "badge": "Documento Legal",
+        "title": "Política de Privacidade",
+        "lastUpdate": "Última atualização: {date}"
+      },
+      "introduction": {
+        "title": "1. Introdução",
+        "description": "A Pontim está comprometida com a proteção da sua privacidade e dos seus dados pessoais. Esta Política de Privacidade explica como coletamos, usamos, compartilhamos e protegemos suas informações quando você usa nossa plataforma de Scrum Poker, conforme as disposições da Lei Geral de Proteção de Dados (LGPD - Lei 13.709/2018).",
+        "summary": {
+          "title": "Resumo da Nossa Abordagem de Privacidade",
+          "items": [
+            "Coletamos apenas dados essenciais para o funcionamento",
+            "Não vendemos seus dados para terceiros",
+            "Você pode excluir sua conta a qualquer momento",
+            "Usamos criptografia para proteger dados sensíveis",
+            "Somos transparentes sobre cookies e tracking"
+          ]
+        }
+      },
+      "dataController": {
+        "title": "2. Controlador de Dados",
+        "description": "O controlador de dados pessoais para fins desta política é o projeto Pontim. Para questões relacionadas à privacidade, entre em contato conosco através do email: support@pontim.org"
+      },
+      "dataCollection": {
+        "title": "3. Dados Coletados",
+        "voluntary": {
+          "title": "3.1 Dados Fornecidos Voluntariamente",
+          "description": "Quando você se cadastra via Google OAuth, coletamos:",
+          "items": [
+            {
+              "title": "Nome completo",
+              "description": "para identificação na plataforma"
+            },
+            {
+              "title": "Endereço de email",
+              "description": "para autenticação e comunicação"
+            },
+            {
+              "title": "Foto do perfil",
+              "description": "para personalização da interface"
+            },
+            {
+              "title": "ID único do Google",
+              "description": "para autenticação segura"
+            }
+          ]
+        },
+        "usage": {
+          "title": "3.2 Dados de Uso da Plataforma",
+          "description": "Durante o uso do Pontim, coletamos automaticamente:",
+          "items": [
+            {
+              "title": "Dados de sessão",
+              "description": "salas criadas, participação em votações"
+            },
+            {
+              "title": "Preferências",
+              "description": "salas favoritas, configurações de usuário"
+            },
+            {
+              "title": "Histórico de votação",
+              "description": "escolhas feitas durante as estimativas"
+            },
+            {
+              "title": "Informações de assinatura",
+              "description": "plano ativo, status de pagamento"
+            }
+          ]
+        },
+        "technical": {
+          "title": "3.3 Dados Técnicos",
+          "description": "Coletamos automaticamente dados técnicos para melhorar o serviço:",
+          "items": [
+            {
+              "title": "Endereço IP",
+              "description": "para segurança e localização aproximada"
+            },
+            {
+              "title": "User-Agent",
+              "description": "navegador e sistema operacional"
+            },
+            {
+              "title": "Dados de performance",
+              "description": "tempo de carregamento, erros"
+            },
+            {
+              "title": "Analytics",
+              "description": "através do Google Analytics (anonimizado)"
+            }
+          ]
+        }
+      },
+      "cookies": {
+        "title": "6. Cookies e Tecnologias Similares",
+        "essential": {
+          "title": "Cookies Essenciais",
+          "items": [
+            {
+              "title": "Sessão de autenticação",
+              "description": "mantém você logado"
+            },
+            {
+              "title": "Preferências",
+              "description": "lembra suas configurações"
+            },
+            {
+              "title": "CSRF Token",
+              "description": "proteção contra ataques"
+            }
+          ]
+        },
+        "analytics": {
+          "title": "Cookies Analíticos",
+          "items": [
+            {
+              "title": "Google Analytics",
+              "description": "entender uso da plataforma"
+            },
+            {
+              "title": "Performance",
+              "description": "monitorar velocidade e erros"
+            }
+          ]
+        },
+        "control": {
+          "title": "Controle de Cookies",
+          "description": "Você pode gerenciar cookies através das configurações do seu navegador. Note que desabilitar cookies essenciais pode afetar a funcionalidade da plataforma."
+        }
+      },
+      "userRights": {
+        "title": "8. Seus Direitos (LGPD)",
+        "description": "Conforme a LGPD, você tem os seguintes direitos:",
+        "categories": [
+          {
+            "title": "Acesso e Portabilidade",
+            "items": [
+              "Confirmação de tratamento",
+              "Acesso aos dados",
+              "Portabilidade dos dados"
+            ]
+          },
+          {
+            "title": "Correção e Exclusão",
+            "items": [
+              "Correção de dados",
+              "Eliminação dos dados",
+              "Revogação do consentimento"
+            ]
+          }
+        ],
+        "howToExercise": {
+          "title": "Como Exercer Seus Direitos",
+          "description": "Para exercer qualquer direito, envie um email para support@pontim.org com o assunto \"Direitos LGPD\". Responderemos em até 15 dias úteis."
+        }
+      },
+      "security": {
+        "title": "9. Segurança",
+        "description": "Implementamos medidas técnicas e organizacionais para proteger seus dados:",
+        "measures": [
+          "Criptografia TLS/SSL - todas as transmissões de dados",
+          "Autenticação segura - OAuth 2.0 with Google",
+          "Banco de dados seguro - PostgreSQL with backup criptografado",
+          "Monitoramento - logs de segurança e detecção de anomalias",
+          "Acesso restrito - apenas pessoal autorizado"
+        ]
+      },
+      "internationalTransfer": {
+        "title": "10. Transferência Internacional",
+        "description": "Alguns de nossos provedores estão localizados fora do Brasil (Google, Stripe, Vercel). Asseguramos que essas transferências atendem aos requisitos da LGPD através de cláusulas contratuais adequadas."
+      },
+      "minors": {
+        "title": "11. Menores de Idade",
+        "description": "Nossa plataforma não é direcionada a menores de 16 anos. Não coletamos intencionalmente dados de menores. Se tomarmos conhecimento de coleta inadvertida, excluiremos os dados imediatamente."
+      },
+      "contact": {
+        "title": "15. Contato e DPO",
+        "description": "Para questões relacionadas à privacidade e proteção de dados:",
+        "email": {
+          "title": "Email geral",
+          "address": "support@pontim.org"
+        },
+        "github": {
+          "title": "GitHub",
+          "url": "github.com/ItaloMedici/pontim"
+        },
+        "transparency": {
+          "title": "Transparência Total",
+          "description": "O Pontim é um projeto open-source. Você pode revisar nosso código e práticas de dados no GitHub:",
+          "button": "Ver Código no GitHub"
+        }
+      },
+      "faq": {
+        "title": "Dúvidas sobre Privacidade?",
+        "description": "Estamos aqui para esclarecer qualquer questão sobre como tratamos seus dados. Entre em contato conosco e responderemos rapidamente."
+      }
+    }
+  },
+  "errors": {
+    "root": {
+      "title": "Eita não! Algo deu errado.",
+      "tryAgain": "Tente novamente",
+      "reportError": "Reportar erro"
+    },
+    "notFound": {
+      "blog": {
+        "title": "Post não encontrado",
+        "description": "O artigo que você está procurando não existe ou pode ter sido removido. Que tal explorar outros conteúdos do nosso blog?",
+        "viewAllPosts": "Ver todos os posts",
+        "goHome": "Ir para home",
+        "contact": "Se você acredita que isso é um erro, entre em contato conosco."
+      }
+    }
+  },
+  "seo": {
+    "site": {
+      "title": "Pontim - Plataforma de Scrum Poker para Estimativas Ágeis",
+      "description": "Pontim é a plataforma open-source de Scrum Poker para estimativas ágeis em tempo real. Crie salas, vote com Fibonacci e melhore suas estimativas de story points.",
+      "imageAlt": "Pontim - Interface do Scrum Poker"
+    },
+    "keywords": [
+      "scrum poker",
+      "planning poker",
+      "estimativas ágeis",
+      "story points",
+      "fibonacci",
+      "t-shirt sizing",
+      "metodologia ágil",
+      "desenvolvimento software",
+      "gestão projetos",
+      "planning",
+      "poker",
+      "scrum",
+      "agile",
+      "ferramenta scrum poker online",
+      "estimativa story points fibonacci",
+      "planning poker gratuito",
+      "scrum poker em tempo real",
+      "ferramenta agile estimation",
+      "votação fibonacci online",
+      "scrum poker brasileiro",
+      "planning poker português",
+      "como fazer planning poker online",
+      "ferramenta estimativa story points",
+      "scrum poker brasileiro grátis",
+      "planning poker para equipes remotas",
+      "estimativa ágil fibonacci online",
+      "ferramenta scrum master",
+      "votação anônima planning poker",
+      "scrum poker com notificações",
+      "planning poker tempo real",
+      "estimativa complexidade tarefas"
+    ],
+    "organization": {
+      "description": "Plataforma open-source de Scrum Poker para estimativas ágeis em tempo real"
+    },
+    "softwareApplication": {
+      "description": "Plataforma de Scrum Poker para estimativas ágeis em tempo real com votação Fibonacci",
+      "offerDescription": "Plano gratuito disponível",
+      "features": [
+        "Votação em tempo real",
+        "Salas privadas personalizáveis",
+        "Notificações interativas com som",
+        "Scrum poker",
+        "Planning poker",
+        "Votação Fibonacci",
+        "Estimativas ágeis",
+        "Gestão de projetos",
+        "Votação em grupo",
+        "Story points"
+      ]
+    },
+    "faq": {
+      "questions": [
+        {
+          "question": "O que é Scrum Poker?",
+          "answer": "Scrum Poker (também conhecido como Planning Poker) é uma técnica de estimativa ágil onde os membros da equipe votam simultaneamente usando cartas numeradas para estimar a complexidade das tarefas. É amplamente usado em metodologias ágeis como Scrum para melhorar a precisão das estimativas de story points."
+        },
+        {
+          "question": "Como funciona o Pontim?",
+          "answer": "O Pontim permite criar salas de estimativa onde sua equipe pode votar em tempo real usando números Fibonacci. Todos votam simultaneamente e os resultados são revelados juntos para discussão. A plataforma oferece notificações sonoras, salas personalizáveis e uma interface intuitiva para facilitar o processo de estimativa."
+        },
+        {
+          "question": "É gratuito usar o Pontim?",
+          "answer": "Sim, o Pontim oferece um plano gratuito com funcionalidades básicas para equipes pequenas. Também temos planos pagos com recursos avançados como salas ilimitadas, histórico de votações e integrações para equipes maiores."
+        },
+        {
+          "question": "Quais são os benefícios do Planning Poker?",
+          "answer": "O Planning Poker melhora a precisão das estimativas ao combinar múltiplas perspectivas da equipe, reduz vieses individuais, promove discussões produtivas sobre complexidade das tarefas e ajuda a identificar riscos e dependências não óbvias."
+        },
+        {
+          "question": "Como criar uma sala no Pontim?",
+          "answer": "Para criar uma sala no Pontim, clique em 'Criar Sala', defina um nome para sua sessão, escolha o sistema de votação (Fibonacci, T-shirt sizing, etc.) e compartilhe o link com sua equipe. É simples e não requer cadastro."
+        }
+      ]
+    },
+    "twitter": {
+      "title": "Pontim - Plataforma de Scrum Poker para Estimativas Ágeis",
+      "description": "Plataforma open-source de Scrum Poker para estimativas ágeis em tempo real."
+    }
   }
 }

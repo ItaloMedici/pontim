@@ -2,64 +2,43 @@ import { env } from "@/env";
 import { Metadata } from "next";
 import { OpenGraph } from "next/dist/lib/metadata/types/opengraph-types";
 
-export const keywords = [
-  "scrum poker",
-  "planning poker",
-  "estimativas ágeis",
-  "story points",
-  "fibonacci",
-  "t-shirt sizing",
-  "metodologia ágil",
-  "desenvolvimento software",
-  "gestão projetos",
-  "planning",
-  "poker",
-  "scrum",
-  "agile",
-  "ferramenta scrum poker online",
-  "estimativa story points fibonacci",
-  "planning poker gratuito",
-  "scrum poker em tempo real",
-  "ferramenta agile estimation",
-  "votação fibonacci online",
-  "scrum poker brasileiro",
-  "planning poker português",
-  "como fazer planning poker online",
-  "ferramenta estimativa story points",
-  "scrum poker brasileiro grátis",
-  "planning poker para equipes remotas",
-  "estimativa ágil fibonacci online",
-  "ferramenta scrum master",
-  "votação anônima planning poker",
-  "scrum poker com notificações",
-  "planning poker tempo real",
-  "estimativa complexidade tarefas",
-];
+// Type for translation function
+type TranslationFunction = (key: string) => any;
 
-export const openGraph: OpenGraph = {
+export const getKeywords = (t: TranslationFunction): string[] => {
+  return t("seo.keywords");
+};
+
+const openGraphLocale = {
+  pt: "pt_BR",
+  en: "en_US",
+};
+
+export const getOpenGraph = (
+  t: TranslationFunction,
+  locale: string,
+): OpenGraph => ({
   type: "website",
-  locale: "pt_BR",
+  locale: openGraphLocale[locale] || openGraphLocale.pt,
   url: env.SITE_URL,
-  title: "Pontim - Plataforma de Scrum Poker para Estimativas Ágeis",
-  description:
-    "Pontim é a plataforma open-source de Scrum Poker para estimativas ágeis em tempo real. Crie salas, vote com Fibonacci e melhore suas estimativas de story points.",
+  title: t("seo.site.title") as string,
+  description: t("seo.site.description") as string,
   siteName: "Pontim",
   images: [
     {
       url: `${env.SITE_URL}/marketing/hero.webp`,
       width: 1920,
       height: 1080,
-      alt: "Pontim - Interface do Scrum Poker",
+      alt: t("seo.site.imageAlt") as string,
     },
   ],
-};
+});
 
-export const organizationSchema = {
+export const getOrganizationSchema = (t: TranslationFunction) => ({
   "@context": "https://schema.org",
   "@type": "Organization",
   name: "Pontim",
-  description:
-    "Plataforma open-source de Scrum Poker para estimativas ágeis em tempo real",
+  description: t("seo.organization.description") as string,
   url: env.SITE_URL,
   logo: `${env.SITE_URL}/marketing/logo-vertical.webp`,
   foundingDate: "2024",
@@ -68,37 +47,28 @@ export const organizationSchema = {
     contactType: "customer service",
     url: env.SITE_URL,
   },
-};
+});
 
-export const softwareApplicationSchema = {
+export const getSoftwareApplicationSchema = (
+  t: TranslationFunction,
+  locale: string,
+) => ({
   "@context": "https://schema.org",
   "@type": "SoftwareApplication",
   name: "Pontim",
-  description:
-    "Plataforma de Scrum Poker para estimativas ágeis em tempo real com votação Fibonacci",
+  description: t("seo.softwareApplication.description") as string,
   applicationCategory: "ProductivityApplication",
   operatingSystem: "Web Browser",
   offers: {
     "@type": "Offer",
     price: "0",
     priceCurrency: "BRL",
-    description: "Plano gratuito disponível",
+    description: t("seo.softwareApplication.offerDescription") as string,
   },
   softwareVersion: "1.0.0",
   downloadUrl: env.SITE_URL,
   screenshot: `${env.SITE_URL}/marketing/hero.webp`,
-  featureList: [
-    "Votação em tempo real",
-    "Salas privadas personalizáveis",
-    "Notificações interativas com som",
-    "Scrum poker",
-    "Planning poker",
-    "Votação Fibonacci",
-    "Estimativas ágeis",
-    "Gestão de projetos",
-    "Votação em grupo",
-    "Story points",
-  ],
+  featureList: t("seo.softwareApplication.features") as string[],
   author: {
     "@type": "Organization",
     name: "Pontim",
@@ -111,8 +81,8 @@ export const softwareApplicationSchema = {
   },
   datePublished: "2024-01-01",
   dateModified: new Date().toISOString().split("T")[0],
-  inLanguage: "pt-BR",
-};
+  inLanguage: locale === "pt" ? "pt-BR" : "en",
+});
 
 export const breadcrumbSchema = (
   items: Array<{ name: string; url: string }>,
@@ -127,58 +97,38 @@ export const breadcrumbSchema = (
   })),
 });
 
-export const faqSchema = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  mainEntity: [
-    {
+export const getFaqSchema = (t: TranslationFunction) => {
+  const questions = t("seo.faq.questions");
+
+  if (!Array.isArray(questions)) {
+    return {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: [],
+    };
+  }
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: questions.map((item: any) => ({
       "@type": "Question",
-      name: "O que é Scrum Poker?",
+      name: item.question,
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Scrum Poker (também conhecido como Planning Poker) é uma técnica de estimativa ágil onde os membros da equipe votam simultaneamente usando cartas numeradas para estimar a complexidade das tarefas. É amplamente usado em metodologias ágeis como Scrum para melhorar a precisão das estimativas de story points.",
+        text: item.answer,
       },
-    },
-    {
-      "@type": "Question",
-      name: "Como funciona o Pontim?",
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: "O Pontim permite criar salas de estimativa onde sua equipe pode votar em tempo real usando números Fibonacci. Todos votam simultaneamente e os resultados são revelados juntos para discussão. A plataforma oferece notificações sonoras, salas personalizáveis e uma interface intuitiva para facilitar o processo de estimativa.",
-      },
-    },
-    {
-      "@type": "Question",
-      name: "É gratuito usar o Pontim?",
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: "Sim, o Pontim oferece um plano gratuito com funcionalidades básicas para equipes pequenas. Também temos planos pagos com recursos avançados como salas ilimitadas, histórico de votações e integrações para equipes maiores.",
-      },
-    },
-    {
-      "@type": "Question",
-      name: "Quais são os benefícios do Planning Poker?",
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: "O Planning Poker melhora a precisão das estimativas ao combinar múltiplas perspectivas da equipe, reduz vieses individuais, promove discussões produtivas sobre complexidade das tarefas e ajuda a identificar riscos e dependências não óbvias.",
-      },
-    },
-    {
-      "@type": "Question",
-      name: "Como criar uma sala no Pontim?",
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: "Para criar uma sala no Pontim, clique em 'Criar Sala', defina um nome para sua sessão, escolha o sistema de votação (Fibonacci, T-shirt sizing, etc.) e compartilhe o link com sua equipe. É simples e não requer cadastro.",
-      },
-    },
-  ],
+    })),
+  };
 };
 
-export const baseMetadata: Metadata = {
-  title: "Pontim - Plataforma de Scrum Poker para Estimativas Ágeis",
-  description:
-    "Pontim é a plataforma open-source de Scrum Poker para estimativas ágeis em tempo real. Crie salas, vote com Fibonacci e melhore suas estimativas de story points.",
-  keywords: keywords,
+export const getBaseMetadata = (
+  t: TranslationFunction,
+  locale: string,
+): Metadata => ({
+  title: t("seo.site.title"),
+  description: t("seo.site.description"),
+  keywords: getKeywords(t),
   publisher: "Pontim",
   robots: {
     index: true,
@@ -191,12 +141,11 @@ export const baseMetadata: Metadata = {
       "max-snippet": -1,
     },
   },
-  openGraph: openGraph,
+  openGraph: getOpenGraph(t, locale),
   twitter: {
     card: "summary_large_image",
-    title: "Pontim - Plataforma de Scrum Poker para Estimativas Ágeis",
-    description:
-      "Plataforma open-source de Scrum Poker para estimativas ágeis em tempo real.",
+    title: t("seo.twitter.title"),
+    description: t("seo.twitter.description"),
     images: [`${env.SITE_URL}/marketing/hero.webp`],
   },
   alternates: {
@@ -205,9 +154,47 @@ export const baseMetadata: Metadata = {
   category: "technology",
   other: {
     "script:ld+json": JSON.stringify([
-      organizationSchema,
-      softwareApplicationSchema,
-      faqSchema,
+      getOrganizationSchema(t),
+      getSoftwareApplicationSchema(t, locale),
+      getFaqSchema(t),
     ]),
   },
+});
+
+// Backward compatibility - default Portuguese versions for existing usage
+const defaultT = (key: string): any => {
+  const ptTranslations: Record<string, any> = {
+    "seo.site.title":
+      "Pontim - Plataforma de Scrum Poker para Estimativas Ágeis",
+    "seo.site.description":
+      "Pontim é a plataforma open-source de Scrum Poker para estimativas ágeis em tempo real. Crie salas, vote com Fibonacci e melhore suas estimativas de story points.",
+    "seo.organization.description":
+      "Plataforma open-source de Scrum Poker para estimativas ágeis em tempo real",
+    "seo.keywords": [
+      "scrum poker",
+      "planning poker",
+      "estimativas ágeis",
+      "story points",
+      "fibonacci",
+      "metodologia ágil",
+    ],
+    "seo.faq.questions": [
+      {
+        question: "O que é Scrum Poker?",
+        answer:
+          "Scrum Poker é uma técnica de estimativa ágil onde os membros da equipe votam simultaneamente usando cartas numeradas para estimar a complexidade das tarefas.",
+      },
+    ],
+  };
+  return ptTranslations[key] || "";
 };
+
+export const baseMetadata = getBaseMetadata(defaultT, "pt");
+export const organizationSchema = getOrganizationSchema(defaultT);
+export const softwareApplicationSchema = getSoftwareApplicationSchema(
+  defaultT,
+  "pt",
+);
+export const faqSchema = getFaqSchema(defaultT);
+export const openGraph = getOpenGraph(defaultT, "pt");
+export const keywords = getKeywords(defaultT);

@@ -5,6 +5,7 @@ import { SearchParams } from "@/lib/consts";
 import { Room } from "@/lib/schemas/room";
 import { ChoiceSelectOptions } from "@/types/choice-options";
 import { Plus } from "lucide-react";
+import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { CreateRoomDialog } from "./create-room-dialog";
@@ -28,6 +29,7 @@ export function RoomList({
   rooms: Room[];
   decks: ChoiceSelectOptions[];
 }) {
+  const t = useTranslations();
   const params = useSearchParams();
 
   if (rooms === undefined) {
@@ -40,10 +42,16 @@ export function RoomList({
   if (!rooms?.length && (isFavorites || isSearching)) {
     return (
       <div className="flex items-center justify-center flex-col space-y-2">
-        <span className="text-4xl">🧐</span>
-        <h1 className="font-semibold text-xl">Nada encontrado por aqui...</h1>
+        <span className="text-4xl">
+          {t("dashboard.home.roomList.empty.noResults.emoji")}
+        </span>
+        <h1 className="font-semibold text-xl">
+          {t("dashboard.home.roomList.empty.noResults.title")}
+        </h1>
         <Button asChild variant={"ghost"}>
-          <Link href={"/"}>Voltar</Link>
+          <Link href={"/"}>
+            {t("dashboard.home.roomList.empty.noResults.button")}
+          </Link>
         </Button>
       </div>
     );
@@ -52,12 +60,14 @@ export function RoomList({
   if (!rooms?.length)
     return (
       <div className="flex items-center justify-center flex-col">
-        <span className="text-4xl">🎉</span>
+        <span className="text-4xl">
+          {t("dashboard.home.roomList.empty.welcome.emoji")}
+        </span>
         <h1 className="font-semibold text-2xl">
-          Olá, seja bem-vindo ao Pontim!
+          {t("dashboard.home.roomList.empty.welcome.title")}
         </h1>
         <p className="text-sm text-gray-500 mt-2 mb-4">
-          Cria uma nova sala e convide os participantes 👇
+          {t("dashboard.home.roomList.empty.welcome.description")}
         </p>
         <CreateRoomDialog decks={decks} />
       </div>
@@ -75,7 +85,9 @@ export function RoomList({
         trigger={
           <button className="flex flex-col gap-2 bg-gray-50 w-[150px] min-h-[140px] border-2 border-dashed rounded-lg overflow-hidden hover:shadow-md transition-shadow items-center justify-center outline-none">
             <Plus className="h-4 w-4 text-muted-foreground" />
-            <h2 className="text-muted-foreground text-sm">Nova sala</h2>
+            <h2 className="text-muted-foreground text-sm">
+              {t("dashboard.home.roomList.createRoom.title")}
+            </h2>
           </button>
         }
       />

@@ -1,14 +1,10 @@
 "use server";
 
 import { getRequestConfig } from "next-intl/server";
-import { cookies } from "next/headers";
-import { FALLBACK_LOCALE } from "./locales";
+import { getLocaleOrDefault } from "./utils";
 
 export default getRequestConfig(async () => {
-  const store = cookies();
-  const localeFromCookie = store.get("locale")?.value;
-
-  const locale = localeFromCookie ?? FALLBACK_LOCALE;
+  const locale = getLocaleOrDefault();
 
   return {
     locale,

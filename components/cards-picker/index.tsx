@@ -1,4 +1,5 @@
 import { cn } from "@/lib/utils";
+import { useTranslations } from "next-intl";
 
 type CardsPickerProps = {
   choiceOptions: { value: string }[];
@@ -13,6 +14,7 @@ export const CardsPicker = ({
   selfChoice,
   showTitle = true,
 }: CardsPickerProps) => {
+  const t = useTranslations("dashboard.room.cardsPicker");
   const isSelfOption = (option: string) => selfChoice == option;
 
   const handleChoiceClick = (event: React.MouseEvent, option: string) => {
@@ -24,7 +26,7 @@ export const CardsPicker = ({
   return (
     <div className="flex flex-col items-center justify-center flex-wrap gap-6">
       {showTitle ? (
-        <span className="text-gray-500 text-sm">Escolha uma carta: 👇</span>
+        <span className="text-gray-500 text-sm">{t("title")}</span>
       ) : null}
       <div className="flex flex-wrap items-center justify-center gap-1 p-1 bg-gray-200 rounded-md">
         {choiceOptions.map((option) => (

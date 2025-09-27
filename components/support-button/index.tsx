@@ -3,14 +3,18 @@
 import { env } from "@/env";
 import confetti from "canvas-confetti";
 import { Heart } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { Button } from "../ui/button";
 
 export const SupportButton = () => {
-  const [buttonText, setButtonText] = useState("Apoiar");
+  const t = useTranslations();
+  const [buttonText, setButtonText] = useState(
+    t("dashboard.supportButton.text"),
+  );
 
   const handleClick = () => {
-    setButtonText("Obrigado! 🫰");
+    setButtonText(t("dashboard.supportButton.thanks"));
 
     const scalar = 2;
     const supportSymbolShape = confetti.shapeFromText({ text: "🫰", scalar });
@@ -50,20 +54,20 @@ export const SupportButton = () => {
     }, 800);
 
     setTimeout(() => {
-      setButtonText("Apoiar");
+      setButtonText(t("dashboard.supportButton.text"));
     }, 800);
   };
 
   return (
     <div className="fixed bottom-4 left-4 z-[101] group">
       <p className="text-[10px] text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-out absolute bottom-full mb-1 whitespace-nowrap">
-        Ajude a alimentar nossos servidores 🫰
+        {t("dashboard.supportButton.tooltip")}
       </p>
       <Button
         variant={"pinkOnHover"}
         className="flex items-center justify-start transition-transform duration-300 ease-out"
         onClick={handleClick}
-        aria-label="Botão para apoiar o projeto"
+        aria-label={t("dashboard.supportButton.label")}
       >
         <Heart className="min-w-4 h-4" />
         <span className="">{buttonText}</span>

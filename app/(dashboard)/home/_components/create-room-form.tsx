@@ -27,6 +27,7 @@ import { ChoiceSelectOptions } from "@/types/choice-options";
 import { createRoom } from "@/use-cases/room";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useSession } from "next-auth/react";
+import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -38,6 +39,7 @@ type CreateRoomForm = {
 };
 
 export function CreateRoomForm({ decks }: CreateRoomForm) {
+  const t = useTranslations();
   const router = useRouter();
   const { data } = useSession();
   const { user } = useUser();
@@ -45,7 +47,7 @@ export function CreateRoomForm({ decks }: CreateRoomForm) {
   const [showCustomDeckForm, setShowCustomDeckForm] = useState(false);
 
   const form = useForm<CreateRoom>({
-    resolver: zodResolver(createRoomSchema),
+    resolver: zodResolver(createRoomSchema(t)),
     defaultValues: {
       name: "",
       onwer: data?.user?.email,
@@ -73,13 +75,13 @@ export function CreateRoomForm({ decks }: CreateRoomForm) {
       customDeck,
     })
       .then((room) => {
-        toast.success("Sala criada com sucesso!", {
+        toast.success(t("dashboard.home.createRoomForm.success"), {
           icon: "🥳",
         });
         router.push(`/room/${room.id}`);
       })
       .catch(() => {
-        toast.error("Algo deu errado ao criar a sala", {
+        toast.error(t("dashboard.home.createRoomForm.error"), {
           icon: "😢",
         });
       });
@@ -102,9 +104,16 @@ export function CreateRoomForm({ decks }: CreateRoomForm) {
           name="name"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Nome da sala</FormLabel>
+              <FormLabel>
+                {t("dashboard.home.createRoomForm.roomName.label")}
+              </FormLabel>
               <FormControl>
-                <Input placeholder="Um nome legal" {...field} />
+                <Input
+                  placeholder={t(
+                    "dashboard.home.createRoomForm.roomName.placeholder",
+                  )}
+                  {...field}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -115,12 +124,18 @@ export function CreateRoomForm({ decks }: CreateRoomForm) {
           name="deckOption"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Escolha seu deck</FormLabel>
+              <FormLabel>
+                {t("dashboard.home.createRoomForm.deckSelection.label")}
+              </FormLabel>
               <FormControl>
                 <Select onValueChange={onDeckChange} defaultValue={field.value}>
                   <FormControl>
                     <SelectTrigger>
-                      <SelectValue placeholder="Selecione um tipo de deck" />
+                      <SelectValue
+                        placeholder={t(
+                          "dashboard.home.createRoomForm.deckSelection.placeholder",
+                        )}
+                      />
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>
@@ -140,17 +155,20 @@ export function CreateRoomForm({ decks }: CreateRoomForm) {
           <div className="flex flex-col items-center justify-center p-8 border-2 border-dashed border-muted-foreground/30 rounded-lg">
             <div className="text-center space-y-4 max-w-md">
               <h3 className="text-md font-semibold text-foreground">
-                Desbloqueie todo poder do Pontim! 💪
+                {t("dashboard.home.createRoomForm.customDeckUpgrade.title")}
               </h3>
               <p className="text-sm leading-relaxed">
-                Crie decks exclusivos e trabalhe do seu jeito. Faça upgrade
-                agora e não fique de fora dessa!
+                {t(
+                  "dashboard.home.createRoomForm.customDeckUpgrade.description",
+                )}
               </p>
               <Link
                 href={"/pricing"}
                 className={cn(buttonVariants({ variant: "outline" }))}
               >
-                Fazer upgrade agora
+                {t(
+                  "dashboard.home.createRoomForm.customDeckUpgrade.upgradeButton",
+                )}
               </Link>
             </div>
           </div>
@@ -163,7 +181,7 @@ export function CreateRoomForm({ decks }: CreateRoomForm) {
           size={"lg"}
           disabled={isPending || showCustomDeckNotAllowed}
         >
-          Criar sala
+          {t("dashboard.home.createRoomForm.submitButton")}
         </Button>
       </form>
     </Form>
