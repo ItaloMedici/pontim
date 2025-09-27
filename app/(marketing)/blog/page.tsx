@@ -6,6 +6,7 @@ import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
 import { ArrowRight, CalendarDays, User } from "lucide-react";
 import { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
 import Link from "next/link";
 
 export const metadata: Metadata = {
@@ -20,7 +21,8 @@ export const metadata: Metadata = {
   },
 };
 
-export default function BlogPage() {
+export default async function BlogPage() {
+  const t = await getTranslations("marketing.blog");
   const posts = Object.entries(blogPosts).map(([path, post]) => ({
     path,
     ...post,
@@ -43,14 +45,13 @@ export default function BlogPage() {
         <BlurFade delay={0.25} inView>
           <div className="text-center mb-12">
             <Badge variant="secondary" className="mb-4">
-              Blog
+              {t("badge")}
             </Badge>
             <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
-              Insights sobre Planning Poker
+              {t("title")}
             </h1>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Dicas, casos reais e melhores práticas para maximizar a eficiência
-              das suas sessões de estimativa ágil.
+              {t("subtitle")}
             </p>
           </div>
         </BlurFade>
@@ -82,7 +83,7 @@ export default function BlogPage() {
                     href={`/blog/${post.path}`}
                     className="inline-flex items-center gap-2 text-primary hover:text-primary/80 font-medium transition-colors"
                   >
-                    Ler artigo completo
+                    {t("readMore")}
                     <ArrowRight className="w-4 h-4" />
                   </Link>
                 </CardContent>
@@ -93,14 +94,12 @@ export default function BlogPage() {
 
         <BlurFade delay={0.5} inView>
           <div className="text-center mt-16">
-            <p className="text-muted-foreground mb-4">
-              Gostou do conteúdo? Experimente o Pontim gratuitamente!
-            </p>
+            <p className="text-muted-foreground mb-4">{t("cta.description")}</p>
             <Link
               href="/login"
               className="inline-flex items-center gap-2 bg-primary text-primary-foreground hover:bg-primary/90 px-6 py-3 rounded-lg font-medium transition-colors"
             >
-              Começar agora
+              {t("cta.button")}
               <ArrowRight className="w-4 h-4" />
             </Link>
           </div>

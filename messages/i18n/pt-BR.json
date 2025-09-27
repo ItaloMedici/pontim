@@ -1,0 +1,585 @@
+{
+  "marketing": {
+    "shared": {
+      "header": {
+        "enter": "Entrar",
+        "signup": "Cadastre-se"
+      },
+      "footer": {
+        "description": "A plataforma que aprimora a colaboração em equipe, tornando a estimativa de tarefas fácil e eficiente. Pontue seus cards de forma divertida e rápida.",
+        "createFreeRoom": "Criar Sala Gratuita",
+        "viewPlans": "Ver Planos",
+        "learn": "Aprenda",
+        "scrumPoker": "Scrum Poker",
+        "storyPoints": "Story Points",
+        "fibonacci": "Fibonacci",
+        "blog": "Blog",
+        "allPosts": "Todos os Posts",
+        "performanceTips": "Dicas de Performance",
+        "efficiencyMetrics": "Métricas de Eficiência",
+        "realCases": "Casos Reais",
+        "support": "Suporte",
+        "faq": "FAQ",
+        "prices": "Preços",
+        "contact": "Contato",
+        "github": "GitHub",
+        "copyright": "© {year} Pontim. Todos os direitos reservados.",
+        "terms": "Termos de Uso",
+        "privacy": "Privacidade",
+        "madeBy": "Feito por Italo Medici"
+      }
+    },
+    "homepage": {
+      "hero": {
+        "title": "O jeito inteligente de estimar cada pontim dos story points!",
+        "subtitle": "Vote em tempo real, conecte-se com seu time e use sons para manter todos focados.",
+        "cta": "Experimente o Pontim Gratuitamente!",
+        "imageAlt": "Board do pontim"
+      },
+      "howItWorks": {
+        "title": "Como Funciona",
+        "subtitle": "Comece a usar o Pontim em quatro passos simples",
+        "steps": {
+          "createRoom": {
+            "title": "Crie uma Sala",
+            "description": "Configure uma sala privada de estimativas para sua equipe em segundos."
+          },
+          "inviteTeam": {
+            "title": "Convide sua Equipe",
+            "description": "Compartilhe o link da sala com os membros da equipe para entrada instantânea."
+          },
+          "startVoting": {
+            "title": "Comece a Votar",
+            "description": "Apresente as tarefas e permita que os membros votem usando cartas de planning poker."
+          },
+          "reachConsensus": {
+            "title": "Alcance o Consenso",
+            "description": "Discuta as estimativas e chegue a um consenso em equipe de forma eficiente."
+          }
+        },
+        "nextStep": "Próximo passo"
+      },
+      "pricing": {
+        "title": "Escolha o Plano Perfeito para Sua Equipe",
+        "subtitle": "Desbloqueie o poder das estimativas ágeis com o Pontim. Selecione o plano que melhor atende às necessidades da sua equipe."
+      }
+    },
+    "pricing": {
+      "title": "Escolha o Plano Perfeito para Sua Equipe",
+      "subtitle": "Desbloqueie o poder das estimativas ágeis com o Pontim. Selecione o plano que melhor atende às necessidades da sua equipe."
+    },
+    "faq": {
+      "hero": {
+        "title": "Tire Suas Dúvidas",
+        "subtitle": "Respostas para as principais dúvidas sobre Scrum Poker, Planning Poker, Story Points e como usar o Pontim para estimativas ágeis eficazes.",
+        "badge": "Perguntas Frequentes"
+      },
+      "questions": {
+        "whatIsScrumPoker": {
+          "question": "O que é Scrum Poker?",
+          "answer": "Scrum Poker (também conhecido como Planning Poker) é uma técnica de estimativa ágil onde os membros da equipe votam simultaneamente usando cartas numeradas para estimar a complexidade das tarefas."
+        },
+        "howDoesItWork": {
+          "question": "Como funciona o Pontim?",
+          "answer": "O Pontim permite criar salas de estimativa onde sua equipe pode votar em tempo real usando números Fibonacci. Todos votam simultaneamente e os resultados são revelados juntos para discussão."
+        },
+        "isFree": {
+          "question": "É gratuito usar o Pontim?",
+          "answer": "Sim, o Pontim oferece um plano gratuito com funcionalidades básicas para equipes pequenas. Também temos planos pagos com recursos avançados."
+        },
+        "howToCreateRoom": {
+          "question": "Como criar uma sala no Pontim?",
+          "answer": "Para criar uma sala no Pontim, clique em \"Criar Sala\", defina um nome para sua sessão, escolha o sistema de votação (Fibonacci, T-shirt sizing, etc.) e compartilhe o link com sua equipe."
+        }
+      },
+      "cta": {
+        "title": "Pronto para começar?",
+        "subtitle": "Crie sua primeira sala de Planning Poker e transforme suas estimativas ágeis!",
+        "button": "Criar Sala Gratuita"
+      }
+    },
+    "scrumPoker": {
+      "hero": {
+        "badge": "Guia Completo",
+        "title": "Como Funciona o Scrum Poker?",
+        "subtitle": "Aprenda passo a passo como usar o Scrum Poker (Planning Poker) para fazer estimativas ágeis precisas e eficazes com sua equipe."
+      },
+      "whatIs": {
+        "title": "O que é Scrum Poker?",
+        "description": "O Scrum Poker (também conhecido como Planning Poker) é uma técnica de estimativa ágil onde os membros da equipe votam simultaneamente usando cartas numeradas para estimar a complexidade das tarefas."
+      },
+      "process": {
+        "title": "Como Funciona o Processo",
+        "subtitle": "Siga estes 5 passos simples para conduzir uma sessão eficaz de Planning Poker",
+        "steps": {
+          "preparation": {
+            "title": "Preparação da Sessão",
+            "description": "Configure a sessão com Product Owner e equipe",
+            "detail1": "Histórias de usuário priorizadas",
+            "detail2": "Critérios de aceitação bem definidos",
+            "detail3": "Toda a equipe de desenvolvimento presente",
+            "detail4": "Product Owner disponível para esclarecimentos"
+          },
+          "presentation": {
+            "title": "Apresentação da História",
+            "description": "Product Owner explica a tarefa para toda a equipe",
+            "detail1": "Objetivos e valor de negócio",
+            "detail2": "Critérios de aceitação",
+            "detail3": "Requisitos técnicos",
+            "detail4": "Dependências e restrições"
+          },
+          "voting": {
+            "title": "Votação Simultânea",
+            "description": "Todos escolhem uma carta ao mesmo tempo",
+            "detail1": "Sequência de Fibonacci: 1, 2, 3, 5, 8, 13, 21, 34, 55, 89",
+            "detail2": "Votação privada e simultânea",
+            "detail3": "Sem influência entre membros",
+            "detail4": "Estimativa baseada em complexidade relativa"
+          },
+          "reveal": {
+            "title": "Revelação das Cartas",
+            "description": "Cartas são reveladas simultaneamente",
+            "detail1": "Revelação sincronizada de todos os votos",
+            "detail2": "Identificação de divergências",
+            "detail3": "Evita viés de ancoragem",
+            "detail4": "Transparência total no processo"
+          },
+          "consensus": {
+            "title": "Discussão e Consenso",
+            "description": "Equipe discute e chega ao consenso",
+            "detail1": "Quem votou mais alto explica preocupações",
+            "detail2": "Quem votou mais baixo compartilha perspectiva",
+            "detail3": "Discussão técnica e esclarecimentos",
+            "detail4": "Nova rodada de votação se necessário"
+          }
+        },
+        "stepLabel": "Passo {step}"
+      },
+      "benefits": {
+        "title": "Benefícios do Scrum Poker",
+        "subtitle": "Descubra por que equipes ágeis escolhem o Scrum Poker para suas estimativas",
+        "items": {
+          "accuracy": {
+            "title": "Estimativas mais precisas",
+            "description": "Combina conhecimento de toda a equipe"
+          },
+          "engagement": {
+            "title": "Maior engajamento",
+            "description": "Todos participam ativamente do processo"
+          },
+          "knowledge": {
+            "title": "Transferência de conhecimento",
+            "description": "Discussões compartilham expertise"
+          },
+          "risks": {
+            "title": "Identificação de riscos",
+            "description": "Diferentes perspectivas revelam problemas"
+          }
+        }
+      },
+      "cta": {
+        "title": "Comece a usar Planning Poker hoje mesmo!",
+        "subtitle": "O Pontim oferece uma plataforma completa e gratuita para suas sessões de Scrum Poker com sua equipe.",
+        "button": "Criar Sala Gratuita"
+      }
+    },
+    "fibonacci": {
+      "hero": {
+        "badge": "Matemática do Planning Poker",
+        "title": "Por que usar Fibonacci no Planning Poker?",
+        "subtitle": "Entenda a matemática por trás do Planning Poker e por que a sequência de Fibonacci é a escala mais eficaz para estimativas ágeis."
+      },
+      "whatIs": {
+        "title": "O que é a Sequência de Fibonacci?",
+        "description": "A sequência de Fibonacci é uma série matemática onde cada número é a soma dos dois anteriores, começando por 0 e 1. No Planning Poker, usamos uma versão modificada que inicia em 1:",
+        "sequenceTitle": "Sequência de Fibonacci no Planning Poker",
+        "sequence": "1, 2, 3, 5, 8, 13, 21, 34, 55, 89",
+        "formula": "1+2=3, 2+3=5, 3+5=8, 5+8=13, e assim por diante..."
+      },
+      "whyWorks": {
+        "title": "Por que Fibonacci Funciona no Planning Poker?",
+        "subtitle": "Três razões fundamentais que tornam Fibonacci perfeito para estimativas",
+        "reasons": {
+          "uncertainty": {
+            "title": "Reflete a Incerteza Natural",
+            "description": "À medida que as tarefas ficam maiores, nossa incerteza aumenta exponencialmente",
+            "details": [
+              "Tarefas pequenas (1-3): Diferença de 1-2 pontos",
+              "Tarefas médias (5-13): Diferença de 3-5 pontos",
+              "Tarefas grandes (21+): Diferença de 8+ pontos"
+            ]
+          },
+          "decisions": {
+            "title": "Força Decisões Mais Claras",
+            "description": "A ausência de números intermediários força decisões mais definitivas",
+            "details": [
+              "Sem números como 4, 6, 7, 9, 10, 11, 12",
+              "Escolha entre 5 ou 8, não 6 ou 7",
+              "Diferenças mais significativas"
+            ]
+          },
+          "precision": {
+            "title": "Evita Falsa Precisão",
+            "description": "Fibonacci evita a ilusão de precisão das escalas lineares",
+            "details": [
+              "Estimativas são inerentemente imprecisas",
+              "Escalas lineares criam falsa sensação de precisão",
+              "Foco na ordem de grandeza, não detalhes"
+            ]
+          }
+        }
+      },
+      "goldenRatio": {
+        "title": "A Matemática por Trás do Fibonacci",
+        "subtitle": "Razão Áurea (Golden Ratio)",
+        "description": "A sequência de Fibonacci tem uma propriedade interessante: à medida que os números aumentam, a razão entre números consecutivos se aproxima da razão áurea (φ ≈ 1.618).",
+        "ratiosTitle": "Razões na Sequência de Fibonacci",
+        "whyMatters": "Por que isso Importa?",
+        "whyMattersDescription": "A razão áurea aparece frequentemente na natureza e em percepções humanas de proporção. Isso significa que nossa mente naturalmente \"entende\" essas proporções, tornando as estimativas mais intuitivas."
+      },
+      "practice": {
+        "title": "Fibonacci na Prática",
+        "subtitle": "Como mapear a complexidade das tarefas usando Fibonacci",
+        "complexity": {
+          "low": {
+            "title": "Baixa Complexidade",
+            "examples": [
+              "1 ponto: Alterar cor de botão",
+              "2 pontos: Criar página de login simples",
+              "3 pontos: Adicionar validação de formulário"
+            ]
+          },
+          "medium": {
+            "title": "Média Complexidade",
+            "examples": [
+              "5 pontos: Implementar autenticação",
+              "8 pontos: Dashboard com gráficos"
+            ]
+          },
+          "high": {
+            "title": "Alta Complexidade",
+            "examples": [
+              "13+ pontos: Epic que deve ser quebrado em tarefas menores"
+            ]
+          }
+        }
+      },
+      "cta": {
+        "title": "Experimente Fibonacci no Pontim",
+        "subtitle": "No Pontim, a escala de Fibonacci é pré-configurada e otimizada para estimativas ágeis com votação simultânea e revelação sincronizada.",
+        "button": "Começar com Fibonacci"
+      }
+    },
+    "storyPoints": {
+      "hero": {
+        "badge": "Estimativas Ágeis",
+        "title": "Story Points Guia Completo",
+        "subtitle": "Entenda o que são Story Points, como usar essa técnica de estimativa ágil e por que ela é fundamental para equipes de desenvolvimento."
+      },
+      "whatIs": {
+        "title": "O que são Story Points?",
+        "description": "Story Points são uma unidade de medida relativa usada em metodologias ágeis para estimar o esforço necessário para completar uma User Story ou tarefa.",
+        "concept": "Conceito Principal: Story Points não medem tempo diretamente, mas sim a complexidade relativa de uma tarefa comparada a outras tarefas do projeto."
+      },
+      "whyUse": {
+        "title": "Por que usar Story Points?",
+        "subtitle": "Descubra as vantagens dessa técnica de estimativa ágil",
+        "benefits": {
+          "accuracy": {
+            "title": "Estimativa Mais Precisa",
+            "description": "Humanos são melhores em comparar tarefas relativamente"
+          },
+          "independent": {
+            "title": "Independente de Quem Executa",
+            "description": "Uma tarefa de 5 pontos continua sendo 5 pontos para qualquer desenvolvedor"
+          },
+          "factors": {
+            "title": "Considera Múltiplos Fatores",
+            "description": "Complexidade, esforço e incerteza em uma única medida"
+          }
+        }
+      },
+      "scales": {
+        "title": "Escalas Comuns de Story Points",
+        "subtitle": "Escolha a escala que melhor se adapta à sua equipe",
+        "fibonacci": {
+          "title": "Sequência de Fibonacci",
+          "subtitle": "Mais Popular",
+          "values": "1, 2, 3, 5, 8, 13, 21, 34, 55, 89",
+          "description": "A lacuna crescente reflete a maior incerteza em tarefas maiores"
+        },
+        "tshirt": {
+          "title": "T-shirt Sizing",
+          "subtitle": "Intuitivo",
+          "values": "XS, S, M, L, XL, XXL",
+          "description": "Mais intuitivo para equipes iniciantes"
+        },
+        "powers": {
+          "title": "Potências de 2",
+          "subtitle": "Simples",
+          "values": "1, 2, 4, 8, 16, 32",
+          "description": "Simples e com crescimento exponencial"
+        }
+      },
+      "examples": {
+        "title": "Exemplos Práticos de Story Points",
+        "subtitle": "Veja como aplicar Story Points em diferentes tipos de tarefas",
+        "simple": {
+          "points": "1 Ponto",
+          "title": "Tarefa Simples",
+          "items": [
+            "Alterar texto de um botão",
+            "Ajustar cor de um elemento",
+            "Adicionar validação simples"
+          ]
+        },
+        "medium": {
+          "points": "3 Pontos",
+          "title": "Tarefa Média",
+          "items": [
+            "Criar nova página de formulário",
+            "Implementar funcionalidade básica",
+            "Integração com API externa simples"
+          ]
+        },
+        "complex": {
+          "points": "8 Pontos",
+          "title": "Tarefa Complexa",
+          "items": [
+            "Sistema de autenticação completo",
+            "Dashboard com múltiplos gráficos",
+            "Migração de dados complexa"
+          ]
+        },
+        "epic": {
+          "points": "13+ Pontos",
+          "title": "Epic (Deve ser Quebrado)",
+          "items": [
+            "Sistema de pagamentos completo",
+            "Reestruturação de arquitetura",
+            "Módulo completo de relatórios"
+          ]
+        }
+      },
+      "velocity": {
+        "title": "Velocidade da Equipe",
+        "description": "A velocidade é a soma dos Story Points completados em uma Sprint. Com o tempo, a equipe estabelece uma velocidade média que permite planejamento mais preciso.",
+        "exampleTitle": "Exemplo de Velocidade",
+        "example": [
+          "Sprint 1: 23 pontos completados",
+          "Sprint 2: 27 pontos completados",
+          "Sprint 3: 25 pontos completados",
+          "Velocidade média: 25 pontos por sprint"
+        ]
+      },
+      "cta": {
+        "title": "Experimente Story Points no Pontim",
+        "subtitle": "Use diferentes escalas de Story Points durante suas sessões de Planning Poker com Fibonacci, T-shirt sizing e escalas personalizadas.",
+        "button": "Começar Agora"
+      }
+    },
+    "blog": {
+      "hero": {
+        "badge": "Blog",
+        "title": "Insights sobre Planning Poker",
+        "subtitle": "Dicas, casos reais e melhores práticas para maximizar a eficiência das suas sessões de estimativa ágil."
+      },
+      "readMore": "Ler artigo completo",
+      "author": "Por",
+      "date": "em",
+      "cta": {
+        "text": "Gostou do conteúdo? Experimente o Pontim gratuitamente!",
+        "button": "Começar agora"
+      }
+    },
+    "legal": {
+      "termsOfUse": {
+        "title": "Termos de Uso",
+        "lastUpdated": "Última atualização:",
+        "badge": "Documento Legal"
+      },
+      "privacyPolicy": {
+        "title": "Política de Privacidade",
+        "lastUpdated": "Última atualização:",
+        "badge": "Documento Legal"
+      },
+      "fibonacci": {
+        "hero": {
+          "badge": "Matemática do Planning Poker",
+          "title": "Por que usar Fibonacci no Planning Poker?",
+          "subtitle": "Entenda a matemática por trás do Planning Poker e por que a sequência de Fibonacci é a escala mais eficaz para estimativas ágeis."
+        },
+        "whatIs": {
+          "title": "O que é a Sequência de Fibonacci?",
+          "description": "A sequência de Fibonacci é uma série matemática onde cada número é a soma dos dois anteriores, começando por 0 e 1. No Planning Poker, usamos uma versão modificada que inicia em 1:",
+          "cardTitle": "Sequência de Fibonacci no Planning Poker",
+          "sequence": "1, 2, 3, 5, 8, 13, 21, 34, 55, 89",
+          "explanation": "1+2=3, 2+3=5, 3+5=8, 5+8=13, e assim por diante..."
+        },
+        "whyWorks": {
+          "title": "Por que Fibonacci Funciona no Planning Poker?",
+          "subtitle": "Três razões fundamentais que tornam Fibonacci perfeito para estimativas",
+          "uncertainty": {
+            "title": "Reflete a Incerteza Natural",
+            "description": "À medida que as tarefas ficam maiores, nossa incerteza aumenta exponencialmente",
+            "detail1": "Tarefas pequenas (1-3): Diferença de 1-2 pontos",
+            "detail2": "Tarefas médias (5-13): Diferença de 3-5 pontos",
+            "detail3": "Tarefas grandes (21+): Diferença de 8+ pontos"
+          },
+          "decisions": {
+            "title": "Força Decisões Mais Claras",
+            "description": "A ausência de números intermediários força decisões mais definitivas",
+            "detail1": "Sem números como 4, 6, 7, 9, 10, 11, 12",
+            "detail2": "Escolha entre 5 ou 8, não 6 ou 7",
+            "detail3": "Diferenças mais significativas"
+          },
+          "precision": {
+            "title": "Evita Falsa Precisão",
+            "description": "Fibonacci evita a ilusão de precisão das escalas lineares",
+            "detail1": "Estimativas são inerentemente imprecisas",
+            "detail2": "Escalas lineares criam falsa sensação de precisão",
+            "detail3": "Foco na ordem de grandeza, não detalhes"
+          }
+        },
+        "goldenRatio": {
+          "title": "A Matemática por Trás do Fibonacci",
+          "subtitle": "Razão Áurea (Golden Ratio)",
+          "description": "A sequência de Fibonacci tem uma propriedade interessante: à medida que os números aumentam, a razão entre números consecutivos se aproxima da razão áurea (φ ≈ 1.618).",
+          "ratiosTitle": "Razões na Sequência de Fibonacci",
+          "whyMatters": "Por que isso Importa?",
+          "whyMattersDescription": "A razão áurea aparece frequentemente na natureza e em percepções humanas de proporção. Isso significa que nossa mente naturalmente \"entende\" essas proporções, tornando as estimativas mais intuitivas."
+        },
+        "practice": {
+          "title": "Fibonacci na Prática",
+          "subtitle": "Como mapear a complexidade das tarefas usando Fibonacci",
+          "lowComplexity": {
+            "title": "Baixa Complexidade",
+            "example1": "1 ponto: Alterar cor de botão",
+            "example2": "2 pontos: Criar página de login simples",
+            "example3": "3 pontos: Adicionar validação de formulário"
+          },
+          "mediumComplexity": {
+            "title": "Média Complexidade",
+            "example1": "5 pontos: Implementar autenticação",
+            "example2": "8 pontos: Dashboard com gráficos"
+          },
+          "highComplexity": {
+            "title": "Alta Complexidade",
+            "example1": "13+ pontos: Epic que deve ser quebrado em tarefas menores"
+          }
+        },
+        "cta": {
+          "title": "Experimente Fibonacci no Pontim",
+          "description": "No Pontim, a escala de Fibonacci é pré-configurada e otimizada para estimativas ágeis com votação simultânea e revelação sincronizada.",
+          "button": "Começar com Fibonacci"
+        }
+      },
+      "storyPoints": {
+        "hero": {
+          "badge": "Estimativas Ágeis",
+          "title": "Story Points Guia Completo",
+          "subtitle": "Entenda o que são Story Points, como usar essa técnica de estimativa ágil e por que ela é fundamental para equipes de desenvolvimento."
+        },
+        "whatAre": {
+          "title": "O que são Story Points?",
+          "description": "Story Points são uma unidade de medida relativa usada em metodologias ágeis para estimar o esforço necessário para completar uma User Story ou tarefa.",
+          "concept": "Story Points não medem tempo diretamente, mas sim a complexidade relativa de uma tarefa comparada a outras tarefas do projeto."
+        },
+        "whyUse": {
+          "title": "Por que usar Story Points?",
+          "subtitle": "Descubra as vantagens dessa técnica de estimativa ágil",
+          "accuracy": {
+            "title": "Estimativa Mais Precisa",
+            "description": "Humanos são melhores em comparar tarefas relativamente"
+          },
+          "independence": {
+            "title": "Independente de Quem Executa",
+            "description": "Uma tarefa de 5 pontos continua sendo 5 pontos para qualquer desenvolvedor"
+          },
+          "factors": {
+            "title": "Considera Múltiplos Fatores",
+            "description": "Complexidade, esforço e incerteza em uma única medida"
+          }
+        },
+        "scales": {
+          "title": "Escalas Comuns de Story Points",
+          "subtitle": "Escolha a escala que melhor se adapta à sua equipe",
+          "fibonacci": {
+            "title": "Sequência de Fibonacci",
+            "subtitle": "Mais Popular",
+            "values": "1, 2, 3, 5, 8, 13, 21, 34, 55, 89",
+            "description": "A lacuna crescente reflete a maior incerteza em tarefas maiores"
+          },
+          "tshirt": {
+            "title": "T-shirt Sizing",
+            "subtitle": "Intuitivo",
+            "values": "XS, S, M, L, XL, XXL",
+            "description": "Mais intuitivo para equipes iniciantes"
+          },
+          "powers": {
+            "title": "Potências de 2",
+            "subtitle": "Simples",
+            "values": "1, 2, 4, 8, 16, 32",
+            "description": "Simples e com crescimento exponencial"
+          }
+        },
+        "examples": {
+          "title": "Exemplos Práticos de Story Points",
+          "subtitle": "Veja como aplicar Story Points em diferentes tipos de tarefas",
+          "simple": {
+            "points": "1 Ponto",
+            "title": "Tarefa Simples",
+            "item1": "Alterar texto de um botão",
+            "item2": "Ajustar cor de um elemento",
+            "item3": "Adicionar validação simples"
+          },
+          "medium": {
+            "points": "3 Pontos",
+            "title": "Tarefa Média",
+            "item1": "Criar nova página de formulário",
+            "item2": "Implementar funcionalidade básica",
+            "item3": "Integração com API externa simples"
+          },
+          "complex": {
+            "points": "8 Pontos",
+            "title": "Tarefa Complexa",
+            "item1": "Sistema de autenticação completo",
+            "item2": "Dashboard com múltiplos gráficos",
+            "item3": "Migração de dados complexa"
+          },
+          "epic": {
+            "points": "13+ Pontos",
+            "title": "Epic (Deve ser Quebrado)",
+            "item1": "Sistema de pagamentos completo",
+            "item2": "Reestruturação de arquitetura",
+            "item3": "Módulo completo de relatórios"
+          }
+        },
+        "velocity": {
+          "title": "Velocidade da Equipe",
+          "description": "A velocidade é a soma dos Story Points completados em uma Sprint. Com o tempo, a equipe estabelece uma velocidade média que permite planejamento mais preciso.",
+          "exampleTitle": "Exemplo de Velocidade",
+          "sprint1": "Sprint 1: 23 pontos completados",
+          "sprint2": "Sprint 2: 27 pontos completados",
+          "sprint3": "Sprint 3: 25 pontos completados",
+          "average": "Velocidade média: 25 pontos por sprint"
+        },
+        "cta": {
+          "title": "Experimente Story Points no Pontim",
+          "description": "Use diferentes escalas de Story Points durante suas sessões de Planning Poker com Fibonacci, T-shirt sizing e escalas personalizadas.",
+          "button": "Começar Agora"
+        }
+      },
+      "blog": {
+        "badge": "Blog",
+        "title": "Insights sobre Planning Poker",
+        "subtitle": "Dicas, casos reais e melhores práticas para maximizar a eficiência das suas sessões de estimativa ágil.",
+        "readMore": "Ler artigo completo",
+        "cta": {
+          "description": "Gostou do conteúdo? Experimente o Pontim gratuitamente!",
+          "button": "Começar agora"
+        }
+      }
+    }
+  }
+}

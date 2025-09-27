@@ -12,8 +12,10 @@ import {
   TrendingUp,
   Users,
 } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 export default function StoryPointsPage() {
+  const t = useTranslations("marketing.storyPoints");
   const fadeInUp = {
     initial: { opacity: 0, y: 20 },
     animate: { opacity: 1, y: 0 },
@@ -31,85 +33,83 @@ export default function StoryPointsPage() {
   const benefits = [
     {
       icon: Target,
-      title: "Estimativa Mais Precisa",
-      description: "Humanos são melhores em comparar tarefas relativamente",
+      title: t("whyUse.accuracy.title"),
+      description: t("whyUse.accuracy.description"),
     },
     {
       icon: Users,
-      title: "Independente de Quem Executa",
-      description:
-        "Uma tarefa de 5 pontos continua sendo 5 pontos para qualquer desenvolvedor",
+      title: t("whyUse.independence.title"),
+      description: t("whyUse.independence.description"),
     },
     {
       icon: BarChart3,
-      title: "Considera Múltiplos Fatores",
-      description: "Complexidade, esforço e incerteza em uma única medida",
+      title: t("whyUse.factors.title"),
+      description: t("whyUse.factors.description"),
     },
   ];
 
   const scales = [
     {
-      title: "Sequência de Fibonacci",
-      subtitle: "Mais Popular",
-      values: "1, 2, 3, 5, 8, 13, 21, 34, 55, 89",
-      description:
-        "A lacuna crescente reflete a maior incerteza em tarefas maiores",
+      title: t("scales.fibonacci.title"),
+      subtitle: t("scales.fibonacci.subtitle"),
+      values: t("scales.fibonacci.values"),
+      description: t("scales.fibonacci.description"),
       color: "blue",
     },
     {
-      title: "T-shirt Sizing",
-      subtitle: "Intuitivo",
-      values: "XS, S, M, L, XL, XXL",
-      description: "Mais intuitivo para equipes iniciantes",
+      title: t("scales.tshirt.title"),
+      subtitle: t("scales.tshirt.subtitle"),
+      values: t("scales.tshirt.values"),
+      description: t("scales.tshirt.description"),
       color: "green",
     },
     {
-      title: "Potências de 2",
-      subtitle: "Simples",
-      values: "1, 2, 4, 8, 16, 32",
-      description: "Simples e com crescimento exponencial",
+      title: t("scales.powers.title"),
+      subtitle: t("scales.powers.subtitle"),
+      values: t("scales.powers.values"),
+      description: t("scales.powers.description"),
       color: "purple",
     },
   ];
 
   const examples = [
     {
-      points: "1 Ponto",
-      title: "Tarefa Simples",
+      points: t("examples.simple.points"),
+      title: t("examples.simple.title"),
       items: [
-        "Alterar texto de um botão",
-        "Ajustar cor de um elemento",
-        "Adicionar validação simples",
+        t("examples.simple.item1"),
+        t("examples.simple.item2"),
+        t("examples.simple.item3"),
       ],
       color: "green",
     },
     {
-      points: "3 Pontos",
-      title: "Tarefa Média",
+      points: t("examples.medium.points"),
+      title: t("examples.medium.title"),
       items: [
-        "Criar nova página de formulário",
-        "Implementar funcionalidade básica",
-        "Integração com API externa simples",
+        t("examples.medium.item1"),
+        t("examples.medium.item2"),
+        t("examples.medium.item3"),
       ],
       color: "yellow",
     },
     {
-      points: "8 Pontos",
-      title: "Tarefa Complexa",
+      points: t("examples.complex.points"),
+      title: t("examples.complex.title"),
       items: [
-        "Sistema de autenticação completo",
-        "Dashboard com múltiplos gráficos",
-        "Migração de dados complexa",
+        t("examples.complex.item1"),
+        t("examples.complex.item2"),
+        t("examples.complex.item3"),
       ],
       color: "orange",
     },
     {
-      points: "13+ Pontos",
-      title: "Epic (Deve ser Quebrado)",
+      points: t("examples.epic.points"),
+      title: t("examples.epic.title"),
       items: [
-        "Sistema de pagamentos completo",
-        "Reestruturação de arquitetura",
-        "Módulo completo de relatórios",
+        t("examples.epic.item1"),
+        t("examples.epic.item2"),
+        t("examples.epic.item3"),
       ],
       color: "red",
     },
@@ -128,23 +128,19 @@ export default function StoryPointsPage() {
           <BlurFade delay={0.1} inView>
             <div className="inline-flex items-center gap-2 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 px-4 py-2 rounded-full text-sm font-medium mb-6">
               <Target className="w-4 h-4" />
-              Estimativas Ágeis
+              {t("hero.badge")}
             </div>
           </BlurFade>
 
           <BlurFade delay={0.2} inView>
             <h1 className="text-5xl md:text-6xl font-bold mb-6 text-gray-900 dark:text-white leading-tight">
-              <span className="text-black dark:text-white">Story Points</span>
-              <br />
-              Guia Completo
+              {t("hero.title")}
             </h1>
           </BlurFade>
 
           <BlurFade delay={0.3} inView>
             <p className="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto leading-relaxed">
-              Entenda o que são Story Points, como usar essa técnica de
-              estimativa ágil e por que ela é fundamental para equipes de
-              desenvolvimento.
+              {t("hero.subtitle")}
             </p>
           </BlurFade>
         </motion.header>
@@ -161,19 +157,15 @@ export default function StoryPointsPage() {
                 </div>
                 <div>
                   <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6">
-                    O que são Story Points?
+                    {t("whatAre.title")}
                   </h2>
                   <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
-                    <strong>Story Points</strong> são uma unidade de medida
-                    relativa usada em metodologias ágeis para estimar o esforço
-                    necessário para completar uma User Story ou tarefa.
+                    {t("whatAre.description")}
                   </p>
                   <div className="bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg p-4">
                     <p className="text-gray-800 dark:text-gray-200 text-sm">
-                      <strong>Conceito Principal:</strong> Story Points não
-                      medem tempo diretamente, mas sim a{" "}
-                      <em>complexidade relativa</em> de uma tarefa comparada a
-                      outras tarefas do projeto.
+                      <strong>Conceito Principal:</strong>{" "}
+                      {t("whatAre.concept")}
                     </p>
                   </div>
                 </div>
@@ -187,10 +179,10 @@ export default function StoryPointsPage() {
           <motion.section className="mb-20">
             <div className="text-center mb-12">
               <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
-                Por que usar Story Points?
+                {t("whyUse.title")}
               </h2>
               <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-                Descubra as vantagens dessa técnica de estimativa ágil
+                {t("whyUse.subtitle")}
               </p>
             </div>
 
@@ -228,10 +220,10 @@ export default function StoryPointsPage() {
           <motion.section className="mb-20">
             <div className="text-center mb-12">
               <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
-                Escalas Comuns de Story Points
+                {t("scales.title")}
               </h2>
               <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-                Escolha a escala que melhor se adapta à sua equipe
+                {t("scales.subtitle")}
               </p>
             </div>
 
@@ -278,10 +270,10 @@ export default function StoryPointsPage() {
           <motion.section className="mb-20">
             <div className="text-center mb-12">
               <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
-                Exemplos Práticos de Story Points
+                {t("examples.title")}
               </h2>
               <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-                Veja como aplicar Story Points em diferentes tipos de tarefas
+                {t("examples.subtitle")}
               </p>
             </div>
 
@@ -341,41 +333,39 @@ export default function StoryPointsPage() {
                 </div>
                 <div className="flex-1">
                   <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
-                    Velocidade da Equipe
+                    {t("velocity.title")}
                   </h2>
                   <p className="text-lg text-gray-700 dark:text-gray-300 mb-6">
-                    A <strong>velocidade</strong> é a soma dos Story Points
-                    completados em uma Sprint. Com o tempo, a equipe estabelece
-                    uma velocidade média que permite planejamento mais preciso.
+                    {t("velocity.description")}
                   </p>
 
                   <div className="bg-white dark:bg-gray-700 rounded-lg p-6 border border-gray-200 dark:border-gray-600">
                     <h3 className="font-semibold text-gray-900 dark:text-white mb-3">
-                      Exemplo de Velocidade
+                      {t("velocity.exampleTitle")}
                     </h3>
                     <ul className="space-y-2 text-sm">
                       <li className="flex items-center gap-2">
                         <div className="w-2 h-2 bg-gray-600 dark:bg-gray-400 rounded-full"></div>
                         <span className="text-gray-700 dark:text-gray-300">
-                          Sprint 1: 23 pontos completados
+                          {t("velocity.sprint1")}
                         </span>
                       </li>
                       <li className="flex items-center gap-2">
                         <div className="w-2 h-2 bg-gray-600 dark:bg-gray-400 rounded-full"></div>
                         <span className="text-gray-700 dark:text-gray-300">
-                          Sprint 2: 27 pontos completados
+                          {t("velocity.sprint2")}
                         </span>
                       </li>
                       <li className="flex items-center gap-2">
                         <div className="w-2 h-2 bg-gray-600 dark:bg-gray-400 rounded-full"></div>
                         <span className="text-gray-700 dark:text-gray-300">
-                          Sprint 3: 25 pontos completados
+                          {t("velocity.sprint3")}
                         </span>
                       </li>
                       <li className="flex items-center gap-2 font-semibold">
                         <div className="w-2 h-2 bg-black dark:bg-white rounded-full"></div>
                         <span className="text-gray-900 dark:text-white">
-                          Velocidade média: 25 pontos por sprint
+                          {t("velocity.average")}
                         </span>
                       </li>
                     </ul>
@@ -398,12 +388,10 @@ export default function StoryPointsPage() {
               <div className="max-w-3xl mx-auto">
                 <PlayCircle className="w-16 h-16 mx-auto mb-6 text-gray-300 dark:text-gray-600" />
                 <h3 className="text-3xl md:text-4xl font-bold mb-4">
-                  Experimente Story Points no Pontim
+                  {t("cta.title")}
                 </h3>
                 <p className="text-xl text-gray-300 dark:text-gray-600 mb-8 leading-relaxed">
-                  Use diferentes escalas de Story Points durante suas sessões de
-                  Planning Poker com Fibonacci, T-shirt sizing e escalas
-                  personalizadas.
+                  {t("cta.description")}
                 </p>
                 <motion.a
                   href="/login"
@@ -411,7 +399,7 @@ export default function StoryPointsPage() {
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                 >
-                  Começar Agora
+                  {t("cta.button")}
                   <ArrowRight className="w-5 h-5" />
                 </motion.a>
               </div>

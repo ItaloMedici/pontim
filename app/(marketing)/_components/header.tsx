@@ -4,12 +4,14 @@ import { Logo } from "@/components/logo";
 import { buttonVariants } from "@/components/ui/button";
 import { useUser } from "@/hooks/use-user";
 import { cn } from "@/lib/utils";
+import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
 export const Header = () => {
   const [userScroll, setUserScroll] = useState(false);
   const { user } = useUser();
+  const t = useTranslations("marketing.shared.header");
 
   useEffect(() => {
     const handleScroll = () => {
@@ -40,7 +42,7 @@ export const Header = () => {
         <div className="gap-2 flex">
           {user ? (
             <Link className={cn(buttonVariants())} href={"/home"}>
-              Entrar
+              {t("enter")}
             </Link>
           ) : (
             <>
@@ -48,11 +50,11 @@ export const Header = () => {
                 className={cn(buttonVariants({ variant: "outline" }))}
                 href={"/login"}
               >
-                Entrar
+                {t("enter")}
               </Link>
 
               <Link className={cn(buttonVariants())} href={"/login"}>
-                Cadastre-se
+                {t("signup")}
               </Link>
             </>
           )}

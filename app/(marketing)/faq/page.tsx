@@ -11,8 +11,11 @@ import {
   Users,
   Zap,
 } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 export default function FAQPage() {
+  const t = useTranslations("marketing.faq");
+
   const fadeInUp = {
     initial: { opacity: 0, y: 20 },
     animate: { opacity: 1, y: 0 },
@@ -30,27 +33,23 @@ export default function FAQPage() {
   const faqs = [
     {
       icon: HelpCircle,
-      question: "O que é Scrum Poker?",
-      answer:
-        "Scrum Poker (também conhecido como Planning Poker) é uma técnica de estimativa ágil onde os membros da equipe votam simultaneamente usando cartas numeradas para estimar a complexidade das tarefas.",
+      question: t("questions.whatIsScrumPoker.question"),
+      answer: t("questions.whatIsScrumPoker.answer"),
     },
     {
       icon: Users,
-      question: "Como funciona o Pontim?",
-      answer:
-        "O Pontim permite criar salas de estimativa onde sua equipe pode votar em tempo real usando números Fibonacci. Todos votam simultaneamente e os resultados são revelados juntos para discussão.",
+      question: t("questions.howDoesItWork.question"),
+      answer: t("questions.howDoesItWork.answer"),
     },
     {
       icon: CheckCircle,
-      question: "É gratuito usar o Pontim?",
-      answer:
-        "Sim, o Pontim oferece um plano gratuito com funcionalidades básicas para equipes pequenas. Também temos planos pagos com recursos avançados.",
+      question: t("questions.isFree.question"),
+      answer: t("questions.isFree.answer"),
     },
     {
       icon: Zap,
-      question: "Como criar uma sala no Pontim?",
-      answer:
-        'Para criar uma sala no Pontim, clique em "Criar Sala", defina um nome para sua sessão, escolha o sistema de votação (Fibonacci, T-shirt sizing, etc.) e compartilhe o link com sua equipe.',
+      question: t("questions.howToCreateRoom.question"),
+      answer: t("questions.howToCreateRoom.answer"),
     },
   ];
 
@@ -67,22 +66,19 @@ export default function FAQPage() {
           <BlurFade delay={0.1} inView>
             <div className="inline-flex items-center gap-2 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 px-4 py-2 rounded-full text-sm font-medium mb-6">
               <MessageSquare className="w-4 h-4" />
-              Perguntas Frequentes
+              {t("hero.badge")}
             </div>
           </BlurFade>
 
           <BlurFade delay={0.2} inView>
             <h1 className="text-5xl md:text-6xl font-bold mb-6 text-gray-900 dark:text-white leading-tight">
-              Tire Suas{" "}
-              <span className="text-black dark:text-white">Dúvidas</span>
+              {t("hero.title")}
             </h1>
           </BlurFade>
 
           <BlurFade delay={0.3} inView>
             <p className="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto leading-relaxed">
-              Respostas para as principais dúvidas sobre Scrum Poker, Planning
-              Poker, Story Points e como usar o Pontim para estimativas ágeis
-              eficazes.
+              {t("hero.subtitle")}
             </p>
           </BlurFade>
         </motion.header>
@@ -138,11 +134,10 @@ export default function FAQPage() {
               <div className="max-w-3xl mx-auto">
                 <PlayCircle className="w-16 h-16 mx-auto mb-6 text-gray-300 dark:text-gray-600" />
                 <h3 className="text-3xl md:text-4xl font-bold mb-4">
-                  Pronto para começar?
+                  {t("cta.title")}
                 </h3>
                 <p className="text-xl text-gray-300 dark:text-gray-600 mb-8 leading-relaxed">
-                  Crie sua primeira sala de Planning Poker e transforme suas
-                  estimativas ágeis!
+                  {t("cta.subtitle")}
                 </p>
                 <motion.a
                   href="/login"
@@ -150,7 +145,7 @@ export default function FAQPage() {
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                 >
-                  Criar Sala Gratuita
+                  {t("cta.button")}
                   <ArrowRight className="w-5 h-5" />
                 </motion.a>
               </div>

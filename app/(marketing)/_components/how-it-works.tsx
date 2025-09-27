@@ -1,34 +1,8 @@
 "use client";
 
-import { ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
-
-const steps = [
-  {
-    number: "01",
-    title: "Crie uma Sala",
-    description:
-      "Configure uma sala privada de estimativas para sua equipe em segundos.",
-  },
-  {
-    number: "02",
-    title: "Convide sua Equipe",
-    description:
-      "Compartilhe o link da sala com os membros da equipe para entrada instantânea.",
-  },
-  {
-    number: "03",
-    title: "Comece a Votar",
-    description:
-      "Apresente as tarefas e permita que os membros votem usando cartas de planning poker.",
-  },
-  {
-    number: "04",
-    title: "Alcance o Consenso",
-    description:
-      "Discuta as estimativas e chegue a um consenso em equipe de forma eficiente.",
-  },
-];
+import { ArrowRight } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -56,6 +30,30 @@ const itemVariants = {
 };
 
 export const HowItWorks = () => {
+  const t = useTranslations("marketing.homepage.howItWorks");
+
+  const steps = [
+    {
+      number: "01",
+      title: t("steps.createRoom.title"),
+      description: t("steps.createRoom.description"),
+    },
+    {
+      number: "02",
+      title: t("steps.inviteTeam.title"),
+      description: t("steps.inviteTeam.description"),
+    },
+    {
+      number: "03",
+      title: t("steps.startVoting.title"),
+      description: t("steps.startVoting.description"),
+    },
+    {
+      number: "04",
+      title: t("steps.reachConsensus.title"),
+      description: t("steps.reachConsensus.description"),
+    },
+  ];
   return (
     <section className="container py-20 bg-white">
       <motion.div
@@ -69,13 +67,13 @@ export const HowItWorks = () => {
           className="text-4xl font-bold text-center mb-4 text-black"
           variants={itemVariants}
         >
-          Como Funciona
+          {t("title")}
         </motion.h2>
         <motion.p
           className="text-center text-gray-600 mb-12 max-w-2xl mx-auto"
           variants={itemVariants}
         >
-          Comece a usar o Pontim em quatro passos simples
+          {t("subtitle")}
         </motion.p>
 
         <div className="flex flex-wrap justify-center gap-8">
@@ -97,7 +95,7 @@ export const HowItWorks = () => {
               {index < steps.length - 1 && (
                 <ArrowRight
                   className="hidden lg:block absolute top-1/2 -right-4 transform -translate-y-1/2 text-gray-300"
-                  aria-label="Próximo passo"
+                  aria-label={t("nextStep")}
                   role="img"
                 />
               )}

@@ -1,7 +1,9 @@
 import { Logo } from "@/components/logo";
+import { getTranslations } from "next-intl/server";
 import Link from "next/link";
 
-export const Footer = () => {
+export const Footer = async () => {
+  const t = await getTranslations("marketing.shared.footer");
   return (
     <footer className="w-full bg-gray-950 py-12 px-4">
       <div className="container mx-auto">
@@ -12,22 +14,20 @@ export const Footer = () => {
             <div className="flex flex-col gap-4">
               <Logo.Text color="white" />
               <p className="text-gray-400 text-sm max-w-md">
-                A plataforma que aprimora a colaboração em equipe, tornando a
-                estimativa de tarefas fácil e eficiente. Pontue seus cards de
-                forma divertida e rápida.
+                {t("description")}
               </p>
               <div className="flex gap-4">
                 <Link
                   href="/login"
                   className="bg-gray-100 hover:bg-gray-200 text-back px-6 py-2 rounded-lg text-sm font-medium transition-colors"
                 >
-                  Criar Sala Gratuita
+                  {t("createFreeRoom")}
                 </Link>
                 <Link
                   href="/pricing"
                   className="border border-gray-600 hover:border-gray-500 text-gray-300 hover:text-white px-6 py-2 rounded-lg text-sm font-medium transition-colors"
                 >
-                  Ver Planos
+                  {t("viewPlans")}
                 </Link>
               </div>
             </div>
@@ -35,14 +35,14 @@ export const Footer = () => {
 
           {/* Learning Section */}
           <div>
-            <h3 className="text-white font-semibold mb-4">Aprenda</h3>
+            <h3 className="text-white font-semibold mb-4">{t("learn")}</h3>
             <ul className="space-y-3">
               <li>
                 <Link
                   href="/scrum-poker"
                   className="text-gray-400 hover:text-white text-sm transition-colors"
                 >
-                  Scrum Poker
+                  {t("scrumPoker")}
                 </Link>
               </li>
               <li>
@@ -50,7 +50,7 @@ export const Footer = () => {
                   href="/story-points"
                   className="text-gray-400 hover:text-white text-sm transition-colors"
                 >
-                  Story Points
+                  {t("storyPoints")}
                 </Link>
               </li>
               <li>
@@ -58,7 +58,7 @@ export const Footer = () => {
                   href="/fibonacci"
                   className="text-gray-400 hover:text-white text-sm transition-colors"
                 >
-                  Fibonacci
+                  {t("fibonacci")}
                 </Link>
               </li>
             </ul>
@@ -66,14 +66,14 @@ export const Footer = () => {
 
           {/* Blog Section */}
           <div>
-            <h3 className="text-white font-semibold mb-4">Blog</h3>
+            <h3 className="text-white font-semibold mb-4">{t("blog")}</h3>
             <ul className="space-y-3">
               <li>
                 <Link
                   href="/blog"
                   className="text-gray-400 hover:text-white text-sm transition-colors"
                 >
-                  Todos os Posts
+                  {t("allPosts")}
                 </Link>
               </li>
               <li>
@@ -81,7 +81,7 @@ export const Footer = () => {
                   href="/blog/dicas-performance-planning-poker"
                   className="text-gray-400 hover:text-white text-sm transition-colors"
                 >
-                  Dicas de Performance
+                  {t("performanceTips")}
                 </Link>
               </li>
               <li>
@@ -89,7 +89,7 @@ export const Footer = () => {
                   href="/blog/metricas-eficiencia-planning"
                   className="text-gray-400 hover:text-white text-sm transition-colors"
                 >
-                  Métricas de Eficiência
+                  {t("efficiencyMetrics")}
                 </Link>
               </li>
               <li>
@@ -97,7 +97,7 @@ export const Footer = () => {
                   href="/blog/casos-reais-planning-poker"
                   className="text-gray-400 hover:text-white text-sm transition-colors"
                 >
-                  Casos Reais
+                  {t("realCases")}
                 </Link>
               </li>
             </ul>
@@ -105,14 +105,14 @@ export const Footer = () => {
 
           {/* Support Section */}
           <div>
-            <h3 className="text-white font-semibold mb-4">Suporte</h3>
+            <h3 className="text-white font-semibold mb-4">{t("support")}</h3>
             <ul className="space-y-3">
               <li>
                 <Link
                   href="/faq"
                   className="text-gray-400 hover:text-white text-sm transition-colors"
                 >
-                  FAQ
+                  {t("faq")}
                 </Link>
               </li>
               <li>
@@ -120,7 +120,7 @@ export const Footer = () => {
                   href="/pricing"
                   className="text-gray-400 hover:text-white text-sm transition-colors"
                 >
-                  Preços
+                  {t("prices")}
                 </Link>
               </li>
               <li>
@@ -128,7 +128,7 @@ export const Footer = () => {
                   href="mailto:support@pontim.org"
                   className="text-gray-400 hover:text-white text-sm transition-colors"
                 >
-                  Contato
+                  {t("contact")}
                 </a>
               </li>
               <li>
@@ -138,7 +138,7 @@ export const Footer = () => {
                   rel="noopener noreferrer"
                   className="text-gray-400 hover:text-white text-sm transition-colors"
                 >
-                  GitHub
+                  {t("github")}
                 </a>
               </li>
             </ul>
@@ -151,7 +151,7 @@ export const Footer = () => {
         {/* Bottom Section */}
         <div className="flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-gray-400 text-xs">
-            © {new Date().getFullYear()} Pontim. Todos os direitos reservados.
+            {t("copyright", { year: new Date().getFullYear() })}
           </p>
 
           {/* Quick Links */}
@@ -160,16 +160,16 @@ export const Footer = () => {
               href="/termos-de-uso"
               className="text-gray-400 hover:text-white transition-colors"
             >
-              Termos de Uso
+              {t("terms")}
             </Link>
             <Link
               href="/politica-de-privacidade"
               className="text-gray-400 hover:text-white transition-colors"
             >
-              Privacidade
+              {t("privacy")}
             </Link>
             <span className="text-gray-600">|</span>
-            <span className="text-gray-400">Feito por Italo Medici</span>
+            <span className="text-gray-400">{t("madeBy")}</span>
           </div>
         </div>
       </div>

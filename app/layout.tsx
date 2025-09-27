@@ -1,3 +1,4 @@
+import { DefineUserLocale } from "@/components/define-user-locale";
 import { env } from "@/env";
 import {
   baseMetadata,
@@ -7,7 +8,9 @@ import {
 } from "@/lib/seo";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import type { Metadata } from "next";
+import { NextIntlClientProvider } from "next-intl";
 import { Inter } from "next/font/google";
+import { cookies } from "next/headers";
 import "./globals.css";
 import { Providers } from "./providers";
 
@@ -28,6 +31,8 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const hasDefinedLocale = typeof cookies().get("locale")?.value === "string";
+
   return (
     <html lang="pt-BR">
       <head>
@@ -60,7 +65,10 @@ export default function RootLayout({
         />
       </head>
       <body className={inter.className}>
-        <Providers>{children}</Providers>
+        {!hasDefinedLocale && <DefineUserLocale />}
+        <NextIntlClientProvider>
+          <Providers>{children}</Providers>
+        </NextIntlClientProvider>
       </body>
       <GoogleAnalytics gaId={env.GA_ID} />
     </html>

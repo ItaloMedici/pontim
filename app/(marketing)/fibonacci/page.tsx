@@ -10,8 +10,10 @@ import {
   PlayCircle,
   Target,
 } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 export default function FibonacciPage() {
+  const t = useTranslations("marketing.fibonacci");
   const fadeInUp = {
     initial: { opacity: 0, y: 20 },
     animate: { opacity: 1, y: 0 },
@@ -29,34 +31,32 @@ export default function FibonacciPage() {
   const reasons = [
     {
       icon: Target,
-      title: "Reflete a Incerteza Natural",
-      description:
-        "À medida que as tarefas ficam maiores, nossa incerteza aumenta exponencialmente",
+      title: t("whyWorks.uncertainty.title"),
+      description: t("whyWorks.uncertainty.description"),
       details: [
-        "Tarefas pequenas (1-3): Diferença de 1-2 pontos",
-        "Tarefas médias (5-13): Diferença de 3-5 pontos",
-        "Tarefas grandes (21+): Diferença de 8+ pontos",
+        t("whyWorks.uncertainty.detail1"),
+        t("whyWorks.uncertainty.detail2"),
+        t("whyWorks.uncertainty.detail3"),
       ],
     },
     {
       icon: CheckCircle,
-      title: "Força Decisões Mais Claras",
-      description:
-        "A ausência de números intermediários força decisões mais definitivas",
+      title: t("whyWorks.decisions.title"),
+      description: t("whyWorks.decisions.description"),
       details: [
-        "Sem números como 4, 6, 7, 9, 10, 11, 12",
-        "Escolha entre 5 ou 8, não 6 ou 7",
-        "Diferenças mais significativas",
+        t("whyWorks.decisions.detail1"),
+        t("whyWorks.decisions.detail2"),
+        t("whyWorks.decisions.detail3"),
       ],
     },
     {
       icon: AlertCircle,
-      title: "Evita Falsa Precisão",
-      description: "Fibonacci evita a ilusão de precisão das escalas lineares",
+      title: t("whyWorks.precision.title"),
+      description: t("whyWorks.precision.description"),
       details: [
-        "Estimativas são inerentemente imprecisas",
-        "Escalas lineares criam falsa sensação de precisão",
-        "Foco na ordem de grandeza, não detalhes",
+        t("whyWorks.precision.detail1"),
+        t("whyWorks.precision.detail2"),
+        t("whyWorks.precision.detail3"),
       ],
     },
   ];
@@ -72,29 +72,29 @@ export default function FibonacciPage() {
 
   const complexityMapping = [
     {
-      level: "Baixa Complexidade",
+      level: t("practice.lowComplexity.title"),
       points: ["1", "2", "3"],
       color: "green",
       examples: [
-        "1 ponto: Alterar cor de botão",
-        "2 pontos: Criar página de login simples",
-        "3 pontos: Adicionar validação de formulário",
+        t("practice.lowComplexity.example1"),
+        t("practice.lowComplexity.example2"),
+        t("practice.lowComplexity.example3"),
       ],
     },
     {
-      level: "Média Complexidade",
+      level: t("practice.mediumComplexity.title"),
       points: ["5", "8"],
       color: "yellow",
       examples: [
-        "5 pontos: Implementar autenticação",
-        "8 pontos: Dashboard com gráficos",
+        t("practice.mediumComplexity.example1"),
+        t("practice.mediumComplexity.example2"),
       ],
     },
     {
-      level: "Alta Complexidade",
+      level: t("practice.highComplexity.title"),
       points: ["13", "21+"],
       color: "red",
-      examples: ["13+ pontos: Epic que deve ser quebrado em tarefas menores"],
+      examples: [t("practice.highComplexity.example1")],
     },
   ];
 
@@ -111,24 +111,19 @@ export default function FibonacciPage() {
           <BlurFade delay={0.1} inView>
             <div className="inline-flex items-center gap-2 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 px-4 py-2 rounded-full text-sm font-medium mb-6">
               <Calculator className="w-4 h-4" />
-              Matemática do Planning Poker
+              {t("hero.badge")}
             </div>
           </BlurFade>
 
           <BlurFade delay={0.2} inView>
             <h1 className="text-5xl md:text-6xl font-bold mb-6 text-gray-900 dark:text-white leading-tight">
-              Por que usar{" "}
-              <span className="text-black dark:text-white">Fibonacci</span>
-              <br />
-              no Planning Poker?
+              {t("hero.title")}
             </h1>
           </BlurFade>
 
           <BlurFade delay={0.3} inView>
             <p className="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto leading-relaxed">
-              Entenda a matemática por trás do Planning Poker e por que a
-              sequência de Fibonacci é a escala mais eficaz para estimativas
-              ágeis.
+              {t("hero.subtitle")}
             </p>
           </BlurFade>
         </motion.header>
@@ -138,24 +133,21 @@ export default function FibonacciPage() {
           <motion.section className="mb-20">
             <div className="bg-gray-50 dark:bg-gray-800 rounded-2xl p-8 border border-gray-200 dark:border-gray-700">
               <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6">
-                O que é a Sequência de Fibonacci?
+                {t("whatIs.title")}
               </h2>
               <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed mb-6">
-                A <strong>sequência de Fibonacci</strong> é uma série matemática
-                onde cada número é a soma dos dois anteriores, começando por 0 e
-                1. No Planning Poker, usamos uma versão modificada que inicia em
-                1:
+                {t("whatIs.description")}
               </p>
 
               <div className="bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-2xl p-8 text-center">
                 <h3 className="text-gray-900 dark:text-white font-semibold mb-4 text-xl">
-                  Sequência de Fibonacci no Planning Poker
+                  {t("whatIs.cardTitle")}
                 </h3>
                 <div className="text-4xl font-mono font-bold text-gray-900 dark:text-white mb-4">
-                  1, 2, 3, 5, 8, 13, 21, 34, 55, 89
+                  {t("whatIs.sequence")}
                 </div>
                 <p className="text-gray-700 dark:text-gray-300 text-sm">
-                  1+2=3, 2+3=5, 3+5=8, 5+8=13, e assim por diante...
+                  {t("whatIs.explanation")}
                 </p>
               </div>
             </div>
@@ -167,11 +159,10 @@ export default function FibonacciPage() {
           <motion.section className="mb-20">
             <div className="text-center mb-12">
               <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
-                Por que Fibonacci Funciona no Planning Poker?
+                {t("whyWorks.title")}
               </h2>
               <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-                Três razões fundamentais que tornam Fibonacci perfeito para
-                estimativas
+                {t("whyWorks.subtitle")}
               </p>
             </div>
 
@@ -230,21 +221,19 @@ export default function FibonacciPage() {
             <div className="bg-gray-50 dark:bg-gray-800 rounded-2xl p-8 border border-gray-200 dark:border-gray-700">
               <div className="text-center mb-8">
                 <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
-                  A Matemática por Trás do Fibonacci
+                  {t("goldenRatio.title")}
                 </h2>
                 <h3 className="text-xl font-semibold text-gray-800 dark:text-gray-200 mb-4">
-                  Razão Áurea (Golden Ratio)
+                  {t("goldenRatio.subtitle")}
                 </h3>
                 <p className="text-lg text-gray-700 dark:text-gray-300 max-w-3xl mx-auto">
-                  A sequência de Fibonacci tem uma propriedade interessante: à
-                  medida que os números aumentam, a razão entre números
-                  consecutivos se aproxima da razão áurea (φ ≈ 1.618).
+                  {t("goldenRatio.description")}
                 </p>
               </div>
 
               <div className="bg-white dark:bg-gray-700 rounded-xl p-6 mb-6">
                 <h4 className="text-lg font-semibold text-gray-900 dark:text-white mb-4 text-center">
-                  Razões na Sequência de Fibonacci
+                  {t("goldenRatio.ratiosTitle")}
                 </h4>
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
                   {goldenRatioSteps.map((step, index) => (
@@ -265,13 +254,10 @@ export default function FibonacciPage() {
 
               <div className="text-center">
                 <h4 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">
-                  Por que isso Importa?
+                  {t("goldenRatio.whyMatters")}
                 </h4>
                 <p className="text-gray-700 dark:text-gray-300 max-w-2xl mx-auto">
-                  A razão áurea aparece frequentemente na natureza e em
-                  percepções humanas de proporção. Isso significa que nossa
-                  mente naturalmente &quot;entende&quot; essas proporções,
-                  tornando as estimativas mais intuitivas.
+                  {t("goldenRatio.whyMattersDescription")}
                 </p>
               </div>
             </div>
@@ -283,10 +269,10 @@ export default function FibonacciPage() {
           <motion.section className="mb-20">
             <div className="text-center mb-12">
               <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
-                Fibonacci na Prática
+                {t("practice.title")}
               </h2>
               <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-                Como mapear a complexidade das tarefas usando Fibonacci
+                {t("practice.subtitle")}
               </p>
             </div>
 
@@ -351,12 +337,10 @@ export default function FibonacciPage() {
               <div className="max-w-3xl mx-auto">
                 <PlayCircle className="w-16 h-16 mx-auto mb-6 text-gray-300 dark:text-gray-600" />
                 <h3 className="text-3xl md:text-4xl font-bold mb-4">
-                  Experimente Fibonacci no Pontim
+                  {t("cta.title")}
                 </h3>
                 <p className="text-xl text-gray-300 dark:text-gray-600 mb-8 leading-relaxed">
-                  No Pontim, a escala de Fibonacci é pré-configurada e otimizada
-                  para estimativas ágeis com votação simultânea e revelação
-                  sincronizada.
+                  {t("cta.description")}
                 </p>
                 <motion.a
                   href="/login"
@@ -364,7 +348,7 @@ export default function FibonacciPage() {
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                 >
-                  Começar com Fibonacci
+                  {t("cta.button")}
                   <ArrowRight className="w-5 h-5" />
                 </motion.a>
               </div>

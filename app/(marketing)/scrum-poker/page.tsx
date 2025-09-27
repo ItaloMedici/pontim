@@ -5,6 +5,8 @@ import { motion } from "framer-motion";
 import {
   ArrowRight,
   CheckCircle,
+  Eye,
+  FileText,
   Lightbulb,
   MessageSquare,
   PlayCircle,
@@ -13,8 +15,10 @@ import {
   Users,
   Vote,
 } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 export default function ComoFuncionaPage() {
+  const t = useTranslations("marketing.scrumPoker");
   const fadeInUp = {
     initial: { opacity: 0, y: 20 },
     animate: { opacity: 1, y: 0 },
@@ -31,58 +35,58 @@ export default function ComoFuncionaPage() {
 
   const steps = [
     {
-      icon: Users,
-      title: "Preparação da Sessão",
-      description: "Reúna a equipe e prepare as histórias de usuário",
+      icon: FileText,
+      title: t("process.steps.preparation.title"),
+      description: t("process.steps.preparation.description"),
       details: [
-        "Lista de histórias de usuário priorizadas",
-        "Critérios de aceitação bem definidos",
-        "Toda a equipe de desenvolvimento presente",
-        "Product Owner disponível para esclarecimentos",
+        t("process.steps.preparation.detail1"),
+        t("process.steps.preparation.detail2"),
+        t("process.steps.preparation.detail3"),
+        t("process.steps.preparation.detail4"),
       ],
     },
     {
-      icon: MessageSquare,
-      title: "Apresentação da História",
-      description: "Product Owner explica a tarefa para toda a equipe",
+      icon: Users,
+      title: t("process.steps.presentation.title"),
+      description: t("process.steps.presentation.description"),
       details: [
-        "Objetivos e valor de negócio",
-        "Critérios de aceitação",
-        "Requisitos técnicos",
-        "Dependências e restrições",
+        t("process.steps.presentation.detail1"),
+        t("process.steps.presentation.detail2"),
+        t("process.steps.presentation.detail3"),
+        t("process.steps.presentation.detail4"),
       ],
     },
     {
       icon: Vote,
-      title: "Votação Simultânea",
-      description: "Todos escolhem uma carta ao mesmo tempo",
+      title: t("process.steps.voting.title"),
+      description: t("process.steps.voting.description"),
       details: [
-        "Sequência de Fibonacci: 1, 2, 3, 5, 8, 13, 21, 34, 55, 89",
-        "Votação privada e simultânea",
-        "Sem influência entre membros",
-        "Estimativa baseada em complexidade relativa",
+        t("process.steps.voting.detail1"),
+        t("process.steps.voting.detail2"),
+        t("process.steps.voting.detail3"),
+        t("process.steps.voting.detail4"),
       ],
     },
     {
-      icon: Target,
-      title: "Revelação das Cartas",
-      description: "Cartas são reveladas simultaneamente",
+      icon: Eye,
+      title: t("process.steps.reveal.title"),
+      description: t("process.steps.reveal.description"),
       details: [
-        "Revelação sincronizada de todos os votos",
-        "Identificação de divergências",
-        "Evita viés de ancoragem",
-        "Transparência total no processo",
+        t("process.steps.reveal.detail1"),
+        t("process.steps.reveal.detail2"),
+        t("process.steps.reveal.detail3"),
+        t("process.steps.reveal.detail4"),
       ],
     },
     {
-      icon: CheckCircle,
-      title: "Discussão e Consenso",
-      description: "Equipe discute e chega ao consenso",
+      icon: MessageSquare,
+      title: t("process.steps.consensus.title"),
+      description: t("process.steps.consensus.description"),
       details: [
-        "Quem votou mais alto explica preocupações",
-        "Quem votou mais baixo compartilha perspectiva",
-        "Discussão técnica e esclarecimentos",
-        "Nova rodada de votação se necessário",
+        t("process.steps.consensus.detail1"),
+        t("process.steps.consensus.detail2"),
+        t("process.steps.consensus.detail3"),
+        t("process.steps.consensus.detail4"),
       ],
     },
   ];
@@ -90,23 +94,23 @@ export default function ComoFuncionaPage() {
   const benefits = [
     {
       icon: TrendingUp,
-      title: "Estimativas mais precisas",
-      description: "Combina conhecimento de toda a equipe",
+      title: t("benefits.items.accuracy.title"),
+      description: t("benefits.items.accuracy.description"),
     },
     {
       icon: Users,
-      title: "Maior engajamento",
-      description: "Todos participam ativamente do processo",
+      title: t("benefits.items.engagement.title"),
+      description: t("benefits.items.engagement.description"),
     },
     {
       icon: Lightbulb,
-      title: "Transferência de conhecimento",
-      description: "Discussões compartilham expertise",
+      title: t("benefits.items.knowledge.title"),
+      description: t("benefits.items.knowledge.description"),
     },
     {
       icon: Target,
-      title: "Identificação de riscos",
-      description: "Diferentes perspectivas revelam problemas",
+      title: t("benefits.items.risks.title"),
+      description: t("benefits.items.risks.description"),
     },
   ];
 
@@ -123,20 +127,19 @@ export default function ComoFuncionaPage() {
           <BlurFade delay={0.1} inView>
             <div className="inline-flex items-center gap-2 bg-gray-100 text-gray-700 px-4 py-2 rounded-full text-sm font-medium mb-6">
               <Lightbulb className="w-4 h-4" />
-              Guia Completo
+              {t("hero.badge")}
             </div>
           </BlurFade>
 
           <BlurFade delay={0.2} inView>
             <h1 className="text-5xl md:text-6xl font-bold mb-6 text-gray-900 leading-tight">
-              Como Funciona o <span className="text-black">Scrum Poker</span>?
+              {t("hero.title")}
             </h1>
           </BlurFade>
 
           <BlurFade delay={0.3} inView>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-              Aprenda passo a passo como usar o Scrum Poker (Planning Poker)
-              para fazer estimativas ágeis precisas e eficazes com sua equipe.
+              {t("hero.subtitle")}
             </p>
           </BlurFade>
         </motion.header>
@@ -146,13 +149,10 @@ export default function ComoFuncionaPage() {
           <motion.section className="mb-20">
             <div className="bg-gray-50 rounded-2xl p-8 border border-gray-200">
               <h2 className="text-3xl font-bold text-gray-900 mb-6">
-                O que é Scrum Poker?
+                {t("whatIs.title")}
               </h2>
               <p className="text-lg text-gray-700 leading-relaxed">
-                O <strong>Scrum Poker</strong> (também conhecido como Planning
-                Poker) é uma técnica de estimativa ágil onde os membros da
-                equipe votam simultaneamente usando cartas numeradas para
-                estimar a complexidade das tarefas.
+                {t("whatIs.description")}
               </p>
             </div>
           </motion.section>
@@ -163,11 +163,10 @@ export default function ComoFuncionaPage() {
           <motion.section className="mb-20">
             <div className="text-center mb-12">
               <h2 className="text-4xl font-bold text-gray-900 mb-4">
-                Como Funciona o Processo
+                {t("process.title")}
               </h2>
               <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-                Siga estes 5 passos simples para conduzir uma sessão eficaz de
-                Planning Poker
+                {t("process.subtitle")}
               </p>
             </div>
 
@@ -198,7 +197,10 @@ export default function ComoFuncionaPage() {
                       >
                         <div className="flex items-center gap-4 mb-4">
                           <span className="bg-gray-100 text-gray-800 text-sm font-semibold px-3 py-1 rounded-full">
-                            Passo {index + 1}
+                            {t("process.stepLabel").replace(
+                              "{step}",
+                              (index + 1).toString(),
+                            )}
                           </span>
                         </div>
 
@@ -240,11 +242,10 @@ export default function ComoFuncionaPage() {
           <motion.section className="mb-20">
             <div className="text-center mb-12">
               <h2 className="text-4xl font-bold text-gray-900 mb-4">
-                Benefícios do Scrum Poker
+                {t("benefits.title")}
               </h2>
               <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-                Descubra por que equipes ágeis escolhem o Scrum Poker para suas
-                estimativas
+                {t("benefits.subtitle")}
               </p>
             </div>
 
@@ -287,11 +288,10 @@ export default function ComoFuncionaPage() {
               <div className="max-w-3xl mx-auto">
                 <PlayCircle className="w-16 h-16 mx-auto mb-6 text-gray-300" />
                 <h3 className="text-3xl md:text-4xl font-bold mb-4">
-                  Comece a usar Planning Poker hoje mesmo!
+                  {t("cta.title")}
                 </h3>
                 <p className="text-xl text-gray-300 mb-8 leading-relaxed">
-                  O Pontim oferece uma plataforma completa e gratuita para suas
-                  sessões de Scrum Poker com sua equipe.
+                  {t("cta.subtitle")}
                 </p>
                 <motion.a
                   href="/login"
@@ -299,7 +299,7 @@ export default function ComoFuncionaPage() {
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                 >
-                  Criar Sala Gratuita
+                  {t("cta.button")}
                   <ArrowRight className="w-5 h-5" />
                 </motion.a>
               </div>
