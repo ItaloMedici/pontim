@@ -3,9 +3,11 @@
 import { Button } from "@/components/ui/button";
 import { Track } from "@/lib/track-events";
 import { signIn } from "next-auth/react";
+import { useTranslations } from "next-intl";
 import { useSearchParams } from "next/navigation";
 
 export const LoginForm = () => {
+  const t = useTranslations("auth.login");
   const searchParams = useSearchParams();
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -32,7 +34,7 @@ export const LoginForm = () => {
         <span className="w-5 h-5">
           <GoogleIcon />
         </span>
-        Entre com Google
+        {t("googleButton")}
       </Button>
     </form>
   );

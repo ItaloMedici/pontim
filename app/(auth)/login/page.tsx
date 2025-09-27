@@ -1,5 +1,6 @@
 import { Logo } from "@/components/logo";
 import { getServerSession } from "next-auth";
+import { getTranslations } from "next-intl/server";
 import { redirect } from "next/navigation";
 import { LoginForm } from "./_components/login-form";
 
@@ -9,6 +10,7 @@ export const metadata = {
 };
 
 async function LoginPage() {
+  const t = await getTranslations("auth.login");
   const session = await getServerSession();
 
   if (session?.user) {
@@ -22,10 +24,10 @@ async function LoginPage() {
           <div className="p-6 flex flex-col">
             <Logo.Text size="sm" />
             <h1 className="text-lg font-medium leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white mb-2 mt-8">
-              Olá, bom ver você por aqui! 👋
+              {t("welcome")}
             </h1>
             <span className="text-sm text-gray-500 dark:text-gray-400 mb-8">
-              Faça login com sua conta para continuar
+              {t("subtitle")}
             </span>
             <LoginForm />
           </div>
