@@ -1,6 +1,7 @@
 "use client";
 
 import { FALLBACK_LOCALE, mapLocaleToSupported } from "@/i18n/locales";
+import { setLocaleCookieClient } from "@/i18n/utils-client";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
@@ -13,11 +14,11 @@ export const DefineUserLocale = () => {
       const mappedUserLang = mapLocaleToSupported(userLang);
 
       if (!mappedUserLang) {
-        document.cookie = `locale=${FALLBACK_LOCALE}; path=/; max-age=31536000`;
+        setLocaleCookieClient(FALLBACK_LOCALE);
         return;
       }
 
-      document.cookie = `locale=${mappedUserLang}; path=/; max-age=31536000`;
+      setLocaleCookieClient(mappedUserLang);
       router.refresh();
     }
   }, [router]);
