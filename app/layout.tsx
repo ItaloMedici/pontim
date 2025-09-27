@@ -1,40 +1,50 @@
 import { DefineUserLocale } from "@/components/define-user-locale";
 import { env } from "@/env";
+import { getCookieLocale, getLocaleOrDefault, htmlLang } from "@/i18n/utils";
 import {
-  baseMetadata,
-  faqSchema,
-  organizationSchema,
-  softwareApplicationSchema,
+  getBaseMetadata,
+  getFaqSchema,
+  getOrganizationSchema,
+  getSoftwareApplicationSchema,
 } from "@/lib/seo";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import type { Metadata } from "next";
 import { NextIntlClientProvider } from "next-intl";
+import { getTranslations } from "next-intl/server";
 import { Inter } from "next/font/google";
-import { cookies } from "next/headers";
 import "./globals.css";
 import { Providers } from "./providers";
 
 const inter = Inter({ subsets: ["latin"] });
 
-export const metadata: Metadata = {
-  ...baseMetadata,
-  title: {
-    template: "%s | Pontim",
-    default: "Pontim - Plataforma de Scrum Poker para Estimativas Ágeis",
-  },
-  description:
-    "Pontim é a plataforma open-source de Scrum Poker para estimativas ágeis em tempo real. Crie salas, vote com Fibonacci e melhore suas estimativas de story points.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const locale = getLocaleOrDefault();
+  const t = await getTranslations({ locale, namespace: "" });
 
-export default function RootLayout({
+  const baseMetadata = getBaseMetadata(t, locale);
+
+  return {
+    ...baseMetadata,
+    title: {
+      template: "%s | Pontim",
+      default: t("seo.site.title"),
+    },
+    description: t("seo.site.description"),
+  };
+}
+
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const hasDefinedLocale = typeof cookies().get("locale")?.value === "string";
+  const hasDefinedLocale = typeof getCookieLocale() === "string";
+  const locale = getLocaleOrDefault();
+
+  const t = await getTranslations({ locale, namespace: "" });
 
   return (
-    <html lang="pt-BR">
+    <html lang={htmlLang()}>
       <head>
         <script
           async
@@ -48,19 +58,19 @@ export default function RootLayout({
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify(organizationSchema),
+            __html: JSON.stringify(getOrganizationSchema(t)),
           }}
         />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify(softwareApplicationSchema),
+            __html: JSON.stringify(getSoftwareApplicationSchema(t, locale)),
           }}
         />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify(faqSchema),
+            __html: JSON.stringify(getFaqSchema(t)),
           }}
         />
       </head>
