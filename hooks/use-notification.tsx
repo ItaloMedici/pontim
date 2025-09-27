@@ -40,13 +40,13 @@ export function useNotification(roomId: string) {
       const isSendedByMe = notification.senderId === session.user?.id;
 
       const senderNickname = isSendedByMe
-        ? "Você"
+        ? t("shared.you")
         : players.find((player) => player.id === notification.senderId)
-            ?.nickname || "Alguém";
+            ?.nickname || t("shared.someone");
 
       const targetNickname =
         players.find((player) => player.id === notification.targetId)
-          ?.nickname || "alguém";
+          ?.nickname || t("shared.someone");
 
       const soundMessage = getNotificationMessageThirdPerson(t, sound);
 

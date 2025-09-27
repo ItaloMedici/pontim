@@ -1265,5 +1265,9 @@
         "native": "English"
       }
     }
+  },
+  "shared": {
+    "you": "Você",
+    "someone": "Alguém"
   }
 }
