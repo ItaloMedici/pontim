@@ -1,0 +1,1076 @@
+{
+  "marketing": {
+    "shared": {
+      "header": {
+        "enter": "Sign In",
+        "signup": "Sign Up"
+      },
+      "footer": {
+        "description": "The platform that levels up team collaboration, making task estimation easy and fun. Score your cards in a fast, playful way.",
+        "createFreeRoom": "Create Free Room",
+        "viewPlans": "View Plans",
+        "learn": "Learn",
+        "scrumPoker": "Scrum Poker",
+        "storyPoints": "Story Points",
+        "fibonacci": "Fibonacci",
+        "blog": "Blog",
+        "allPosts": "All Posts",
+        "performanceTips": "Performance Tips",
+        "efficiencyMetrics": "Efficiency Metrics",
+        "realCases": "Real Cases",
+        "support": "Support",
+        "faq": "FAQ",
+        "prices": "Pricing",
+        "contact": "Contact",
+        "github": "GitHub",
+        "copyright": "© {year} Pontim. All rights reserved.",
+        "terms": "Terms of Use",
+        "privacy": "Privacy",
+        "madeBy": "Made by Italo Medici"
+      }
+    },
+    "homepage": {
+      "hero": {
+        "title": "The smart way to estimate every single story point!",
+        "subtitle": "Vote in real time, stay connected with your team, and use sounds to keep everyone focused.",
+        "cta": "Try Pontim for Free!",
+        "imageAlt": "Pontim board",
+        "createInstantRoom": "Create Instant Room"
+      },
+      "howItWorks": {
+        "title": "How It Works",
+        "subtitle": "Get started with Pontim in four simple steps",
+        "steps": {
+          "createRoom": {
+            "title": "Create a Room",
+            "description": "Spin up a private estimation room for your team in seconds."
+          },
+          "inviteTeam": {
+            "title": "Invite Your Team",
+            "description": "Share the room link with your teammates for instant access."
+          },
+          "startVoting": {
+            "title": "Start Voting",
+            "description": "Present tasks and let the team vote using planning poker cards."
+          },
+          "reachConsensus": {
+            "title": "Reach Consensus",
+            "description": "Discuss estimates and reach team alignment efficiently."
+          }
+        },
+        "nextStep": "Next step"
+      },
+      "pricing": {
+        "title": "Pick the Perfect Plan for Your Team",
+        "subtitle": "Unlock the power of agile estimates with Pontim. Choose the plan that fits your team best."
+      }
+    },
+    "pricing": {
+      "title": "Pick the Perfect Plan for Your Team",
+      "subtitle": "Unlock the power of agile estimates with Pontim. Choose the plan that fits your team best."
+    },
+    "faq": {
+      "hero": {
+        "title": "Got Questions?",
+        "subtitle": "Answers to the most common questions about Scrum Poker, Planning Poker, Story Points, and how to use Pontim for effective agile estimates.",
+        "badge": "Frequently Asked Questions"
+      },
+      "questions": {
+        "whatIsScrumPoker": {
+          "question": "What is Scrum Poker?",
+          "answer": "Scrum Poker (also known as Planning Poker) is an agile estimation technique where team members vote simultaneously using numbered cards to estimate task complexity."
+        },
+        "howDoesItWork": {
+          "question": "How does Pontim work?",
+          "answer": "Pontim lets you create estimation rooms where your team can vote in real time using Fibonacci numbers. Everyone votes at once, and results are revealed together for discussion."
+        },
+        "isFree": {
+          "question": "Is Pontim free?",
+          "answer": "Yes, Pontim offers a free plan with basic features for small teams. We also have paid plans with advanced features."
+        },
+        "howToCreateRoom": {
+          "question": "How do I create a room in Pontim?",
+          "answer": "To create a room, click on \"Create Room,\" give your session a name, pick a voting system (Fibonacci, T-shirt sizing, etc.), and share the link with your team."
+        }
+      },
+      "cta": {
+        "title": "Ready to get started?",
+        "subtitle": "Create your first Planning Poker room and transform your agile estimates!",
+        "button": "Create Free Room"
+      }
+    },
+    "scrumPoker": {
+      "hero": {
+        "badge": "Complete Guide",
+        "title": "How Does Scrum Poker Work?",
+        "subtitle": "Step-by-step guide on how to use Scrum Poker (Planning Poker) for accurate and effective agile estimates with your team."
+      },
+      "whatIs": {
+        "title": "What is Scrum Poker?",
+        "description": "Scrum Poker (also called Planning Poker) is an agile estimation technique where team members vote at the same time using numbered cards to estimate task complexity."
+      },
+      "process": {
+        "title": "How the Process Works",
+        "subtitle": "Follow these 5 simple steps to run an effective Planning Poker session",
+        "steps": {
+          "preparation": {
+            "title": "Session Prep",
+            "description": "Set up the session with the Product Owner and team",
+            "detail1": "Prioritized user stories",
+            "detail2": "Clear acceptance criteria",
+            "detail3": "Full dev team present",
+            "detail4": "Product Owner available for clarifications"
+          },
+          "presentation": {
+            "title": "Story Presentation",
+            "description": "Product Owner explains the task to the team",
+            "detail1": "Goals and business value",
+            "detail2": "Acceptance criteria",
+            "detail3": "Technical requirements",
+            "detail4": "Dependencies and constraints"
+          },
+          "voting": {
+            "title": "Simultaneous Voting",
+            "description": "Everyone picks a card at the same time",
+            "detail1": "Fibonacci sequence: 1, 2, 3, 5, 8, 13, 21, 34, 55, 89",
+            "detail2": "Private, simultaneous voting",
+            "detail3": "No peer influence",
+            "detail4": "Estimate based on relative complexity"
+          },
+          "reveal": {
+            "title": "Card Reveal",
+            "description": "Cards are revealed all at once",
+            "detail1": "Synchronized reveal of all votes",
+            "detail2": "Spot differences quickly",
+            "detail3": "Avoids anchoring bias",
+            "detail4": "Full transparency in the process"
+          },
+          "consensus": {
+            "title": "Discussion & Consensus",
+            "description": "Team talks it out and reaches agreement",
+            "detail1": "Highest voters share concerns",
+            "detail2": "Lowest voters share perspective",
+            "detail3": "Technical discussion and clarifications",
+            "detail4": "Re-vote if needed"
+          }
+        },
+        "stepLabel": "Step {step}"
+      },
+      "benefits": {
+        "title": "Benefits of Scrum Poker",
+        "subtitle": "Why agile teams love Scrum Poker for estimation",
+        "items": {
+          "accuracy": {
+            "title": "More Accurate Estimates",
+            "description": "Taps into the knowledge of the whole team"
+          },
+          "engagement": {
+            "title": "Higher Engagement",
+            "description": "Everyone takes part actively"
+          },
+          "knowledge": {
+            "title": "Knowledge Sharing",
+            "description": "Discussions spread expertise"
+          },
+          "risks": {
+            "title": "Risk Awareness",
+            "description": "Different perspectives surface hidden issues"
+          }
+        }
+      },
+      "cta": {
+        "title": "Start using Planning Poker today!",
+        "subtitle": "Pontim gives you a complete, free platform for your team’s Scrum Poker sessions.",
+        "button": "Create Free Room"
+      }
+    },
+    "fibonacci": {
+      "hero": {
+        "badge": "Planning Poker Math",
+        "title": "Why use Fibonacci in Planning Poker?",
+        "subtitle": "Understand the math behind Planning Poker and why the Fibonacci sequence is the most effective scale for agile estimates."
+      },
+      "whatIs": {
+        "title": "What is the Fibonacci Sequence?",
+        "description": "The Fibonacci sequence is a mathematical series where each number is the sum of the two before it, starting with 0 and 1. In Planning Poker, we use a simplified version starting at 1:",
+        "sequenceTitle": "Fibonacci Sequence in Planning Poker",
+        "sequence": "1, 2, 3, 5, 8, 13, 21, 34, 55, 89",
+        "formula": "1+2=3, 2+3=5, 3+5=8, 5+8=13, and so on..."
+      },
+      "whyWorks": {
+        "title": "Why Fibonacci Works in Planning Poker",
+        "subtitle": "Three key reasons why Fibonacci is perfect for estimates",
+        "reasons": {
+          "uncertainty": {
+            "title": "Reflects Natural Uncertainty",
+            "description": "As tasks get bigger, our uncertainty grows exponentially",
+            "details": [
+              "Small tasks (1-3): Difference of 1-2 points",
+              "Medium tasks (5-13): Difference of 3-5 points",
+              "Large tasks (21+): Difference of 8+ points"
+            ]
+          },
+          "decisions": {
+            "title": "Forces Clearer Decisions",
+            "description": "No middle numbers means sharper calls",
+            "details": [
+              "No 4, 6, 7, 9, 10, 11, 12",
+              "Choose between 5 or 8, not 6 or 7",
+              "Bigger gaps make choices clearer"
+            ]
+          },
+          "precision": {
+            "title": "Avoids Fake Precision",
+            "description": "Fibonacci avoids the illusion of accuracy from linear scales",
+            "details": [
+              "Estimates are inherently imprecise",
+              "Linear scales trick us into false precision",
+              "Focus on order of magnitude, not tiny details"
+            ]
+          }
+        }
+      },
+      "goldenRatio": {
+        "title": "The Math Behind Fibonacci",
+        "subtitle": "Golden Ratio",
+        "description": "The Fibonacci sequence has a cool property: as numbers grow, the ratio between consecutive numbers approaches the golden ratio (φ ≈ 1.618).",
+        "ratiosTitle": "Ratios in the Fibonacci Sequence",
+        "whyMatters": "Why Does This Matter?",
+        "whyMattersDescription": "The golden ratio pops up everywhere in nature and in how humans perceive proportion. That means our brains naturally \"get it,\" making estimates more intuitive."
+      },
+      "practice": {
+        "title": "Fibonacci in Practice",
+        "subtitle": "How to map task complexity using Fibonacci",
+        "complexity": {
+          "low": {
+            "title": "Low Complexity",
+            "examples": [
+              "1 point: Change button color",
+              "2 points: Create a simple login page",
+              "3 points: Add form validation"
+            ]
+          },
+          "medium": {
+            "title": "Medium Complexity",
+            "examples": [
+              "5 points: Implement authentication",
+              "8 points: Dashboard with charts"
+            ]
+          },
+          "high": {
+            "title": "High Complexity",
+            "examples": ["13+ points: Epic that should be broken down"]
+          }
+        }
+      },
+      "cta": {
+        "title": "Try Fibonacci in Pontim",
+        "subtitle": "Pontim comes with a pre-configured Fibonacci scale, optimized for agile estimation with simultaneous voting and synced reveal.",
+        "button": "Start with Fibonacci"
+      }
+    },
+    "storyPoints": {
+      "hero": {
+        "badge": "Agile Estimates",
+        "title": "Story Points Complete Guide",
+        "subtitle": "Understand what Story Points are, how to use this agile estimation technique, and why they’re a must for dev teams."
+      },
+      "whatIs": {
+        "title": "What Are Story Points?",
+        "description": "Story Points are a relative unit of measure used in agile methods to estimate the effort required to complete a user story or task.",
+        "concept": "Key Concept: Story Points don’t measure time directly, but the relative complexity of a task compared to others in the project."
+      },
+      "whyUse": {
+        "title": "Why Use Story Points?",
+        "subtitle": "Discover the advantages of this agile estimation technique",
+        "benefits": {
+          "accuracy": {
+            "title": "More Accurate Estimates",
+            "description": "Humans are better at comparing tasks relatively"
+          },
+          "independent": {
+            "title": "Independent of Who Does It",
+            "description": "A 5-point task is still 5 points no matter the developer"
+          },
+          "factors": {
+            "title": "Considers Multiple Factors",
+            "description": "Complexity, effort, and uncertainty all in one measure"
+          }
+        }
+      },
+      "scales": {
+        "title": "Common Story Point Scales",
+        "subtitle": "Pick the scale that works best for your team",
+        "fibonacci": {
+          "title": "Fibonacci Sequence",
+          "subtitle": "Most Popular",
+          "values": "1, 2, 3, 5, 8, 13, 21, 34, 55, 89",
+          "description": "Growing gaps reflect increasing uncertainty in larger tasks"
+        },
+        "tshirt": {
+          "title": "T-shirt Sizing",
+          "subtitle": "Intuitive",
+          "values": "XS, S, M, L, XL, XXL",
+          "description": "Great for teams just starting out"
+        },
+        "powers": {
+          "title": "Powers of 2",
+          "subtitle": "Simple",
+          "values": "1, 2, 4, 8, 16, 32",
+          "description": "Simple, exponential growth"
+        }
+      },
+      "examples": {
+        "title": "Practical Examples of Story Points",
+        "subtitle": "See how Story Points apply to different task types",
+        "simple": {
+          "points": "1 Point",
+          "title": "Simple Task",
+          "items": [
+            "Change button text",
+            "Adjust element color",
+            "Add basic validation"
+          ]
+        },
+        "medium": {
+          "points": "3 Points",
+          "title": "Medium Task",
+          "items": [
+            "Create a new form page",
+            "Implement a basic feature",
+            "Integrate with a simple external API"
+          ]
+        },
+        "complex": {
+          "points": "8 Points",
+          "title": "Complex Task",
+          "items": [
+            "Full authentication system",
+            "Dashboard with multiple charts",
+            "Complex data migration"
+          ]
+        },
+        "epic": {
+          "points": "13+ Points",
+          "title": "Epic (Needs Breaking Down)",
+          "items": [
+            "Full payment system",
+            "Architecture overhaul",
+            "Complete reporting module"
+          ]
+        }
+      },
+      "velocity": {
+        "title": "Team Velocity",
+        "description": "Velocity is the sum of Story Points completed in a sprint. Over time, the team establishes an average velocity that helps with more accurate planning.",
+        "exampleTitle": "Velocity Example",
+        "example": [
+          "Sprint 1: 23 points completed",
+          "Sprint 2: 27 points completed",
+          "Sprint 3: 25 points completed",
+          "Average velocity: 25 points per sprint"
+        ]
+      },
+      "cta": {
+        "title": "Try Story Points in Pontim",
+        "subtitle": "Use different Story Point scales during your Planning Poker sessions with Fibonacci, T-shirt sizing, and custom scales.",
+        "button": "Start Now"
+      }
+    },
+    "blog": {
+      "hero": {
+        "badge": "Blog",
+        "title": "Planning Poker Insights",
+        "subtitle": "Tips, real cases, and best practices to maximize the efficiency of your agile estimation sessions."
+      },
+      "readMore": "Read full article",
+      "author": "By",
+      "date": "on",
+      "cta": {
+        "text": "Enjoyed the content? Try Pontim for free!",
+        "button": "Start Now"
+      }
+    },
+    "legal": {
+      "termsOfUse": {
+        "title": "Terms of Use",
+        "lastUpdated": "Last updated:",
+        "badge": "Legal Document"
+      },
+      "privacyPolicy": {
+        "title": "Privacy Policy",
+        "lastUpdated": "Last updated:",
+        "badge": "Legal Document"
+      },
+      "fibonacci": {
+        "hero": {
+          "badge": "Planning Poker Math",
+          "title": "Why use Fibonacci in Planning Poker?",
+          "subtitle": "Understand the math behind Planning Poker and why the Fibonacci sequence is the most effective scale for agile estimates."
+        },
+        "whatIs": {
+          "title": "What is the Fibonacci Sequence?",
+          "description": "The Fibonacci sequence is a mathematical series where each number is the sum of the two before it, starting with 0 and 1. In Planning Poker, we use a simplified version starting at 1:",
+          "cardTitle": "Fibonacci Sequence in Planning Poker",
+          "sequence": "1, 2, 3, 5, 8, 13, 21, 34, 55, 89",
+          "explanation": "1+2=3, 2+3=5, 3+5=8, 5+8=13, and so on..."
+        },
+        "whyWorks": {
+          "title": "Why Fibonacci Works in Planning Poker",
+          "subtitle": "Three key reasons why Fibonacci is perfect for estimates",
+          "uncertainty": {
+            "title": "Reflects Natural Uncertainty",
+            "description": "As tasks get bigger, our uncertainty grows exponentially",
+            "detail1": "Small tasks (1-3): Difference of 1-2 points",
+            "detail2": "Medium tasks (5-13): Difference of 3-5 points",
+            "detail3": "Large tasks (21+): Difference of 8+ points"
+          },
+          "decisions": {
+            "title": "Forces Clearer Decisions",
+            "description": "No middle numbers means sharper calls",
+            "detail1": "No 4, 6, 7, 9, 10, 11, 12",
+            "detail2": "Choose between 5 or 8, not 6 or 7",
+            "detail3": "Bigger gaps make choices clearer"
+          },
+          "precision": {
+            "title": "Avoids Fake Precision",
+            "description": "Fibonacci avoids the illusion of accuracy from linear scales",
+            "detail1": "Estimates are inherently imprecise",
+            "detail2": "Linear scales trick us into false precision",
+            "detail3": "Focus on order of magnitude, not tiny details"
+          }
+        },
+        "goldenRatio": {
+          "title": "The Math Behind Fibonacci",
+          "subtitle": "Golden Ratio",
+          "description": "The Fibonacci sequence has a cool property: as numbers grow, the ratio between consecutive numbers approaches the golden ratio (φ ≈ 1.618).",
+          "ratiosTitle": "Ratios in the Fibonacci Sequence",
+          "whyMatters": "Why Does This Matter?",
+          "whyMattersDescription": "The golden ratio shows up everywhere in nature and in how humans perceive proportion. That means our brains naturally \"get it,\" making estimates more intuitive."
+        },
+        "practice": {
+          "title": "Fibonacci in Practice",
+          "subtitle": "How to map task complexity using Fibonacci",
+          "lowComplexity": {
+            "title": "Low Complexity",
+            "example1": "1 point: Change button color",
+            "example2": "2 points: Create a simple login page",
+            "example3": "3 points: Add form validation"
+          },
+          "mediumComplexity": {
+            "title": "Medium Complexity",
+            "example1": "5 points: Implement authentication",
+            "example2": "8 points: Dashboard with charts"
+          },
+          "highComplexity": {
+            "title": "High Complexity",
+            "example1": "13+ points: Epic that should be broken down"
+          }
+        },
+        "cta": {
+          "title": "Try Fibonacci in Pontim",
+          "description": "Pontim comes with a pre-configured Fibonacci scale, optimized for agile estimation with simultaneous voting and synced reveal.",
+          "button": "Start with Fibonacci"
+        }
+      },
+      "storyPoints": {
+        "hero": {
+          "badge": "Agile Estimates",
+          "title": "Story Points Complete Guide",
+          "subtitle": "Understand what Story Points are, how to use this agile estimation technique, and why they’re a must for dev teams."
+        },
+        "whatAre": {
+          "title": "What Are Story Points?",
+          "description": "Story Points are a relative unit of measure used in agile methods to estimate the effort required to complete a user story or task.",
+          "concept": "Story Points don’t measure time directly, but the relative complexity of a task compared to others in the project."
+        },
+        "whyUse": {
+          "title": "Why Use Story Points?",
+          "subtitle": "Discover the advantages of this agile estimation technique",
+          "accuracy": {
+            "title": "More Accurate Estimates",
+            "description": "Humans are better at comparing tasks relatively"
+          },
+          "independence": {
+            "title": "Independent of Who Does It",
+            "description": "A 5-point task is still 5 points no matter the developer"
+          },
+          "factors": {
+            "title": "Considers Multiple Factors",
+            "description": "Complexity, effort, and uncertainty all in one measure"
+          }
+        },
+        "scales": {
+          "title": "Common Story Point Scales",
+          "subtitle": "Pick the scale that works best for your team",
+          "fibonacci": {
+            "title": "Fibonacci Sequence",
+            "subtitle": "Most Popular",
+            "values": "1, 2, 3, 5, 8, 13, 21, 34, 55, 89",
+            "description": "Growing gaps reflect increasing uncertainty in larger tasks"
+          },
+          "tshirt": {
+            "title": "T-shirt Sizing",
+            "subtitle": "Intuitive",
+            "values": "XS, S, M, L, XL, XXL",
+            "description": "Great for teams just starting out"
+          },
+          "powers": {
+            "title": "Powers of 2",
+            "subtitle": "Simple",
+            "values": "1, 2, 4, 8, 16, 32",
+            "description": "Simple, exponential growth"
+          }
+        },
+        "examples": {
+          "title": "Practical Examples of Story Points",
+          "subtitle": "See how Story Points apply to different task types",
+          "simple": {
+            "points": "1 Point",
+            "title": "Simple Task",
+            "item1": "Change button text",
+            "item2": "Adjust element color",
+            "item3": "Add basic validation"
+          },
+          "medium": {
+            "points": "3 Points",
+            "title": "Medium Task",
+            "item1": "Create a new form page",
+            "item2": "Implement a basic feature",
+            "item3": "Integrate with a simple external API"
+          },
+          "complex": {
+            "points": "8 Points",
+            "title": "Complex Task",
+            "item1": "Full authentication system",
+            "item2": "Dashboard with multiple charts",
+            "item3": "Complex data migration"
+          },
+          "epic": {
+            "points": "13+ Points",
+            "title": "Epic (Needs Breaking Down)",
+            "item1": "Full payment system",
+            "item2": "Architecture overhaul",
+            "item3": "Complete reporting module"
+          }
+        },
+        "velocity": {
+          "title": "Team Velocity",
+          "description": "Velocity is the sum of Story Points completed in a sprint. Over time, the team establishes an average velocity that helps with more accurate planning.",
+          "exampleTitle": "Velocity Example",
+          "sprint1": "Sprint 1: 23 points completed",
+          "sprint2": "Sprint 2: 27 points completed",
+          "sprint3": "Sprint 3: 25 points completed",
+          "average": "Average velocity: 25 points per sprint"
+        },
+        "cta": {
+          "title": "Try Story Points in Pontim",
+          "description": "Use different Story Point scales during your Planning Poker sessions with Fibonacci, T-shirt sizing, and custom scales.",
+          "button": "Start Now"
+        }
+      },
+      "blog": {
+        "badge": "Blog",
+        "title": "Planning Poker Insights",
+        "subtitle": "Tips, real cases, and best practices to maximize the efficiency of your agile estimation sessions.",
+        "readMore": "Read full article",
+        "cta": {
+          "description": "Enjoyed the content? Try Pontim for free!",
+          "button": "Start Now"
+        }
+      }
+    }
+  },
+  "auth": {
+    "login": {
+      "title": "Login",
+      "description": "Log in to your account",
+      "welcome": "Hey, good to see you here! 👋",
+      "subtitle": "Sign in with your account to continue",
+      "googleButton": "Sign in with Google"
+    }
+  },
+  "dashboard": {
+    "shared": {
+      "errors": {
+        "general": "Oops, something went wrong",
+        "again": "Ugh, again?",
+        "somethingWrong": "Yikes, something broke",
+        "tryAgain": "Our bad, try again",
+        "failed": "That went sideways"
+      },
+      "welcome": {
+        "joined": {
+          "jumped": "parachuted in 🪂",
+          "entered": "just walked in 🎉",
+          "arrived": "pulled up 🚀",
+          "cameToPlay": "came to play 🎲",
+          "inTheArea": "is in the house 🏟",
+          "cameToAdd": "here to level up 🧮",
+          "joinedUs": "hopped in 🤙",
+          "inTheGame": "is in the game 🃏",
+          "cameToScore": "ready to score 🏆"
+        },
+        "left": {
+          "leftRoom": "left the room 🏃‍♂️💨",
+          "jumpedOut": "bailed out 🪂",
+          "couldntHandle": "couldn’t handle the heat 🥵",
+          "gaveUp": "gave up 🤦‍♂️",
+          "wentAway": "peaced out 😢",
+          "didntWantToPlay": "wasn’t down to play 😔",
+          "didntWantAnything": "checked out 🙄",
+          "didntWantToRisk": "didn’t wanna risk it 🤷‍♂️"
+        }
+      },
+      "notifications": {
+        "knock": {
+          "message": "Knock knock, game time! 🚪✊",
+          "icon": "🚪",
+          "action": "knocked on"
+        },
+        "carHorn": {
+          "message": "Hey! You’re holding up traffic here! 📣🚗",
+          "icon": "🚘",
+          "action": "honked at"
+        },
+        "police": {
+          "message": "Pick your card and move along 🚨🚓",
+          "icon": "🚓",
+          "action": "called the cops on"
+        }
+      },
+      "state": {
+        "maxRounds": "You’ve hit the max number of rounds.",
+        "maxRooms": {
+          "title": "Hold up, partner 🤠✋",
+          "description": "You’ve reached the room limit for your plan. To create more, upgrade your plan.",
+          "cancel": "Cancel",
+          "upgrade": "Upgrade Plan"
+        },
+        "roomFull": {
+          "title": "Room’s full, partner 🤠✋",
+          "description": "This room hit the max participant limit. If you’re the owner, you can increase it by upgrading your plan. Or ping the room owner to raise the cap.",
+          "cancel": "Cancel",
+          "upgrade": "Upgrade Plan"
+        }
+      }
+    },
+    "home": {
+      "title": "Rooms",
+      "filters": {
+        "favorites": "Favorites",
+        "search": {
+          "placeholder": "Search"
+        }
+      },
+      "orderMessages": {
+        "success": {
+          "title": "Woohoo! 🤩",
+          "description": "Congrats! Your plan is active and ready to go. Enjoy all the exclusive features and take your experience to the next level! 🎉",
+          "button": "Start enjoying"
+        }
+      },
+      "roomList": {
+        "empty": {
+          "noResults": {
+            "emoji": "🧐",
+            "title": "Nothing found here...",
+            "button": "Go Back"
+          },
+          "welcome": {
+            "emoji": "🎉",
+            "title": "Hey, welcome to Pontim!",
+            "description": "Create a new room and invite your teammates 👇"
+          }
+        },
+        "createRoom": {
+          "title": "New Room"
+        }
+      },
+      "createRoomDialog": {
+        "trigger": "Create new room",
+        "title": "Create new room",
+        "error": "Something went wrong while creating the room"
+      },
+      "createRoomForm": {
+        "success": "Room created successfully!",
+        "error": "Something went wrong creating the room",
+        "roomName": {
+          "label": "Room name",
+          "placeholder": "A cool name"
+        },
+        "deckSelection": {
+          "label": "Choose your deck",
+          "placeholder": "Select a deck type"
+        },
+        "customDeckUpgrade": {
+          "title": "Unlock the full power of Pontim! 💪",
+          "description": "Create custom decks and work your way. Upgrade now and don’t miss out!",
+          "upgradeButton": "Upgrade now"
+        },
+        "submitButton": "Create room"
+      },
+      "roomCard": {
+        "favoriteError": "Error favoriting room",
+        "you": "You"
+      }
+    },
+    "room": {
+      "navbar": {
+        "backButton": "Back",
+        "inviteButton": "Invite players",
+        "inviteCopied": "Invite link copied to clipboard"
+      },
+      "dock": {
+        "loading": "Loading...",
+        "newRound": "New Round",
+        "reveal": "Reveal",
+        "stats": {
+          "average": "Average",
+          "mostVoted": "Most Voted",
+          "votes": "{totalChoices}/{totalPlayers} votes",
+          "currentAverage": "Current average:",
+          "concordance": "Consensus:",
+          "agreementThermometer": "Agreement meter:",
+          "remainingRounds": "Remaining rounds:",
+          "unlimited": "Unlimited"
+        }
+      },
+      "status": {
+        "noVotes": "Nobody picked yet... 😴",
+        "allVoted": "Everyone’s in! 🎉",
+        "averageResult": "We’ve got an average of {average} points 📊",
+        "alone": "All alone here... 😴 Try inviting more players!",
+        "votesCount": "{totalChoices} of {totalPlayers} votes 🗳️"
+      },
+      "playersList": {
+        "playerImageAlt": "Profile picture of player {nickname}",
+        "morePlayersAlt": "More players"
+      },
+      "roomActions": {
+        "copyInvite": "Copy invite",
+        "copySuccess": "Copied!",
+        "copyError": "Error copying invite",
+        "deleteRoom": "Delete room",
+        "deleteSuccess": "Room deleted!",
+        "deleteError": "Error deleting room",
+        "leaveRoom": "Leave room",
+        "leaveSuccess": "You left the room!",
+        "confirmDelete": {
+          "header": "Are you sure? 🤔",
+          "description": "Confirming will delete the room for all participants!"
+        }
+      },
+      "roomFull": {
+        "emoji": "🙁",
+        "title": "Room Full",
+        "description": "This room reached its max capacity. Contact the admin to increase the player limit.",
+        "buttons": {
+          "back": "Back",
+          "tryAgain": "Try Again",
+          "viewPlans": "View Plans"
+        }
+      },
+      "cardsPicker": {
+        "title": "Pick a card: 👇"
+      }
+    },
+    "userButton": {
+      "profileAlt": "User profile",
+      "avatarAlt": "Profile picture",
+      "planSection": {
+        "title": "Your Plan",
+        "changeLink": "Change",
+        "planLabel": "{planName} Plan",
+        "activeStatus": "Active"
+      },
+      "signOut": "Sign Out"
+    },
+    "reportButton": {
+      "label": "Button to report",
+      "text": "Report"
+    },
+    "supportButton": {
+      "label": "Button to support the project",
+      "text": "Support",
+      "thanks": "Thanks! 🫰",
+      "tooltip": "Help keep our servers running 🫰"
+    },
+    "invite": {
+      "title": "Special Invite",
+      "description": "You’ve been invited to join a Pontim room 🎉."
+    },
+    "report": {
+      "title": "Send a Report",
+      "form": {
+        "name": {
+          "label": "Name",
+          "placeholder": "Your name",
+          "error": "Name must have at least 2 characters."
+        },
+        "email": {
+          "label": "Email",
+          "placeholder": "Your email",
+          "error": "Invalid email address."
+        },
+        "type": {
+          "label": "Report Type",
+          "placeholder": "Select a report type",
+          "error": "Please select a report type.",
+          "options": {
+            "bug": "🐞 Bug",
+            "feedback": "💬 Feedback",
+            "feature": "✨ Feature Suggestion"
+          }
+        },
+        "message": {
+          "label": "Message",
+          "placeholder": "Describe your bug, feedback, or feature suggestion",
+          "error": "Message must have at least 10 characters."
+        },
+        "attachment": {
+          "label": "Attachment",
+          "description": "Upload a file (optional, max 5MB)",
+          "error": "Max file size is 5MB."
+        },
+        "submit": {
+          "idle": "Send Report",
+          "submitting": "Sending..."
+        },
+        "success": {
+          "title": "Report sent",
+          "description": "Thanks for your feedback! We’ll review your message carefully."
+        },
+        "error": {
+          "title": "Error",
+          "description": "There was a problem sending your report. Please try again."
+        }
+      }
+    },
+    "closeWindow": {
+      "success": {
+        "title": "Thank you! 🎉",
+        "message": "Thanks for trusting Pontim! Everything was processed correctly, and you can safely close this window.",
+        "footer": "You make the difference! Thank you so much! 💚",
+        "buttons": {
+          "close": "Close Window",
+          "continue": "Continue in Pontim"
+        }
+      },
+      "default": {
+        "title": "All good! 👍",
+        "message": "You can safely close this window.",
+        "buttons": {
+          "close": "Close Window",
+          "goHome": "Go to Pontim"
+        }
+      }
+    }
+  },
+  "components": {
+    "createInstantRoom": {
+      "form": {
+        "ownerName": {
+          "label": "Your name",
+          "placeholder": "Your best nickname"
+        },
+        "roomName": {
+          "label": "Room name",
+          "placeholder": "A cool name"
+        },
+        "deckOption": {
+          "label": "Deck type",
+          "placeholder": "Select a deck type"
+        },
+        "toast": {
+          "success": "Room created successfully!",
+          "error": "Something went wrong creating the room"
+        },
+        "customDeckInfo": {
+          "title": "Unlock the full power of Pontim! 💪",
+          "message": "Create custom decks and work your way — create a free account now!",
+          "button": "Let’s go!"
+        },
+        "submitButton": "Create room"
+      }
+    },
+    "homeError": {
+      "title": "Oh no! Something went wrong.",
+      "tryAgain": "Try Again",
+      "goBack": "Go Back",
+      "reportError": "Report Error"
+    }
+  },
+  "actions": {
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "update": "Update",
+    "close": "Close",
+    "continue": "Continue",
+    "confirm": "Confirm",
+    "next": "Next",
+    "previous": "Previous",
+    "back": "Back",
+    "tryAgain": "Try Again",
+    "goBack": "Go Back",
+    "report": "Report",
+    "support": "Support",
+    "upgrade": "Upgrade",
+    "create": "Create",
+    "start": "Start",
+    "stop": "Stop",
+    "yes": "Yes",
+    "no": "No",
+    "ok": "OK"
+  },
+  "schemas": {
+    "required": "This field is required.",
+    "invalidEmail": "Invalid email address.",
+    "minLength": "Must be at least {min} characters.",
+    "maxLength": "Must be at most {max} characters.",
+    "passwordMismatch": "Passwords do not match.",
+    "invalidNumber": "Invalid number.",
+    "minNumber": "Must be greater than or equal to {min}.",
+    "maxNumber": "Must be less than or equal to {max}."
+  },
+  "legal": {
+    "privacy": {
+      "title": "Privacy Policy",
+      "lastUpdated": "Last updated:",
+      "badge": "Legal Document",
+      "intro": "Your privacy matters to us. This Privacy Policy explains how Pontim collects, uses, and protects your information.",
+      "sections": {
+        "collection": {
+          "title": "Information We Collect",
+          "description": "We collect information you provide directly (like when creating an account) and data generated from using our services."
+        },
+        "usage": {
+          "title": "How We Use Information",
+          "description": "We use your information to provide and improve our services, personalize your experience, and keep things running smoothly."
+        },
+        "sharing": {
+          "title": "Information Sharing",
+          "description": "We don’t sell your personal data. We may share information with trusted third parties who help us operate Pontim."
+        },
+        "security": {
+          "title": "Data Security",
+          "description": "We use industry-standard measures to protect your data. But remember, no method of transmission or storage is 100% secure."
+        },
+        "rights": {
+          "title": "Your Rights",
+          "description": "You can access, correct, or delete your personal information. Contact us if you want to exercise these rights."
+        }
+      }
+    }
+  },
+  "errors": {
+    "default": "Oops, something went wrong.",
+    "network": "Network error. Please check your connection.",
+    "unauthorized": "You’re not authorized to perform this action.",
+    "forbidden": "You don’t have permission to access this resource.",
+    "notFound": "The requested resource could not be found.",
+    "serverError": "Server error. Please try again later.",
+    "timeout": "Request timed out. Please try again."
+  },
+  "seo": {
+    "site": {
+      "title": "Pontim - Scrum Poker Platform for Agile Estimates",
+      "description": "Pontim is the open-source Scrum Poker platform for real-time agile estimation. Create rooms, vote with Fibonacci, and improve your story point estimates.",
+      "imageAlt": "Pontim - Scrum Poker interface"
+    },
+    "keywords": [
+      "scrum poker",
+      "planning poker",
+      "agile estimates",
+      "story points",
+      "fibonacci",
+      "t-shirt sizing",
+      "agile methodology",
+      "software development",
+      "project management",
+      "planning",
+      "poker",
+      "scrum",
+      "agile",
+      "online scrum poker tool",
+      "story point estimation fibonacci",
+      "free planning poker",
+      "real-time scrum poker",
+      "agile estimation tool",
+      "online fibonacci voting",
+      "scrum poker usa",
+      "planning poker english",
+      "how to do planning poker online",
+      "story point estimation tool",
+      "free scrum poker usa",
+      "planning poker for remote teams",
+      "online agile fibonacci estimation",
+      "scrum master tool",
+      "anonymous planning poker voting",
+      "real-time planning poker",
+      "task complexity estimation"
+    ],
+    "organization": {
+      "description": "Open-source Scrum Poker platform for real-time agile estimation"
+    },
+    "softwareApplication": {
+      "description": "Scrum Poker platform for real-time agile estimation with Fibonacci voting",
+      "offerDescription": "Free plan available",
+      "features": [
+        "Real-time voting",
+        "Customizable private rooms",
+        "Interactive sound notifications",
+        "Scrum poker",
+        "Planning poker",
+        "Fibonacci voting",
+        "Agile estimates",
+        "Project management",
+        "Group voting",
+        "Story points"
+      ]
+    },
+    "faq": {
+      "questions": [
+        {
+          "question": "What is Scrum Poker?",
+          "answer": "Scrum Poker (also known as Planning Poker) is an agile estimation technique where team members vote simultaneously using numbered cards to estimate task complexity. It’s widely used in agile frameworks like Scrum to improve the accuracy of story point estimates."
+        },
+        {
+          "question": "How does Pontim work?",
+          "answer": "Pontim lets you create estimation rooms where your team can vote in real time using Fibonacci numbers. Everyone votes at the same time, and results are revealed together for discussion. The platform offers sound notifications, customizable rooms, and an intuitive interface to make estimation easier."
+        },
+        {
+          "question": "Is Pontim free to use?",
+          "answer": "Yes, Pontim has a free plan with basic features for small teams. We also offer paid plans with advanced features like unlimited rooms, vote history, and integrations for larger teams."
+        },
+        {
+          "question": "What are the benefits of Planning Poker?",
+          "answer": "Planning Poker improves estimation accuracy by combining multiple team perspectives, reduces individual bias, encourages productive discussions about task complexity, and helps spot hidden risks and dependencies."
+        },
+        {
+          "question": "How do I create a room in Pontim?",
+          "answer": "To create a room in Pontim, click on 'Create Room,' give your session a name, pick a voting system (Fibonacci, T-shirt sizing, etc.), and share the link with your team. It’s simple and doesn’t require sign-up."
+        }
+      ]
+    },
+    "twitter": {
+      "title": "Pontim - Scrum Poker Platform for Agile Estimates",
+      "description": "Open-source Scrum Poker platform for real-time agile estimation."
+    }
+  },
+  "languageSwitcher": {
+    "label": "Language",
+    "languages": {
+      "pt": {
+        "name": "Portuguese",
+        "native": "Português"
+      },
+      "en": {
+        "name": "English",
+        "native": "English"
+      }
+    }
+  }
+}

@@ -1,6 +1,6 @@
 export const SupportedLocales = {
   ptBR: "pt-BR",
-  // en: "en",
+  en: "en",
 } as const;
 
 type SupportedLocale = (typeof SupportedLocales)[keyof typeof SupportedLocales];
@@ -11,9 +11,9 @@ export const mapLocaleToSupported = (locale: string) => {
     ptBR: SupportedLocales.ptBR,
     pt: SupportedLocales.ptBR,
     "pt-br": SupportedLocales.ptBR,
-    // "en-US": SupportedLocales.en,
-    // en: SupportedLocales.en,
-    // "en-us": SupportedLocales.en,
+    "en-US": SupportedLocales.en,
+    en: SupportedLocales.en,
+    "en-us": SupportedLocales.en,
   };
 
   return map[locale] as SupportedLocale | undefined;
