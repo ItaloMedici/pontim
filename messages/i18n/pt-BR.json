@@ -1252,5 +1252,18 @@
       "title": "Pontim - Plataforma de Scrum Poker para Estimativas Ágeis",
       "description": "Plataforma open-source de Scrum Poker para estimativas ágeis em tempo real."
     }
+  },
+  "languageSwitcher": {
+    "selectLanguage": "Selecionar idioma",
+    "languages": {
+      "pt": {
+        "name": "Português",
+        "native": "Português"
+      },
+      "en": {
+        "name": "Inglês",
+        "native": "English"
+      }
+    }
   }
 }
