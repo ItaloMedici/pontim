@@ -1,3 +1,4 @@
+import { LanguageSwitcher } from "@/components/language-switcher";
 import { Logo } from "@/components/logo";
 import { getTranslations } from "next-intl/server";
 import Link from "next/link";
@@ -143,6 +144,10 @@ export const Footer = async () => {
               </li>
             </ul>
           </div>
+        </div>
+
+        <div className="my-4 flex justify-end">
+          <LanguageSwitcher variant="footer" />
         </div>
 
         {/* Divider */}
