@@ -3,7 +3,7 @@ export const SupportedLocales = {
   en: "en",
 } as const;
 
-type SupportedLocale = (typeof SupportedLocales)[keyof typeof SupportedLocales];
+export type Locales = (typeof SupportedLocales)[keyof typeof SupportedLocales];
 
 export const mapLocaleToSupported = (locale: string) => {
   const map = {
@@ -16,7 +16,26 @@ export const mapLocaleToSupported = (locale: string) => {
     "en-us": SupportedLocales.en,
   };
 
-  return map[locale] as SupportedLocale | undefined;
+  return map[locale] as Locales | undefined;
+};
+
+interface Language {
+  code: Locales;
+  name: string;
+  flag: string;
+}
+
+export const languagesMap: Record<Locales, Language> = {
+  [SupportedLocales.ptBR]: {
+    code: SupportedLocales.ptBR,
+    name: "Português",
+    flag: "🇧🇷",
+  },
+  [SupportedLocales.en]: {
+    code: SupportedLocales.en,
+    name: "English",
+    flag: "🇺🇸",
+  },
 };
 
 export const FALLBACK_LOCALE = SupportedLocales.ptBR;
