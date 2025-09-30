@@ -1,12 +1,14 @@
 import { env } from "@/env";
 import { Metadata } from "next";
+import { getMessages } from "next-intl/server";
 import { OpenGraph } from "next/dist/lib/metadata/types/opengraph-types";
 
 // Type for translation function
 type TranslationFunction = (key: string) => any;
 
-export const getKeywords = (t: TranslationFunction): string[] => {
-  return t("seo.keywords");
+export const getKeywords = async (): Promise<string[]> => {
+  const messages = await getMessages();
+  return (messages as any)?.seo?.keywords || [];
 };
 
 const openGraphLocale = {
@@ -49,40 +51,45 @@ export const getOrganizationSchema = (t: TranslationFunction) => ({
   },
 });
 
-export const getSoftwareApplicationSchema = (
+export const getSoftwareApplicationSchema = async (
   t: TranslationFunction,
   locale: string,
-) => ({
-  "@context": "https://schema.org",
-  "@type": "SoftwareApplication",
-  name: "Pontim",
-  description: t("seo.softwareApplication.description") as string,
-  applicationCategory: "ProductivityApplication",
-  operatingSystem: "Web Browser",
-  offers: {
-    "@type": "Offer",
-    price: "0",
-    priceCurrency: "BRL",
-    description: t("seo.softwareApplication.offerDescription") as string,
-  },
-  softwareVersion: "1.0.0",
-  downloadUrl: env.SITE_URL,
-  screenshot: `${env.SITE_URL}/marketing/hero.webp`,
-  featureList: t("seo.softwareApplication.features") as string[],
-  author: {
-    "@type": "Organization",
+) => {
+  const messages = await getMessages();
+  const features = (messages as any)?.seo?.softwareApplication?.features || [];
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
     name: "Pontim",
-  },
-  aggregateRating: {
-    "@type": "AggregateRating",
-    ratingValue: "4.8",
-    ratingCount: "150",
-    bestRating: "5",
-  },
-  datePublished: "2024-01-01",
-  dateModified: new Date().toISOString().split("T")[0],
-  inLanguage: locale === "pt" ? "pt-BR" : "en",
-});
+    description: t("seo.softwareApplication.description") as string,
+    applicationCategory: "ProductivityApplication",
+    operatingSystem: "Web Browser",
+    offers: {
+      "@type": "Offer",
+      price: "0",
+      priceCurrency: "BRL",
+      description: t("seo.softwareApplication.offerDescription") as string,
+    },
+    softwareVersion: "1.0.0",
+    downloadUrl: env.SITE_URL,
+    screenshot: `${env.SITE_URL}/marketing/hero.webp`,
+    featureList: features,
+    author: {
+      "@type": "Organization",
+      name: "Pontim",
+    },
+    aggregateRating: {
+      "@type": "AggregateRating",
+      ratingValue: "4.8",
+      ratingCount: "150",
+      bestRating: "5",
+    },
+    datePublished: "2024-01-01",
+    dateModified: new Date().toISOString().split("T")[0],
+    inLanguage: locale === "pt" ? "pt-BR" : "en",
+  };
+};
 
 export const breadcrumbSchema = (
   items: Array<{ name: string; url: string }>,
@@ -97,8 +104,9 @@ export const breadcrumbSchema = (
   })),
 });
 
-export const getFaqSchema = (t: TranslationFunction) => {
-  const questions = t("seo.faq.questions");
+export const getFaqSchema = async () => {
+  const messages = await getMessages();
+  const questions = (messages as any)?.seo?.faq?.questions || [];
 
   if (!Array.isArray(questions)) {
     return {
@@ -122,44 +130,48 @@ export const getFaqSchema = (t: TranslationFunction) => {
   };
 };
 
-export const getBaseMetadata = (
+export const getBaseMetadata = async (
   t: TranslationFunction,
   locale: string,
-): Metadata => ({
-  title: t("seo.site.title"),
-  description: t("seo.site.description"),
-  keywords: getKeywords(t),
-  publisher: "Pontim",
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
+): Promise<Metadata> => {
+  const keywords = await getKeywords();
+
+  return {
+    title: t("seo.site.title"),
+    description: t("seo.site.description"),
+    keywords: keywords,
+    publisher: "Pontim",
+    robots: {
       index: true,
       follow: true,
-      "max-video-preview": -1,
-      "max-image-preview": "large",
-      "max-snippet": -1,
+      googleBot: {
+        index: true,
+        follow: true,
+        "max-video-preview": -1,
+        "max-image-preview": "large",
+        "max-snippet": -1,
+      },
     },
-  },
-  openGraph: getOpenGraph(t, locale),
-  twitter: {
-    card: "summary_large_image",
-    title: t("seo.twitter.title"),
-    description: t("seo.twitter.description"),
-    images: [`${env.SITE_URL}/marketing/hero.webp`],
-  },
-  alternates: {
-    canonical: env.SITE_URL,
-  },
-  category: "technology",
-  other: {
-    "script:ld+json": JSON.stringify([
-      getOrganizationSchema(t),
-      getSoftwareApplicationSchema(t, locale),
-      getFaqSchema(t),
-    ]),
-  },
-});
+    openGraph: getOpenGraph(t, locale),
+    twitter: {
+      card: "summary_large_image",
+      title: t("seo.twitter.title"),
+      description: t("seo.twitter.description"),
+      images: [`${env.SITE_URL}/marketing/hero.webp`],
+    },
+    alternates: {
+      canonical: env.SITE_URL,
+    },
+    category: "technology",
+    other: {
+      "script:ld+json": JSON.stringify([
+        getOrganizationSchema(t),
+        await getSoftwareApplicationSchema(t, locale),
+        await getFaqSchema(),
+      ]),
+    },
+  };
+};
 
 // Backward compatibility - default Portuguese versions for existing usage
 const defaultT = (key: string): any => {
@@ -189,12 +201,5 @@ const defaultT = (key: string): any => {
   return ptTranslations[key] || "";
 };
 
-export const baseMetadata = getBaseMetadata(defaultT, "pt");
 export const organizationSchema = getOrganizationSchema(defaultT);
-export const softwareApplicationSchema = getSoftwareApplicationSchema(
-  defaultT,
-  "pt",
-);
-export const faqSchema = getFaqSchema(defaultT);
 export const openGraph = getOpenGraph(defaultT, "pt");
-export const keywords = getKeywords(defaultT);
