@@ -16,6 +16,7 @@ model User {
   imageUrl     String?
   createdAt    DateTime      @default(now())
   updatedAt    DateTime      @updatedAt
+  expireAt     DateTime?
   UserRoom     UserRoom[]
   Subscription Subscription?
 }
@@ -28,6 +29,7 @@ model Room {
   createdAt  DateTime   @default(now())
   updatedAt  DateTime   @updatedAt
   deckId     String?
+  expireAt   DateTime?
   UserRoom   UserRoom[]
   Board      Board?
 }
