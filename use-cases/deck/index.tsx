@@ -126,6 +126,27 @@ export async function getDecksSelection({ userEmail }: { userEmail: string }) {
   return selections;
 }
 
+export async function getDefaultDecksSelection() {
+  const service = new DeckSevice();
+
+  const decks = await service.getDefault();
+
+  const selections = decks.map<ChoiceSelectOptions>((deck) => {
+    const title = `${deck.name} (${deck.value})`;
+    return {
+      title,
+      value: deck.id,
+    };
+  });
+
+  selections.push({
+    title: "Criar deck customizado",
+    value: DefaultDecks.CUSTOM,
+  });
+
+  return selections;
+}
+
 export async function getRoomChoiceOptions({ roomId }: { roomId: string }) {
   const service = new DeckSevice();
 
