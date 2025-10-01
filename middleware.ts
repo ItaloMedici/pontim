@@ -1,5 +1,6 @@
 import { withAuth } from "next-auth/middleware";
 import { NextResponse } from "next/server";
+import { getGuestToken, verifyGuestToken } from "./lib/auth/guest-auth";
 
 const openRoutes = [
   "/",
@@ -34,7 +35,14 @@ export default withAuth(
       signIn: "/login",
     },
     callbacks: {
-      authorized({ req, token }) {
+      async authorized({ req, token }) {
+        const guestToken = getGuestToken();
+
+        if (guestToken) {
+          const isValid = await verifyGuestToken(guestToken);
+          return Boolean(isValid);
+        }
+
         const url = new URL(req.url).pathname;
 
         if (url.startsWith("/blog")) {
