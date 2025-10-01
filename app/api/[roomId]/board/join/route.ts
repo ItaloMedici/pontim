@@ -1,8 +1,7 @@
-import { authOptions } from "@/authOptions";
+import { getCombinedSession } from "@/lib/auth/universal-auth";
 import { logger } from "@/lib/logger";
 import { BoardService } from "@/use-cases/board/board-service";
 import { PlanService } from "@/use-cases/plan/plan-board-service";
-import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 
 export const PUT = async (
@@ -10,7 +9,7 @@ export const PUT = async (
   { params }: { params: { roomId: string } },
 ) => {
   try {
-    const session = await getServerSession(authOptions);
+    const session = await getCombinedSession();
 
     if (!session?.user) {
       return Response.json({ message: "Unauthorized" }, { status: 401 });
