@@ -1,18 +1,12 @@
 import { env } from "@/env";
 import { db } from "@/lib/db";
-import stripe from "@/lib/stripe";
+import { addHours } from "date-fns";
 
 type Input = {
-  stripeCustomerId: string;
   userEmail: string;
 };
 
-export const subscribeToFreePlan = async ({
-  stripeCustomerId,
-  userEmail,
-}: Input) => {
-  const customer = await stripe.customers.retrieve(stripeCustomerId);
-
+export const subscribeGuestToFreePlan = async ({ userEmail }: Input) => {
   const freePlan = await db.plan.findFirst({
     where: {
       priceId: env.FREE_PLAN_PRICE_ID,
@@ -21,19 +15,17 @@ export const subscribeToFreePlan = async ({
 
   if (!freePlan) return;
 
-  const stripeCustomerSubscription = await stripe.subscriptions.create({
-    customer: customer.id,
-    items: [{ price: freePlan?.priceId }],
-  });
+  const fakeCustomerId = `free-plan-${userEmail}`;
+  const fakeSubscriptionId = `free-plan-subscription-${userEmail}`;
+
+  const currentPeriodEnd = addHours(Date.now(), 24);
 
   const subscription = await db.subscription.create({
     data: {
-      customerId: customer.id,
-      status: stripeCustomerSubscription.status,
-      currentPeriodEnd: new Date(
-        stripeCustomerSubscription.current_period_end * 1000,
-      ),
-      stripeSubscriptionId: stripeCustomerSubscription.id,
+      customerId: fakeCustomerId,
+      status: "active",
+      currentPeriodEnd: currentPeriodEnd,
+      stripeSubscriptionId: fakeSubscriptionId,
       user: {
         connect: {
           email: userEmail,
@@ -47,7 +39,7 @@ export const subscribeToFreePlan = async ({
     },
   });
 
-  await db.user.update({
+  return db.user.update({
     where: {
       email: userEmail,
     },

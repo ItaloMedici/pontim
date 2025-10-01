@@ -1,8 +1,8 @@
 import { EventAction, EventEnvelope, UNLIMITED_PLAN_VALUE } from "@/lib/consts";
 import { redis } from "@/lib/redis";
 import { Board, BoardStatus } from "@/types/board-status";
+import { CombinedSession } from "@/types/guest-auth";
 import { Player } from "@/types/player";
-import { Session } from "next-auth";
 import { getRoomChoiceOptions } from "../deck";
 import { getRoomOwnerSubscription } from "../subscription/get-room-owner-subscription";
 
@@ -23,7 +23,7 @@ class BoardEntity {
 
   constructor(
     readonly roomId: string,
-    readonly session: Session,
+    readonly session: CombinedSession,
   ) {}
 
   get boardKey() {
@@ -92,7 +92,7 @@ class BoardEntity {
     const boardWithInititalMetrics = this.calculateBoardMetrics(board);
 
     await this.setBoard(boardWithInititalMetrics);
-    await redis.expire(this.boardKey, 60 * 60 * 24);
+    await redis.expire(this.boardKey, 60 * 60 * 24); // 24 hours
 
     return board;
   }
@@ -154,14 +154,9 @@ class BoardEntity {
       nextRound: this.nextRoundAction.bind(this),
     };
 
-    console.log(
-      `Executing action: ${action} for room: ${this.roomId} by user: ${this.session.user.id}`,
-    );
-
     this._board = await actionHandlers[action](this._board, data);
 
     if (typeof this._board !== "undefined") {
-      console.log("Calculating board metrics after action execution");
       this._board = this.calculateBoardMetrics(this._board);
 
       await this.setBoard(this._board);
@@ -367,7 +362,7 @@ class BoardEntity {
 export class BoardService {
   private boardEntity: BoardEntity;
 
-  constructor(roomId: string, session: Session) {
+  constructor(roomId: string, session: CombinedSession) {
     this.boardEntity = new BoardEntity(roomId, session);
     this.boardEntity.getBoard();
   }

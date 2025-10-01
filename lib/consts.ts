@@ -43,3 +43,7 @@ export enum DefaultDecks {
   PONTIM = "deck_pontim",
   CUSTOM = "deck_custom",
 }
+
+export const GUEST_TOKEN_COOKIE = "pontim-guest-token";
+
+export const GUEST_USER_EMAIL_DOMAIN = "-temp-non-user@pontim.org";
