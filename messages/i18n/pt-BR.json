@@ -34,7 +34,8 @@
         "title": "O jeito inteligente de estimar cada pontim dos story points!",
         "subtitle": "Vote em tempo real, conecte-se com seu time e use sons para manter todos focados.",
         "cta": "Experimente o Pontim Gratuitamente!",
-        "imageAlt": "Board do pontim"
+        "imageAlt": "Board do pontim",
+        "createInstantRoom": "Criar Sala Instantânea"
       },
       "howItWorks": {
         "title": "Como Funciona",
@@ -893,6 +894,9 @@
           "button": "Bora!"
         },
         "submitButton": "Criar sala"
+      },
+      "dialog": {
+        "title": "Criar sala Rápida"
       }
     },
     "homeError": {

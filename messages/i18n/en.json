@@ -259,9 +259,7 @@
           },
           "high": {
             "title": "High Complexity",
-            "examples": [
-              "13+ points: Epic that should be broken down"
-            ]
+            "examples": ["13+ points: Epic that should be broken down"]
           }
         }
       },
@@ -890,10 +888,14 @@
         },
         "customDeckInfo": {
           "title": "Unlock the full power of Pontim! 💪",
-          "message": "Create custom decks and work your way — create a free account now!",
+          "message": "Create custom decks and work your way, create a free account now!",
           "button": "Let’s go!"
         },
         "submitButton": "Create room"
+      },
+      "dialog": {
+        "title": "Create Instant Room",
+        "description": "Create a room in seconds and start playing instantly, no sign-up needed! Use sign-up if you want to save your room, guests and access more features."
       }
     },
     "homeError": {
@@ -968,13 +970,20 @@
     }
   },
   "errors": {
-    "default": "Oops, something went wrong.",
-    "network": "Network error. Please check your connection.",
-    "unauthorized": "You’re not authorized to perform this action.",
-    "forbidden": "You don’t have permission to access this resource.",
-    "notFound": "The requested resource could not be found.",
-    "serverError": "Server error. Please try again later.",
-    "timeout": "Request timed out. Please try again."
+    "root": {
+      "title": "Oops! Something went wrong.",
+      "tryAgain": "Try Again",
+      "reportError": "Report Error"
+    },
+    "notFound": {
+      "blog": {
+        "title": "Post not found",
+        "description": "The article you are looking for does not exist or may have been removed. How about exploring other content from our blog?",
+        "viewAllPosts": "View all posts",
+        "goHome": "Go home",
+        "contact": "If you believe this is an error, please contact us."
+      }
+    }
   },
   "seo": {
     "site": {
