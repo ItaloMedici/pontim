@@ -1,4 +1,4 @@
-"only server";
+"use server";
 
 import { DefaultDecks } from "@/lib/consts";
 import { db } from "@/lib/db";
