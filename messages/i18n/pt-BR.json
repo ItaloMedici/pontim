@@ -896,7 +896,8 @@
         "submitButton": "Criar sala"
       },
       "dialog": {
-        "title": "Criar sala Rápida"
+        "title": "Criar sala Rápida",
+        "description": "Crie uma sala em segundos e comece a jogar instantaneamente, sem necessidade de cadastro! Crie uma conta se quiser salvar sua sala, convidados e acessar mais recursos."
       }
     },
     "homeError": {
