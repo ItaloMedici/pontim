@@ -9,6 +9,14 @@ type NumberCardsProps = {
   isSelf?: boolean;
 };
 
+const FallbackAvatar = ({ player }: { player: Player }) => {
+  return (
+    <span className="flex items-center justify-center h-full w-full bg-gradient-to-tr from-sky-300 to-gray-300 text-[10px] font-semibold text-sky-800">
+      {buildPlayerFallbackImage(player)}
+    </span>
+  );
+};
+
 const Card = ({
   children,
   isSelf,
@@ -44,8 +52,8 @@ const Front = ({ value, player, isSelf }: NumberCardsProps) => {
             height={20}
             alt={player.nickname}
           />
-          <AvatarFallback className="text-xs">
-            {buildPlayerFallbackImage(player)}
+          <AvatarFallback>
+            <FallbackAvatar player={player} />
           </AvatarFallback>
         </Avatar>
       </div>
@@ -75,7 +83,9 @@ const Back = ({ player, isSelf, value }: NumberCardsProps) => {
             height={28}
             alt={player.nickname}
           />
-          <AvatarFallback>{buildPlayerFallbackImage(player)}</AvatarFallback>
+          <AvatarFallback>
+            <FallbackAvatar player={player} />
+          </AvatarFallback>
         </Avatar>
       </div>
     </Card>
