@@ -1,7 +1,6 @@
-import { authOptions } from "@/authOptions";
+import { getCombinedSession } from "@/lib/auth/universal-auth";
 import { logger } from "@/lib/logger";
 import { BoardService } from "@/use-cases/board/board-service";
-import { getServerSession } from "next-auth";
 
 export async function POST(
   request: Request,
@@ -13,7 +12,7 @@ export async function POST(
 
   try {
     const { choice } = await request.json();
-    const session = await getServerSession(authOptions);
+    const session = await getCombinedSession();
 
     if (!choice) {
       return Response.json({ message: "Choice is required" }, { status: 400 });

@@ -1,10 +1,9 @@
-import { authOptions } from "@/authOptions";
+import { getCombinedSession } from "@/lib/auth/universal-auth";
 import { EventAction, EventEnvelope } from "@/lib/consts";
 import { logger } from "@/lib/logger";
 import { redis } from "@/lib/redis";
 import { BoardService } from "@/use-cases/board/board-service";
 import { NotificationService } from "@/use-cases/notification/notification-service";
-import { getServerSession } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(
@@ -12,7 +11,7 @@ export async function GET(
   { params }: { params: { roomId: string } },
 ) {
   try {
-    const session = await getServerSession(authOptions);
+    const session = await getCombinedSession();
 
     if (!session?.user) {
       return Response.json({ message: "Unauthorized" }, { status: 401 });

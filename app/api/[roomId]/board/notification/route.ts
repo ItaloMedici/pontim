@@ -1,7 +1,6 @@
-import { authOptions } from "@/authOptions";
+import { getCombinedSession } from "@/lib/auth/universal-auth";
 import { logger } from "@/lib/logger";
 import { NotificationService } from "@/use-cases/notification/notification-service";
-import { getServerSession } from "next-auth";
 
 export async function POST(
   request: Request,
@@ -10,7 +9,7 @@ export async function POST(
   try {
     const { targetId, notification } = await request.json();
 
-    const session = await getServerSession(authOptions);
+    const session = await getCombinedSession();
 
     if (!session?.user) {
       return Response.json({ message: "Unauthorized" }, { status: 401 });
@@ -39,7 +38,7 @@ export async function DELETE(
   { params }: { params: { roomId: string } },
 ) {
   try {
-    const session = await getServerSession(authOptions);
+    const session = await getCombinedSession();
 
     if (!session?.user) {
       return Response.json({ message: "Unauthorized" }, { status: 401 });

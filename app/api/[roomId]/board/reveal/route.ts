@@ -1,7 +1,5 @@
-import { authOptions } from "@/authOptions";
 import { logger } from "@/lib/logger";
 import { BoardService } from "@/use-cases/board/board-service";
-import { getServerSession } from "next-auth";
 import { NextRequest } from "next/server";
 
 export async function PUT(
@@ -15,7 +13,7 @@ export async function PUT(
       return Response.json({ message: "Invalid input" }, { status: 400 });
     }
 
-    const session = await getServerSession(authOptions);
+    const session = await getCombinedSession();
 
     if (!session?.user) {
       return Response.json({ message: "Unauthorized" }, { status: 401 });

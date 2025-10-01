@@ -1,15 +1,13 @@
-import { authOptions } from "@/authOptions";
 import { logger } from "@/lib/logger";
 import { BoardService } from "@/use-cases/board/board-service";
 import { PlanService } from "@/use-cases/plan/plan-board-service";
-import { getServerSession } from "next-auth";
 
 export async function POST(
   _: Request,
   { params }: { params: { roomId: string } },
 ) {
   try {
-    const session = await getServerSession(authOptions);
+    const session = await getCombinedSession();
 
     if (!session?.user) {
       return Response.json({ message: "Unauthorized" }, { status: 401 });
