@@ -18,14 +18,14 @@ export const authOptions: AuthOptions = {
     signOut: "/logout",
   },
   callbacks: {
-    async jwt({ token, account, trigger }) {
+    async jwt({ token, account }) {
       if (account) {
         token.accessToken = account.access_token;
       }
 
       if (!token.email) return token;
 
-      let user: User | undefined | null = await createUser({
+      const user: User | undefined | null = await createUser({
         email: token.email,
         name: token.name as string,
         image: token.picture as string,
