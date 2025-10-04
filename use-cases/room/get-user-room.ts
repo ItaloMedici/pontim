@@ -1,18 +1,16 @@
 "use server";
 
 import { db } from "@/lib/db";
-import { userSchema } from "@/lib/schemas/user";
-import { z } from "zod";
 
 type Input = {
   roomId: string;
-  user: z.infer<typeof userSchema>;
+  userEmail: string;
 };
 
-export const getUserRoom = async ({ user, roomId }: Input) => {
+export const getUserRoom = async ({ userEmail, roomId }: Input) => {
   return await db.userRoom.findFirst({
     where: {
-      userEmail: user.email,
+      userEmail,
       roomId,
     },
   });

@@ -2,7 +2,7 @@
 
 import { DefaultDecks } from "@/lib/consts";
 import { db } from "@/lib/db";
-import { addHours } from "date-fns";
+import { addHours, isBefore } from "date-fns";
 import { z } from "zod";
 import { createGuestUserAndSignIn } from "../guest/create-guest";
 import { fetchRandomImage } from "../image/fetch-ramdom-image";
@@ -46,3 +46,24 @@ export const createInstantRoom = validator({
     return room;
   },
 });
+
+export async function isRoomTemporary(roomId: string) {
+  const room = await db.room.findUnique({
+    where: { id: roomId },
+    select: { expireAt: true },
+  });
+
+  return room?.expireAt !== null;
+}
+
+export async function getValidTemporaryRoomByGuestEmail(guestEmail: string) {
+  const room = await db.room.findFirst({
+    where: { ownerEmail: guestEmail },
+  });
+
+  if (!room) return null;
+
+  const isValid = room.expireAt !== null && isBefore(new Date(), room.expireAt);
+
+  return isValid ? room : null;
+}

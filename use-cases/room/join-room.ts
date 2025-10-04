@@ -1,6 +1,7 @@
 import { db } from "@/lib/db";
 import { userSchema } from "@/lib/schemas/user";
 import { z } from "zod";
+import { getUserRoom } from ".";
 import { validator } from "../validator";
 
 export const joinRoom = validator({
@@ -15,16 +16,16 @@ export const joinRoom = validator({
       throw new Error("Room not found");
     }
 
-    const userRoom = await db.userRoom.findFirst({
-      where: {
-        userEmail: user.email,
-        roomId,
-      },
+    const isTemporaryRoom = room?.expireAt !== null;
+
+    if (isTemporaryRoom) return;
+
+    const alreadyJoined = await getUserRoom({
+      roomId,
+      userEmail: user.email,
     });
 
-    if (userRoom) {
-      throw new Error("Already joined");
-    }
+    if (alreadyJoined) return;
 
     await db.userRoom.create({
       data: {

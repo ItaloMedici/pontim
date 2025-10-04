@@ -31,7 +31,7 @@ export const createGuestUserAndSignIn = async ({
     throw new Error("Failed to subscribe guest to free plan");
   }
 
-  signInGuest(updatedUser);
+  await signInGuest(updatedUser);
 
   return updatedUser;
 };

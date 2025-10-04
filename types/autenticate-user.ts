@@ -4,4 +4,5 @@ export type AuthenticatedUser = {
   image?: string;
   planName?: string;
   id: string;
+  isGuest?: false;
 };
