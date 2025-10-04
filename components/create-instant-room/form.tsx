@@ -1,5 +1,6 @@
 "use client";
 
+import { useTemporaryRoomContext } from "@/app/(marketing)/_components/temporary-room-context";
 import { toast } from "@/components/toast";
 import { Button, buttonVariants } from "@/components/ui/button";
 import {
@@ -18,7 +19,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useDeckOptions } from "@/context/deck-selection-options";
 import { useAction } from "@/hooks/use-action";
 import { DefaultDecks } from "@/lib/consts";
 import {
@@ -37,8 +37,7 @@ import { useForm } from "react-hook-form";
 export function CreateInstantRoomForm() {
   const t = useTranslations();
   const router = useRouter();
-  const decks = useDeckOptions();
-  console.log(decks);
+  const { decks } = useTemporaryRoomContext();
 
   const [showCustomDeskInfo, setShowCustomDeskInfo] = useState(false);
 
