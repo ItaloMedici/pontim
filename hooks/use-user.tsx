@@ -1,10 +1,10 @@
+import { useCombinedSession } from "@/context/session";
 import { AuthenticatedUser } from "@/types/autenticate-user";
-import { useSession } from "next-auth/react";
 
 export const useUser = () => {
-  const { data } = useSession();
+  const session = useCombinedSession();
 
   return {
-    user: data?.user as AuthenticatedUser | undefined,
+    user: session?.user as AuthenticatedUser | undefined,
   };
 };
