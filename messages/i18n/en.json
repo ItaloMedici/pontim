@@ -35,7 +35,8 @@
         "subtitle": "Vote in real time, stay connected with your team, and use sounds to keep everyone focused.",
         "cta": "Try Pontim for Free!",
         "imageAlt": "Pontim board",
-        "createInstantRoom": "Create Instant Room"
+        "createInstantRoom": "Create Instant Room",
+        "joinCurrentRoom": "Join Current Join"
       },
       "howItWorks": {
         "title": "How It Works",
@@ -259,7 +260,9 @@
           },
           "high": {
             "title": "High Complexity",
-            "examples": ["13+ points: Epic that should be broken down"]
+            "examples": [
+              "13+ points: Epic that should be broken down"
+            ]
           }
         }
       },
@@ -903,6 +906,13 @@
       "tryAgain": "Try Again",
       "goBack": "Go Back",
       "reportError": "Report Error"
+    },
+    "playerGuestLogin": {
+      "title": "Welcome to room {roomName}!",
+      "description": "Enter your name to join the room as a guest",
+      "nameLabel": "Your name",
+      "namePlaceholder": "Your best nickname",
+      "submitButton": "Join Room"
     }
   },
   "actions": {
@@ -1086,6 +1096,10 @@
   },
   "shared": {
     "you": "You",
-    "someone": "Someone"
+    "someone": "Someone",
+    "name": "Name",
+    "validations": {
+      "fieldIsRequired": "{field} is required."
+    }
   }
 }

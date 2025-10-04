@@ -35,7 +35,8 @@
         "subtitle": "Vote em tempo real, conecte-se com seu time e use sons para manter todos focados.",
         "cta": "Experimente o Pontim Gratuitamente!",
         "imageAlt": "Board do pontim",
-        "createInstantRoom": "Criar Sala Instantânea"
+        "createInstantRoom": "Criar Sala Instantânea",
+        "joinCurrentRoom": "Entrar na Sala"
       },
       "howItWorks": {
         "title": "Como Funciona",
@@ -905,6 +906,13 @@
       "tryAgain": "Tente novamente",
       "goBack": "Voltar",
       "reportError": "Reportar erro"
+    },
+    "playerGuestLogin": {
+      "title": "Bem vindo à sala {roomName}! 👋",
+      "nameLabel": "Seu nome",
+      "namePlaceholder": "Digite aqui...",
+      "submitButton": "Entrar como convidado",
+      "description": "Digite seu nome para entrar na sala como convidado."
     }
   },
   "actions": {
@@ -1273,6 +1281,10 @@
   },
   "shared": {
     "you": "Você",
-    "someone": "Alguém"
+    "someone": "Alguém",
+    "validations": {
+      "fieldIsRequired": "{field} é obrigatório"
+    },
+    "name": "Nome"
   }
 }
