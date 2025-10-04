@@ -10,7 +10,6 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useAction } from "@/hooks/use-action";
-import { buildInviteUrl } from "@/use-cases/invite/build-invite-url";
 import { deleteRoom, leaveRoom } from "@/use-cases/room";
 import { DropdownMenuContentProps } from "@radix-ui/react-dropdown-menu";
 import { Link2, LogOut, Trash2 } from "lucide-react";
@@ -43,7 +42,7 @@ export const RoomActions = ({
 
   const onCopyLink = () => {
     navigator.clipboard
-      .writeText(buildInviteUrl(id, window.location.origin))
+      .writeText(window.location.href)
       .then(() =>
         toast.success(t("dashboard.room.roomActions.copySuccess"), {
           icon: "📋",

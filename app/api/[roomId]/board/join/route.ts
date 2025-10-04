@@ -2,6 +2,7 @@ import { getCombinedSession } from "@/lib/auth/universal-auth";
 import { logger } from "@/lib/logger";
 import { BoardService } from "@/use-cases/board/board-service";
 import { PlanService } from "@/use-cases/plan/plan-board-service";
+import { joinRoom } from "@/use-cases/room";
 import { redirect } from "next/navigation";
 
 export const PUT = async (
@@ -9,16 +10,17 @@ export const PUT = async (
   { params }: { params: { roomId: string } },
 ) => {
   try {
-    const session = await getCombinedSession();
-
-    if (!session?.user) {
-      return Response.json({ message: "Unauthorized" }, { status: 401 });
-    }
-
     const { roomId } = params;
 
     if (!roomId) {
       return Response.json({ message: "Invalid input" }, { status: 400 });
+    }
+    const session = await getCombinedSession();
+
+    if (!session?.user) {
+      const roomUrl = `/room/${params.roomId}`;
+
+      return redirect(`/login?callbackUrl=${roomUrl}`);
     }
 
     const boardService = new BoardService(roomId, session);
@@ -44,6 +46,8 @@ export const PUT = async (
     if (!planService.canJoinBoard(boardData.totalPlayers)) {
       return redirect(`/room/${roomId}/is-full`);
     }
+
+    await joinRoom({ roomId, user: session?.user });
 
     const updated = await boardService.join();
 

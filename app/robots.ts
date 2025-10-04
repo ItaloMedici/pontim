@@ -27,7 +27,6 @@ export default function robots(): MetadataRoute.Robots {
           // Área de usuário autenticado
           "/home/",
           "/room/",
-          "/invite/",
           "/report/",
           "/close-window/",
           "/logout/",
@@ -50,13 +49,13 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: "Googlebot",
         allow: ["/", "/pricing", "/marketing/*", "/sounds/*", "/llm.txt"],
-        disallow: ["/api/", "/home/", "/room/", "/invite/"],
+        disallow: ["/api/", "/home/", "/room/"],
       },
       // Regras específicas para Bingbot
       {
         userAgent: "Bingbot",
         allow: ["/", "/pricing", "/marketing/*", "/llm.txt"],
-        disallow: ["/api/", "/home/", "/room/", "/invite/"],
+        disallow: ["/api/", "/home/", "/room/"],
       },
       // Bloquear bots maliciosos conhecidos
       {

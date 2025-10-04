@@ -6,7 +6,6 @@ import { UserButton } from "@/components/user-button";
 import { useBoard } from "@/context/board";
 import { useIsMobile } from "@/hooks/use-is-mobile";
 import { cn } from "@/lib/utils";
-import { buildInviteUrl } from "@/use-cases/invite/build-invite-url";
 import { CheckIcon, ChevronLeft, PlusIcon } from "lucide-react";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
@@ -34,9 +33,8 @@ export const BoardNavbar = () => {
     const roomId = params?.roomId;
     if (!roomId) return;
 
-    navigator.clipboard.writeText(
-      buildInviteUrl(roomId, window.location.origin),
-    );
+    const url = window.location.href;
+    navigator.clipboard.writeText(url);
 
     setCopiedInvite(true);
 

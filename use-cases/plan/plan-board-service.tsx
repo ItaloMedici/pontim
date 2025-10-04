@@ -32,13 +32,13 @@ export class PlanService {
       throw new Error("Room not found");
     }
 
-    const user = await getUserByEmail(room.ownerEmail);
+    const owner = await getUserByEmail(room.ownerEmail);
 
-    if (!user) {
+    if (!owner) {
       throw new Error("User not found");
     }
 
-    const subscription = await getSubscriptionByUser({ userId: user.id });
+    const subscription = await getSubscriptionByUser({ userId: owner.id });
 
     if (!subscription) {
       throw new Error("User plan not found");
