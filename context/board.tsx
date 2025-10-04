@@ -1,3 +1,5 @@
+"use client";
+
 import { LoadingLogo } from "@/components/loading-logo/loading";
 import { RoundsReachLimitDialog } from "@/components/rounds-reach-limit-dialog";
 import { toast } from "@/components/toast";
