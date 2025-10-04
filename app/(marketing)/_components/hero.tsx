@@ -8,9 +8,11 @@ import { cn } from "@/lib/utils";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
 import Link from "next/link";
+import { useTemporaryRoomContext } from "./temporary-room-context";
 
 export const Hero = () => {
   const t = useTranslations("marketing.homepage.hero");
+  const { button } = useTemporaryRoomContext();
 
   return (
     <section className="relative flex w-full flex-col items-center justify-start px-4 pt-20 sm:px-6 sm:pt-20 lg:px-8">
@@ -25,7 +27,7 @@ export const Hero = () => {
           </BlurFade>
         </h1>
         <BlurFade delay={0.5} inView>
-          <p className="mx-auto max-w-xl text-center text-md leading-7 text-muted-foreground sm:text-lg sm:leading-8 text-balance">
+          <p className="mx-auto max-w-xl text-center text-md leading-5 text-muted-foreground sm:text-lg sm:leading-8 text-balance">
             {t("subtitle")}
           </p>
         </BlurFade>
@@ -33,9 +35,15 @@ export const Hero = () => {
 
       <div className="mx-auto mt-6 flex w-full max-w-2xl flex-col items-center justify-center space-y-4 sm:flex-row sm:space-x-4 sm:space-y-0">
         <BlurFade delay={0.75} inView>
-          <Link className={cn(buttonVariants({ size: "lg" }))} href={"/login"}>
-            {t("cta")}
-          </Link>
+          <div className="flex gap-4">
+            <Link
+              className={cn(buttonVariants({ size: "lg" }))}
+              href={"/login"}
+            >
+              {t("cta")}
+            </Link>
+            {button}
+          </div>
         </BlurFade>
       </div>
 

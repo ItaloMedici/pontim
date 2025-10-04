@@ -1,6 +1,7 @@
 import { DefineUserLocale } from "@/components/define-user-locale";
 import { env } from "@/env";
 import { getCookieLocale, getLocaleOrDefault, htmlLang } from "@/i18n/utils";
+import { getCombinedSession } from "@/lib/auth/universal-auth";
 import {
   getBaseMetadata,
   getFaqSchema,
@@ -40,6 +41,7 @@ export default async function RootLayout({
 }>) {
   const hasDefinedLocale = typeof getCookieLocale() === "string";
   const locale = getLocaleOrDefault();
+  const session = await getCombinedSession();
 
   const t = await getTranslations({ locale, namespace: "" });
 
@@ -70,14 +72,14 @@ export default async function RootLayout({
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify(getFaqSchema(t)),
+            __html: JSON.stringify(getFaqSchema()),
           }}
         />
       </head>
       <body className={inter.className}>
         {!hasDefinedLocale && <DefineUserLocale />}
         <NextIntlClientProvider>
-          <Providers>{children}</Providers>
+          <Providers session={session}>{children}</Providers>
         </NextIntlClientProvider>
       </body>
       <GoogleAnalytics gaId={env.GA_ID} />

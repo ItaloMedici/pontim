@@ -1,15 +1,17 @@
 "use client";
 
 import { Toaster } from "@/components/ui/sonner";
-import { SessionProvider } from "next-auth/react";
+import { CombinedSessionProvider } from "@/context/session";
+import { CombinedSession } from "@/types/guest-auth";
 
 export function Providers({
   children,
-}: Readonly<{ children: React.ReactNode }>) {
+  session,
+}: Readonly<{ children: React.ReactNode; session: CombinedSession | null }>) {
   return (
-    <SessionProvider>
+    <CombinedSessionProvider session={session}>
       <Toaster />
       {children}
-    </SessionProvider>
+    </CombinedSessionProvider>
   );
 }
