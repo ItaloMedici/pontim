@@ -3,17 +3,18 @@ import { NextResponse } from "next/server";
 import { getGuestToken, verifyGuestToken } from "./lib/auth/guest-auth";
 
 const openRoutes = [
-  "/",
-  "/api/stripe/webhook",
-  "/api/metrics",
-  "/pricing",
-  "/scrum-poker",
-  "/faq",
-  "/story-points",
-  "/fibonacci",
-  "/politica-de-privacidade",
-  "/termos-de-uso",
-  "/blog",
+  /^\/$/,
+  /^\/api\/stripe\/webhook$/,
+  /^\/api\/metrics$/,
+  /^\/pricing$/,
+  /^\/scrum-poker$/,
+  /^\/faq$/,
+  /^\/story-points$/,
+  /^\/fibonacci$/,
+  /^\/politica-de-privacidade$/,
+  /^\/termos-de-uso$/,
+  /^\/blog(\/.*)?$/,
+  /^\/room(\/.*)?$/,
 ];
 
 export default withAuth(
@@ -36,21 +37,21 @@ export default withAuth(
     },
     callbacks: {
       async authorized({ req, token }) {
+        const url = new URL(req.url).pathname;
+
+        const isOpenRoute = openRoutes.some((route) => {
+          return route.test(url);
+        });
+
+        if (isOpenRoute) {
+          return true;
+        }
+
         const guestToken = getGuestToken();
 
         if (guestToken) {
           const isValid = await verifyGuestToken(guestToken);
           return Boolean(isValid);
-        }
-
-        const url = new URL(req.url).pathname;
-
-        if (url.startsWith("/blog")) {
-          return true;
-        }
-
-        if (openRoutes.includes(url)) {
-          return true;
         }
 
         return !!token;
