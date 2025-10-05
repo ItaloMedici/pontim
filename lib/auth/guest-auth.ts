@@ -30,7 +30,6 @@ export async function createGuestToken(user: User): Promise<string> {
 
 export async function signInGuest(user: User) {
   const token = await createGuestToken(user);
-  console.log("Signing in guest user, setting token:", { token });
   setGuestToken(token);
 }
 
