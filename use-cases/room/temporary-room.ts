@@ -63,7 +63,7 @@ export async function getValidTemporaryRoomByGuestEmail(
   if (!user?.isGuest || !user.email) return null;
 
   const room = await db.room.findFirst({
-    where: { ownerEmail: guestEmail },
+    where: { ownerEmail: user.email },
   });
 
   if (!room) return null;
