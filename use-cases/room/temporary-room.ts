@@ -63,7 +63,7 @@ export async function getValidTemporaryRoomByGuestEmail(guestEmail: string) {
 
   if (!room) return null;
 
-  const isValid = room.expireAt !== null && isBefore(new Date(), room.expireAt);
+  const isValid = room.expireAt !== null && isBefore(room.expireAt, Date.now());
 
   return isValid ? room : null;
 }

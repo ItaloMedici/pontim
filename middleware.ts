@@ -15,6 +15,7 @@ const openRoutes = [
   /^\/termos-de-uso$/,
   /^\/blog(\/.*)?$/,
   /^\/room(\/.*)?$/,
+  /^\/api\/temporary\/cleanup(\/.*)?$/,
 ];
 
 export default withAuth(
