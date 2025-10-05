@@ -260,9 +260,7 @@
           },
           "high": {
             "title": "High Complexity",
-            "examples": [
-              "13+ points: Epic that should be broken down"
-            ]
+            "examples": ["13+ points: Epic that should be broken down"]
           }
         }
       },
@@ -772,6 +770,15 @@
           "back": "Back",
           "tryAgain": "Try Again",
           "viewPlans": "View Plans"
+        }
+      },
+      "roomNotFound": {
+        "emoji": "🔍",
+        "title": "Room Not Found",
+        "description": "This room doesn't exist or has expired. The link might be incorrect or the room has been deleted.",
+        "buttons": {
+          "back": "Back to Home",
+          "createRoom": "Create New Room"
         }
       },
       "cardsPicker": {

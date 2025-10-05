@@ -774,6 +774,15 @@
           "viewPlans": "Ver planos"
         }
       },
+      "roomNotFound": {
+        "emoji": "🔍",
+        "title": "Sala Não Encontrada",
+        "description": "Esta sala não existe ou expirou. O link pode estar incorreto ou a sala foi excluída.",
+        "buttons": {
+          "back": "Voltar ao Início",
+          "createRoom": "Criar Nova Sala"
+        }
+      },
       "cardsPicker": {
         "title": "Escolha uma carta: 👇"
       }
