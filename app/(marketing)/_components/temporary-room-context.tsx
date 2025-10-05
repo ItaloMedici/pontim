@@ -13,7 +13,7 @@ import { createContext, useContext, useMemo } from "react";
 type TemporaryRoomContextType = {
   decks: ChoiceSelectOptions[];
   button: React.ReactNode;
-  currentRoomId?: string | null;
+  currentRoomId?: string;
 };
 
 export const TemporaryRoomContext = createContext<TemporaryRoomContextType>({
@@ -24,7 +24,7 @@ export const TemporaryRoomContext = createContext<TemporaryRoomContextType>({
 type TemporaryRoomProviderProps = {
   children: React.ReactNode;
   decks: ChoiceSelectOptions[];
-  currentRoomId: string | null;
+  currentRoomId?: string;
 };
 
 export const TemporaryRoomProvider = ({

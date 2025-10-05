@@ -2,6 +2,7 @@
 
 import { DefaultDecks } from "@/lib/consts";
 import { db } from "@/lib/db";
+import { CombinedSession } from "@/types/guest-auth";
 import { addHours, isBefore } from "date-fns";
 import { z } from "zod";
 import { createGuestUserAndSignIn } from "../guest/create-guest";
@@ -56,7 +57,11 @@ export async function isRoomTemporary(roomId: string) {
   return room?.expireAt !== null;
 }
 
-export async function getValidTemporaryRoomByGuestEmail(guestEmail: string) {
+export async function getValidTemporaryRoomByGuestEmail(
+  user?: CombinedSession["user"],
+) {
+  if (!user?.isGuest || !user.email) return null;
+
   const room = await db.room.findFirst({
     where: { ownerEmail: guestEmail },
   });
