@@ -40,7 +40,7 @@ export const UserButton = () => {
             aria-label={t("dashboard.userButton.avatarAlt")}
           />
           <AvatarFallback>
-            <span className="flex items-center justify-center h-full w-full bg-gradient-to-tr from-sky-300 to-pink-200 font-semibold text-sky-  00">
+            <span className="flex items-center justify-center h-full w-full bg-gradient-to-tr text-sm from-sky-300 to-pink-200 font-semibold text-sky-900">
               {fallback()}
             </span>
           </AvatarFallback>
@@ -57,7 +57,7 @@ export const UserButton = () => {
                 aria-label={t("dashboard.userButton.avatarAlt")}
               />
               <AvatarFallback>
-                <span className="flex items-center justify-center h-full w-full bg-gradient-to-tr from-sky-300 to-pink-200 font-semibold text-sky-  00">
+                <span className="flex items-center justify-center h-full w-full bg-gradient-to-tr text-sm from-sky-300 to-pink-200 font-semibold text-sky-900">
                   {fallback()}
                 </span>
               </AvatarFallback>
