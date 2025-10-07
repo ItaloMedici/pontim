@@ -68,7 +68,11 @@
     },
     "pricing": {
       "title": "Escolha o Plano Perfeito para Sua Equipe",
-      "subtitle": "Desbloqueie o poder das estimativas ágeis com o Pontim. Selecione o plano que melhor atende às necessidades da sua equipe."
+      "subtitle": "Desbloqueie o poder das estimativas ágeis com o Pontim. Selecione o plano que melhor atende às necessidades da sua equipe.",
+      "seo": {
+        "title": "Preços e Planos",
+        "description": "Conheça os planos do Pontim para estimativas ágeis. Plano gratuito disponível com funcionalidades básicas. Planos premium para equipes maiores."
+      }
     },
     "faq": {
       "hero": {
@@ -183,6 +187,24 @@
         "title": "Comece a usar Planning Poker hoje mesmo!",
         "subtitle": "O Pontim oferece uma plataforma completa e gratuita para suas sessões de Scrum Poker com sua equipe.",
         "button": "Criar Sala Gratuita"
+      },
+      "seo": {
+        "title": "Como Funciona o Scrum Poker | Guia Completo",
+        "description": "Aprenda como funciona o Scrum Poker passo a passo. Guia completo com exemplos práticos, técnicas de Planning Poker e estimativas ágeis com Fibonacci.",
+        "keywords": [
+          "como funciona scrum poker",
+          "tutorial planning poker",
+          "guia scrum poker",
+          "passo a passo planning poker",
+          "como usar fibonacci estimativas",
+          "tutorial estimativas ágeis",
+          "planning poker brasileiro",
+          "scrum poker para iniciantes"
+        ],
+        "openGraph": {
+          "title": "Como Funciona o Scrum Poker | Guia Completo",
+          "description": "Aprenda Scrum Poker passo a passo com exemplos práticos"
+        }
       }
     },
     "fibonacci": {

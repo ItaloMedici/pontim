@@ -1,7 +1,9 @@
 import { BlogPostClient } from "@/app/(marketing)/blog/_components/blog-post-client";
 import blogPosts from "@/blog-posts.json";
-import { baseMetadata } from "@/lib/seo";
+import { getLocaleOrDefault } from "@/i18n/utils";
+import { getBaseMetadata } from "@/lib/seo";
 import { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
 
 interface BlogPostPageProps {
@@ -13,6 +15,10 @@ interface BlogPostPageProps {
 export async function generateMetadata({
   params,
 }: BlogPostPageProps): Promise<Metadata> {
+  const locale = getLocaleOrDefault();
+  const t = await getTranslations({ locale, namespace: "" });
+  const baseMetadata = getBaseMetadata(t, locale);
+
   const post = blogPosts[params.path as keyof typeof blogPosts];
 
   if (!post) {

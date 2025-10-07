@@ -1,32 +1,31 @@
+import { getLocaleOrDefault } from "@/i18n/utils";
 import { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
 import { env } from "../../../env";
-import { keywords } from "../../../lib/seo";
+import { getKeywords, getOpenGraph } from "../../../lib/seo";
 
-export const metadata: Metadata = {
-  title: "Como Funciona o Scrum Poker",
-  description:
-    "Aprenda como funciona o Scrum Poker passo a passo. Guia completo com exemplos práticos, técnicas de Planning Poker e estimativas ágeis com Fibonacci.",
-  keywords: [
-    ...keywords,
-    "como funciona scrum poker",
-    "tutorial planning poker",
-    "guia scrum poker",
-    "passo a passo planning poker",
-    "como usar fibonacci estimativas",
-    "tutorial estimativas ágeis",
-    "planning poker brasileiro",
-    "scrum poker para iniciantes",
-  ],
-  openGraph: {
-    title: "Como Funciona o Scrum Poker | Guia Completo",
-    description: "Aprenda Scrum Poker passo a passo com exemplos práticos",
-    url: `${env.SITE_URL}/como-funciona`,
-    images: [`${env.SITE_URL}/marketing/como-funciona.webp`],
-  },
-  alternates: {
-    canonical: `${env.SITE_URL}/scrum-poker`,
-  },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const locale = getLocaleOrDefault();
+  const t = await getTranslations("marketing.scrumPoker");
+  const openGraph = getOpenGraph(t, locale);
+  const keywords = await getKeywords();
+  const seoKeywords = Array.from(t("seo.keywords"));
+
+  return {
+    description: t("seo.description"),
+    keywords: [...keywords, ...seoKeywords],
+    openGraph: {
+      ...openGraph,
+      title: t("seo.openGraph.title"),
+      description: t("seo.openGraph.description"),
+      url: `${env.SITE_URL}/como-funciona`,
+      images: [`${env.SITE_URL}/marketing/como-funciona.webp`],
+    },
+    alternates: {
+      canonical: `${env.SITE_URL}/scrum-poker`,
+    },
+  };
+}
 
 export default function ScrumPokerLayout({
   children,
