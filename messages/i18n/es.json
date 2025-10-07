@@ -816,7 +816,9 @@
         "planLabel": "Plan {planName}",
         "activeStatus": "Activo"
       },
-      "signOut": "Cerrar Sesión"
+      "signOut": "Cerrar Sesión",
+      "guestUser": "Usuario invitado",
+      "createAccount": "Crear Cuenta"
     },
     "reportButton": {
       "label": "Botón para reportar",
