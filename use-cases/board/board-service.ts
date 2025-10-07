@@ -321,11 +321,10 @@ class BoardEntity {
           (choice) => choiceCounts[choice] === majorityChoiceCount,
         );
 
-
     board.majorityChoice = majorityChoice;
 
     board.agreementPercentage =
-      filledChoices.length > 0
+      filledChoices.length > 0 && !allDifferentChoices
         ? Math.round((majorityChoiceCount / filledChoices.length) * 100)
         : 0;
 
