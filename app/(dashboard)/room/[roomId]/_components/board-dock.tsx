@@ -122,7 +122,9 @@ export const BoardDock = () => {
             <TooltipTrigger asChild>
               <div className="ml-6 flex items-center gap-4 rounded-md">
                 <div className="flex items-center gap-4">
-                  <span className="text-3xl">{agreementEmoji}</span>
+                  <span className="text-3xl">
+                    {loadingPlay ? "⏳" : agreementEmoji}
+                  </span>
                   {statsDisplay()}
                 </div>
                 <Separator orientation="vertical" className="h-8" />
