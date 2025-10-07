@@ -1,3 +1,4 @@
+import { getCombinedSession } from "@/lib/auth/universal-auth";
 import { logger } from "@/lib/logger";
 import { BoardService } from "@/use-cases/board/board-service";
 
