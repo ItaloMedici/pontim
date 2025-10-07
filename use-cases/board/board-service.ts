@@ -312,15 +312,21 @@ class BoardEntity {
       board.average = average;
     }
 
-    const majorityChoice = Object.keys(choiceCounts).find(
-      (choice) => choiceCounts[choice] === majorityChoiceCount,
-    );
+    const allDifferentChoices =
+      Object.keys(choiceCounts).length === filledChoices.length;
+
+    const majorityChoice = allDifferentChoices
+      ? undefined
+      : Object.keys(choiceCounts).find(
+          (choice) => choiceCounts[choice] === majorityChoiceCount,
+        );
+
 
     board.majorityChoice = majorityChoice;
 
     board.agreementPercentage =
       filledChoices.length > 0
-        ? (majorityChoiceCount / filledChoices.length) * 100
+        ? Math.round((majorityChoiceCount / filledChoices.length) * 100)
         : 0;
 
     board.agreementEmoji = this.calculateBoardAgreetmentEmoji(board);

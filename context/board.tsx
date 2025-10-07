@@ -130,6 +130,7 @@ export const BoardProvider = ({
     setBoardStatus(board as BoardStatus);
     setSelfChoice(board.self?.choice || "");
     setChoiceOptions(board.choiceOptions ?? []);
+    setRevealOptimistc(board.reveal || false);
 
     return board;
   }, [http, router]);

@@ -82,7 +82,7 @@ export const BoardDock = () => {
       </div>
     );
 
-    const mostVoted = (
+    const mostVoted = majorityChoice ? (
       <div className="flex flex-col">
         <span className="text-xs text-muted-foreground opacity-95">
           {t("dashboard.room.dock.stats.mostVoted")}
@@ -94,7 +94,7 @@ export const BoardDock = () => {
           </div>
         </span>
       </div>
-    );
+    ) : null;
 
     if (typeof average !== "number" || isNaN(average)) {
       return mostVoted;
