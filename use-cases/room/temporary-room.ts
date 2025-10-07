@@ -2,12 +2,15 @@
 
 import { DefaultDecks } from "@/lib/consts";
 import { db } from "@/lib/db";
+import { isRateLimited } from "@/lib/network/rate-limiter";
 import { CombinedSession } from "@/types/guest-auth";
 import { addHours, isBefore } from "date-fns";
 import { z } from "zod";
 import { createGuestUserAndSignIn } from "../guest/create-guest";
 import { fetchRandomImage } from "../image/fetch-ramdom-image";
 import { validator } from "../validator";
+
+const MAX_GUEST_ROOM_PER_IP_HOUR = 3;
 
 const input = z.object({
   name: z.string(),
@@ -19,6 +22,14 @@ const input = z.object({
 export const createInstantRoom = validator({
   input,
   handler: async ({ name, imageUrl, userName, deckId }) => {
+    const isUserRateLimited = await isRateLimited(MAX_GUEST_ROOM_PER_IP_HOUR);
+
+    if (isUserRateLimited) {
+      throw new Error(
+        "You have reached the maximum number of requests. Please try again later.",
+      );
+    }
+
     const image = imageUrl ?? (await fetchRandomImage());
 
     const deckIdToUse = deckId ?? DefaultDecks.FIBONACCI;
@@ -68,7 +79,7 @@ export async function getValidTemporaryRoomByGuestEmail(
 
   if (!room) return null;
 
-  const isValid = room.expireAt !== null && isBefore(room.expireAt, Date.now());
+  const isValid = room.expireAt !== null && isBefore(Date.now(), room.expireAt);
 
   return isValid ? room : null;
 }
