@@ -14,6 +14,7 @@ export const getKeywords = async (): Promise<string[]> => {
 const openGraphLocale = {
   pt: "pt_BR",
   en: "en_US",
+  es: "es_ES",
 };
 
 export const getOpenGraph = (
@@ -87,7 +88,7 @@ export const getSoftwareApplicationSchema = async (
     },
     datePublished: "2024-01-01",
     dateModified: new Date().toISOString().split("T")[0],
-    inLanguage: locale === "pt" ? "pt-BR" : "en",
+    inLanguage: locale === "pt" ? "pt-BR" : locale === "es" ? "es" : "en",
   };
 };
 

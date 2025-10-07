@@ -1,6 +1,7 @@
 export const SupportedLocales = {
   ptBR: "pt-BR",
   en: "en",
+  es: "es",
 } as const;
 
 export type Locales = (typeof SupportedLocales)[keyof typeof SupportedLocales];
@@ -14,6 +15,11 @@ export const mapLocaleToSupported = (locale: string) => {
     "en-US": SupportedLocales.en,
     en: SupportedLocales.en,
     "en-us": SupportedLocales.en,
+    "es-ES": SupportedLocales.es,
+    es: SupportedLocales.es,
+    "es-es": SupportedLocales.es,
+    "es-MX": SupportedLocales.es,
+    "es-AR": SupportedLocales.es,
   };
 
   return map[locale] as Locales | undefined;
@@ -35,6 +41,11 @@ export const languagesMap: Record<Locales, Language> = {
     code: SupportedLocales.en,
     name: "English",
     flag: "🇺🇸",
+  },
+  [SupportedLocales.es]: {
+    code: SupportedLocales.es,
+    name: "Español",
+    flag: "🇪🇸",
   },
 };
 

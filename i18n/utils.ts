@@ -21,6 +21,7 @@ export const htmlLang = () => {
   const map = {
     pt: "pt-BR",
     en: "en",
+    es: "es",
   };
 
   return map[locale] || map.pt;
