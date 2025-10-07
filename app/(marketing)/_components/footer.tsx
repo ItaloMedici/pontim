@@ -174,7 +174,13 @@ export const Footer = async () => {
               {t("privacy")}
             </Link>
             <span className="text-gray-600">|</span>
-            <span className="text-gray-400">{t("madeBy")}</span>
+            <Link
+              href="https://www.linkedin.com/in/italomedici/"
+              target="_blank"
+              className=" text-gray-400"
+            >
+              {t("madeBy")}
+            </Link>
           </div>
         </div>
       </div>
