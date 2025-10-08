@@ -10,17 +10,17 @@ const buttonVariants = cva(
     variants: {
       variant: {
         default:
-          "bg-primary text-primary-foreground hover:bg-primary/90 border-b-2 border-primary-foreground",
+          "bg-primary/85 text-primary-foreground hover:bg-primary/80 border-b-2 border-primary focus:border-0 active:border-0 disabled:border-0",
         destructive:
-          "bg-destructive text-destructive-foreground hover:bg-destructive/90 border-b-2 border-destructive-foreground",
+          "bg-destructive text-destructive-foreground hover:bg-destructive/90 border-b-2 border-destructive-foreground focus:border-0 active:border-0 disabled:border-0",
         outline:
-          "border border-input bg-background hover:bg-accent hover:text-accent-foreground border-b-2",
+          "border border-input bg-background hover:bg-accent hover:text-accent-foreground border-b-2 focus:border-0 active:border-0 disabled:border-0",
         secondary:
-          "bg-secondary text-secondary-foreground hover:bg-secondary/80 border-b-2",
+          "bg-secondary text-secondary-foreground hover:bg-secondary/80 border-b-2 focus:border-0 active:border-0 disabled:border-0",
         ghost: "hover:bg-accent hover:text-accent-foreground",
         link: "text-primary underline-offset-4 hover:underline",
         pinkOnHover:
-          "bg-background text-secondary-foreground border border-input  border-b-2 hover:bg-pink-600 hover:border-pink-700 hover:text-white",
+          "bg-background text-secondary-foreground border border-input  border-b-2 hover:bg-pink-600 hover:border-pink-700 hover:text-white focus:border-0 active:border-0 disabled:border-0",
       },
       size: {
         default: "h-10 px-4 py-2",
