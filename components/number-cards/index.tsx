@@ -1,6 +1,8 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { buildPlayerFallbackImage, cn } from "@/lib/utils";
 import { Player } from "@/types/player";
+import { LoaderCircle } from "lucide-react";
+import { useMemo } from "react";
 
 type NumberCardsProps = {
   value: number | string | undefined | null;
@@ -39,10 +41,18 @@ const Card = ({
 };
 
 const Front = ({ value, player, isSelf }: NumberCardsProps) => {
+  const _value = useMemo(() => {
+    if (value === "?")
+      return (
+        <LoaderCircle className="animate-spin w-4 h-4 text-muted-foreground/60" />
+      );
+    return value;
+  }, [value]);
+
   return (
     <Card isSelf={isSelf}>
       <div className="bg-muted flex-1 w-full flex items-center justify-center rounded-md text-foreground font-medium">
-        {value}
+        {_value}
       </div>
       <div>
         <Avatar className="w-5 h-5">
@@ -66,12 +76,12 @@ const Back = ({ player, isSelf, value }: NumberCardsProps) => {
     <Card isSelf={isSelf}>
       <div
         className={cn("border border-border overflow-hidden rounded-sm", {
-          [`border-[--selected-card-color]`]: !!value,
+          "border-[rgb(136_71_71)]": !!value,
         })}
       >
         <BackCardPattern
           className={cn("stroke-border", {
-            [`stroke-[--selected-card-color]`]: !!value,
+            "stroke-[rgb(136_71_71)]": !!value,
           })}
         />
       </div>
