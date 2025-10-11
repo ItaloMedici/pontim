@@ -14,6 +14,9 @@ interface RoomIdPageProps {
   params: {
     roomId: string;
   };
+  searchParams?: {
+    as: "guest";
+  };
 }
 
 const chachedRoom = cache((roomId: string) => getRoom({ roomId }));
@@ -30,7 +33,7 @@ export const generateMetadata = async ({
   };
 };
 
-async function RoomPage({ params: { roomId } }: RoomIdPageProps) {
+async function RoomPage({ params: { roomId }, searchParams }: RoomIdPageProps) {
   const room = await chachedRoom(roomId);
   const session = await getCombinedSession();
 
@@ -38,7 +41,9 @@ async function RoomPage({ params: { roomId } }: RoomIdPageProps) {
     notFound();
   }
 
-  if (room.isTemporary && !session) {
+  const joiningAsGuest = Boolean(searchParams?.as === "guest");
+
+  if (!session && (room.isTemporary || joiningAsGuest)) {
     return <PlayerGuestLogin roomName={room.name} />;
   }
 

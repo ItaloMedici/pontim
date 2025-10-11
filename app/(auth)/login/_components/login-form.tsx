@@ -2,20 +2,37 @@
 
 import { Button } from "@/components/ui/button";
 import { Track } from "@/lib/track-events";
+import { HatGlasses } from "lucide-react";
 import { signIn } from "next-auth/react";
 import { useTranslations } from "next-intl";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 export const LoginForm = () => {
   const t = useTranslations("auth.login");
   const searchParams = useSearchParams();
+  const router = useRouter();
+  const callbackUrl = searchParams?.get("callbackUrl");
+  const isCallbackUrlFromRoom = Boolean(callbackUrl?.startsWith("/room/"));
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     Track.user.login("google");
 
-    signIn("google", { callbackUrl: searchParams?.get("callbackUrl") ?? "/" });
+    signIn("google", { callbackUrl: callbackUrl ?? "/" });
+  };
+
+  const handleGuestLogin = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+    if (!callbackUrl) return;
+    if (!isCallbackUrlFromRoom) return;
+
+    const url = new URL(window.location.href);
+    url.pathname = callbackUrl;
+    url.searchParams.set("as", "guest");
+    url.searchParams.delete("callbackUrl");
+
+    router.push(url.toString());
   };
 
   return (
@@ -25,17 +42,37 @@ export const LoginForm = () => {
           {searchParams.get("error")}
         </div>
       )}
-      <Button
-        type="submit"
-        variant={"outline"}
-        size={"lg"}
-        className="w-full gap-2"
-      >
-        <span className="w-5 h-5">
-          <GoogleIcon />
-        </span>
-        {t("googleButton")}
-      </Button>
+      <div className="flex flex-col gap-4">
+        <Button
+          type="submit"
+          variant={"outline"}
+          size={"lg"}
+          className="w-full gap-2"
+        >
+          <span className="w-5 h-5">
+            <GoogleIcon />
+          </span>
+          {t("googleButton")}
+        </Button>
+        {isCallbackUrlFromRoom && (
+          <div className="flex flex-col gap-4">
+            <div className="flex items-center gap-2">
+              <span className="h-px flex-1 bg-border" />
+              <span className="text-sm text-muted-foreground">{t("or")}</span>
+              <span className="h-px flex-1 bg-border" />
+            </div>
+            <Button
+              variant={"outline"}
+              size={"lg"}
+              className="w-full gap-2"
+              onClick={handleGuestLogin}
+            >
+              <HatGlasses />
+              {t("continueAsGuestButton")}
+            </Button>
+          </div>
+        )}
+      </div>
     </form>
   );
 };

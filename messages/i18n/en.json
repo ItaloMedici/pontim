@@ -282,7 +282,9 @@
           },
           "high": {
             "title": "High Complexity",
-            "examples": ["13+ points: Epic that should be broken down"]
+            "examples": [
+              "13+ points: Epic that should be broken down"
+            ]
           }
         }
       },
@@ -610,7 +612,9 @@
       "description": "Log in to your account",
       "welcome": "Hey, good to see you here! 👋",
       "subtitle": "Sign in with your account to continue",
-      "googleButton": "Sign in with Google"
+      "googleButton": "Sign in with Google",
+      "continueAsGuestButton": "Continue as a guest",
+      "or": "Or"
     }
   },
   "dashboard": {

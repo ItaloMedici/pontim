@@ -282,7 +282,9 @@
           },
           "high": {
             "title": "Alta Complejidad",
-            "examples": ["13+ puntos: Épica que debe ser dividida"]
+            "examples": [
+              "13+ puntos: Épica que debe ser dividida"
+            ]
           }
         }
       },
@@ -610,7 +612,9 @@
       "description": "Inicia sesión en tu cuenta",
       "welcome": "¡Hola, qué bueno verte por aquí! 👋",
       "subtitle": "Inicia sesión con tu cuenta para continuar",
-      "googleButton": "Iniciar sesión con Google"
+      "googleButton": "Iniciar sesión con Google",
+      "continueAsGuestButton": "Continua como invitado",
+      "or": "O"
     }
   },
   "dashboard": {

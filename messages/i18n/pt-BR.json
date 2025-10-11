@@ -612,7 +612,9 @@
       "description": "Faça login na sua conta",
       "welcome": "Olá, bom ver você por aqui! 👋",
       "subtitle": "Faça login com sua conta para continuar",
-      "googleButton": "Entre com Google"
+      "googleButton": "Entre com Google",
+      "continueAsGuestButton": "Continuar como convidado",
+      "or": "Ou"
     }
   },
   "dashboard": {
