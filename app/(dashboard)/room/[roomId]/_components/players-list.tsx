@@ -1,5 +1,11 @@
 "use client";
 
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 import { useBoard } from "@/context/board";
 import { useIsMobile } from "@/hooks/use-is-mobile";
 import { buildPlayerFallbackImage, cn } from "@/lib/utils";
@@ -74,9 +80,55 @@ export const PlayersList = () => {
     });
   }, [isMobile, others, t]);
 
+  const tooltipContent = useMemo(() => {
+    if (!others.length) {
+      return null;
+    }
+
+    return (
+      <div className="space-y-2 max-w-64">
+        <div className="space-y-2 max-h-48 overflow-y-auto">
+          {others.map((player) => (
+            <div key={player.id} className="flex items-center gap-2">
+              <div className="rounded-full overflow-hidden w-6 h-6 text-xs border border-border flex-shrink-0">
+                {player.imageUrl ? (
+                  <Image
+                    src={player.imageUrl}
+                    alt={t("dashboard.room.playersList.playerImageAlt", {
+                      nickname: player.nickname,
+                    })}
+                    width={24}
+                    height={24}
+                    className="object-cover w-full h-full"
+                  />
+                ) : (
+                  <span className="flex items-center justify-center h-full w-full bg-gradient-to-tr from-sky-300 to-gray-300 text-[10px] font-medium text-gray-800">
+                    {buildPlayerFallbackImage(player)}
+                  </span>
+                )}
+              </div>
+              <span className="text-xs truncate">{player.nickname}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  }, [others, t]);
+
   if (!avatarList.length) {
     return null;
   }
 
-  return <div className="flex items-center">{avatarList}</div>;
+  return (
+    <TooltipProvider>
+      <Tooltip delayDuration={300}>
+        <TooltipTrigger asChild>
+          <div className="flex items-center cursor-pointer">{avatarList}</div>
+        </TooltipTrigger>
+        <TooltipContent side="top" className="max-w-64 px-4 py-2">
+          {tooltipContent}
+        </TooltipContent>
+      </Tooltip>
+    </TooltipProvider>
+  );
 };
