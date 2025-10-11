@@ -1,12 +1,12 @@
-import { LanguageSwitcher } from "@/components/language-switcher";
 import { Logo } from "@/components/logo";
 import { getTranslations } from "next-intl/server";
 import Link from "next/link";
+import { FooterThemeControls } from "./footer-theme-controls";
 
 export const Footer = async () => {
   const t = await getTranslations("marketing.shared.footer");
   return (
-    <footer className="w-full bg-gray-950 py-12 px-4">
+    <footer className="w-full bg-gray-950 dark:bg-gray-950 py-12 px-4">
       <div className="container mx-auto">
         {/* Main Footer Content */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 mb-8">
@@ -20,7 +20,7 @@ export const Footer = async () => {
               <div className="flex gap-4">
                 <Link
                   href="/login"
-                  className="bg-gray-100 hover:bg-gray-200 text-back px-6 py-2 rounded-lg text-sm font-medium transition-colors"
+                  className="bg-white hover:bg-gray-100 text-gray-900 px-6 py-2 rounded-lg text-sm font-medium transition-colors"
                 >
                   {t("createFreeRoom")}
                 </Link>
@@ -147,7 +147,7 @@ export const Footer = async () => {
         </div>
 
         <div className="my-4 flex justify-end">
-          <LanguageSwitcher variant="footer" />
+          <FooterThemeControls />
         </div>
 
         {/* Divider */}

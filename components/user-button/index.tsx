@@ -1,6 +1,7 @@
 "use client";
 
 import { LanguageSwitcher } from "@/components/language-switcher";
+import { ThemeToggle } from "@/components/theme-toggle";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button, buttonVariants } from "@/components/ui/button";
 import {
@@ -46,7 +47,7 @@ export const UserButton = () => {
           </AvatarFallback>
         </Avatar>
       </PopoverTrigger>
-      <PopoverContent align="end" sideOffset={10} className="p-0">
+      <PopoverContent align="end" sideOffset={10} className="p-0 z-50">
         <div>
           <div className="p-4 flex items-center space-x-3">
             <Avatar>
@@ -63,10 +64,10 @@ export const UserButton = () => {
               </AvatarFallback>
             </Avatar>
             <div>
-              <div className="text-sm font-medium text-gray-900">
+              <div className="text-sm font-medium text-foreground">
                 {user.name}
               </div>
-              <div className="text-xs text-gray-500">
+              <div className="text-xs text-muted-foreground">
                 {user.isGuest
                   ? t("dashboard.userButton.guestUser")
                   : user.email}
@@ -76,9 +77,17 @@ export const UserButton = () => {
 
           {user.isGuest ? null : <UserButtonPlan />}
 
-          <div className="p-2 border-t border-gray-100">
+          <div className="p-2 border-t border-border">
             <div className="mb-2">
               <LanguageSwitcher variant="user" />
+            </div>
+            <div className="mb-2">
+              <ThemeToggle
+                variant="ghost"
+                size="sm"
+                className="w-full justify-start"
+                showLabel
+              />
             </div>
             {user.isGuest ? (
               <Link

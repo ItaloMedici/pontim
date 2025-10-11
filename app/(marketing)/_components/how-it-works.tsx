@@ -55,7 +55,7 @@ export const HowItWorks = () => {
     },
   ];
   return (
-    <section className="container py-20 bg-white">
+    <section className="container py-20 bg-background">
       <motion.div
         className="mx-auto"
         initial="hidden"
@@ -64,13 +64,13 @@ export const HowItWorks = () => {
         variants={containerVariants}
       >
         <motion.h2
-          className="text-4xl font-bold text-center mb-4 text-black"
+          className="text-4xl font-bold text-center mb-4 text-foreground"
           variants={itemVariants}
         >
           {t("title")}
         </motion.h2>
         <motion.p
-          className="text-center text-gray-600 mb-12 max-w-2xl mx-auto"
+          className="text-center text-muted-foreground mb-12 max-w-2xl mx-auto"
           variants={itemVariants}
         >
           {t("subtitle")}
@@ -84,17 +84,17 @@ export const HowItWorks = () => {
               variants={itemVariants}
             >
               <div className="flex flex-col items-center text-center">
-                <div className="text-5xl font-bold text-gray-900 mb-4">
+                <div className="text-5xl font-bold text-foreground mb-4">
                   {step.number}
                 </div>
-                <h3 className="text-xl font-semibold mb-2 text-black">
+                <h3 className="text-xl font-semibold mb-2 text-foreground">
                   {step.title}
                 </h3>
-                <p className="text-gray-600">{step.description}</p>
+                <p className="text-muted-foreground">{step.description}</p>
               </div>
               {index < steps.length - 1 && (
                 <ArrowRight
-                  className="hidden lg:block absolute top-1/2 -right-4 transform -translate-y-1/2 text-gray-300"
+                  className="hidden lg:block absolute top-1/2 -right-4 transform -translate-y-1/2 text-muted-foreground/50"
                   aria-label={t("nextStep")}
                   role="img"
                 />

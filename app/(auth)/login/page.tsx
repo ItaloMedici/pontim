@@ -18,15 +18,15 @@ async function LoginPage() {
   }
 
   return (
-    <main className="bg-gray-50 dark:bg-gray-900 h-screen w-screen">
-      <div className="flex flex-col items-center justify-center px-6 py-8 m-auto h-full lg:py-0">
-        <div className="w-full bg-white rounded-2xl border-gray-950 border-2 shadow-sm dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
+    <main className="min-h-screen bg-gradient-to-br from-background via-muted/20 to-muted/40">
+      <div className="flex flex-col items-center justify-center px-6 py-8 m-auto h-full min-h-screen lg:py-0">
+        <div className="w-full bg-card rounded-2xl border-border border shadow-lg md:mt-0 sm:max-w-md xl:p-0">
           <div className="p-6 flex flex-col">
             <Logo.Text size="sm" />
-            <h1 className="text-lg font-medium leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white mb-2 mt-8">
+            <h1 className="text-lg font-medium leading-tight tracking-tight text-foreground md:text-2xl mb-2 mt-8">
               {t("welcome")}
             </h1>
-            <span className="text-sm text-gray-500 dark:text-gray-400 mb-8">
+            <span className="text-sm text-muted-foreground mb-8">
               {t("subtitle")}
             </span>
             <LoginForm />

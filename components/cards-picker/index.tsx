@@ -26,9 +26,9 @@ export const CardsPicker = ({
   return (
     <div className="flex flex-col items-center justify-center flex-wrap gap-6">
       {showTitle ? (
-        <span className="text-gray-500 text-sm">{t("title")}</span>
+        <span className="text-muted-foreground text-sm">{t("title")}</span>
       ) : null}
-      <div className="flex flex-wrap items-center justify-center gap-1 p-1 bg-gray-200 rounded-md">
+      <div className="flex flex-wrap items-center justify-center gap-1 p-1 bg-muted/70 dark:bg-muted/30 rounded-md">
         {choiceOptions.map((option) => (
           <button
             role="button"
@@ -38,9 +38,11 @@ export const CardsPicker = ({
           >
             <div
               className={cn(
-                "cursor-pointer w-[48px] h-[54px] bg-gray-50 border border-gray-200 text-sm text-gray-600 flex items-center justify-center  hover:bg-gray-100 transition-colors rounded-md",
+                "cursor-pointer w-[48px] h-[54px] bg-card border border-border text-sm text-foreground flex items-center justify-center hover:bg-accent hover:text-accent-foreground transition-colors rounded-md font-medium",
                 {
-                  "outline outline-gray-950 ": isSelfOption(option.value),
+                  "outline outline-foreground outline-2": isSelfOption(
+                    option.value,
+                  ),
                 },
               )}
             >

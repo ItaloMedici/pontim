@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Logo } from "../logo";
+import { ThemeAwareLogo } from "../logo/theme-aware-logo";
 
 export function LoadingLogo() {
   return (
@@ -15,7 +15,7 @@ export function LoadingLogo() {
           ease: "easeInOut",
         }}
       >
-        <Logo.Icon color="black" />
+        <ThemeAwareLogo.Icon />
       </motion.div>
     </div>
   );

@@ -66,7 +66,7 @@ export function RoomList({
         <h1 className="font-semibold text-2xl">
           {t("dashboard.home.roomList.empty.welcome.title")}
         </h1>
-        <p className="text-sm text-gray-500 mt-2 mb-4">
+        <p className="text-sm text-muted-foreground mt-2 mb-4">
           {t("dashboard.home.roomList.empty.welcome.description")}
         </p>
         <CreateRoomDialog decks={decks} />
@@ -83,7 +83,7 @@ export function RoomList({
       <CreateRoomDialog
         decks={decks}
         trigger={
-          <button className="flex flex-col gap-2 bg-gray-50 w-[150px] min-h-[140px] border-2 border-dashed rounded-lg overflow-hidden hover:shadow-md transition-shadow items-center justify-center outline-none">
+          <button className="flex flex-col gap-2 bg-muted/50 dark:bg-muted/20 w-[150px] min-h-[140px] border-2 border-dashed border-border rounded-lg overflow-hidden hover:shadow-md transition-shadow items-center justify-center outline-none">
             <Plus className="h-4 w-4 text-muted-foreground" />
             <h2 className="text-muted-foreground text-sm">
               {t("dashboard.home.roomList.createRoom.title")}

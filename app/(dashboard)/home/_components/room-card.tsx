@@ -46,8 +46,9 @@ export function RoomCard({ room }: { room: Room }) {
     });
   };
 
+
   return (
-    <div className="group relative flex flex-col bg-white border rounded-lg overflow-hidden hover:shadow-md transition-shadow w-[150px]">
+    <div className="group relative flex flex-col bg-card border border-border rounded-lg overflow-hidden hover:shadow-md transition-shadow w-[150px]">
       <div className="overflow-hidden">
         <Image
           src={room.imageUrl}
@@ -83,8 +84,8 @@ export function RoomCard({ room }: { room: Room }) {
         />
       </button>
       <span className="px-4 py-2 space-y-1 h-full">
-        <h2 className="truncate">{room.name}</h2>
-        <p className="text-xs truncate text-gray-500 opacity-0 group-hover:opacity-100">
+        <h2 className="truncate text-card-foreground">{room.name}</h2>
+        <p className="text-xs truncate text-muted-foreground opacity-0 group-hover:opacity-100">
           {ownerLabel}, {lastUpdated}
         </p>
       </span>

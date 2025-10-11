@@ -2,6 +2,7 @@
 
 import { Toaster } from "@/components/ui/sonner";
 import { CombinedSessionProvider } from "@/context/session";
+import { ThemeProvider } from "@/context/theme";
 import { CombinedSession } from "@/types/guest-auth";
 
 export function Providers({
@@ -9,9 +10,11 @@ export function Providers({
   session,
 }: Readonly<{ children: React.ReactNode; session: CombinedSession | null }>) {
   return (
-    <CombinedSessionProvider session={session}>
-      <Toaster />
-      {children}
-    </CombinedSessionProvider>
+    <ThemeProvider>
+      <CombinedSessionProvider session={session}>
+        <Toaster />
+        {children}
+      </CombinedSessionProvider>
+    </ThemeProvider>
   );
 }

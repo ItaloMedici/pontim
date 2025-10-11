@@ -1,6 +1,6 @@
 "use client";
 
-import { Logo } from "@/components/logo";
+import { ThemeAwareLogo } from "@/components/logo/theme-aware-logo";
 import { useAction } from "@/hooks/use-action";
 import { createGuestUserAndSignIn } from "@/use-cases/guest/create-guest";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -60,7 +60,7 @@ export const PlayerGuestLogin = ({ roomName }: { roomName: string }) => {
     <div className="bg-background h-screen w-screen">
       <header className="px-6 py-4 md:px-8 md:py-6">
         <div className="flex items-center">
-          <Logo.Text />
+          <ThemeAwareLogo.Text />
         </div>
       </header>
 

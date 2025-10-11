@@ -36,7 +36,7 @@ export const Header = () => {
     >
       <div className="flex justify-between items-center container">
         <Link href={"/"}>
-          <Logo.Text color="black" />
+          <Logo.Text color="adaptive" />
         </Link>
 
         <div className="gap-2 flex">

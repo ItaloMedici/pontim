@@ -26,7 +26,8 @@ const buttonProps = {
     className: "px-2 justify-start w-full",
   },
   footer: {
-    className: "bg-gray-950 border border-background/20 hover:bg-gray-900",
+    className:
+      "bg-gray-950 dark:bg-gray-950 border border-gray-600 hover:bg-gray-900 text-gray-300 hover:text-white",
   },
 };
 
@@ -58,7 +59,7 @@ export const LanguageSwitcher = ({ variant }: LanguageSwitcherProps) => {
       </DropdownMenuTrigger>
       <DropdownMenuContent
         align={"start"}
-        className={cn("z-50", {
+        className={cn("z-[100]", {
           "bg-gray-900 text-white border-gray-800 w-42": variant === "footer",
           "w-56": variant === "user",
         })}
@@ -68,15 +69,23 @@ export const LanguageSwitcher = ({ variant }: LanguageSwitcherProps) => {
             key={language.code}
             onClick={() => handleLocaleChange(language.code)}
             className={cn("flex items-center gap-3 cursor-pointer", {
-              "hover:bg-gray-800": variant === "footer",
+              "hover:bg-gray-800 text-gray-300 hover:text-white":
+                variant === "footer",
             })}
           >
             <span className="text-base">{language.flag}</span>
-            <span className="text-sm font-medium">{language.name}</span>
+            <span
+              className={cn("text-sm font-medium", {
+                "text-gray-300": variant === "footer",
+              })}
+            >
+              {language.name}
+            </span>
             {locale === language.code && (
               <Check
-                className={cn("h-4 w-4 text-primary ml-auto", {
+                className={cn("h-4 w-4 ml-auto", {
                   "text-white": variant === "footer",
+                  "text-primary": variant === "user",
                 })}
               />
             )}

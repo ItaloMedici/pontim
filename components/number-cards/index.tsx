@@ -27,9 +27,9 @@ const Card = ({
   return (
     <div
       className={cn(
-        "w-[60px] h-[80px] bg-gray-50 rounded-lg flex flex-col items-center justify-center p-[6px] gap-2 border border-gray-200",
+        "w-[60px] h-[80px] bg-card rounded-lg flex flex-col items-center justify-center p-[6px] gap-2 border border-border",
         {
-          "outline outline-gray-950 outline-2": isSelf,
+          "outline outline-foreground outline-2": isSelf,
         },
       )}
     >
@@ -41,7 +41,7 @@ const Card = ({
 const Front = ({ value, player, isSelf }: NumberCardsProps) => {
   return (
     <Card isSelf={isSelf}>
-      <div className="bg-gray-100 flex-1 w-full flex items-center justify-center rounded-md">
+      <div className="bg-muted flex-1 w-full flex items-center justify-center rounded-md text-foreground font-medium">
         {value}
       </div>
       <div>
@@ -65,17 +65,17 @@ const Back = ({ player, isSelf, value }: NumberCardsProps) => {
   return (
     <Card isSelf={isSelf}>
       <div
-        className={cn("border border-gray-200 overflow-hidden rounded-sm", {
+        className={cn("border border-border overflow-hidden rounded-sm", {
           [`border-[--selected-card-color]`]: !!value,
         })}
       >
         <BackCardPattern
-          className={cn("stroke-gray-200", {
+          className={cn("stroke-border", {
             [`stroke-[--selected-card-color]`]: !!value,
           })}
         />
       </div>
-      <div className="absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] border-2 border-gray-200 rounded-full">
+      <div className="absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] border-2 border-border rounded-full">
         <Avatar className="w-7 h-7">
           <AvatarImage
             src={player.imageUrl as string}

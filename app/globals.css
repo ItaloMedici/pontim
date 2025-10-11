@@ -5,32 +5,32 @@
 @layer base {
   :root {
     --background: 255 255 255;
-    --foreground: 3 7 18;
+    --foreground: 10 10 10;
 
     --card: 255 255 255;
-    --card-foreground: 3 7 18;
+    --card-foreground: 10 10 10;
 
     --popover: 255 255 255;
-    --popover-foreground: 3 7 18;
+    --popover-foreground: 10 10 10;
 
-    --primary: 3 7 18;
-    --primary-foreground: 248 250 252;
+    --primary: 0 0 0;
+    --primary-foreground: 255 255 255;
 
-    --secondary: 241 245 249;
-    --secondary-foreground: 3 7 18;
+    --secondary: 245 245 245;
+    --secondary-foreground: 23 23 23;
 
-    --muted: 241 245 249;
-    --muted-foreground: 100 116 139;
+    --muted: 245 245 245;
+    --muted-foreground: 115 115 115;
 
-    --accent: 241 245 249;
-    --accent-foreground: 3 7 18;
+    --accent: 245 245 245;
+    --accent-foreground: 23 23 23;
 
     --destructive: 239 68 68;
     --destructive-foreground: 248 250 252;
 
-    --border: 226 232 240;
-    --input: 226 232 240;
-    --ring: 3 7 18;
+    --border: 229 229 229;
+    --input: 229 229 229;
+    --ring: 10 10 10;
 
     --radius: 0.5rem;
 
@@ -38,33 +38,33 @@
   }
 
   .dark {
-    --background: 3 7 18;
-    --foreground: 248 250 252;
+    --background: 5 5 5;
+    --foreground: 250 250 250;
 
-    --card: 3 7 18;
-    --card-foreground: 248 250 252;
+    --card: 25 25 25;
+    --card-foreground: 250 250 250;
 
-    --popover: 3 7 18;
-    --popover-foreground: 248 250 252;
+    --popover: 25 25 25;
+    --popover-foreground: 250 250 250;
 
-    --primary: 248 250 252;
-    --primary-foreground: 3 7 18;
+    --primary: 250 250 250;
+    --primary-foreground: 23 23 23;
 
-    --secondary: 30 41 59;
-    --secondary-foreground: 248 250 252;
+    --secondary: 45 45 45;
+    --secondary-foreground: 250 250 250;
 
-    --muted: 30 41 59;
-    --muted-foreground: 148 163 184;
+    --muted: 45 45 45;
+    --muted-foreground: 163 163 163;
 
-    --accent: 30 41 59;
-    --accent-foreground: 248 250 252;
+    --accent: 45 45 45;
+    --accent-foreground: 250 250 250;
 
     --destructive: 127 29 29;
     --destructive-foreground: 248 250 252;
 
-    --border: 30 41 59;
-    --input: 30 41 59;
-    --ring: 203 213 225;
+    --border: 45 45 45;
+    --input: 45 45 45;
+    --ring: 212 212 212;
   }
 
   @keyframes rainbow-flow {
