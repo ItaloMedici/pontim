@@ -1,10 +1,12 @@
 "use server";
 
+import { getCombinedSession } from "@/lib/auth/universal-auth";
 import { DefaultDecks } from "@/lib/consts";
 import { db } from "@/lib/db";
 import { isRateLimited } from "@/lib/network/rate-limiter";
 import { CombinedSession } from "@/types/guest-auth";
 import { addHours, isBefore } from "date-fns";
+import { revalidatePath } from "next/cache";
 import { z } from "zod";
 import { createGuestUserAndSignIn } from "../guest/create-guest";
 import { fetchRandomImage } from "../image/fetch-ramdom-image";
@@ -34,7 +36,10 @@ export const createInstantRoom = validator({
 
     const deckIdToUse = deckId ?? DefaultDecks.FIBONACCI;
 
-    const guestUser = await createGuestUserAndSignIn({ userName });
+    const session = await getCombinedSession();
+
+    const guestUser =
+      session?.user ?? (await createGuestUserAndSignIn({ userName }));
 
     const expireAt = addHours(Date.now(), 24);
 
@@ -54,6 +59,8 @@ export const createInstantRoom = validator({
         roomId: room.id,
       },
     });
+
+    revalidatePath("/");
 
     return room;
   },

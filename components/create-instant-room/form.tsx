@@ -19,6 +19,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { useCombinedSession } from "@/context/session";
 import { useAction } from "@/hooks/use-action";
 import { DefaultDecks } from "@/lib/consts";
 import {
@@ -38,6 +39,7 @@ export function CreateInstantRoomForm() {
   const t = useTranslations();
   const router = useRouter();
   const { decks } = useTemporaryRoomContext();
+  const session = useCombinedSession();
 
   const [showCustomDeskInfo, setShowCustomDeskInfo] = useState(false);
 
@@ -46,8 +48,8 @@ export function CreateInstantRoomForm() {
   const form = useForm<CreateInstantRoom>({
     resolver: zodResolver(createInstantRoomSchema(t)),
     defaultValues: {
+      ownername: session?.user.name,
       name: "",
-      ownername: "",
       deckOption: decks[0].value,
     },
   });
@@ -102,6 +104,7 @@ export function CreateInstantRoomForm() {
                   placeholder={t(
                     "components.createInstantRoom.form.ownerName.placeholder",
                   )}
+                  disabled={!!session?.user}
                   {...field}
                 />
               </FormControl>
