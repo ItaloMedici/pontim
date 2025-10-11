@@ -982,7 +982,15 @@
     "passwordMismatch": "Las contraseñas no coinciden.",
     "invalidNumber": "Número inválido.",
     "minNumber": "Debe ser mayor o igual a {min}.",
-    "maxNumber": "Debe ser menor o igual a {max}."
+    "maxNumber": "Debe ser menor o igual a {max}.",
+    "createInstantRoom": {
+      "name": {
+        "min": "El nombre de la sala debe tener al menos 4 caracteres"
+      },
+      "ownername": {
+        "max": "El nombre del propietario debe tener como máximo 25 caracteres"
+      }
+    }
   },
   "legal": {
     "privacy": {

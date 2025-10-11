@@ -36,7 +36,7 @@
         "cta": "Try Pontim for Free!",
         "imageAlt": "Pontim board",
         "createInstantRoom": "Create Instant Room",
-        "joinCurrentRoom": "Join Current Join"
+        "joinCurrentRoom": "Join Current Room"
       },
       "howItWorks": {
         "title": "How It Works",
@@ -982,7 +982,15 @@
     "passwordMismatch": "Passwords do not match.",
     "invalidNumber": "Invalid number.",
     "minNumber": "Must be greater than or equal to {min}.",
-    "maxNumber": "Must be less than or equal to {max}."
+    "maxNumber": "Must be less than or equal to {max}.",
+    "createInstantRoom": {
+      "name": {
+        "min": "Room name must be at least 4 characters long"
+      },
+      "ownername": {
+        "max": "Owner name must be at most 25 characters long"
+      }
+    }
   },
   "legal": {
     "privacy": {
