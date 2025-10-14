@@ -282,9 +282,7 @@
           },
           "high": {
             "title": "High Complexity",
-            "examples": [
-              "13+ points: Epic that should be broken down"
-            ]
+            "examples": ["13+ points: Epic that should be broken down"]
           }
         }
       },

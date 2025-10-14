@@ -282,9 +282,7 @@
           },
           "high": {
             "title": "Alta Complejidad",
-            "examples": [
-              "13+ puntos: Épica que debe ser dividida"
-            ]
+            "examples": ["13+ puntos: Épica que debe ser dividida"]
           }
         }
       },
