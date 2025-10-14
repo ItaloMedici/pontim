@@ -46,7 +46,6 @@ export function RoomCard({ room }: { room: Room }) {
     });
   };
 
-
   return (
     <div className="group relative flex flex-col bg-card border border-border rounded-lg overflow-hidden hover:shadow-md transition-shadow w-[150px]">
       <div className="overflow-hidden">
