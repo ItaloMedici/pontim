@@ -19,7 +19,29 @@ interface RoomIdPageProps {
   };
 }
 
-const chachedRoom = cache((roomId: string) => getRoom({ roomId }));
+const chachedRoom = cache(async (roomId: string) => {
+  try {
+    return await getRoom({ roomId });
+  } catch (error) {
+    const errorMessage =
+      error instanceof Error ? error.message : "Unknown error";
+
+    if (errorMessage === "Room not found") {
+      notFound();
+    }
+
+    logger.error({
+      error,
+      message: "Error while fetching room",
+      metadata: {
+        roomId,
+        error: errorMessage,
+      },
+    });
+
+    throw error;
+  }
+});
 
 export const generateMetadata = async ({
   params: { roomId },
