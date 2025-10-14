@@ -48,7 +48,7 @@ export const GUEST_TOKEN_COOKIE = "pontim-guest-token";
 
 export const GUEST_USER_EMAIL_DOMAIN = "-temp-non-user@pontim.org";
 
-// Feature Flags
 export const FEATURE_FLAGS = {
-  ENABLE_THEME_SWITCHER: false, // Set to true to enable theme switching
+  ENABLE_THEME_SWITCHER: process.env.NODE_ENV === "development",
+  ENABLE_ADS: false,
 } as const;

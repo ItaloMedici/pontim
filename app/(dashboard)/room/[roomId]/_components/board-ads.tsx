@@ -4,7 +4,7 @@ import { AdBlockerFallback } from "@/components/ad-blocker-fallback";
 import { GoogleAd } from "@/components/google-ad";
 import { useAdBlockerDetection } from "@/hooks/use-ad-blocker-detection";
 import { useUser } from "@/hooks/use-user";
-import { Plans } from "@/lib/consts";
+import { FEATURE_FLAGS, Plans } from "@/lib/consts";
 import { cn } from "@/lib/utils";
 import { createPortal } from "react-dom";
 
@@ -42,6 +42,10 @@ const AdBlockWrapper = ({
 };
 
 export const BoardAds = () => {
+  if (!FEATURE_FLAGS.ENABLE_ADS) {
+    return null;
+  }
+
   return createPortal(
     <>
       <AdBlockWrapper pos="left">
