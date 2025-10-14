@@ -1,8 +1,9 @@
 import { useUser } from "@/hooks/use-user";
 import { Plans } from "@/lib/consts";
 import { cn } from "@/lib/utils";
-import { Crown, Link, Shield, ShieldBan, Zap } from "lucide-react";
+import { Crown, Shield, ShieldBan, Zap } from "lucide-react";
 import { useTranslations } from "next-intl";
+import Link from "next/link";
 
 const plans: Record<Plans, object> = {
   [Plans.Free]: {
