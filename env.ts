@@ -25,6 +25,9 @@ export const env = createEnv({
     AD_FREE_PLAN_PRICE_ID: z.string(),
     CLEANUP_SECRET: z.string(),
   },
+  shared: {
+    IS_DEV: z.boolean(),
+  },
   runtimeEnvStrict: {
     NEXT_PUBLIC_GOOGLE_ADSENSE_ID: process.env.NEXT_PUBLIC_GOOGLE_ADSENSE_ID,
     NEXTAUTH_URL: process.env.NEXTAUTH_URL,
@@ -45,5 +48,6 @@ export const env = createEnv({
     LOKI_URL: process.env.LOKI_URL,
     CI: !!process.env.CI,
     CLEANUP_SECRET: process.env.CLEANUP_SECRET,
+    IS_DEV: process.env.NODE_ENV !== "production",
   },
 });

@@ -48,11 +48,13 @@ export default async function RootLayout({
   return (
     <html lang={htmlLang()}>
       <head>
-        <script
-          async
-          src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${env.NEXT_PUBLIC_GOOGLE_ADSENSE_ID}`}
-          crossOrigin="anonymous"
-        ></script>
+        {!env.IS_DEV && (
+          <script
+            async
+            src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${env.NEXT_PUBLIC_GOOGLE_ADSENSE_ID}`}
+            crossOrigin="anonymous"
+          ></script>
+        )}
         <meta
           name="google-adsense-account"
           content={env.NEXT_PUBLIC_GOOGLE_ADSENSE_ID}
@@ -82,7 +84,7 @@ export default async function RootLayout({
           <Providers session={session}>{children}</Providers>
         </NextIntlClientProvider>
       </body>
-      <GoogleAnalytics gaId={env.GA_ID} />
+      {!env.IS_DEV && <GoogleAnalytics gaId={env.GA_ID} />}
     </html>
   );
 }
