@@ -17,7 +17,9 @@ export async function POST(
 
     const service = new BoardService(roomId, session);
 
-    if (!service.getBoard()) {
+    const currentBoard = await service.getBoard();
+
+    if (!currentBoard) {
       return Response.json({ message: "Board not found" }, { status: 404 });
     }
 

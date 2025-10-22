@@ -238,7 +238,7 @@ class BoardEntity {
     board.players = board.players.filter(
       (player) => player.id !== this.session.user.id,
     );
-    board.totalPlayers -= 1;
+    board.totalPlayers = board.players.length;
 
     if (board.totalPlayers === 0) {
       await this.deleteBoard();

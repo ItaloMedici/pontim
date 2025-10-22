@@ -3,7 +3,7 @@
 import { LoadingLogo } from "@/components/loading-logo/loading";
 import { RoundsReachLimitDialog } from "@/components/rounds-reach-limit-dialog";
 import { toast } from "@/components/toast";
-import { useBoardEvents } from "@/hooks/use-board-events";
+import { EventHandler, useBoardEvents } from "@/hooks/use-board-events";
 import { useHttp } from "@/hooks/use-http";
 import { useNotification } from "@/hooks/use-notification";
 import { EventAction } from "@/lib/consts";
@@ -62,42 +62,59 @@ export const useBoard = () => {
 export const BoardProvider = ({
   roomId,
   children,
+  initalBoardStatus,
 }: {
   roomId: string;
   children: ReactNode;
+  initalBoardStatus: BoardStatus;
 }) => {
   const t = useTranslations();
   const http = useHttp({ baseUrl: `/api/${roomId}/board` });
   const router = useRouter();
-  const [boardStatus, setBoardStatus] = useState<BoardStatus>(
-    {} as BoardStatus,
-  );
+  const [boardStatus, setBoardStatus] =
+    useState<BoardStatus>(initalBoardStatus);
 
   const [loadingPlay, setPlayLoading] = useState(false);
 
-  const [selfChoice, setSelfChoice] = useState("");
+  const [selfChoice, setSelfChoice] = useState(
+    initalBoardStatus.self?.choice || "",
+  );
   const [revealOptimistc, setRevealOptimistc] = useState(
-    boardStatus?.reveal || false,
+    initalBoardStatus.reveal || false,
   );
   const [openPlanOfferDialog, setOpenPlanOfferDialog] = useState(false);
-  const [choiceOptions, setChoiceOptions] = useState<ChoiceOptions[]>([]);
-
-  const selfId = useRef(boardStatus?.self?.id);
+  const [choiceOptions, _] = useState<ChoiceOptions[]>(
+    initalBoardStatus.choiceOptions || [],
+  );
+  const selfId = useRef(initalBoardStatus.self?.id);
+  const alreadyLeft = useRef(false);
 
   const { play: handleNotification, send: sendNotification } =
     useNotification(roomId);
 
-  const eventHandlers = useMemo<Record<EventAction, (data: any) => void>>(
+  const eventHandlers = useMemo<Record<EventAction, EventHandler>>(
     () => ({
       [EventAction.BOARD_UPDATED]: (data: BoardStatus) => {
         setBoardStatus((prev) => ({ ...prev, ...data }));
       },
-      [EventAction.PLAYER_JOINED]: (data: Player) => {
+      [EventAction.PLAYER_JOINED]: (
+        data: { playerId: string; nickname: string },
+        from: string,
+      ) => {
+        if (from === selfId.current) {
+          return;
+        }
         toast(`${data.nickname}, ${getRandomWelcomeMessage(t)}`, {
           duration: 5000,
         });
       },
-      [EventAction.PLAYER_LEFT]: (data: Player) => {
+      [EventAction.PLAYER_LEFT]: (
+        data: { playerId: string; nickname: string },
+        from: string,
+      ) => {
+        if (from === selfId.current) {
+          return;
+        }
         toast(`${data.nickname}, ${getRandomLeaveMessage(t)}`, {
           duration: 5000,
         });
@@ -118,31 +135,16 @@ export const BoardProvider = ({
     [handleNotification, boardStatus.others, t],
   );
 
-  const joinBoard = useCallback(async () => {
-    const board = await http.put<BoardStatus>(`/join`);
-
-    if (!board) {
-      router.push("/");
-      return;
-    }
-
-    selfId.current = board?.self?.id;
-    setBoardStatus(board as BoardStatus);
-    setSelfChoice(board.self?.choice || "");
-    setChoiceOptions(board.choiceOptions ?? []);
-    setRevealOptimistc(board.reveal || false);
-
-    return board;
-  }, [http, router]);
-
   const leaveBoard = useCallback(async () => {
+    if (alreadyLeft.current) return;
+    alreadyLeft.current = true;
+
     await http.post(`/leave`);
     router.push("/");
   }, [http, router]);
 
   const { isLoading: isEventLoading } = useBoardEvents({
     roomId,
-    onBeforeSubscribe: joinBoard,
     onUnsubscribe: leaveBoard,
     handlers: eventHandlers,
   });

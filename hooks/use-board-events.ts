@@ -1,10 +1,11 @@
 import { EventAction, EventEnvelope } from "@/lib/consts";
 import { useCallback, useEffect, useRef, useState } from "react";
 
+export type EventHandler<T = any> = (data: T, from: string) => void;
+
 type Props = {
   roomId: string;
-  handlers: Partial<Record<EventAction, (data: any, from: string) => void>>;
-  onBeforeSubscribe: () => Promise<unknown>;
+  handlers: Partial<Record<EventAction, EventHandler>>;
   onUnsubscribe: () => Promise<unknown>;
 };
 
@@ -22,8 +23,6 @@ export function useBoardEvents(props: Props) {
   const establishConnection = useCallback(async () => {
     if (eventSource.current) return;
     if (isInitialized.current) return;
-
-    await propsRef.current.onBeforeSubscribe();
 
     isInitialized.current = true;
 
