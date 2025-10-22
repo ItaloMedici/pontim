@@ -10,18 +10,18 @@ const buttonVariants = cva(
     variants: {
       variant: {
         default:
-          "bg-primary/85 text-primary-foreground hover:bg-primary/80 border-b-2 border-primary/70 dark:border-slate-600 disabled:border-0 active:translate-y-[1px]",
+          "bg-primary/85 text-primary-foreground hover:bg-primary/80 border-b-2 border-primary/70 dark:border-border disabled:border-0 active:translate-y-[1px] active:border-b",
         destructive:
-          "bg-destructive text-destructive-foreground hover:bg-destructive/90 border-b-2 border-destructive/70 dark:border-red-900 disabled:border-0 active:translate-y-[1px]",
+          "bg-destructive text-destructive-foreground hover:bg-destructive/90 border-b-2 border-destructive/70 dark:border-red-900 disabled:border-0 active:translate-y-[1px] active:border-b",
         outline:
-          "border border-input bg-background hover:bg-accent hover:text-accent-foreground border-b-2 border-b-border/60 dark:border-b-slate-600 disabled:border-0 active:translate-y-[1px]",
+          "border border-input bg-background hover:bg-accent hover:text-accent-foreground border-b-2 border-b-border/60 dark:border-b-border disabled:border-0 active:translate-y-[1px] active:border-b",
         secondary:
-          "bg-secondary text-secondary-foreground hover:bg-secondary/80 border-b-2 border-secondary/60 dark:border-slate-600 disabled:border-0 active:translate-y-[1px]",
+          "bg-secondary text-secondary-foreground hover:bg-secondary/80 border-b-2 border-secondary/60 dark:border-border disabled:border-0 active:translate-y-[1px] active:border-b",
         ghost:
-          "hover:bg-accent hover:text-accent-foreground active:translate-y-[1px]",
-        link: "text-primary underline-offset-4 hover:underline active:translate-y-[1px]",
+          "hover:bg-accent hover:text-accent-foreground active:translate-y-[1px] active:border-b",
+        link: "text-primary underline-offset-4 hover:underline active:translate-y-[1px] active:border-b",
         pinkOnHover:
-          "bg-background text-secondary-foreground border border-input border-b-2 border-b-border/60 dark:border-b-slate-600 hover:bg-pink-600 hover:border-pink-700 hover:border-b-pink-800 dark:hover:border-b-pink-900 hover:text-white disabled:border-0 active:translate-y-[1px]",
+          "bg-background text-secondary-foreground border border-input border-b-2 border-b-border/60 dark:border-border hover:bg-pink-600 hover:border-pink-700 hover:border-b-pink-800 dark:hover:border-b-pink-900 hover:text-white disabled:border-0 active:translate-y-[1px]",
       },
       size: {
         default: "h-10 px-4 py-2",

@@ -2,6 +2,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { buildPlayerFallbackImage, cn } from "@/lib/utils";
 import { Player } from "@/types/player";
 import { LoaderCircle } from "lucide-react";
+import { useTheme } from "next-themes";
 import { useMemo } from "react";
 
 type NumberCardsProps = {
@@ -72,6 +73,7 @@ const Front = ({ value, player, isSelf }: NumberCardsProps) => {
 };
 
 const Back = ({ player, isSelf, value }: NumberCardsProps) => {
+  const { theme } = useTheme();
   return (
     <Card isSelf={isSelf}>
       <div
@@ -83,6 +85,7 @@ const Back = ({ player, isSelf, value }: NumberCardsProps) => {
           className={cn("stroke-border", {
             "stroke-[rgb(136_71_71)]": !!value,
           })}
+          fillColor={theme === "dark" ? "rgb(28 27 26)" : "white"}
         />
       </div>
       <div className="absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] border-2 border-border rounded-full">
@@ -110,7 +113,13 @@ export const NumberCard = ({ reveal, ...props }: NumberCardsProps) => {
   return <Back {...props} />;
 };
 
-const BackCardPattern = ({ className }: { className: string }) => (
+const BackCardPattern = ({
+  className,
+  fillColor,
+}: {
+  className: string;
+  fillColor: string;
+}) => (
   <svg
     width="45"
     height="67"
@@ -121,7 +130,7 @@ const BackCardPattern = ({ className }: { className: string }) => (
   >
     <defs>
       <pattern id="plaid" width="10" height="10" patternUnits="userSpaceOnUse">
-        <rect width="10" height="10" fill="white" strokeWidth="0.5" />
+        <rect width="10" height="10" fill={fillColor} strokeWidth="0.5" />
         <path d="M 0 0 L 10 10 M 10 0 L 0 10" strokeWidth="0.5" />
         <path d="M 5 0 L 5 10 M 0 5 L 10 5" strokeWidth="0.5" />
       </pattern>

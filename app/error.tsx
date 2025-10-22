@@ -20,10 +20,12 @@ export default function Error({
   }, [error]);
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center p-24">
-      <div className="mx-auto w-4/12 flex flex-col items-center space-y-4 p-6 rounded-lg border border-gray-200">
+    <main className="flex min-h-screen flex-col items-center justify-center p-24 bg-background">
+      <div className="mx-auto w-4/12 flex flex-col items-center space-y-4 p-6 rounded-lg border border-border bg-card">
         <span className="text-4xl w-full text-center">🙁</span>
-        <h2 className="text-lg font-semibold">{t("title")}</h2>
+        <h2 className="text-lg font-semibold text-card-foreground">
+          {t("title")}
+        </h2>
         <Button
           className="w-full"
           variant={"secondary"}

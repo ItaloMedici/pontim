@@ -55,7 +55,7 @@ export const PlayersList = () => {
         <div
           key={player.key}
           className={cn(
-            "rounded-full overflow-hidden w-8 h-8 text-xs border-2 border-gray-100",
+            "rounded-full overflow-hidden w-8 h-8 text-xs border-2 border-border",
             {
               "-ml-2": index > 0,
             },

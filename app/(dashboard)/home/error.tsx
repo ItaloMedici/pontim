@@ -20,9 +20,9 @@ export default function Error({
   }, [error]);
 
   return (
-    <div className="mx-auto w-6/12 flex flex-col items-center space-y-4 p-6 rounded-lg border border-gray-200">
+    <div className="mx-auto w-6/12 flex flex-col items-center space-y-4 p-6 rounded-lg border border-border bg-card">
       <span className="text-4xl w-full text-center">🙁</span>
-      <h2 className="text-lg font-semibold">
+      <h2 className="text-lg font-semibold text-card-foreground">
         {t("components.homeError.title")}
       </h2>
       <Button className="w-full" variant={"secondary"} onClick={() => reset()}>

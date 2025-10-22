@@ -40,7 +40,8 @@ export function PlayerNotificationPopup({
           className={cn(
             "before:absolute before:top-[50%] before:left-[50%] before:translate-x-[-50%] before:translate-y-[-50%] before:z-10 before:scale-0 before:hover:scale-100 before:transition-transform relative before:rounded-full before:w-8 before:h-8 before:flex before:items-center before:justify-center",
             {
-              "before:content-['🔉'] before:bg-gray-50": !player.choice,
+              "before:content-['🔉'] before:bg-background before:border before:border-border before:shadow-sm":
+                !player.choice,
               "before:scale-100": open,
             },
           )}
@@ -50,7 +51,7 @@ export function PlayerNotificationPopup({
       </PopoverTrigger>
       <PopoverPortal>
         <PopoverContent side="top" sideOffset={10}>
-          <div className="flex items-center rounded-full p-1 bg-white shadow-md gap-4 border border-gray-200">
+          <div className="flex items-center rounded-full p-1 bg-popover shadow-md gap-4 border border-border">
             {Object.keys(notificationIcons).map((notification) => (
               <div
                 key={notification}
@@ -58,7 +59,7 @@ export function PlayerNotificationPopup({
                 onClick={() =>
                   onNotifificationClick(notification as EnumNotification)
                 }
-                className="p-1 w-10 cursor-pointer aspect-square rounded-full hover:bg-gray-100"
+                className="p-1 w-10 cursor-pointer aspect-square rounded-full hover:bg-muted transition-colors"
               >
                 <span className="text-2xl flex items-center justify-center">
                   {notificationIcons[notification as EnumNotification]}

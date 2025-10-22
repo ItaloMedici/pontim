@@ -110,7 +110,7 @@ export const BoardDock = () => {
 
   return (
     <TooltipProvider>
-      <Card className="flex flex-col items-stretch gap-2 p-2 shadow-lg transition-all duration-200 hover:shadow-md">
+      <Card className="flex flex-col items-stretch gap-2 p-2 pr-4 shadow-lg transition-all duration-200 hover:shadow-md">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
             <Button size="sm" onClick={handlePlay} disabled={loadingPlay}>

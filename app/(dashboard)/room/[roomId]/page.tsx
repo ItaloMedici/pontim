@@ -3,6 +3,8 @@ import { ReportButton } from "@/components/report-button";
 import { SupportButton } from "@/components/support-button";
 import { BoardProvider } from "@/context/board";
 import { getCombinedSession } from "@/lib/auth/universal-auth";
+import { logger } from "@/lib/logger";
+import { getInitalBoardStatus } from "@/use-cases/board/get-initial-board-status";
 import { getRoom } from "@/use-cases/room";
 import { Metadata } from "next";
 import { notFound, redirect } from "next/navigation";
@@ -73,8 +75,14 @@ async function RoomPage({ params: { roomId }, searchParams }: RoomIdPageProps) {
     redirect(`/login?callbackUrl=/room/${roomId}`);
   }
 
+  const boardStatus = await getInitalBoardStatus({ roomId });
+
+  if ("error" in boardStatus) {
+    return boardStatus.error;
+  }
+
   return (
-    <BoardProvider roomId={roomId}>
+    <BoardProvider roomId={roomId} initalBoardStatus={boardStatus}>
       <ReportButton />
       <SupportButton />
       <BoardAds />
