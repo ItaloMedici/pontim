@@ -35,7 +35,7 @@ export const Hero = () => {
 
       <div className="mx-auto mt-6 flex w-full max-w-2xl flex-col items-center justify-center space-y-4 sm:flex-row sm:space-x-4 sm:space-y-0">
         <BlurFade delay={0.75} inView>
-          <div className="flex gap-4">
+          <div className="flex w-full flex-col gap-4 sm:flex-row sm:w-auto">
             <Link
               className={cn(buttonVariants({ size: "lg" }))}
               href={"/login"}
